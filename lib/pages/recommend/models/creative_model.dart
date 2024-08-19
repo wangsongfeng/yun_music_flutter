@@ -1,0 +1,130 @@
+import 'package:json_annotation/json_annotation.dart';
+import '../../../commons/models/ui_element_model.dart';
+import '../../../commons/models/user_info_model.dart';
+
+part 'creative_model.g.dart';
+
+@JsonSerializable()
+class CreativeModel extends Object {
+  @JsonKey(name: 'creativeType')
+  String? creativeType;
+
+  @JsonKey(name: 'action')
+  String? action;
+
+  @JsonKey(name: 'resources')
+  List<Resources>? resources;
+
+  @JsonKey(name: 'uiElement')
+  UiElementModel? uiElement;
+
+  @JsonKey(name: 'creativeExtInfoVO')
+  dynamic creativeExtInfoVO;
+
+  @JsonKey(name: 'algReason')
+  String? algReason;
+
+  CreativeModel(
+    this.creativeType,
+    this.action,
+    this.uiElement,
+    this.creativeExtInfoVO,
+    this.resources,
+    this.algReason,
+  );
+
+  factory CreativeModel.fromJson(Map<String, dynamic> srcJson) =>
+      _$CreativeModelFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'creativeType': creativeType,
+        'action': action,
+        'resources': resources?.map((e) => e.toJson()).toList(),
+        'uiElement': uiElement?.toJson(),
+        'creativeExtInfoVO': creativeExtInfoVO,
+        'algReason': algReason,
+      };
+}
+
+
+
+
+@JsonSerializable()
+class Resources extends Object {
+  @JsonKey(name: 'uiElement')
+  UiElementModel uiElement;
+
+  @JsonKey(name: 'resourceType')
+  String? resourceType;
+
+  @JsonKey(name: 'resourceId')
+  String? resourceId;
+
+  @JsonKey(name: 'resourceExtInfo')
+  dynamic resourceExtInfo;
+
+  @JsonKey(name: 'action')
+  String? action;
+
+  @JsonKey(name: 'actionType')
+  String? actionType;
+
+  @JsonKey(name: 'valid')
+  bool valid;
+
+  Resources(
+    this.uiElement,
+    this.resourceType,
+    this.resourceId,
+    this.resourceExtInfo,
+    this.action,
+    this.actionType,
+    this.valid,
+  );
+
+  factory Resources.fromJson(Map<String, dynamic> srcJson) =>
+      _$ResourcesFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'uiElement': uiElement.toJson(),
+        'resourceType': resourceType,
+        'resourceId': resourceId,
+        'resourceExtInfo': resourceExtInfo,
+        'action': action,
+        'actionType': actionType,
+        'valid': valid,
+      };
+}
+
+
+
+@JsonSerializable()
+class ResourceExtInfoModel extends Object {
+  @JsonKey(name: 'playCount')
+  int playCount;
+
+  @JsonKey(name: 'highQuality')
+  bool highQuality;
+
+  @JsonKey(name: 'users')
+  List<UserInfo>? users;
+
+  @JsonKey(name: 'specialCover')
+  int? specialCover;
+
+  @JsonKey(name: 'specialType')
+  int? specialType;
+
+  ResourceExtInfoModel(
+    this.playCount,
+    this.highQuality,
+    this.users,
+    this.specialCover,
+    this.specialType,
+  );
+
+  factory ResourceExtInfoModel.fromJson(Map<String, dynamic> srcJson) =>
+      _$ResourceExtInfoModelFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$ResourceExtInfoModelToJson(this);
+}
