@@ -53,6 +53,7 @@ class MusicApi {
     //     e.printError();
     //   }
     // }
+
     //请求失败，加载本地json
     final recomJson =
         await CommonService.jsonDecode(JsonStringConstants.discover_pages);
@@ -191,7 +192,6 @@ class MusicApi {
     int limit,
     int? before,
   ) async {
-    Get.log('tag = $tag  before = $before');
     final par = {"limit": limit.toString()};
     par.addIf(before != null, 'before', before.toString());
     par.addIf(tag != null, "cat", tag.toString());

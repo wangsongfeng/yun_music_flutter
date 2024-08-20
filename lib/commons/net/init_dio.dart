@@ -37,7 +37,6 @@ class HttpManager {
     if (response.data is DioException) {
       return resultError(response.data, path, noTip);
     }
-    print(response.data);
     final result = response.data as ResultData;
     return result;
   }

@@ -47,6 +47,8 @@ class PlaylistContentController extends SuperController<PlaylistHasMoreModel> {
         getPlayListFromTag();
         break;
     }
+
+    print("请求${tagModel.name}");
   }
 
   //分类歌单列表

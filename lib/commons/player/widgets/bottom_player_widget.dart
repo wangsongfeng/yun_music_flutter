@@ -9,6 +9,7 @@ import 'package:yun_music/commons/player/bottom_player_controller.dart';
 import 'package:yun_music/commons/player/player_context.dart';
 import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/commons/player/widgets/rotation_cover_image.dart';
+import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/values/constants.dart';
 import 'package:yun_music/utils/adapt.dart';
@@ -68,7 +69,6 @@ class _BottomContentWidget extends GetView<PlayerController> {
   Widget _buildContext(BuildContext conetx) {
     final currenIndex = conetx.playerService.selectedSongList.value?.indexWhere(
         (element) => element.id == conetx.playerService.curPlayId.value);
-    print("currenIndex $currenIndex");
     controller.pageController = PageController(
         initialPage:
             (currenIndex == -1 || currenIndex == null) ? 0 : currenIndex);
@@ -94,7 +94,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
           ),
           //内容
           Container(
-            color: Colors.transparent,
+            color: AppThemes.white,
             height: Dimens.gap_dp50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

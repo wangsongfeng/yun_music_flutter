@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -44,8 +46,11 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
     super.build(context);
     return playlistContentController.obx(
         (state) {
-          refreshController.refreshCompleted();
-          if ((state?.totalCount ?? 0) > state!.datas.length) {
+          if (state == null)
+            return Container();
+          else
+            refreshController.refreshCompleted();
+          if ((state.totalCount ?? 0) > state.datas.length) {
             refreshController.loadComplete();
           } else {
             refreshController.loadNoData();
