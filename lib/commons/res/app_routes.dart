@@ -10,4 +10,7 @@ class RouterPath {
 
   //歌单广场
   static const PlayListCollection = "/playlistCollection";
+
+  //播放页面
+  static const PlayingPage = "/playing";
 }

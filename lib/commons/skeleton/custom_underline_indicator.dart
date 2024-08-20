@@ -56,9 +56,9 @@ class CustomUnderlineTabIndicator extends Decoration {
     if (wantWidth == 0) {
       final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
       return Rect.fromLTWH(
-        indicator.left,
+        indicator.left - 2,
         indicator.bottom - borderSide.width,
-        indicator.width,
+        indicator.width + 4,
         borderSide.width,
       );
     } else {

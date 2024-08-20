@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/player/player_service.dart';
-import 'package:yun_music/commons/player/widgets/bottom_player_widget.dart';
-import 'package:yun_music/commons/player/widgets/music_playbar_overlay.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
 
+import '../../../commons/player/widgets/bottom_player_widget.dart';
+import '../../../commons/player/widgets/music_playbar_overlay.dart';
 import '../../../commons/res/app_themes.dart';
 import '../../../commons/res/dimens.dart';
 import '../../../utils/image_utils.dart';
@@ -74,9 +74,6 @@ class _HomeBottomBarState extends State<HomeBottomBar>
 
   final controller = Get.find<HomeController>();
 
-  ///显示音乐栏
-  OverlayEntry? overlayEntry;
-
   late AnimationController animationController = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 240));
 
@@ -103,9 +100,8 @@ class _HomeBottomBarState extends State<HomeBottomBar>
       final overlay = MusicPlaybarOverlay(
           context,
           ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
-            child: const BottomPlayerBar()
-          ));
+              constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
+              child: const BottomPlayerBar()));
       overlay.toggle();
     });
   }

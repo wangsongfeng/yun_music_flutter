@@ -14,19 +14,19 @@ class MusicPlaybarOverlay {
       _overlayEntry = OverlayEntry(builder: (context) {
         return Obx(() {
           return AnimatedPositioned(
-            left: 0,
-            right: 0,
-            bottom: PlayerService.to.plarBarBottom.value,
-            duration: const Duration(milliseconds: 200),
-            child: Material(
-              color: Colors.transparent,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: Dimens.gap_dp49 + PlayerService.to.playBarHeight.value,
-                child: _child,
-              ),
-            )
-          );
+              left: 0,
+              right: 0,
+              bottom: PlayerService.to.plarBarBottom.value,
+              duration: const Duration(milliseconds: 200),
+              child: Material(
+                color: Colors.transparent,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  height:
+                      Dimens.gap_dp49 + PlayerService.to.playBarHeight.value,
+                  child: _child,
+                ),
+              ));
         });
       });
       Overlay.of(_context).insert(_overlayEntry!);

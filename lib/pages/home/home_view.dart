@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
         PlayerService.to.plarBarBottom.value =
             Dimens.gap_dp49 + Adapt.bottomPadding();
         PlayerService.to.playBarHeight.value = 0;
-      } else {
+      } else if (event.type == PlayBarShowHiddenType.bootom) {
         PlayerService.to.plarBarBottom.value = 0;
         PlayerService.to.playBarHeight.value = Adapt.bottomPadding();
       }
@@ -81,6 +81,12 @@ class _HomePageState extends State<HomePage> with RouteAware {
     super.didPopNext();
     print('HomePage didPopNext');
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
+  }
+
+  @override
+  void didPop() {
+    print("HomePage didPop");
+    super.didPop();
   }
 
   @override

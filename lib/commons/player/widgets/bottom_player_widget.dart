@@ -29,7 +29,9 @@ class _BottomPlayerBarState extends State<BottomPlayerBar> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        toPlayingPage();
+      },
       child: MediaQuery(
           data: context.mediaQuery.copyWith(
               viewInsets: context.mediaQueryViewInsets.copyWith(bottom: 0)),
@@ -62,8 +64,12 @@ class _BottomContentWidget extends GetView<PlayerController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PlayerController());
-    return _buildContext(context);
+    final playerController = Get.put(PlayerController());
+    return FadeTransition(
+      opacity: playerController.animation,
+      child: _buildContext(context),
+    );
+    // return _buildContext(context);
   }
 
   Widget _buildContext(BuildContext conetx) {
@@ -95,44 +101,46 @@ class _BottomContentWidget extends GetView<PlayerController> {
           //内容
           Container(
             color: AppThemes.white,
-            height: Dimens.gap_dp50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: isFmPlaying
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.center,
-              children: [
-                //左边
-                Expanded(
-                    child: PageView.builder(
-                        key: UniqueKey(),
-                        itemCount: listSize,
-                        controller: controller.pageController,
-                        physics: isFmPlaying
-                            ? const NeverScrollableScrollPhysics()
-                            : const BouncingScrollPhysics(),
-                        onPageChanged: (page) async {
-                          controller.playFromIndex(conetx, page);
-                        },
-                        itemBuilder: (context, index) {
-                          return _buildNormWidget(
-                              context.playerService.selectedSongList.value ==
-                                      null
-                                  ? null
-                                  : context.playerService.selectedSongList
-                                      .value?[index]);
-                        })),
-                const SizedBox(width: 12),
-                InkWell(
-                    onTap: () {},
-                    child: Image.asset(
-                      ImageUtils.getImagePath('btn_tabbar_playlist'),
-                      width: Dimens.gap_dp25,
-                      height: Dimens.gap_dp25,
-                      color: Get.isDarkMode ? Colors.white : Colors.black,
-                    )),
-                const SizedBox(width: 8)
-              ],
+            child: SizedBox(
+              height: Dimens.gap_dp49,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: isFmPlaying
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.center,
+                children: [
+                  //左边
+                  Expanded(
+                      child: PageView.builder(
+                          key: UniqueKey(),
+                          itemCount: listSize,
+                          controller: controller.pageController,
+                          physics: isFmPlaying
+                              ? const NeverScrollableScrollPhysics()
+                              : const BouncingScrollPhysics(),
+                          onPageChanged: (page) async {
+                            controller.playFromIndex(conetx, page);
+                          },
+                          itemBuilder: (context, index) {
+                            return _buildNormWidget(
+                                context.playerService.selectedSongList.value ==
+                                        null
+                                    ? null
+                                    : context.playerService.selectedSongList
+                                        .value?[index]);
+                          })),
+                  const SizedBox(width: 12),
+                  InkWell(
+                      onTap: () {},
+                      child: Image.asset(
+                        ImageUtils.getImagePath('btn_tabbar_playlist'),
+                        width: Dimens.gap_dp25,
+                        height: Dimens.gap_dp25,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
+                      )),
+                  const SizedBox(width: 8)
+                ],
+              ),
             ),
           )
         ],

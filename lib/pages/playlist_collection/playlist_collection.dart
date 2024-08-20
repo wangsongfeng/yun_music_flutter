@@ -64,21 +64,31 @@ class PlaylistCollectionPage extends GetView<PlaylistCollectionController>
                           for (var i in controller.tags.value!)
                             Tab(text: i.name)
                         ],
+                        padding: EdgeInsets.only(
+                            left: Dimens.gap_dp6,
+                            top: Dimens.gap_dp6,
+                            right: Dimens.gap_dp50),
+                        labelPadding: EdgeInsets.only(
+                            left: Dimens.gap_dp12, right: Dimens.gap_dp12),
                         isScrollable: true,
-                        labelStyle: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w600),
+                        labelStyle: TextStyle(
+                            fontSize: Dimens.font_sp14,
+                            fontWeight: FontWeight.w600),
                         dividerColor: Colors.transparent,
-                        indicatorColor: const Color.fromRGBO(253, 105, 155, 1),
+                        indicatorColor: AppThemes.indicator_color,
                         unselectedLabelColor:
-                            const Color.fromRGBO(95, 95, 95, 0.8),
-                        labelColor: const Color.fromRGBO(253, 105, 155, 1),
-                        indicator: const CustomUnderlineTabIndicator(
+                            const Color.fromARGB(255, 114, 114, 114),
+                        labelColor: const Color.fromARGB(255, 51, 51, 51),
+                        indicator: CustomUnderlineTabIndicator(
                             width: 0.0,
                             borderSide: BorderSide(
-                              width: 3,
-                              color: Color.fromRGBO(253, 105, 155, 1),
+                              width: 6,
+                              color: AppThemes.indicator_color,
                             ),
                             strokeCap: StrokeCap.round),
+                        indicatorPadding: EdgeInsets.only(
+                            bottom: Dimens.gap_dp9, top: Dimens.gap_dp21),
+                        indicatorSize: TabBarIndicatorSize.label,
                         enableFeedback: true,
                         splashBorderRadius: BorderRadius.circular(10),
                         tabAlignment: TabAlignment.center,
@@ -100,9 +110,10 @@ class PlaylistCollectionPage extends GetView<PlaylistCollectionController>
                             itemBuilder: (context, index) {
                               final tagModel =
                                   controller.tags.value!.elementAt(index);
-                              print(tagModel);
+                              print(tagModel.name);
                               return PlaylistContentPage(
-                                  mkey: Key('list$index'), tagModel: tagModel);
+                                  mkey: 'list${tagModel.name}',
+                                  tagModel: tagModel);
                             }))
                   ],
                 );

@@ -2,12 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:yun_music/commons/event/index.dart';
+import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/models/song_model.dart';
+import 'package:yun_music/commons/res/app_routes.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../commons/player/bottom_player_controller.dart';
+
 final box = GetStorage();
+
+/**
+ * 跳转到播放页面
+ */
+
+Future<void> toPlayingPage() async {
+  eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
+  final controller = Get.find<PlayerController>();
+  controller.animationController.forward();
+  Get.toNamed(RouterPath.PlayingPage);
+}
 
 Future toast(dynamic message) async {
   Fluttertoast.cancel();

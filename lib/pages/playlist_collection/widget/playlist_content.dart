@@ -21,7 +21,7 @@ class PlaylistContentPage extends StatefulWidget {
   const PlaylistContentPage({super.key, required this.tagModel, this.mkey});
 
   final PlayListTagModel tagModel;
-  final Key? mkey;
+  final String? mkey;
 
   @override
   State<PlaylistContentPage> createState() => _PlaylistContentPageState();
@@ -36,8 +36,10 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
   void initState() {
     super.initState();
 
+    print("initState--${widget.tagModel.name}--${widget.mkey}");
+
     playlistContentController =
-        Get.put(PlaylistContentController(), tag: widget.mkey.toString());
+        Get.put(PlaylistContentController(), tag: widget.mkey);
     playlistContentController.tagModel = widget.tagModel;
   }
 
@@ -47,7 +49,11 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
     return playlistContentController.obx(
         (state) {
           if (state == null)
-            return Container();
+            return Container(
+              child: Center(
+                child: Text("PlaylistContentController${widget.tagModel.name}"),
+              ),
+            );
           else
             refreshController.refreshCompleted();
           if ((state.totalCount ?? 0) > state.datas.length) {
