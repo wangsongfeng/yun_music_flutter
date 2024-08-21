@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yun_music/commons/models/simple_play_list_model.dart';
+import 'package:yun_music/commons/res/app_routes.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/custom_touch.dart';
 import 'package:yun_music/commons/widgets/footer_loading.dart';
@@ -160,7 +161,7 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
   Widget _buildItem(SimplePlayListModel item) {
     return BounceTouch(
       onPressed: () {
-        // Get.toNamed(Routes.PLAYLIST_DETAIL_ID(item.id.toString()));
+        Get.toNamed(RouterPath.PlayListDetailId(item.id.toString()));
       },
       child: Column(
         children: [

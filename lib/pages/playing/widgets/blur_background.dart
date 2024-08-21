@@ -42,7 +42,9 @@ class BlurBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRect(
       child: ImageFiltered(
-        imageFilter: ui.ImageFilter.blur(sigmaX: 55, sigmaY: 55),
+        imageFilter: ui.ImageFilter.blur(
+            sigmaX: MediaQuery.of(context).size.width,
+            sigmaY: MediaQuery.of(context).size.height),
         child: Stack(
           fit: StackFit.expand,
           children: [

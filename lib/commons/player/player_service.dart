@@ -4,10 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/player/bottom_player_controller.dart';
 import 'package:yun_music/utils/common_utils.dart';
-
+import '../../utils/adapt.dart';
+import '../res/dimens.dart';
 import '../values/constants.dart';
 
 class PlayerService extends GetxService {
@@ -38,6 +40,8 @@ class PlayerService extends GetxService {
   //以选中的歌曲
   final selectedSongList = Rx<List<Song>?>(null);
   final selectedSong = Rx<Song?>(null);
+
+  final playingBgColor = Rx<Color?>(null);
 
   @override
   void onInit() {
@@ -86,5 +90,17 @@ class PlayerService extends GetxService {
     final currentSong = selectedSongList.value?[index];
     selectedSong.value = currentSong;
     _update();
+  }
+
+  void getPlayingBgColor() {
+    PaletteGenerator.fromImageProvider(
+            NetworkImage(PlayerService.to.curPlay.value?.al.picUrl ?? ""))
+        .then((paletteGenerator) {
+      if (paletteGenerator.darkVibrantColor != null) {
+        playingBgColor.value = paletteGenerator.darkMutedColor?.color;
+      } else {
+        playingBgColor.value = paletteGenerator.colors.first;
+      }
+    });
   }
 }

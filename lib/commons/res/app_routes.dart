@@ -11,6 +11,10 @@ class RouterPath {
   //歌单广场
   static const PlayListCollection = "/playlistCollection";
 
+  //歌单详情
+  static const PlayListDetail = "/playlistdetail/:id";
+  static PlayListDetailId(String id) => "/playlistdetail/$id";
+
   //播放页面
   static const PlayingPage = "/playing";
 }

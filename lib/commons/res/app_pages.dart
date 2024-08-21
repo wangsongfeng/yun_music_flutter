@@ -11,6 +11,7 @@ import 'package:yun_music/pages/playing/playing_binding.dart';
 import 'package:yun_music/pages/playing/playing_page.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection_binding.dart';
+import 'package:yun_music/pages/playlist_detail/playlist_detail_page.dart';
 import 'package:yun_music/pages/splash/splash_binding.dart';
 import 'package:yun_music/pages/splash/splash_view.dart';
 
@@ -39,12 +40,17 @@ class Routes {
         name: RouterPath.PlayListCollection,
         page: () => PlaylistCollectionPage(),
         binding: PlaylistCollectionBinding()),
+    //歌单详情
+    CustomGetPage(
+        name: RouterPath.PlayListDetail,
+        page: () => const PlaylistDetailPage()),
     //播放页面
     CustomGetPage(
         name: RouterPath.PlayingPage,
         page: () => const PlayingPage(),
         binding: PlayingBinding(),
         customTransition: SlideDownWithFadeTransition(),
+        transitionDuration: const Duration(milliseconds: 250),
         preventDuplicates: true //按钮防抖
         )
   ];

@@ -6,6 +6,8 @@ import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
 
+import '../../../commons/event/index.dart';
+import '../../../commons/event/play_bar_event.dart';
 import '../../../commons/player/widgets/bottom_player_widget.dart';
 import '../../../commons/player/widgets/music_playbar_overlay.dart';
 import '../../../commons/res/app_themes.dart';
@@ -82,7 +84,10 @@ class _HomeBottomBarState extends State<HomeBottomBar>
     super.initState();
     animationController.forward();
     PlayerService.to.plarBarBottom.value =
-        Dimens.gap_dp49 + Adapt.bottomPadding();
+        -Dimens.gap_dp49 - Adapt.bottomPadding();
+    Future.delayed(const Duration(milliseconds: 240), () {
+      eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
+    });
   }
 
   @override

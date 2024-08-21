@@ -10,6 +10,7 @@ import 'package:yun_music/utils/common_utils.dart';
 
 import '../commons/models/simple_play_list_model.dart';
 import '../pages/playlist_collection/model/playlist_has_more_model.dart';
+import '../pages/playlist_detail/models/playlist_detail_model.dart';
 
 class MusicApi {
   //获取首页内容
@@ -203,6 +204,20 @@ class MusicApi {
           .toList();
       data =
           PlaylistHasMoreModel(datas: list, totalCount: response.data['total']);
+    }
+    return data;
+  }
+
+  ///歌单详情
+  static Future<PlaylistDetailModel?> getPlaylistDetail(String id) async {
+    final response = await httpManager.get('/playlist/detail', {
+      'id': id,
+      's': '5',
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    });
+    PlaylistDetailModel? data;
+    if (response.result) {
+      data = PlaylistDetailModel.fromJson(response.data);
     }
     return data;
   }

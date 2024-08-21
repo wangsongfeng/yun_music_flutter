@@ -10,6 +10,7 @@
 analyzer:
   errors:
     non_constant_identifier_names: ignore
+    slash_for_doc_comments: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

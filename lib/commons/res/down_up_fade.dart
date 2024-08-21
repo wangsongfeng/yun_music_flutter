@@ -19,3 +19,7 @@ class SlideDownWithFadeTransition extends CustomTransition {
     );
   }
 }
+
+RectTween createRectTween(Rect? begin, Rect? end) {
+  return MaterialRectCenterArcTween(begin: begin, end: end);
+}

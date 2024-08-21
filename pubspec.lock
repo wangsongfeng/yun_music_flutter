@@ -440,6 +440,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.2"
+  image_pixels:
+    dependency: "direct main"
+    description:
+      name: image_pixels
+      sha256: "01ba99b6f1bf6a553df8d9cc858f55000d949bc3ccbb9af6f5d5494d304a8736"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.2"
   intl:
     dependency: "direct main"
     description:

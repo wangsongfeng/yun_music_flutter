@@ -25,6 +25,9 @@ const SLIDE_PLAYABLE_DRAGON_BALL_NEW_BROADCAST =
 
 /* 首页推荐类型常量 --------- end ----------- */
 
+//官方歌单标识
+const ALG_OP = 'ALG_OP';
+
 //app内部跳转标识
 const APP_ROUTER_TAG = 'orpheus';
 

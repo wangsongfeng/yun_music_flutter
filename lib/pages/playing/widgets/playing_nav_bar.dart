@@ -41,16 +41,19 @@ class PlayingNavBar extends StatelessWidget implements PreferredSizeWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
                   song?.name ?? "",
                   style: const TextStyle(fontSize: 17, color: Colors.white),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
+                      height: Dimens.gap_dp18,
                       constraints: const BoxConstraints(maxWidth: 200),
                       child: Text(
                         song?.arString() ?? "",
@@ -63,7 +66,7 @@ class PlayingNavBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     Icon(
                       Icons.chevron_right,
-                      size: Dimens.gap_dp17,
+                      size: Dimens.gap_dp18,
                       color: Colors.white.withOpacity(0.7),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,6 +23,7 @@ Future<void> toPlayingPage() async {
   eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
   final controller = Get.find<PlayerController>();
   controller.animationController.forward();
+  HapticFeedback.lightImpact();
   Get.toNamed(RouterPath.PlayingPage);
 }
 
@@ -64,6 +66,18 @@ String getPlayCountStrFromInt(int count) {
     return '${count ~/ 10000}万';
   } else {
     return '${(count / 100000000).toStringAsFixed(1)}亿';
+  }
+}
+
+String getCommentStrFromInt(int count) {
+  if (count < 1000) {
+    return count.toString();
+  } else if (1000 <= count && count < 10000) {
+    return '999+';
+  } else if (10000 <= count && count < 100000) {
+    return '1w+';
+  } else {
+    return '10w+';
   }
 }
 
