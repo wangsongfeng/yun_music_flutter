@@ -17,7 +17,6 @@ class RecomSongDayPage extends StatefulWidget {
 }
 
 class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
-
   late DaySongRecmController controller = Get.put(DaySongRecmController());
 
   @override
@@ -36,6 +35,7 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
   void didPush() {
     //上一个页面push 过来viewWillappear
     super.didPush();
+    print('day_song_recom didPush');
   }
 
   @override
@@ -43,6 +43,13 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
     //上一个页面pop回到当前页面 viewWillappear
     super.didPopNext();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
+    print('day_song_recom didPopNext');
+  }
+
+  @override
+  void didPushNext() {
+    super.didPushNext();
+    print('day_song_recom didPushNext');
   }
 
   @override
@@ -62,8 +69,7 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
                       GetUtils.isNullOrBlank(controller.selectedSong.value) !=
                           true,
                   nextPlayPressed: () {
-                    if (GetUtils.isNullOrBlank(
-                            controller.selectedSong.value) !=
+                    if (GetUtils.isNullOrBlank(controller.selectedSong.value) !=
                         true) {
                       // final list = controller.selectedSong.value!.reversed
                       //     .map((e) => e.metadata)

@@ -12,6 +12,7 @@ import 'package:yun_music/pages/playing/playing_page.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection_binding.dart';
 import 'package:yun_music/pages/playlist_detail/playlist_detail_page.dart';
+import 'package:yun_music/pages/rank_list/ranklist_view.dart';
 import 'package:yun_music/pages/splash/splash_binding.dart';
 import 'package:yun_music/pages/splash/splash_view.dart';
 
@@ -52,7 +53,11 @@ class Routes {
         customTransition: SlideDownWithFadeTransition(),
         transitionDuration: const Duration(milliseconds: 250),
         preventDuplicates: true //按钮防抖
-        )
+        ),
+
+    //排行榜页面
+    CustomGetPage(
+        name: RouterPath.RankListPage, page: () => const RanklistView())
   ];
 
   static final unknownRoute = CustomGetPage(

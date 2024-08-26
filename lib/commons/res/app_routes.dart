@@ -17,4 +17,7 @@ class RouterPath {
 
   //播放页面
   static const PlayingPage = "/playing";
+
+  //排行榜页面
+  static const RankListPage = "/rnpage";
 }

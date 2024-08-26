@@ -45,3 +45,5 @@ const CACHE_HOME_RECOMMEND_DATA = 'home_recommend_data';
 //全局播放列表缓存
 const kCommonPlayingList = 'kCommonPlayingList';
 const kCurrentPlayingSong = 'kCurrentPlayingSong';
+
+enum PlayListTitleStatus { Normal, Title, TitleAndBtn }

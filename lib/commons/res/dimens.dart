@@ -6,6 +6,7 @@ class Dimens {
   Dimens._();
 
   static double font_sp6 = Adapt.px(6.0);
+  static double font_sp8 = Adapt.px(8.0);
   static double font_sp9 = Adapt.px(9.0);
   static double font_sp10 = Adapt.px(10.0);
   static double font_sp11 = Adapt.px(11.0);
@@ -106,7 +107,6 @@ class Dimens {
 
   //底部播放状态的高度
   static double gap_bottom_play_height = Adapt.px(55.0);
-
 
   static Widget empty = Container();
 }

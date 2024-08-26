@@ -11,18 +11,37 @@ import 'package:yun_music/pages/playlist_collection/widget/playlist_content.dart
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
+import '../../utils/approute_observer.dart';
 
-class PlaylistCollectionPage extends GetView<PlaylistCollectionController>
+class PlaylistCollectionPage extends StatefulWidget {
+  const PlaylistCollectionPage({super.key});
+
+  @override
+  State<PlaylistCollectionPage> createState() => _PlaylistCollectionPageState();
+}
+
+class _PlaylistCollectionPageState extends State<PlaylistCollectionPage>
     with RouteAware {
-  PlaylistCollectionPage({super.key});
-
-  late PlaylistCollectionController playlistCollectionController =
+  final PlaylistCollectionController controller =
       Get.put(PlaylistCollectionController());
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    AppRouteObserver().routeObserver.unsubscribe(this);
+    super.dispose();
+  }
 
   @override
   void didPush() {
     //上一个页面push 过来viewWillappear
     super.didPush();
+    print('PlaylistCollectionPage didPush');
   }
 
   @override
@@ -110,7 +129,6 @@ class PlaylistCollectionPage extends GetView<PlaylistCollectionController>
                             itemBuilder: (context, index) {
                               final tagModel =
                                   controller.tags.value!.elementAt(index);
-                              print(tagModel.name);
                               return PlaylistContentPage(
                                   mkey: 'list${tagModel.name}',
                                   tagModel: tagModel);

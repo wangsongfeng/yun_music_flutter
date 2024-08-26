@@ -31,10 +31,13 @@ class CommentButton extends StatelessWidget {
           if (controller.commentCount.value > 0) {
             return Stack(
               children: [
-                Image.asset(
-                  ImageUtils.getImagePath('cmt_number'),
-                  width: Dimens.gap_dp22,
-                  color: AppThemes.color_217,
+                SizedBox(
+                  width: Dimens.gap_dp28,
+                  height: Dimens.gap_dp28,
+                  child: Image.asset(
+                    ImageUtils.getImagePath('cmt_number'),
+                    color: Colors.white,
+                  ),
                 ),
                 Container(
                   height: Dimens.gap_dp24,
@@ -49,20 +52,27 @@ class CommentButton extends StatelessWidget {
               ],
             );
           } else {
-            return Image.asset(
-              ImageUtils.getImagePath('detail_icn_cmt'),
-              width: Dimens.gap_dp24,
-              color: AppThemes.color_217,
+            return SizedBox(
+              width: Dimens.gap_dp28,
+              height: Dimens.gap_dp28,
+              child: Image.asset(
+                ImageUtils.getImagePath('detail_icn_cmt'),
+                color: Colors.white,
+              ),
             );
           }
         } else if (countType == PlayingOperationBarCountType.like) {
           if (controller.likeCount.value > 0) {
             return Stack(
               children: [
-                Image.asset(
-                  ImageUtils.getImagePath('cmt_number'),
-                  width: Dimens.gap_dp22,
-                  color: AppThemes.color_217,
+                SizedBox(
+                  width: Dimens.gap_dp28,
+                  height: Dimens.gap_dp28,
+                  child: Image.asset(
+                    ImageUtils.getImagePath('cm6_play_icn_love'),
+                    width: Dimens.gap_dp24,
+                    color: Colors.white,
+                  ),
                 ),
                 Container(
                   height: Dimens.gap_dp24,
@@ -77,10 +87,14 @@ class CommentButton extends StatelessWidget {
               ],
             );
           } else {
-            return Image.asset(
-              ImageUtils.getImagePath('detail_icn_cmt'),
-              width: Dimens.gap_dp24,
-              color: AppThemes.color_217,
+            return SizedBox(
+              width: Dimens.gap_dp28,
+              height: Dimens.gap_dp28,
+              child: Image.asset(
+                ImageUtils.getImagePath('cm6_play_icn_love'),
+                // width: Dimens.gap_dp28,
+                color: Colors.white,
+              ),
             );
           }
         } else {

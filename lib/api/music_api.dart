@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:yun_music/api/common_service.dart';
 import 'package:yun_music/commons/models/remd_song_daily_model.dart';
+import 'package:yun_music/commons/models/song_list_model.dart';
 import 'package:yun_music/commons/net/init_dio.dart';
 import 'package:yun_music/commons/values/constants.dart';
 import 'package:yun_music/commons/values/json.dart';
@@ -9,63 +10,66 @@ import 'package:yun_music/pages/recommend/models/recom_model.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 import '../commons/models/simple_play_list_model.dart';
+import '../commons/models/song_model.dart';
 import '../pages/playlist_collection/model/playlist_has_more_model.dart';
 import '../pages/playlist_detail/models/playlist_detail_model.dart';
+import '../pages/recommend/models/recom_ball_model.dart';
 
 class MusicApi {
   //获取首页内容
   static Future<RecomModel?> getRecomRec(
       {bool refresh = false, Map<String, dynamic>? cacheData}) async {
-    // RecomModel? oldData;
-    // if (cacheData != null) {
-    //   oldData = RecomModel.fromJson(cacheData);
-    // }
+    RecomModel? oldData;
+    if (cacheData != null) {
+      oldData = RecomModel.fromJson(cacheData);
+    }
 
-    // final response = await httpManager.get("/homepage/block/page", {
-    //   'refresh': refresh,
-    //   'cursor': oldData?.cursor ?? '',
-    //   'timestamp': DateTime.now().millisecondsSinceEpoch
-    // });
+    final response = await httpManager.get("/homepage/block/page", {
+      'refresh': refresh,
+      'cursor': oldData?.cursor ?? '',
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    });
 
-    // if (response.result) {
-    //   try {
-    //     final recmData = RecomModel.fromJson(response.data['data']);
-    //     final responseBall =
-    //         await httpManager.get("/homepage/dragon/ball", null);
-    //     //缓存数字专辑Url
-    //     final url = box.read(CACHE_ALBUM_POLY_DETAIL_URL);
-    //     if (GetUtils.isNullOrBlank(url) == true) {
-    //       (responseBall.data['data'] as List)
-    //           .map((e) => Ball.fromJson(e))
-    //           .toList()
-    //           .forEach((element) {
-    //         if (element.id == 13000) {
-    //           box.write(CACHE_ALBUM_POLY_DETAIL_URL, element.url);
-    //         }
-    //       });
-    //     }
-    //     recmData.blocks.insert(
-    //         1,
-    //         Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, responseBall.data['data'],
-    //             null, null, false));
-    //     return _diffData(recmData, oldData);
-    //   } catch (e) {
-    //     print('请求失败');
-    //     e.printError();
-    //   }
-    // }
+    if (response.result) {
+      try {
+        final recmData = RecomModel.fromJson(response.data['data']);
+        final responseBall =
+            await httpManager.get("/homepage/dragon/ball", null);
+        //缓存数字专辑Url
+        final url = box.read(CACHE_ALBUM_POLY_DETAIL_URL);
+        if (GetUtils.isNullOrBlank(url) == true) {
+          (responseBall.data['data'] as List)
+              .map((e) => Ball.fromJson(e))
+              .toList()
+              .forEach((element) {
+            if (element.id == 13000) {
+              box.write(CACHE_ALBUM_POLY_DETAIL_URL, element.url);
+            }
+          });
+        }
+        recmData.blocks.insert(
+            1,
+            Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, responseBall.data['data'],
+                null, null, false));
+        return _diffData(recmData, oldData);
+      } catch (e) {
+        print('请求失败');
+        e.printError();
+      }
+    }
+    return null;
 
-    //请求失败，加载本地json
-    final recomJson =
-        await CommonService.jsonDecode(JsonStringConstants.discover_pages);
-    final recmData = RecomModel.fromJson(recomJson['data']);
-    final ballJson =
-        await CommonService.jsonDecode(JsonStringConstants.discover_balls);
-    recmData.blocks.insert(
-        1,
-        Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, ballJson['data'], null, null,
-            false));
-    return recmData;
+    // //请求失败，加载本地json
+    // final recomJson =
+    //     await CommonService.jsonDecode(JsonStringConstants.discover_pages);
+    // final recmData = RecomModel.fromJson(recomJson['data']);
+    // final ballJson =
+    //     await CommonService.jsonDecode(JsonStringConstants.discover_balls);
+    // recmData.blocks.insert(
+    //     1,
+    //     Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, ballJson['data'], null, null,
+    //         false));
+    // return recmData;
   }
 
   static Future<RecomModel?> _diffData(
@@ -138,7 +142,7 @@ class MusicApi {
     return data;
   }
 
-  ///推荐歌单列表不支持分页
+  ///推荐歌单列表不支持分页 https://netease-cloud-music-api-masterxing.vercel.app/personalized
   static Future<PlaylistHasMoreModel?> getRcmPlayList() async {
     final response = await httpManager.get('/personalized',
         {"limit": 99, 'timestamp': DateTime.now().millisecondsSinceEpoch});
@@ -150,6 +154,17 @@ class MusicApi {
       data = PlaylistHasMoreModel(datas: list, totalCount: response.total);
     }
     return data;
+
+    // PlaylistHasMoreModel? data;
+    // await Future.delayed(const Duration(milliseconds: 500));
+    // final localJson = await CommonService.jsonDecode(
+    //     JsonStringConstants.playlist_collection_recom);
+    // final list = (localJson['result'] as List)
+    //     .map((e) => SimplePlayListModel.fromJson(e))
+    //     .toList();
+    // data = PlaylistHasMoreModel(datas: list, totalCount: list.length);
+
+    // return data;
   }
 
   //获取精选歌单
@@ -208,7 +223,7 @@ class MusicApi {
     return data;
   }
 
-  ///歌单详情
+  ///歌单详情 https://netease-cloud-music-api-masterxing.vercel.app/playlist/detail?id=2219770152&s=5
   static Future<PlaylistDetailModel?> getPlaylistDetail(String id) async {
     final response = await httpManager.get('/playlist/detail', {
       'id': id,
@@ -220,5 +235,40 @@ class MusicApi {
       data = PlaylistDetailModel.fromJson(response.data);
     }
     return data;
+
+    // PlaylistDetailModel? data;
+    // await Future.delayed(const Duration(milliseconds: 800));
+    // final localJson = await CommonService.jsonDecode(
+    //     JsonStringConstants.playlist_detail_single);
+    // data = PlaylistDetailModel.fromJson(localJson);
+    // return data;
+  }
+
+  ///获取歌曲详情 多个逗号隔开
+  static Future<List<Song>?> getSongsInfo(String ids) async {
+    final response =
+        await httpManager.get('/song/detail', Map.of({'ids': ids}));
+    SongListModel? data;
+    if (response.result) {
+      data = SongListModel.fromJson(response.data);
+      for (final song in data.songs) {
+        song.privilege =
+            data.privileges.firstWhere((element) => element.id == song.id);
+      }
+    }
+    return data?.songs;
+
+    // SongListModel? data;
+
+    // await Future.delayed(const Duration(milliseconds: 600));
+    // final localJson = await CommonService.jsonDecode(
+    //     JsonStringConstants.playlist_detail_songs);
+    // data = SongListModel.fromJson(localJson);
+    // for (final song in data.songs) {
+    //   song.privilege =
+    //       data.privileges.firstWhere((element) => element.id == song.id);
+    // }
+
+    // return data.songs;
   }
 }

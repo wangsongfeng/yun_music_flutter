@@ -1,8 +1,12 @@
+import 'dart:math';
+
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../commons/models/song_model.dart';
 import '../../../commons/models/user_info_model.dart';
 import '../../../commons/values/constants.dart';
+import '../../../utils/common_utils.dart';
 import '../../found/models/shuffle_log_model.dart';
 
 part 'playlist_detail_model.g.dart';
@@ -161,6 +165,27 @@ class Playlist extends Object {
       _$PlaylistFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$PlaylistToJson(this);
+
+  //最优解是裁掉四周的空白
+  double getTitleImgFactor() {
+    double factor = 1.0;
+
+    if (englishTitle == null) return factor;
+    if (englishTitle!.contains('Radar')) {
+      factor = 0.56;
+    } else if (englishTitle!.contains('Chinese')) {
+      factor = 0.86;
+    } else {
+      final indexOf = name.indexOf(' ');
+      final title = name.substring(0, indexOf);
+      if (isChinese(title)) {
+        final titleLength = title.length - 2;
+        Get.log(titleLength.toString());
+        factor = titleLength / 10 + 0.24;
+      }
+    }
+    return min(1.0, factor);
+  }
 
   @override
   String toString() {

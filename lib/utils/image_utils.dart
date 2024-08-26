@@ -14,6 +14,10 @@ class ImageUtils {
     return getImagePath('listen_music_tag_red', format: 'webp');
   }
 
+  static String getAnimPath(String name, {String format = 'json'}) {
+    return 'assets/anim/$name.$format';
+  }
+
   static String getImageUrlFromSize(String? url, Size size) {
     if (url == null || url.isEmpty) {
       return '';

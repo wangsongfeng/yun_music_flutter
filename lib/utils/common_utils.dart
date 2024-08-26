@@ -173,3 +173,8 @@ Widget _buildAvaterHolder(Size size) {
     ],
   );
 }
+
+///验证中文
+bool isChinese(String value) {
+  return RegExp(r"[\u4e00-\u9fa5]").hasMatch(value);
+}

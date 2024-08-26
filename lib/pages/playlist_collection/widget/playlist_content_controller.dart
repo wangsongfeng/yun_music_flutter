@@ -19,7 +19,6 @@ class PlaylistContentController extends SuperController<PlaylistHasMoreModel> {
   @override
   void onReady() {
     super.onReady();
-    print("ready--${tagModel.name}");
     refreshData();
   }
 

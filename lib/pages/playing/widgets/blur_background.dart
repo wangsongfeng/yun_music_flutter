@@ -59,11 +59,7 @@ class BlurBackground extends StatelessWidget {
             ),
             Positioned.fill(
                 child: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.black12, Colors.black26])),
+              color: Colors.black.withOpacity(0.7),
             ))
           ],
         ),

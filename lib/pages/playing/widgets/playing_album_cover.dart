@@ -234,7 +234,7 @@ class _PlayingAlbumCoverState extends State<PlayingAlbumCover>
               padding: EdgeInsets.only(top: kHeightSpaceAlbumTop),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                    maxHeight: Adapt.px(310), maxWidth: Adapt.px(310)),
+                    maxHeight: Adapt.px(330), maxWidth: Adapt.px(330)),
                 child: Stack(
                   children: <Widget>[
                     Image.asset(

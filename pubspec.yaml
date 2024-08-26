@@ -38,6 +38,12 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   image_pixels: ^3.0.2
 
+  #进度条
+  audio_video_progress_bar: ^2.0.3
+
+  lottie: ^3.1.2
+  auto_size_text: ^3.0.0
+
 dev_dependencies:
 
   json_serializable: ^6.8.0

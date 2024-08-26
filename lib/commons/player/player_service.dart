@@ -8,8 +8,6 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/player/bottom_player_controller.dart';
 import 'package:yun_music/utils/common_utils.dart';
-import '../../utils/adapt.dart';
-import '../res/dimens.dart';
 import '../values/constants.dart';
 
 class PlayerService extends GetxService {
