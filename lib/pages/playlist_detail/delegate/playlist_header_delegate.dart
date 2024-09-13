@@ -18,10 +18,15 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
   double expandHeight;
   double minHeight;
 
+  double extraPicHeight; //传入的加载到图片上的高度
+  BoxFit fitType; //传入的填充方式
+
   PlaylistHeaderDelegate({
     required this.controller,
     required this.expandHeight,
     required this.minHeight,
+    required this.extraPicHeight,
+    required this.fitType,
   });
 
   @override
@@ -54,14 +59,14 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
         //背景
         SizedBox(
           width: Adapt.screenW(),
-          height: expandHeight,
+          height: expandHeight + extraPicHeight,
           child: Obx(() {
             if (controller.coverImage.value == null) {
               return Container(
                 padding: EdgeInsets.only(
                   left: Dimens.gap_dp15,
                   right: Dimens.gap_dp26,
-                  top: Adapt.topPadding() + kToolbarHeight + Dimens.gap_dp8,
+                  top: Adapt.topPadding() + kToolbarHeight + Dimens.gap_dp12,
                 ),
                 color: Get.isDarkMode
                     ? Colors.transparent
@@ -69,14 +74,10 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
                 child: const Skeleton(child: PlaylistDetailTopPlaceholder()),
               );
             } else {
-              // return GeneralBlurImage(
-              //     image: controller.coverImage.value!,
-              //     height: expandHeight,
-              //     sigma: 200);
               return Obx(() {
                 return Container(
                   width: Adapt.screenW(),
-                  height: expandHeight,
+                  height: expandHeight + extraPicHeight,
                   color: controller.headerBgColor.value != null
                       ? controller.headerBgColor.value?.withOpacity(1.0)
                       : const Color.fromRGBO(146, 150, 160, 1.0),
@@ -92,11 +93,7 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
               : Positioned(
                   left: Dimens.gap_dp15,
                   right: Dimens.gap_dp26,
-                  bottom: expandHeight -
-                      122 -
-                      (Adapt.topPadding() + kToolbarHeight) -
-                      Dimens.gap_dp8 -
-                      4,
+                  bottom: Dimens.gap_dp56,
                   child: ClipRect(
                     clipper: MyContentRect(
                       yOffset: controller.clipOffset(),
@@ -122,7 +119,7 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
           Positioned.fill(
             child: NetworkImgLayer(
               width: Adapt.screenW(),
-              height: expandHeight,
+              height: expandHeight + extraPicHeight,
               src: controller.detail.value?.playlist.backgroundCoverUrl ?? '',
               fadeInDuration: const Duration(milliseconds: 200),
             ),
@@ -150,7 +147,7 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => expandHeight;
+  double get maxExtent => expandHeight + extraPicHeight;
 
   @override
   double get minExtent => minHeight;

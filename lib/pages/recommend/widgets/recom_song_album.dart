@@ -12,6 +12,7 @@ import 'package:yun_music/pages/recommend/models/recom_new_song.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
+import '../../../commons/res/routes_utils.dart';
 
 class RecomSongAlbum extends StatefulWidget {
   const RecomSongAlbum(
@@ -30,7 +31,8 @@ class RecomSongAlbum extends StatefulWidget {
   State<RecomSongAlbum> createState() => _RecomSongAlbumState();
 }
 
-class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAliveClientMixin{
+class _RecomSongAlbumState extends State<RecomSongAlbum>
+    with AutomaticKeepAliveClientMixin {
   final List<String> types = List.empty(growable: true);
 
   final List<Widget> tabs = List.empty(growable: true);
@@ -48,8 +50,8 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
       }
     }
     for (var i = 0; i < types.length; i++) {
-      final creative =
-          widget.creatives.firstWhere((e) => e.creativeType == types.elementAt(i));
+      final creative = widget.creatives
+          .firstWhere((e) => e.creativeType == types.elementAt(i));
       tabs.add(Row(
         key: Key("tab_$i"),
         children: [
@@ -93,7 +95,8 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(Dimens.gap_dp10),
               topRight: Radius.circular(Dimens.gap_dp10),
-              bottomLeft: Radius.circular(widget.bottomRadius ? Dimens.gap_dp10 : 0),
+              bottomLeft:
+                  Radius.circular(widget.bottomRadius ? Dimens.gap_dp10 : 0),
               bottomRight:
                   Radius.circular(widget.bottomRadius ? Dimens.gap_dp10 : 0))),
       child: Column(
@@ -102,16 +105,18 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
           _buildTabLayout(),
           //page
           Expanded(
-              child: Obx(() => _buildPage(widget.creatives.where((element) =>
-                  element.creativeType ==
-                  types.elementAt(curSelectedIndex.value)))),
-            )
+            child: Obx(() => _buildPage(widget.creatives.where((element) =>
+                element.creativeType ==
+                types.elementAt(curSelectedIndex.value)))),
+          )
         ],
       ),
     );
   }
 
   Widget _buildTabLayout() {
+    final elementButton = widget.creatives.firstWhere((element) =>
+        element.creativeType == types.elementAt(curSelectedIndex.value));
     return Container(
       height: Dimens.gap_dp48,
       padding: EdgeInsets.only(
@@ -127,12 +132,16 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
           ),
           Positioned(
             right: 0,
-            child: Obx(() => elementButtonWidget(widget.creatives
-                .firstWhere((element) =>
-                    element.creativeType ==
-                    types.elementAt(curSelectedIndex.value))
-                .uiElement
-                ?.button)),
+            child: Obx(() => elementButtonWidget(
+                    widget.creatives
+                        .firstWhere((element) =>
+                            element.creativeType ==
+                            types.elementAt(curSelectedIndex.value))
+                        .uiElement
+                        ?.button, onPressed: () {
+                  RoutesUtils.routeFromActionStr(
+                      elementButton.uiElement?.button?.action);
+                })),
           )
         ],
       ),
@@ -144,7 +153,6 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
       controller: PageController(viewportFraction: 0.91),
       itemBuilder: (context, index) {
         return Container(
-          color: Colors.white,
           child: Column(
             children: _buildPageItems(datas.elementAt(index).resources!),
           ),
@@ -158,7 +166,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
     if (GetUtils.isNull(resources)) return List.empty();
     final List<Widget> widgets = List.empty(growable: true);
     for (final element in resources) {
-      var childView =  Dimens.empty;
+      var childView = Dimens.empty;
       switch (element.resourceType) {
         case 'song': //新歌
           final song = RecomNewSong.fromJson(element.resourceExtInfo)
@@ -166,9 +174,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
           childView = GeneralSongOne(
             songInfo: song,
             uiElementModel: element.uiElement,
-            onPressed: () {
-              
-            },
+            onPressed: () {},
           );
           break;
         case 'album': //新碟
@@ -218,7 +224,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
             ClipRRect(
               borderRadius: BorderRadius.circular(Dimens.gap_dp10),
               child: NetworkImgLayer(
-                width: Dimens.gap_dp50, 
+                width: Dimens.gap_dp50,
                 height: Dimens.gap_dp50,
                 src: uiElement.image?.imageUrl ?? '',
                 imageBuilder: (context, provider) {
@@ -243,7 +249,6 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
                     ],
                   );
                 },
-
               ),
             ),
             SizedBox(width: Dimens.gap_dp10),
@@ -264,8 +269,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
                         height: 16,
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(right: 3),
-                        padding:
-                            const EdgeInsets.only(left: 3,right: 3),
+                        padding: const EdgeInsets.only(left: 3, right: 3),
                         decoration: BoxDecoration(
                           color: uiElement.labelType?.toLowerCase() == 'yellow'
                               ? Colors.orange.withOpacity(0.1)
@@ -278,17 +282,15 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
                               : null,
                         ),
                         child: Center(
-                          
                           child: Text(
                             uiElement.labelTexts?.join('/') ?? '',
                             style: TextStyle(
-                                fontSize: Dimens.font_sp10,
-                                color:
-                                    uiElement.labelType?.toLowerCase() == 'yellow'
-                                        ? Colors.orange
-                                        : captionStyle().color!.withOpacity(0.8),
-
-                                ),
+                              fontSize: Dimens.font_sp10,
+                              color:
+                                  uiElement.labelType?.toLowerCase() == 'yellow'
+                                      ? Colors.orange
+                                      : captionStyle().color!.withOpacity(0.8),
+                            ),
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -309,7 +311,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum> with AutomaticKeepAlive
           ],
         ));
   }
-  
+
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;

@@ -52,7 +52,7 @@ class _SliverFabMainState extends State<SliverFabMain> {
       child: Stack(
         children: [
           CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             controller: scrollController,
             slivers: widget.slivers,
           ),

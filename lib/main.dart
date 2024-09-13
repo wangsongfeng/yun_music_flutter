@@ -63,7 +63,6 @@ class MainAppPage extends StatelessWidget {
   const MainAppPage({super.key});
 
   @override
-
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
@@ -73,6 +72,7 @@ class MainAppPage extends StatelessWidget {
       ),
       footerBuilder: () => const ClassicFooter(),
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorObservers: [AppRouteObserver().routeObserver],
         title: '网易云Flutter',
         theme: SFThemes.lightTheme,

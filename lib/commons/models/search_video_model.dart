@@ -79,10 +79,34 @@ class Creator extends Object {
   @JsonKey(name: 'nickname')
   String? nickname;
 
+  @JsonKey(name: 'avatarUrl')
+  String? avatarUrl;
+
+  @JsonKey(name: 'signature')
+  String? signature;
+
+  @JsonKey(name: 'vipType')
+  int? vipType;
+
+  @JsonKey(name: 'userType')
+  int? userType;
+
+  @JsonKey(name: 'avatarDetail')
+  CreatorAvatarDetail? avatarDetail;
+
+  @JsonKey(name: 'vipRights')
+  CreatorVipRights? vipRights;
+
   Creator(
     this.userId,
     this.userName,
     this.nickname,
+    this.avatarUrl,
+    this.signature,
+    this.vipType,
+    this.userType,
+    this.avatarDetail,
+    this.vipRights,
   );
 
   factory Creator.fromJson(Map<String, dynamic> srcJson) =>
@@ -91,4 +115,54 @@ class Creator extends Object {
   Map<String, dynamic> toJson() => _$CreatorToJson(this);
 
   String get name => userName ?? nickname ?? '佚名';
+}
+
+@JsonSerializable()
+class CreatorAvatarDetail {
+  CreatorAvatarDetail();
+  @JsonKey(name: 'userType')
+  int? userType;
+  @JsonKey(name: 'identityLevel')
+  int? identityLevel;
+  @JsonKey(name: 'identityIconUrl')
+  String? identityIconUrl;
+
+  factory CreatorAvatarDetail.fromJson(Map<String, dynamic> json) =>
+      _$CreatorAvatarDetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreatorAvatarDetailToJson(this);
+}
+
+@JsonSerializable()
+class CreatorVipRights {
+  CreatorVipRights();
+  @JsonKey(name: 'associator')
+  VipAssociator? associator;
+  @JsonKey(name: 'musicPackage')
+  VipAssociator? musicPackage;
+  @JsonKey(name: 'redVipAnnualCount')
+  int? redVipAnnualCount;
+  @JsonKey(name: 'redVipLevel')
+  int? redVipLevel;
+
+  factory CreatorVipRights.fromJson(Map<String, dynamic> json) =>
+      _$CreatorVipRightsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreatorVipRightsToJson(this);
+}
+
+@JsonSerializable()
+class VipAssociator {
+  VipAssociator();
+  @JsonKey(name: 'vipCode')
+  int? vipCode;
+  @JsonKey(name: 'rights')
+  bool? rights;
+  @JsonKey(name: 'iconUrl')
+  String? iconUrl;
+
+  factory VipAssociator.fromJson(Map<String, dynamic> json) =>
+      _$VipAssociatorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VipAssociatorToJson(this);
 }

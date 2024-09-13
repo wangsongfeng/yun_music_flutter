@@ -64,6 +64,8 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
           }
           return Container(
               color: Get.theme.cardColor,
+              margin: EdgeInsets.only(
+                  bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
               child: SmartRefresher(
                 controller: refreshController,
                 footer: const FooterLoading(

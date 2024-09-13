@@ -113,7 +113,7 @@ class _PlaylistCollectionPageState extends State<PlaylistCollectionPage>
                         tabAlignment: TabAlignment.center,
                         onTap: (value) {
                           controller.pageController.animateToPage(value,
-                              duration: const Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 100),
                               curve: Curves.easeIn);
                         },
                       ),

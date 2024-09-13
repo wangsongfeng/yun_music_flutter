@@ -26,7 +26,7 @@ class PlaylistDetailTopNormal extends StatelessWidget {
             coverSize: const Size(122, 122),
             coverRadius: Dimens.gap_dp8,
             imageCallback: (provider) async {
-              await Future.delayed(const Duration(milliseconds: 100));
+              await Future.delayed(const Duration(milliseconds: 10));
               controller.coverImage.value = provider;
             },
           ),
@@ -145,10 +145,10 @@ class PlaylistDetailTopNormal extends StatelessWidget {
 }
 
 class PlaylistDetailTopPlaceholder extends StatelessWidget {
-  const PlaylistDetailTopPlaceholder({super.key});
+  const PlaylistDetailTopPlaceholder(
+      {super.key, this.coverSize = const Size(122, 122)});
 
-  final coverSize = const Size(122, 122);
-
+  final Size coverSize;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -161,8 +161,8 @@ class PlaylistDetailTopPlaceholder extends StatelessWidget {
             Container(
               height: Dimens.gap_dp4,
               margin:
-                  EdgeInsets.only(left: Dimens.gap_dp7, top: Dimens.gap_dp4),
-              width: coverSize.width - Dimens.gap_dp14,
+                  EdgeInsets.only(left: Dimens.gap_dp6, top: Dimens.gap_dp4),
+              width: coverSize.width - Dimens.gap_dp12,
               decoration: BoxDecoration(
                 color: Get.isDarkMode
                     ? const Color.fromRGBO(160, 164, 172, 1.0)

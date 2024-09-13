@@ -6,6 +6,7 @@ import 'package:keframe/keframe.dart';
 import 'package:yun_music/commons/models/ui_element_model.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/commons/res/routes_utils.dart';
 import 'package:yun_music/commons/widgets/custom_touch.dart';
 import 'package:yun_music/commons/widgets/element_title_widget.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
@@ -52,6 +53,9 @@ class RecomPlaylistCell extends StatelessWidget {
               flex: 0,
               child: ElementTitleWidget(
                 elementModel: uiElementModel,
+                onPressed: () {
+                  RoutesUtils.routeFromActionStr(uiElementModel.button?.action);
+                },
               ),
             ),
             Flexible(
@@ -69,7 +73,9 @@ class RecomPlaylistCell extends StatelessWidget {
                       height: Dimens.gap_dp109,
                     ),
                     child: BounceTouch(
-                      onPressed: () {},
+                      onPressed: () {
+                        RoutesUtils.routeFromActionStr(model.action);
+                      },
                       child: _buildItem(model, Get.theme),
                     ),
                   );

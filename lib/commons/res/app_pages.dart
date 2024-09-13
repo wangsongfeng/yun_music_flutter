@@ -1,10 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
+import 'package:yun_music/pages/blog_detail/blog_detail_page.dart';
 import 'package:yun_music/pages/day_song_recom/bindings.dart';
 import 'package:yun_music/pages/day_song_recom/view.dart';
 import 'package:yun_music/pages/home/home_binding.dart';
 import 'package:yun_music/pages/home/home_view.dart';
+import 'package:yun_music/pages/moments/moments_page.dart';
+import 'package:yun_music/pages/new_song_album/new_song_album_page.dart';
 import 'package:yun_music/pages/not_found/not_found_binding.dart';
 import 'package:yun_music/pages/not_found/not_found_view.dart';
 import 'package:yun_music/pages/playing/playing_binding.dart';
@@ -57,7 +60,19 @@ class Routes {
 
     //排行榜页面
     CustomGetPage(
-        name: RouterPath.RankListPage, page: () => const RanklistView())
+        name: RouterPath.RankListPage, page: () => const RanklistView()),
+
+    ///新歌，新碟
+    CustomGetPage(
+        name: RouterPath.NEW_SONG_ALBUM, page: () => const NewSongAlbumPage()),
+
+    //播客详情
+    CustomGetPage(
+        name: RouterPath.Blog_Detail_Page, page: () => const BlogDetailPage()),
+
+    //朋友圈
+    CustomGetPage(
+        name: RouterPath.Moments_Page, page: () => const MomentsPage()),
   ];
 
   static final unknownRoute = CustomGetPage(

@@ -8,14 +8,18 @@ import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/commons/res/dimens.dart';
-import 'package:yun_music/pages/found/found_view.dart';
+import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
+import 'package:yun_music/pages/blog_page/blog_home_page.dart';
 import 'package:yun_music/pages/home/drawer/drawer_view.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/pages/home/widgets/home_top_bar.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/approute_observer.dart';
 
+import '../dynamic_page/dynamic_page.dart';
+import '../mine/mine_page.dart';
 import '../recommend/recom_view.dart';
+import '../village/village_page.dart';
 import 'widgets/home_bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +30,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with RouteAware {
-  late HomeController controller = Get.put<HomeController>(HomeController());
+  final HomeController controller = Get.put<HomeController>(HomeController());
 
   Future<bool> _dialogExitApp(BuildContext context) async {
     if (GetPlatform.isAndroid) {
@@ -48,6 +52,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void initState() {
     super.initState();
+    controller.homeMenuStream.add(true);
     eventBus.on<PlayBarEvent>().listen((event) {
       if (event.type == PlayBarShowHiddenType.hidden) {
         PlayerService.to.plarBarBottom.value =
@@ -122,18 +127,18 @@ class _HomePageState extends State<HomePage> with RouteAware {
                   physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: controller.changePage,
                   controller: controller.pageController,
-                  children: [
-                    const RecomPage(),
-                    const FoundPage(),
-                    Container(),
-                    Container(),
-                    Container(),
+                  children: const [
+                    RecomPage(),
+                    KeepAliveWrapper(child: BlogHomePage()),
+                    VillagePage(),
+                    KeepAliveWrapper(child: DynamicPage()),
+                    MinePage(),
                   ],
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 0,
-                child: HomeTopBar(),
+                child: HomeTopBar(controller: controller),
               ),
             ],
           ),

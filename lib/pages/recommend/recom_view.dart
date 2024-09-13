@@ -181,7 +181,7 @@ class _RecomPageState extends State<RecomPage>
       //云村出品
       case HOMEPAGE_YUNCUN_PRODUCED:
         return RecomYunProduct(blocks: blocks, itemHeight: itemHeight);
-      //热门
+      //热门话题
       case HOMEPAGE_BLOCK_HOT_TOPIC:
         return RecomHotTopic(blocks: blocks, itemHeight: itemHeight);
 
@@ -193,7 +193,7 @@ class _RecomPageState extends State<RecomPage>
   Widget _buildLoading() {
     if (controller.state == null) {
       return Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             top: 0,
             bottom: 0,
           ),

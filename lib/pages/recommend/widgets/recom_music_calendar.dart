@@ -33,7 +33,10 @@ class RecomMusicCalendar extends StatelessWidget {
       child: Column(
         children: [
           ElementTitleWidget(elementModel: blocks.uiElement!),
-          const Divider(height: 1,color: AppThemes.bg_color,),
+          const Divider(
+            height: 1,
+            color: AppThemes.bg_color,
+          ),
           _createItem(blocks.creatives, 0),
           _createItem(blocks.creatives, 1),
         ],
@@ -52,7 +55,11 @@ class RecomMusicCalendar extends StatelessWidget {
                 EdgeInsets.only(left: Dimens.gap_dp15, right: Dimens.gap_dp15),
             child: Column(
               children: [
-                if (index > 0) const Divider(height: 1,color: AppThemes.bg_color,),
+                if (index > 0)
+                  const Divider(
+                    height: 1,
+                    color: AppThemes.bg_color,
+                  ),
                 _buildItem(creatives.elementAt(index).resources!.elementAt(0))
               ],
             ),
@@ -121,7 +128,7 @@ class RecomMusicCalendar extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    calendar.subCount.toString(),
+                    '订阅',
                     style: TextStyle(
                         fontSize: Dimens.font_sp10,
                         color: const Color.fromARGB(255, 166, 166, 166)),

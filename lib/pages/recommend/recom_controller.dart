@@ -20,7 +20,7 @@ class RecomController extends SuperController<RecomModel?> {
     SHOWTYPE_HOMEPAGE_NEW_SONG_NEW_ALBUM: Adapt.px(238),
     HOMEPAGE_SLIDE_PODCAST_VOICE_MORE_TAB: Adapt.px(246),
     SHOWTYPE_SLIDE_SINGLE_SONG: Adapt.px(88),
-    SHOWTYPE_SHUFFLE_MUSIC_CALENDAR: Adapt.px(206),
+    SHOWTYPE_SHUFFLE_MUSIC_CALENDAR: Adapt.px(192),
     SHOWTYPE_HOMEPAGE_SLIDE_SONGLIST_ALIGN: Adapt.px(245),
     SHOWTYPE_SHUFFLE_MLOG: Adapt.px(245),
     HOMEPAGE_SLIDE_PLAYABLE_MLOG: Adapt.px(245),
@@ -28,8 +28,8 @@ class RecomController extends SuperController<RecomModel?> {
     SHOWTYPE_SLIDE_PLAYABLE_DRAGON_BALL: Adapt.px(200),
     SLIDE_PLAYABLE_DRAGON_BALL_MORE_TAB: Adapt.px(200),
     SLIDE_RCMDLIKE_VOICELIST: Adapt.px(220),
-    HOMEPAGE_BLOCK_HOT_TOPIC: Adapt.px(191),
-    HOMEPAGE_YUNCUN_PRODUCED: Adapt.px(225),
+    HOMEPAGE_BLOCK_HOT_TOPIC: Adapt.px(160),
+    HOMEPAGE_YUNCUN_PRODUCED: Adapt.px(216),
     SLIDE_PLAYABLE_DRAGON_BALL_NEW_BROADCAST: Adapt.px(204),
   };
 
@@ -63,10 +63,10 @@ class RecomController extends SuperController<RecomModel?> {
         isSucLoad.value = true;
       } else {
         if (recomData.value == null) {
-        change(state, status: RxStatus.error());
-      } else {
-        change(recomData.value, status: RxStatus.success());
-      }
+          change(state, status: RxStatus.error());
+        } else {
+          change(recomData.value, status: RxStatus.success());
+        }
       }
     }, onError: (err) {
       if (recomData.value == null) {

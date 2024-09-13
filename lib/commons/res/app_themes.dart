@@ -35,6 +35,8 @@ class AppThemes {
   static const Color body2_txt_color = Color.fromARGB(255, 41, 50, 70);
   static Color dark_body2_txt_color = Colors.white.withOpacity(0.95);
 
+  static const rank_list_bg_color = Color(0xFFF4F7FA);
+
   static const Color subtitle_color = Color(0xFFafafaf);
 
   static const Color shadow_color = Color.fromRGBO(235, 237, 242, 0.5);

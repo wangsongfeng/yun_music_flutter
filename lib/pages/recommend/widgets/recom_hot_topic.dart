@@ -1,4 +1,3 @@
-
 // ignore_for_file: slash_for_doc_comments
 
 // ignore: dangling_library_doc_comments
@@ -14,12 +13,11 @@ import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/recommend/models/creative_model.dart';
 import 'package:yun_music/pages/recommend/models/recom_model.dart';
 import 'package:yun_music/utils/common_utils.dart';
+import 'package:yun_music/utils/image_utils.dart';
 
 class RecomHotTopic extends StatelessWidget {
-  const RecomHotTopic({
-    super.key, required 
-    this.blocks, 
-    required this.itemHeight});
+  const RecomHotTopic(
+      {super.key, required this.blocks, required this.itemHeight});
 
   final Blocks blocks;
 
@@ -37,7 +35,7 @@ class RecomHotTopic extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ElementTitleWidget(elementModel: blocks.uiElement!),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           Expanded(
             child: Align(
               alignment: Alignment.topLeft,
@@ -63,18 +61,26 @@ class RecomHotTopic extends StatelessWidget {
     for (final element in list) {
       widgets.add(
         GestureDetector(
-          onTap: () {
-
-          },
+          onTap: () {},
           child: Row(
             children: [
               const SizedBox(width: 2),
               NetworkImgLayer(
-                width: Dimens.gap_dp14, 
+                width: Dimens.gap_dp14,
                 height: Dimens.gap_dp14,
                 src: element.uiElement.mainTitle?.titleImgUrl ?? '',
+                customplaceholder: Image.asset(
+                  ImageUtils.getImagePath('cm7_mlog_detail_topic'),
+                  width: Dimens.gap_dp14,
+                ),
+                imageBuilder: (context, provder) {
+                  return Image.asset(
+                    ImageUtils.getImagePath('cm7_mlog_detail_topic'),
+                    width: Dimens.gap_dp14,
+                  );
+                },
               ),
-             const SizedBox(width: 5),
+              const SizedBox(width: 5),
               Expanded(
                 child: Text.rich(
                   TextSpan(children: [
@@ -88,7 +94,7 @@ class RecomHotTopic extends StatelessWidget {
                           child: Padding(
                         padding: EdgeInsets.only(left: Dimens.gap_dp5),
                         child: NetworkImgLayer(
-                          width: Dimens.gap_dp14, 
+                          width: Dimens.gap_dp14,
                           height: Dimens.gap_dp14,
                           src: element.uiElement.labelUrls!.elementAt(0),
                         ),

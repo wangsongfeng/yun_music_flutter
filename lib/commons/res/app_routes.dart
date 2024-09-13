@@ -12,12 +12,21 @@ class RouterPath {
   static const PlayListCollection = "/playlistCollection";
 
   //歌单详情
-  static const PlayListDetail = "/playlistdetail/:id";
-  static PlayListDetailId(String id) => "/playlistdetail/$id";
+  static const PlayListDetail = "/playlist/:id";
+  static PlayListDetailId(String id) => "/playlist/$id";
 
   //播放页面
   static const PlayingPage = "/playing";
 
   //排行榜页面
   static const RankListPage = "/rnpage";
+
+  //新歌 新专辑
+  static const NEW_SONG_ALBUM = '/nm/discovery/newsongalbum';
+
+  //播客详情
+  static const Blog_Detail_Page = "/blogdetail";
+
+  //朋友圈页面
+  static const Moments_Page = "/moment";
 }

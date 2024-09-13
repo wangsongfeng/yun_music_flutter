@@ -44,6 +44,13 @@ class PlaylistCollectionController extends GetxController
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    tabController.dispose();
+    pageController.dispose();
+  }
+
+  @override
   void onInit() {
     super.onInit();
     if (Get.parameters.containsKey('tabPage')) {

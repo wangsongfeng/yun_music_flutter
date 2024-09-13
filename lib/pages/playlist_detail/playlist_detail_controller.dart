@@ -11,6 +11,7 @@ import 'package:yun_music/commons/player/player_context.dart';
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../commons/models/song_model.dart';
+import '../../commons/res/dimens.dart';
 import '../../commons/values/constants.dart';
 import '../../commons/values/server.dart';
 import '../../utils/adapt.dart';
@@ -56,7 +57,9 @@ class PlaylistDetailController extends GetxController {
 
   final headerBgHeight = 0.0.obs;
 
-  // late StreamSubscription _subscription;
+  late double extraPicHeight;
+  late BoxFit fitType;
+  late double prev_dy;
 
   @override
   void onInit() {
@@ -66,10 +69,18 @@ class PlaylistDetailController extends GetxController {
     autoplay = Get.parameters['autoplay'] ?? "";
     secondOpenOfficial = box.read<bool>(playlistId) ?? false;
 
-    print("playlistId == $playlistId");
+    fitType = BoxFit.fitWidth;
+    extraPicHeight = 0;
+    prev_dy = 0;
 
-    expandedHeight =
-        secondOpenOfficial ? Adapt.screenH() * 0.55 : Adapt.px(275);
+    expandedHeight = secondOpenOfficial
+        ? Adapt.screenH() * 0.55
+        : (Adapt.topPadding() +
+            kToolbarHeight +
+            122 +
+            4 +
+            Dimens.gap_dp12 +
+            Dimens.gap_dp56);
     headerBgHeight.value = expandedHeight;
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

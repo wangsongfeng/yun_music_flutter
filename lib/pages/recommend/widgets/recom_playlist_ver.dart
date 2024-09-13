@@ -83,9 +83,9 @@ class _RecomPlistVerScrollState extends State<RecomPlistVerScroll> {
                       borderRadius:
                           BorderRadius.all(Radius.circular(Dimens.gap_dp10)),
                       child: NetworkImgLayer(
-                        width: Dimens.gap_dp105, 
+                        width: Dimens.gap_dp105,
                         height: Dimens.gap_dp105,
-                        src:  ImageUtils.getImageUrlFromSize(
+                        src: ImageUtils.getImageUrlFromSize(
                             resource.uiElement.image?.imageUrl,
                             Size(Dimens.gap_dp105, Dimens.gap_dp105)),
                       ),

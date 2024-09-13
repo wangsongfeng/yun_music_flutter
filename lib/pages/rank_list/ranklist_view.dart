@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/widgets/appbar_page.dart';
+import 'package:yun_music/commons/widgets/music_loading.dart';
 import 'package:yun_music/pages/rank_list/ranklist_contrller.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../commons/res/app_themes.dart';
 import '../../commons/res/dimens.dart';
+import '../../utils/adapt.dart';
 import '../../utils/approute_observer.dart';
+import 'windgets/rank_global_page.dart';
+import 'windgets/rank_official_page.dart';
+import 'windgets/rank_recom_page.dart';
 
 class RanklistView extends StatefulWidget {
   const RanklistView({super.key});
@@ -35,7 +40,7 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
   void didPush() {
     //上一个页面push 过来viewWillappear
     super.didPush();
-    print('PlaylistDetailPage didPush');
+    print('RanklistView didPush');
   }
 
   @override
@@ -54,7 +59,7 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Get.theme.cardColor,
+      backgroundColor: AppThemes.rank_list_bg_color,
       appBar: MusicAppBar(
         backgroundColor: Colors.transparent,
         title: Text(
@@ -88,6 +93,54 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
           ),
         ],
       ),
+      body: _buildContent(),
     );
+  }
+
+  Widget _buildContent() {
+    return Obx(() => (controller.items.value == null)
+        ? MusicLoading().paddingOnly(top: Dimens.gap_dp100)
+        : Padding(
+            padding: EdgeInsets.only(
+                bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
+            child: CustomScrollView(
+              // physics: const ClampingScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Container(),
+                ),
+                SliverToBoxAdapter(
+                  child: RankRecomPage(contrller: controller),
+                ),
+                SliverToBoxAdapter(
+                  child: RankOfficialPage(
+                      contrller: controller,
+                      items: controller.items.value!
+                          .where((element) => element.tracks.isNotEmpty)
+                          .toList()),
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: ranksection(),
+                  ),
+                )
+              ],
+            ),
+          ));
+  }
+
+  List<Widget> ranksection() {
+    final list = <Widget>[];
+
+    for (var i = 0; i < controller.rankSections.value!.length; i++) {
+      final model = controller.rankSections.value!.elementAt(i);
+      list.add(RankGlobalPage(
+        contrller: controller,
+        section: model,
+        key: Key(model.title ?? ""),
+      ));
+    }
+
+    return list;
   }
 }
