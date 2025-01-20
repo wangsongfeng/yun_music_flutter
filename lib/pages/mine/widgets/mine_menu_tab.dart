@@ -67,7 +67,7 @@ class MineMenuTab extends StatelessWidget {
                           ),
                           strokeCap: StrokeCap.round),
                       indicatorPadding: EdgeInsets.only(
-                          bottom: Dimens.gap_dp9, top: Dimens.gap_dp21),
+                          bottom: Dimens.gap_dp6, top: Dimens.gap_dp21),
                       indicatorSize: TabBarIndicatorSize.label,
                       enableFeedback: true,
                       splashBorderRadius: BorderRadius.circular(10),

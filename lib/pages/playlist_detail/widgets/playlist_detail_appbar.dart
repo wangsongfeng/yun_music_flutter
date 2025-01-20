@@ -44,8 +44,8 @@ class _PlaylistDetailAppbarState extends State<PlaylistDetailAppbar> {
             width: Adapt.screenW(),
             height: widget.appBarHeight + context.mediaQueryPadding.top,
             color: widget.controller.headerBgColor.value != null
-                ? widget.controller.headerBgColor.value?.withOpacity(1.0)
-                : const Color.fromRGBO(146, 150, 160, 1.0),
+                ? widget.controller.headerBgColor.value?.withOpacity(0.1)
+                : const Color.fromRGBO(146, 150, 160, 0.1),
           );
         }),
         Positioned.fill(

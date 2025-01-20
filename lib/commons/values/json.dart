@@ -54,4 +54,16 @@ class JsonStringConstants {
 
   //视频列表
   static const String video_group_list = "assets/json/video_group_list.json";
+
+  //广场动态数据
+  static const String square_page_list = "assets/json/square_list_page.json";
+
+  //我的歌单列表
+  static const String mine_music_list = "assets/json/mine_music_creat.json";
+
+  //视频列表
+  static const String video_lists = "assets/json/videos.json";
+  static const String hank_videos = "assets/json/hi_short_video.json";
+  //用户
+  static const String user_list = "assets/json/users.json";
 }

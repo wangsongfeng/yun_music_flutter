@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/player_context.dart';
 
 class PlayerController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -21,9 +20,5 @@ class PlayerController extends GetxController
       vsync: this,
     );
     animation = Tween(begin: 1.0, end: 0.0).animate(animationController);
-  }
-
-  Future<void> playFromIndex(BuildContext context, int index) async {
-    context.playerService.playFromIndex(index);
   }
 }

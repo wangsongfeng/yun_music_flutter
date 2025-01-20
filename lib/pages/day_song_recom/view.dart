@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
-import 'package:yun_music/commons/widgets/bottom_control.dart';
 import 'package:yun_music/pages/day_song_recom/controller.dart';
 import 'package:yun_music/pages/day_song_recom/widgets/day_recom.dart';
-import 'package:yun_music/utils/common_utils.dart';
 
 import '../../utils/approute_observer.dart';
 
@@ -59,30 +57,30 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
       body: Stack(
         children: [
           Positioned.fill(child: RecomDailyPage()),
-          Positioned(
-            bottom: 0,
-            child: SlideTransition(
-              position: controller.animation,
-              child: Obx(() {
-                return BottomControl(
-                  canPressed:
-                      GetUtils.isNullOrBlank(controller.selectedSong.value) !=
-                          true,
-                  nextPlayPressed: () {
-                    if (GetUtils.isNullOrBlank(controller.selectedSong.value) !=
-                        true) {
-                      // final list = controller.selectedSong.value!.reversed
-                      //     .map((e) => e.metadata)
-                      //     .toList();
-                      // context.player.insertListToNext(list);
-                      // controller.selectedSong.value = null;
-                      toast('已添加到播放列表');
-                    }
-                  },
-                );
-              }),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 0,
+          //   child: SlideTransition(
+          //     position: controller.animation,
+          //     child: Obx(() {
+          //       return BottomControl(
+          //         canPressed:
+          //             GetUtils.isNullOrBlank(controller.selectedSong.value) !=
+          //                 true,
+          //         nextPlayPressed: () {
+          //           if (GetUtils.isNullOrBlank(controller.selectedSong.value) !=
+          //               true) {
+          //             // final list = controller.selectedSong.value!.reversed
+          //             //     .map((e) => e.metadata)
+          //             //     .toList();
+          //             // context.player.insertListToNext(list);
+          //             // controller.selectedSong.value = null;
+          //             toast('已添加到播放列表');
+          //           }
+          //         },
+          //       );
+          //     }),
+          //   ),
+          // ),
         ],
       ),
     );

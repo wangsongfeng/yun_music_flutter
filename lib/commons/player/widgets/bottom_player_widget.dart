@@ -1,13 +1,9 @@
 // ignore_for_file: unused_element
 
-import 'dart:ui';
-
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/player/bottom_player_controller.dart';
-import 'package:yun_music/commons/player/player_context.dart';
-import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/commons/player/widgets/rotation_cover_image.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
@@ -15,6 +11,8 @@ import 'package:yun_music/commons/values/constants.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
+import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 
 class BottomPlayerBar extends StatefulWidget {
   const BottomPlayerBar({super.key, this.bottomPadding = 0});
@@ -26,6 +24,25 @@ class BottomPlayerBar extends StatefulWidget {
 }
 
 class _BottomPlayerBarState extends State<BottomPlayerBar> {
+  final PlayingController controller = Get.find<PlayingController>();
+
+  late int currentIndex = 0;
+
+  final playerController = Get.put(PlayerController());
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = controller.currentIndex.value;
+    controller.currentIndex.listen((value) {
+      if (currentIndex != value && playerController.pageController != null) {
+        playerController.pageController?.animateToPage(value,
+            duration: const Duration(milliseconds: 240), curve: Curves.ease);
+        currentIndex = value;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -37,11 +54,10 @@ class _BottomPlayerBarState extends State<BottomPlayerBar> {
               viewInsets: context.mediaQueryViewInsets.copyWith(bottom: 0)),
           child: Obx(() {
             return _BottomContentWidget(
-              listSize: context.playerService.selectedSongList.value == null
-                  ? 1
-                  : context.playerService.selectedSongList.value!.length,
+              listSize: controller.playLists.value!.length,
               bottomPadding: widget.bottomPadding,
-              curPlayId: 1,
+              curPlayIndex: controller.currentIndex.value,
+              playingController: controller,
             );
           })),
     );
@@ -52,29 +68,30 @@ class _BottomContentWidget extends GetView<PlayerController> {
   _BottomContentWidget({
     super.key,
     required this.bottomPadding,
-    this.curPlayId,
+    this.curPlayIndex,
     required this.listSize,
+    this.playingController,
   });
 
   final double bottomPadding;
-  final int? curPlayId;
+  final int? curPlayIndex;
   final int listSize;
 
-  final bool isFmPlaying = PlayerService.to.isFmPlaying.value;
+  final PlayingController? playingController;
+
+  final bool isFmPlaying = false;
 
   @override
   Widget build(BuildContext context) {
-    final playerController = Get.put(PlayerController());
     return FadeTransition(
-      opacity: playerController.animation,
+      opacity: controller.animation,
       child: _buildContext(context),
     );
     // return _buildContext(context);
   }
 
   Widget _buildContext(BuildContext conetx) {
-    final currenIndex = conetx.playerService.selectedSongList.value?.indexWhere(
-        (element) => element.id == conetx.playerService.curPlayId.value);
+    final currenIndex = curPlayIndex;
     controller.pageController = PageController(
         initialPage:
             (currenIndex == -1 || currenIndex == null) ? 0 : currenIndex);
@@ -115,27 +132,39 @@ class _BottomContentWidget extends GetView<PlayerController> {
                           key: UniqueKey(),
                           itemCount: listSize,
                           controller: controller.pageController,
-                          physics: isFmPlaying
-                              ? const NeverScrollableScrollPhysics()
-                              : const BouncingScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           onPageChanged: (page) async {
-                            controller.playFromIndex(conetx, page);
+                            // controller.playFromIndex(conetx, page);
                           },
                           itemBuilder: (context, index) {
-                            return _buildNormWidget(
-                                context.playerService.selectedSongList.value ==
-                                        null
-                                    ? null
-                                    : context.playerService.selectedSongList
-                                        .value?[index]);
+                            final item =
+                                playingController?.playLists.value![index];
+                            return _buildNormWidget(item);
                           })),
                   const SizedBox(width: 12),
+                  Obx(() {
+                    return InkWell(
+                        onTap: () {
+                          playingController?.playOrPause();
+                        },
+                        child: Image.asset(
+                          playingController!.playing.value
+                              ? ImageUtils.getImagePath('btn_pause')
+                              : ImageUtils.getImagePath('btn_play'),
+                          width: Dimens.gap_dp30,
+                          height: Dimens.gap_dp30,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                        ));
+                  }),
+
+                  const SizedBox(width: 12),
+
                   InkWell(
                       onTap: () {},
                       child: Image.asset(
-                        ImageUtils.getImagePath('btn_tabbar_playlist'),
-                        width: Dimens.gap_dp25,
-                        height: Dimens.gap_dp25,
+                        ImageUtils.getImagePath('play_btn_src'),
+                        width: Dimens.gap_dp22,
+                        height: Dimens.gap_dp22,
                         color: Get.isDarkMode ? Colors.white : Colors.black,
                       )),
                   const SizedBox(width: 8)
@@ -148,7 +177,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
     );
   }
 
-  Widget _buildNormWidget(Song? song) {
+  Widget _buildNormWidget(MediaItem? song) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -159,7 +188,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
               tag: HERO_TAG_CUR_PLAY,
               child: Obx(() {
                 return RotationCoverImage(
-                  rotating: controller.isPlaying.value,
+                  rotating: playingController!.playing.value,
                   music: song,
                   pading: Dimens.gap_dp9,
                 );
@@ -171,7 +200,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
     );
   }
 
-  Widget _buildTitle(Song? song) {
+  Widget _buildTitle(MediaItem? song) {
     final titleStyle = body1Style();
     return Container(
       alignment: Alignment.centerLeft,
@@ -179,7 +208,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         text: TextSpan(
-            text: song?.name,
+            text: song?.title.fixAutoLines(),
             style: titleStyle.copyWith(fontSize: Dimens.font_sp14),
             children: [
               const WidgetSpan(child: SizedBox(width: 4)),
@@ -190,7 +219,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
                       color: titleStyle.color?.withOpacity(0.6))),
               const WidgetSpan(child: SizedBox(width: 4)),
               TextSpan(
-                text: song?.getSongCellSubTitle(),
+                text: (song?.artist ?? "").fixAutoLines(),
                 style: titleStyle.copyWith(
                     fontSize: Dimens.font_sp12,
                     color: titleStyle.color?.withOpacity(0.6)),

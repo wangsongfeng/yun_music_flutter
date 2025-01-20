@@ -116,10 +116,6 @@ class _HomeBottomBarState extends State<HomeBottomBar>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // ConstrainedBox(
-        //   constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
-        //   child: const BottomPlayerBar(),
-        // ),
         Obx(
           () => BottomBar(
             currentIndex: controller.currentIndex.value,

@@ -10,13 +10,19 @@ import '../models/blog_recom_model.dart';
 
 class BlogHeaderWidget extends StatelessWidget {
   const BlogHeaderWidget(
-      {super.key, this.personal, this.recomModel, this.onPressed});
+      {super.key,
+      this.personal,
+      this.recomModel,
+      this.onPressed,
+      this.showRight = true});
 
   final BlogPersonalModel? personal;
 
   final BlogRecomModel? recomModel;
 
   final ParamVoidCallback? onPressed;
+
+  final bool? showRight;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class BlogHeaderWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildLeftWidget(),
-          _buildRightWidget(),
+          showRight == true ? _buildRightWidget() : const SizedBox.shrink(),
         ],
       ),
     );

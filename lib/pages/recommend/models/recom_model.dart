@@ -25,15 +25,8 @@ class RecomModel extends Object {
   factory RecomModel.fromJson(Map<String, dynamic> srcJson) =>
       _$RecomModelFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'cursor': cursor,
-        'blocks': blocks.map((e) => e.toJson()).toList(),
-        'pageConfig': pageConfig.toJson(),
-      };
+  Map<String, dynamic> toJson() => _$RecomModelToJson(this);
 }
-
-
-
 
 @JsonSerializable()
 class Blocks extends Object {
@@ -67,18 +60,8 @@ class Blocks extends Object {
   factory Blocks.fromJson(Map<String, dynamic> srcJson) =>
       _$BlocksFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'blockCode': blockCode,
-        'showType': showType,
-        'extInfo': extInfo,
-        'uiElement': uiElement?.toJson(),
-        'creatives': creatives?.map((e) => e.toJson()).toList(),
-        'canClose': canClose,
-      };
-
+  Map<String, dynamic> toJson() => _$BlocksToJson(this);
 }
-
-
 
 @JsonSerializable()
 class PageConfig extends Object {

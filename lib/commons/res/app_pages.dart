@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
+import 'package:yun_music/commons/widgets/photo_view/photo_preview.dart';
 import 'package:yun_music/pages/blog_detail/blog_detail_page.dart';
 import 'package:yun_music/pages/day_song_recom/bindings.dart';
 import 'package:yun_music/pages/day_song_recom/view.dart';
@@ -10,14 +11,16 @@ import 'package:yun_music/pages/moments/moments_page.dart';
 import 'package:yun_music/pages/new_song_album/new_song_album_page.dart';
 import 'package:yun_music/pages/not_found/not_found_binding.dart';
 import 'package:yun_music/pages/not_found/not_found_view.dart';
-import 'package:yun_music/pages/playing/playing_binding.dart';
-import 'package:yun_music/pages/playing/playing_page.dart';
+import 'package:yun_music/vmusic/playing_binding.dart';
+import 'package:yun_music/vmusic/playing_page.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection_binding.dart';
 import 'package:yun_music/pages/playlist_detail/playlist_detail_page.dart';
 import 'package:yun_music/pages/rank_list/ranklist_view.dart';
 import 'package:yun_music/pages/splash/splash_binding.dart';
 import 'package:yun_music/pages/splash/splash_view.dart';
+import 'package:yun_music/video/binding.dart';
+import 'package:yun_music/video/view.dart';
 
 import 'down_up_fade.dart';
 
@@ -42,7 +45,7 @@ class Routes {
     //歌单广场
     CustomGetPage(
         name: RouterPath.PlayListCollection,
-        page: () => PlaylistCollectionPage(),
+        page: () => const PlaylistCollectionPage(),
         binding: PlaylistCollectionBinding()),
     //歌单详情
     CustomGetPage(
@@ -73,6 +76,19 @@ class Routes {
     //朋友圈
     CustomGetPage(
         name: RouterPath.Moments_Page, page: () => const MomentsPage()),
+
+    //图片查看
+    CustomGetPage(
+        name: RouterPath.PreView_Page,
+        page: () => const PhotoPreview(),
+        customTransition: FadePushTransition(),
+        transitionDuration: const Duration(milliseconds: 240)),
+
+    //视频列表
+    CustomGetPage(
+        name: RouterPath.Video_Lists,
+        page: () => const VideoPage(),
+        binding: VideoBinding())
   ];
 
   static final unknownRoute = CustomGetPage(

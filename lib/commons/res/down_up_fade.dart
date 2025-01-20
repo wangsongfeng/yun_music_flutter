@@ -23,3 +23,17 @@ class SlideDownWithFadeTransition extends CustomTransition {
 RectTween createRectTween(Rect? begin, Rect? end) {
   return MaterialRectCenterArcTween(begin: begin, end: end);
 }
+
+class FadePushTransition extends CustomTransition {
+  @override
+  Widget buildTransition(
+      BuildContext context,
+      Curve? curve,
+      Alignment? alignment,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return FadeTransition(
+        opacity: Tween(begin: 1.0, end: 1.0).animate(animation), child: child);
+  }
+}

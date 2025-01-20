@@ -29,4 +29,10 @@ class RouterPath {
 
   //朋友圈页面
   static const Moments_Page = "/moment";
+
+  //图片查看
+  static const PreView_Page = '/preview';
+
+  //视频列表
+  static const Video_Lists = '/videolist';
 }

@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:yun_music/api/bujuan_api.dart';
 import 'package:yun_music/api/music_api.dart';
-import 'package:yun_music/commons/player/player_context.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
@@ -16,6 +17,7 @@ import '../../commons/values/constants.dart';
 import '../../commons/values/server.dart';
 import '../../utils/adapt.dart';
 import '../../utils/common_utils.dart';
+import '../../vmusic/playing_controller.dart';
 import 'models/playlist_detail_model.dart';
 
 class PlaylistDetailController extends GetxController {
@@ -42,6 +44,8 @@ class PlaylistDetailController extends GetxController {
 
   //全部歌曲集合
   final songs = Rx<List<Song>?>(null);
+
+  Rx<List<MediaItem>> mediaSongs = Rx<List<MediaItem>>(<MediaItem>[]);
 
   //是否展示编辑
   final showCheck = false.obs;
@@ -116,7 +120,11 @@ class PlaylistDetailController extends GetxController {
 
   Future<void> _getDetail({bool showLoading = false}) async {
     if (showLoading) EasyLoading.show();
-    final detailModel = await MusicApi.getPlaylistDetail(playlistId);
+
+    // final detailModel = await MusicApi.getPlaylistDetail(playlistId);
+
+    final detailModel = await BujuanApi.playListDetail(playlistId);
+    ;
     if (detailModel?.isOfficial() == true) {
       //官方歌单
       isOfficial.value = true;
@@ -136,6 +144,8 @@ class PlaylistDetailController extends GetxController {
   //音乐歌单
   Future<void> _getTracks(PlaylistDetailModel? detailModel) async {
     List<Song>? result;
+    logger.d(
+        "数据长度--${detailModel?.playlist.trackIds.length} -- tracks=${detailModel?.playlist.tracks.length}");
     if (detailModel?.playlist.trackIds.length !=
         detailModel?.playlist.tracks.length) {
       //歌曲数量和歌曲ID不一致,请求全部歌曲{id,id}
@@ -159,10 +169,14 @@ class PlaylistDetailController extends GetxController {
         }
       } else {
         //小于一千 直接请求
-        final ids = detailModel.playlist.trackIds
-            .map((e) => e.id.toString())
-            .reduce((value, element) => '$value,$element');
-        result = await MusicApi.getSongsInfo(ids);
+        // final ids = detailModel.playlist.trackIds
+        //     .map((e) => e.id.toString())
+        //     .reduce((value, element) => '$value,$element');
+        // result = await MusicApi.getSongsInfo(ids);
+
+        List<String> newIds =
+            detailModel.playlist.trackIds.map((e) => e.id.toString()).toList();
+        result = await BujuanApi.getSongsInfo(newIds);
       }
     } else {
       result = detailModel?.playlist.tracks;
@@ -170,6 +184,8 @@ class PlaylistDetailController extends GetxController {
     detail.value = detailModel;
     songs.value = result;
     itemSize.value = result?.length;
+
+    mediaSongs.value = PlayingController.to.songToMediaItem(songs.value!);
   }
 
   double clipOffset() {
@@ -197,7 +213,5 @@ class PlaylistDetailController extends GetxController {
     return offset;
   }
 
-  void playList(BuildContext context, {Song? song}) {
-    context.playerService.playList(songs.value!, song!);
-  }
+  void playList(BuildContext context, {Song? song}) {}
 }

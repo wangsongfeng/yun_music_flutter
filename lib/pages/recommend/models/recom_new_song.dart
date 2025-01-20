@@ -1,5 +1,3 @@
-
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yun_music/commons/models/privilege_model.dart';
 import 'package:yun_music/commons/models/song_model.dart';
@@ -39,7 +37,8 @@ class RecomNewSong extends Object {
         songPrivilege,
         type,
         null,
-        1);
+        1,
+        0);
   }
 }
 
@@ -85,6 +84,6 @@ class SongData extends Object {
 
   Song buildSong() {
     return Song(name, id, artists, alias, fee, 100, album, copyright,
-        originCoverType, mvid, songPrivilege, null, null, 0);
+        originCoverType, mvid, songPrivilege, null, null, 0, 0);
   }
 }

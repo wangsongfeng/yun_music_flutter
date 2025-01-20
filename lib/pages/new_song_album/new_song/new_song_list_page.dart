@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/pages/new_song_album/new_song/new_song_list_controller.dart';
 import 'package:yun_music/pages/new_song_album/new_song/new_song_play_all.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import '../../../commons/models/song_model.dart';
 import '../../../commons/res/dimens.dart';
@@ -30,6 +31,8 @@ class _NewSongListPageState extends State<NewSongListPage>
 
   late NewSongAlbumController newSongAlbumController;
 
+  late PlayingController playingController;
+
   final double expandedTop = Adapt.px(146);
 
   @override
@@ -41,6 +44,8 @@ class _NewSongListPageState extends State<NewSongListPage>
         tag: widget.mkey);
 
     newSongAlbumController = GetInstance().find<NewSongAlbumController>();
+
+    playingController = Get.find<PlayingController>();
   }
 
   @override
@@ -124,6 +129,7 @@ class _NewSongListPageState extends State<NewSongListPage>
           controller.playList(context, song: song);
         }
       },
+      playingController: playingController,
     );
   }
 

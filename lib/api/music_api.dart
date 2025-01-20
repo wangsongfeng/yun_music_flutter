@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:yun_music/api/common_service.dart';
+import 'package:yun_music/commons/models/mine_music_list.dart';
 import 'package:yun_music/commons/models/remd_song_daily_model.dart';
 import 'package:yun_music/commons/models/song_list_model.dart';
 import 'package:yun_music/commons/net/init_dio.dart';
@@ -13,12 +14,17 @@ import 'package:yun_music/pages/recommend/models/recom_model.dart';
 import 'package:yun_music/pages/recommend/models/recom_new_song.dart';
 import 'package:yun_music/pages/village/models/video_category.dart';
 import 'package:yun_music/utils/common_utils.dart';
+import 'package:yun_music/video/models/avatar_info.dart';
+import 'package:yun_music/video/models/hankan_info.dart';
+import 'package:yun_music/video/models/video_list_info.dart';
 
 import '../commons/models/simple_play_list_model.dart';
+import '../commons/models/song_info_dto.dart';
 import '../commons/models/song_model.dart';
 import '../pages/blog_detail/models/blog_detail_lists.dart';
 import '../pages/blog_detail/models/blog_detail_model.dart';
 import '../pages/blog_page/models/blog_home_model.dart';
+import '../pages/dynamic_page/models/square_info.dart';
 import '../pages/new_song_album/models/album_cover_info.dart';
 import '../pages/new_song_album/models/top_album_cover_info.dart';
 import '../pages/new_song_album/models/top_album_model.dart';
@@ -83,6 +89,7 @@ class MusicApi {
     return recmData;
   }
 
+  // ignore: unused_element
   static Future<RecomModel?> _diffData(
       RecomModel recmData, RecomModel? oldData) async {
     if (oldData == null || recmData.blocks.length > oldData.blocks.length) {
@@ -282,6 +289,8 @@ class MusicApi {
 
     return data.songs;
   }
+
+  ///获取歌单详情里边的歌曲数据
 
   ///获取排行榜 https://netease-cloud-music-api-masterxing.vercel.app/toplist/detail
   static Future<List<RanklistItem>> getRankList() async {
@@ -527,5 +536,76 @@ class MusicApi {
         await CommonService.jsonDecode(JsonStringConstants.video_group_list);
     data = VideoGroupSourceList.fromJson(json);
     return data;
+  }
+
+  //获取广场动态数据
+  static Future<SquareInfo?> getSquareList() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    SquareInfo? info;
+    final json =
+        await CommonService.jsonDecode(JsonStringConstants.square_page_list);
+    info = SquareInfo.fromJson(json['data']);
+    return info;
+  }
+
+  //获取mine 歌单
+  static Future<List<MineMusicList>?> getMineMusicList() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    var personList = List<MineMusicList>.empty(growable: true);
+    final bannerJson =
+        await CommonService.jsonDecode(JsonStringConstants.mine_music_list);
+    final list = (bannerJson['data'] as List)
+        .map((e) => MineMusicList.fromJson(e))
+        .toList();
+    personList = list;
+    return personList;
+  }
+
+  //h获取videos
+  static Future<List<VideoInfo>?> getVideoLists() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    var videoList = List<VideoInfo>.empty(growable: true);
+    final json =
+        await CommonService.jsonDecode(JsonStringConstants.video_lists);
+    final list =
+        (json['data'] as List).map((e) => VideoInfo.fromJson(e)).toList();
+    print('数据长度${list.length}');
+    videoList = list;
+    return videoList;
+  }
+
+  ///获取用户数据
+  static Future<List<AvatarInfo>?> getUsersLists() async {
+    final json =
+        await CommonService.jsonArrayDecode(JsonStringConstants.user_list);
+
+    var userList = List<AvatarInfo>.empty(growable: true);
+    final list = (json).map((e) {
+      return AvatarInfo.fromJson(e);
+    }).toList();
+    userList = list;
+    return userList;
+  }
+
+  //s
+  static Future<List<HankanInfo>?> getHankVideoInfo() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    var videoList = List<HankanInfo>.empty(growable: true);
+    final json =
+        await CommonService.jsonDecode(JsonStringConstants.hank_videos);
+    final list =
+        (json['videos'] as List).map((e) => HankanInfo.fromJson(e)).toList();
+    videoList = list;
+    return videoList;
+  }
+
+  ///获取歌曲信息
+  static Future<SongInfoListDto> getSongInfo(dynamic id) async {
+    if (id is List) {
+      id = id.join(',');
+    }
+    final res =
+        await httpManager.get('/song/url/v1', {'id': id, 'level': 'exhigh'});
+    return SongInfoListDto.fromJson(res.data);
   }
 }

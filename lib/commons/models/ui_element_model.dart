@@ -43,16 +43,7 @@ class UiElementModel extends Object {
   factory UiElementModel.fromJson(Map<String, dynamic> srcJson) =>
       _$UiElementModelFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'mainTitle': mainTitle?.toJson(),
-        'subTitle': subTitle?.toJson(),
-        'image': image?.toJson(),
-        'button': button?.toJson(),
-        'labelTexts': labelTexts,
-        'labelUrls': labelUrls,
-        'rcmdShowType': rcmdShowType,
-        'labelType': labelType,
-      };
+  Map<String, dynamic> toJson() => _$UiElementModelToJson(this);
 }
 
 //TitleText
@@ -73,9 +64,7 @@ class TitleText extends Object {
       _$TitleTextFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$TitleTextToJson(this);
-
 }
-
 
 //Image
 @JsonSerializable()
@@ -92,7 +81,6 @@ class ElementImage extends Object {
 
   Map<String, dynamic> toJson() => _$ElementImageToJson(this);
 }
-
 
 //Button
 @JsonSerializable()
@@ -116,8 +104,8 @@ class ElementButton extends Object {
     this.iconUrl,
   );
 
-  factory ElementButton.fromJson(Map<String,dynamic> srcJson) =>
+  factory ElementButton.fromJson(Map<String, dynamic> srcJson) =>
       _$ElementButtonFromJson(srcJson);
-  
+
   Map<String, dynamic> toJson() => _$ElementButtonToJson(this);
 }

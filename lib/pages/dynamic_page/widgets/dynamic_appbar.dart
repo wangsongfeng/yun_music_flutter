@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
+import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/pages/dynamic_page/dynamic_controller.dart';
 
 import '../../../commons/res/app_themes.dart';
+import '../../../commons/skeleton/custom_underline_indicator.dart';
 import '../../../utils/adapt.dart';
 import '../../../utils/image_utils.dart';
 
 class DynamicAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const DynamicAppbar({super.key});
+  const DynamicAppbar({super.key, required this.controller});
+
+  final DynamicController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +21,57 @@ class DynamicAppbar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.only(top: Adapt.topPadding()),
       child: Row(
         children: [
-          Expanded(child: Container()),
+          Expanded(
+              child: Container(
+            color: Colors.transparent,
+            padding:
+                EdgeInsets.only(left: Get.theme.appBarTheme.toolbarHeight!),
+            child: Center(
+              child: Align(
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TabBar(
+                      controller: controller.tabController,
+                      tabs: controller.myTabs,
+                      // padding: EdgeInsets.only(top: Dimens.gap_dp6),
+                      labelPadding: const EdgeInsets.only(left: 20, right: 20),
+                      isScrollable: false,
+                      labelStyle: TextStyle(
+                          fontSize: Dimens.font_sp15,
+                          fontWeight: FontWeight.w600),
+                      dividerColor: Colors.transparent,
+                      indicatorColor: AppThemes.indicator_color,
+                      unselectedLabelColor:
+                          const Color.fromARGB(255, 114, 114, 114),
+                      labelColor: const Color.fromARGB(255, 51, 51, 51),
+                      indicator: CustomUnderlineTabIndicator(
+                          width: 20,
+                          borderSide: BorderSide(
+                            width: 4,
+                            color: AppThemes.indicator_color,
+                          ),
+                          strokeCap: StrokeCap.round),
+                      indicatorPadding: EdgeInsets.only(
+                          bottom: Dimens.gap_dp6, top: Dimens.gap_dp21),
+                      indicatorSize: TabBarIndicatorSize.label,
+                      enableFeedback: true,
+                      splashBorderRadius: BorderRadius.circular(10),
+                      tabAlignment: TabAlignment.center,
+                      onTap: (value) {
+                        // clickCallback.call(value);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )),
           GestureDetector(
             onTap: () {
-              Get.toNamed(RouterPath.Moments_Page);
+              // Get.toNamed(RouterPath.Moments_Page);
+              Get.toNamed(RouterPath.Video_Lists);
             },
             child: Container(
               color: Colors.transparent,

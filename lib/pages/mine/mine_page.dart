@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/pages/mine/mine_controller.dart';
 import 'package:yun_music/pages/mine/widgets/mine_header.dart';
+import 'package:yun_music/pages/mine/widgets/mine_music_page.dart';
 import 'package:yun_music/utils/adapt.dart';
 
 import 'widgets/mine_appbar.dart';
@@ -87,7 +88,7 @@ class _MinePageState extends State<MinePage> {
                       children: [
                         Container(
                             color: Colors.white,
-                            height: 50,
+                            height: 46,
                             child: MineMenuTab(
                               controller: controller,
                               clickCallback: (int data) {},
@@ -96,7 +97,7 @@ class _MinePageState extends State<MinePage> {
                             child: TabBarView(
                                 controller: controller.tabController,
                                 children: [
-                              Container(height: 0),
+                              const MineMusicPage(),
                               Container(height: 0),
                               Container(height: 0)
                             ]))
@@ -121,7 +122,7 @@ class _MinePageState extends State<MinePage> {
                     child: SizedBox(
                       height:
                           controller.menuBarTop.value <= controller.appbarHeight
-                              ? 50.0
+                              ? 46.0
                               : 0,
                       width: Adapt.screenW(),
                       child: MineMenuTab(

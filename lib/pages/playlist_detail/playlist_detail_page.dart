@@ -9,10 +9,12 @@ import 'package:yun_music/pages/playlist_detail/widgets/playlist_fab_count.dart'
 import 'package:yun_music/pages/playlist_detail/widgets/playlist_song_content.dart';
 import 'package:yun_music/pages/playlist_detail/widgets/sliver_fab_main.dart';
 import 'package:yun_music/utils/adapt.dart';
+import 'package:yun_music/utils/common_utils.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../utils/approute_observer.dart';
+import '../../vmusic/playing_controller.dart';
 import 'playlist_detail_controller.dart';
 import 'widgets/playlist_detail_appbar.dart';
 
@@ -143,7 +145,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
     return Listener(
       onPointerMove: (result) {
         //手指的移动时
-        updatePicHeight(result.position.dy); //自定义方法，图片的放大由它完成。
+        // updatePicHeight(result.position.dy); //自定义方法，图片的放大由它完成。
       },
       onPointerUp: (_) {
         runAnimate(); //动画执行
@@ -181,6 +183,11 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
               delegate: GeneralSliverDelegate(
                   child: PlaylistDetailPlayall(
                 controller: controller,
+                playAllTap: () {
+                  PlayingController.to.playByIndex(0, "queueTitle",
+                      mediaItem: controller.mediaSongs.value);
+                  toPlayingPage();
+                },
               ))),
           //列表
           Obx(() {

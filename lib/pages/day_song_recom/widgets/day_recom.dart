@@ -5,9 +5,11 @@ import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/widgets/music_loading.dart';
 import 'package:yun_music/pages/day_song_recom/widgets/check_song_cell.dart';
 import 'package:yun_music/pages/day_song_recom/widgets/day_recom_header.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import '../../../delegate/general_sliver_delegate.dart';
 import '../../../utils/adapt.dart';
+import '../../../utils/common_utils.dart';
 import '../controller.dart';
 import 'day_recom_playall.dart';
 
@@ -15,6 +17,8 @@ class RecomDailyPage extends StatelessWidget {
   RecomDailyPage({super.key});
 
   final controller = Get.find<DaySongRecmController>();
+
+  final playingController = Get.find<PlayingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,13 @@ class RecomDailyPage extends StatelessWidget {
                 child: const SizedBox.shrink()),
           )),
           //播放全部
-          const DayRecomPlayallBtn(),
+          DayRecomPlayallBtn(
+            playAllTap: () {
+              PlayingController.to.playByIndex(0, "queueTitle",
+                  mediaItem: controller.mediaSongs.value);
+              toPlayingPage();
+            },
+          ),
           //歌曲列表content
           _buildConetent(context)
         ],
@@ -53,7 +63,7 @@ class RecomDailyPage extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   return _buildItems(
-                      context, controller.items().elementAt(index));
+                      context, controller.items().elementAt(index), index);
                 },
                 childCount: controller.items().length,
               ),
@@ -62,33 +72,34 @@ class RecomDailyPage extends StatelessWidget {
     });
   }
 
-  Widget _buildItems(BuildContext conetext, Song song) {
+  Widget _buildItems(BuildContext conetext, Song song, int index) {
     return CheckSongCell(
-      song: song,
-      checkSongController: controller,
-      cellClickCallback: (item) {
-        if (controller.showCheck.value) {
-          //选择打开
-          List<Song>? oldList = controller.selectedSong.value;
-          if (GetUtils.isNullOrBlank(oldList) != true &&
-              oldList?.indexWhere((element) => element.id == item.id) != -1) {
-            //已选中
-            oldList!.removeWhere((element) => element.id == item.id);
-            controller.selectedSong.value = List.from(oldList);
-          } else {
-            //未选中
-            if (oldList == null) {
-              oldList = [item];
+        song: song,
+        checkSongController: controller,
+        cellClickCallback: (item) {
+          if (controller.showCheck.value) {
+            //选择打开
+            List<Song>? oldList = controller.selectedSong.value;
+            if (GetUtils.isNullOrBlank(oldList) != true &&
+                oldList?.indexWhere((element) => element.id == item.id) != -1) {
+              //已选中
+              oldList!.removeWhere((element) => element.id == item.id);
+              controller.selectedSong.value = List.from(oldList);
             } else {
-              oldList.add(item);
+              //未选中
+              if (oldList == null) {
+                oldList = [item];
+              } else {
+                oldList.add(item);
+              }
+              controller.selectedSong.value = List.from(oldList);
             }
-            controller.selectedSong.value = List.from(oldList);
+          } else {
+            PlayingController.to.playByIndex(index, "queueTitle",
+                mediaItem: controller.mediaSongs.value);
+            toPlayingPage();
           }
-        } else {
-          //点击播放音乐
-          controller.playList(conetext, song: song);
-        }
-      },
-    );
+        },
+        playingController: playingController);
   }
 }

@@ -51,7 +51,6 @@ class NetworkImgLayer extends StatelessWidget {
           memCacheHeight = height.cacheSize(context);
         }
       }
-
     }
 
     setMemCacheSizes();

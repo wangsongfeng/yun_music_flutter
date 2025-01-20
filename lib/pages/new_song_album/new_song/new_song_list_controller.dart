@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/player_context.dart';
 
 import '../../../api/music_api.dart';
 import '../../../commons/models/song_model.dart';
@@ -28,7 +27,5 @@ class NewSongListController extends GetxController {
     }
   }
 
-  void playList(BuildContext context, {Song? song}) {
-    context.playerService.playList(items.value!, song!);
-  }
+  void playList(BuildContext context, {Song? song}) {}
 }

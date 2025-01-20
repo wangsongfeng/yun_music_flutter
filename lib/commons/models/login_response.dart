@@ -4,8 +4,6 @@ import 'user_info_model.dart';
 
 part 'login_response.g.dart';
 
-
-
 @JsonSerializable()
 class LoginResponse extends Object {
   @JsonKey(name: 'loginType')
@@ -38,14 +36,7 @@ class LoginResponse extends Object {
   factory LoginResponse.fromJson(Map<String, dynamic> srcJson) =>
       _$LoginResponseFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'loginType': loginType,
-        'code': code,
-        'account': account.toJson(),
-        'token': token,
-        'profile': profile?.toJson(),
-        'cookie': cookie,
-      };
+  Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }
 
 @JsonSerializable()

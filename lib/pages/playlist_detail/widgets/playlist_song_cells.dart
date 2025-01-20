@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/player/player_context.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/pages/playlist_detail/playlist_detail_controller.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import '../../../commons/models/song_model.dart';
 import '../../../commons/res/dimens.dart';
@@ -13,7 +14,7 @@ import '../../../utils/image_utils.dart';
 import '../../day_song_recom/widgets/general_song_cell.dart';
 
 class PlaylistSongCells extends StatelessWidget {
-  const PlaylistSongCells(
+  PlaylistSongCells(
       {super.key,
       required this.song,
       required this.index,
@@ -26,6 +27,8 @@ class PlaylistSongCells extends StatelessWidget {
   final ParamSingleCallback<Song> cellClickCallback;
   final bool needBgColor;
   final PlaylistDetailController controller;
+
+  final playingController = Get.find<PlayingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,8 @@ class PlaylistSongCells extends StatelessWidget {
                                 '${index + 1}',
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: Dimens.font_sp16,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: Dimens.font_sp15,
                                     color: Get.isDarkMode
                                         ? AppThemes.white.withOpacity(0.4)
                                         : AppThemes.color_156),
@@ -78,6 +82,7 @@ class PlaylistSongCells extends StatelessWidget {
               Expanded(
                   child: GeneralSongCell(
                 song: song,
+                playingController: playingController,
               )),
 
               if (!controller.showCheck.value)

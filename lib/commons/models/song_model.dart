@@ -1,5 +1,3 @@
-
-
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yun_music/commons/models/privilege_model.dart';
@@ -28,6 +26,9 @@ class Song extends Object {
 
   @JsonKey(name: 'st')
   int st;
+
+  @JsonKey(name: 'dt')
+  int? dt;
 
   @JsonKey(name: 'al')
   AlbumSimple al;
@@ -67,49 +68,13 @@ class Song extends Object {
     this.actionType,
     this.originSongSimpleData,
     this.st,
+    this.dt,
   );
 
-  factory Song.fromJson(Map<String, dynamic> json) => Song(
-        json['name'] as String,
-        json['id'] as int,
-        (json['ar'] as List<dynamic>)
-            .map((e) => Ar.fromJson(Map<String, dynamic>.from(e)))
-            .toList(),
-        (json['alia'] as List<dynamic>).map((e) => e as String).toList(),
-        json['fee'] as int,
-        json['v'] as int,
-        AlbumSimple.fromJson(Map<String, dynamic>.from(json['al'])),
-        json['copyright'] as int?,
-        json['originCoverType'] as int?,
-        json['mv'] as int?,
-        json['privilege'] == null
-            ? null
-            : PrivilegeModel.fromJson(
-                Map<String, dynamic>.from(json['privilege'])),
-        json['actionType'] as String?,
-        json['originSongSimpleData'] == null
-            ? null
-            : OriginSongSimpleData.fromJson(
-                Map<String, dynamic>.from(json['originSongSimpleData'])),
-        json['st'] as int,
-      );
+  factory Song.fromJson(Map<String, dynamic> srcJson) =>
+      _$SongFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'name': name,
-        'id': id,
-        'ar': ar.map((e) => e.toJson()).toList(),
-        'alia': alia,
-        'fee': fee,
-        'v': v,
-        'st': st,
-        'al': al.toJson(),
-        'copyright': copyright,
-        'originCoverType': originCoverType,
-        'mv': mv,
-        'privilege': privilege?.toJson(),
-        'actionType': actionType,
-        'originSongSimpleData': originSongSimpleData?.toJson(),
-      };
+  Map<String, dynamic> toJson() => _$SongToJson(this);
 
   String getSongCellSubTitle() {
     final ars =
@@ -123,6 +88,7 @@ class Song extends Object {
     }
     return str;
   }
+
   bool canPlay() {
     return true;
     // return st == 0 || st == 1;
@@ -214,14 +180,7 @@ class OriginSongSimpleData extends Object {
   OriginSongSimpleData(this.artists);
 
   factory OriginSongSimpleData.fromJson(Map<String, dynamic> srcJson) =>
-      OriginSongSimpleData(
-        (srcJson['artists'] as List<dynamic>)
-            .map((e) => Ar.fromJson(Map<String, dynamic>.from(e)))
-            .toList(),
-      );
+      _$OriginSongSimpleDataFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'artists': artists.map((e) => e.toJson()).toList(),
-      };
+  Map<String, dynamic> toJson() => _$OriginSongSimpleDataToJson(this);
 }
-

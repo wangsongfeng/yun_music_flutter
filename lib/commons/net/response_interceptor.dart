@@ -63,8 +63,6 @@ class ResponseInterceptor extends InterceptorsWrapper {
       case DioExceptionType.unknown:
         var res = await checkConect();
         return res + " \n 网络异常，请稍后重试！";
-      default:
-        return 'Dio异常';
     }
   }
 

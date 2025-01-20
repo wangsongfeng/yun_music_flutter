@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/models/song_model.dart';
-import 'package:yun_music/commons/player/player_context.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/values/function.dart';
@@ -11,6 +10,7 @@ import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/day_song_recom/widgets/general_song_cell.dart';
 import 'package:yun_music/utils/image_utils.dart';
 import 'package:yun_music/utils/song_check_controller.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import 'round_checkbox.dart';
 
@@ -19,11 +19,14 @@ class CheckSongCell extends StatelessWidget {
       {super.key,
       required this.song,
       required this.checkSongController,
-      required this.cellClickCallback});
+      required this.cellClickCallback,
+      required this.playingController});
 
   final Song song;
 
   final CheckSongController checkSongController;
+
+  final PlayingController playingController;
 
   final ParamSingleCallback<Song> cellClickCallback;
 
@@ -77,20 +80,27 @@ class CheckSongCell extends StatelessWidget {
 
                 ///播放中...
                 Obx(() {
-                  return (context.playerService.curPlayId == song.id &&
-                          checkSongController.showCheck.value == false)
-                      ? Padding(
-                          padding: EdgeInsets.only(right: Dimens.gap_dp10),
-                          child: Image.asset(
-                            ImageUtils.getPlayingMusicTag(),
-                            color: AppThemes.btn_selectd_color,
-                            width: Dimens.gap_dp13,
-                          ),
-                        )
-                      : const SizedBox.shrink();
+                  if (playingController.mediaItem.value.id ==
+                          song.id.toString() &&
+                      checkSongController.showCheck.value == false) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: Dimens.gap_dp10),
+                      child: Image.asset(
+                        ImageUtils.getPlayingMusicTag(),
+                        color: AppThemes.btn_selectd_color,
+                        width: Dimens.gap_dp12,
+                      ),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
                 }),
 
-                Expanded(child: GeneralSongCell(song: song)),
+                Expanded(
+                    child: GeneralSongCell(
+                  song: song,
+                  playingController: playingController,
+                )),
 
                 if (!checkSongController.showCheck.value)
                   //最右边

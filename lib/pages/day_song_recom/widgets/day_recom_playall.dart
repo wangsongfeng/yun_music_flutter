@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
@@ -6,13 +5,16 @@ import 'package:yun_music/pages/day_song_recom/controller.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 import '../../../commons/res/dimens.dart';
+import '../../../commons/values/function.dart';
 import '../../../commons/widgets/round_checkbox.dart';
 import '../../../commons/widgets/text_button_icon.dart';
 import '../../../delegate/expaned_sliver_delegate.dart';
 import '../../../utils/image_utils.dart';
 
 class DayRecomPlayallBtn extends GetView<DaySongRecmController> {
-  const DayRecomPlayallBtn({super.key});
+  final ParamVoidCallback? playAllTap;
+
+  const DayRecomPlayallBtn({super.key, this.playAllTap});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class DayRecomPlayallBtn extends GetView<DaySongRecmController> {
         minHeight: Dimens.gap_dp45,
         child: Obx(
           () => (GetUtils.isNullOrBlank(controller.items()) == true)
-              ? const  SizedBox.shrink()
+              ? const SizedBox.shrink()
               : Container(
                   color: Get.theme.cardColor,
                   child: Row(
@@ -59,9 +61,7 @@ class DayRecomPlayallBtn extends GetView<DaySongRecmController> {
                         Padding(
                             padding: EdgeInsets.only(left: Dimens.gap_dp8),
                             child: MyTextButtonWithIcon(
-                                onPressed: () {
-                                  controller.playList(context);
-                                },
+                                onPressed: playAllTap,
                                 gap: Dimens.gap_dp2,
                                 icon: Container(
                                   width: Dimens.gap_dp21,
@@ -91,7 +91,9 @@ class DayRecomPlayallBtn extends GetView<DaySongRecmController> {
                                         text: '播放全部',
                                         style: headlineStyle(),
                                         children: [
-                                      WidgetSpan(child: SizedBox(width: Dimens.gap_dp5)),
+                                      WidgetSpan(
+                                          child:
+                                              SizedBox(width: Dimens.gap_dp5)),
                                       TextSpan(
                                           text:
                                               '(共${controller.items().length}首)',

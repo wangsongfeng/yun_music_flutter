@@ -5,6 +5,7 @@ import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/pages/playlist_detail/playlist_detail_controller.dart';
 
 import '../../../commons/res/dimens.dart';
+import '../../../commons/values/function.dart';
 import '../../../commons/widgets/round_checkbox.dart';
 import '../../../commons/widgets/text_button_icon.dart';
 import '../../../utils/common_utils.dart';
@@ -12,8 +13,10 @@ import '../../../utils/image_utils.dart';
 
 class PlaylistDetailPlayall extends StatelessWidget
     implements PreferredSizeWidget {
-  const PlaylistDetailPlayall({super.key, required this.controller});
+  const PlaylistDetailPlayall(
+      {super.key, required this.controller, this.playAllTap});
   final PlaylistDetailController controller;
+  final ParamVoidCallback? playAllTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,51 +60,46 @@ class PlaylistDetailPlayall extends StatelessWidget
                           .copyWith(fontWeight: FontWeight.normal),
                     ))
               else
-                Row(
-                  children: [
-                    Container(
-                      width: Dimens.gap_dp21,
-                      height:
-                          controller.detail.value?.playlist.specialType != 200
-                              ? Dimens.gap_dp21
-                              : Dimens.gap_dp18,
-                      padding: EdgeInsets.only(left: Dimens.gap_dp2),
-                      decoration: BoxDecoration(
-                        color: AppThemes.btn_selectd_color,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                              controller.detail.value?.playlist.specialType !=
-                                      200
-                                  ? Dimens.gap_dp12
-                                  : Dimens.gap_dp7),
+                Padding(
+                    padding: EdgeInsets.only(left: Dimens.gap_dp4),
+                    child: MyTextButtonWithIcon(
+                        onPressed: playAllTap,
+                        gap: Dimens.gap_dp2,
+                        icon: Container(
+                          width: Dimens.gap_dp21,
+                          height: Dimens.gap_dp21,
+                          margin: EdgeInsets.only(right: Dimens.gap_dp6),
+                          padding: EdgeInsets.only(left: Dimens.gap_dp2),
+                          decoration: BoxDecoration(
+                            color: AppThemes.btn_selectd_color,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(Dimens.gap_dp12),
+                            ),
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              ImageUtils.getImagePath('icon_play_small'),
+                              color: AppThemes.white,
+                              width: Dimens.gap_dp12,
+                              height: Dimens.gap_dp12,
+                            ),
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          ImageUtils.getImagePath('icon_play_small'),
-                          color: AppThemes.white,
-                          width: Dimens.gap_dp12,
-                          height: Dimens.gap_dp12,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: Dimens.gap_dp8),
-                    RichText(
-                      text: TextSpan(
-                        text: '播放全部',
-                        style: headlineStyle(),
-                        children: [
-                          WidgetSpan(child: SizedBox(width: Dimens.gap_dp5)),
-                          TextSpan(
-                              text: '(${controller.itemSize.value ?? 0})',
-                              style: TextStyle(
-                                  fontSize: Dimens.font_sp12,
-                                  color: AppThemes.color_150.withOpacity(0.8)))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                        label: RichText(
+                            text: TextSpan(
+                                text: '播放全部',
+                                style: headlineStyle(),
+                                children: [
+                              WidgetSpan(
+                                  child: SizedBox(width: Dimens.gap_dp5)),
+                              TextSpan(
+                                  text:
+                                      '(共${controller.songs.value?.length ?? 0}首)',
+                                  style: TextStyle(
+                                      fontSize: Dimens.font_sp12,
+                                      color:
+                                          AppThemes.color_150.withOpacity(0.8)))
+                            ])))),
               //多选按钮
               Expanded(child: Container()),
               MyTextButtonWithIcon(

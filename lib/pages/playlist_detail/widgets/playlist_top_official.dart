@@ -23,9 +23,9 @@ class PlaylistTopOfficial extends StatelessWidget {
           imageBuilder: (context, provider) {
             return ClipRect(
               child: Align(
-                alignment: Alignment.topLeft,
-                widthFactor:
-                    controller.detail.value!.playlist.getTitleImgFactor(),
+                alignment: Alignment.topCenter,
+                // widthFactor:
+                //     controller.detail.value!.playlist.getTitleImgFactor(),
                 child: Image(image: provider),
               ),
             );

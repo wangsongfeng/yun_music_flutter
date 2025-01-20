@@ -10,4 +10,11 @@ class CommonService {
       return map;
     });
   }
+
+  static Future<List<dynamic>> jsonArrayDecode(String path) async {
+    return await rootBundle.loadString(path).then((value) {
+      List<dynamic> map = json.decode(value);
+      return map;
+    });
+  }
 }

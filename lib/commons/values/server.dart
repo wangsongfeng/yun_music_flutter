@@ -5,7 +5,13 @@ import 'package:logger/logger.dart';
 
 const SERVER_API_URL = 'https://netease-cloud-music-api-masterxing.vercel.app';
 // const SERVER_API_URL = 'https://netease-cloud-music-api-sable-gamma.vercel.app';
+const NEW_SERVER_URL = "https://music.163.com";
 
+const HOSTS = [
+  'music.163.com',
+  'interface.music.163.com',
+  'interface3.music.163.com'
+];
 
 const CACHE_NET_IMAGE_HEADER = {
   "User-Agent":
@@ -24,3 +30,5 @@ class DebugPrintConsoleOutput extends LogOutput {
     }
   }
 }
+
+

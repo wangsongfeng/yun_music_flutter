@@ -9,6 +9,7 @@ import '../../../commons/widgets/music_loading.dart';
 import '../../../services/auth_service.dart';
 import '../../../utils/common_utils.dart';
 import '../../../utils/image_utils.dart';
+import '../../../vmusic/playing_controller.dart';
 import 'playlist_song_cells.dart';
 
 class PlaylistSongContent extends StatelessWidget {
@@ -62,7 +63,9 @@ class PlaylistSongContent extends StatelessWidget {
                           controller.selectedSong.value = List.from(oldList);
                         }
                       } else {
-                        controller.playList(context, song: item);
+                        PlayingController.to.playByIndex(index, "queueTitle",
+                            mediaItem: controller.mediaSongs.value);
+                        toPlayingPage();
                       }
                     },
                     controller: controller,

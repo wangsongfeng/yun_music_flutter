@@ -15,6 +15,7 @@ import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/pages/home/widgets/home_top_bar.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/approute_observer.dart';
+import 'package:yun_music/vmusic/playing_binding.dart';
 
 import '../dynamic_page/dynamic_page.dart';
 import '../mine/mine_page.dart';
@@ -67,6 +68,8 @@ class _HomePageState extends State<HomePage> with RouteAware {
         PlayerService.to.playBarHeight.value = Adapt.bottomPadding();
       }
     });
+
+    PlayingBinding().dependencies();
   }
 
   @override
