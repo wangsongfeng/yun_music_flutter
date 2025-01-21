@@ -26,7 +26,7 @@ dependencies:
   android_intent_plus: ^5.0.2
   json_annotation: ^4.9.0
   dio: ^5.5.0+1
-  connectivity_plus: ^6.0.1
+  # connectivity_plus: ^6.1.2
   dio_http2_adapter: ^2.4.0
   logger: ^2.4.0
   event_bus: ^2.0.0

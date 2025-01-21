@@ -22,32 +22,37 @@ class RecomDailyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
-      child: CustomScrollView(
-        slivers: [
-          //header
-          const RecomDailyHeaderPage(),
-          //间距
-          SliverPersistentHeader(
-              delegate: GeneralSliverDelegate(
-            child: PreferredSize(
-                preferredSize: Size.fromHeight(Dimens.gap_dp12),
-                child: const SizedBox.shrink()),
-          )),
-          //播放全部
-          DayRecomPlayallBtn(
-            playAllTap: () {
-              PlayingController.to.playByIndex(0, "queueTitle",
-                  mediaItem: controller.mediaSongs.value);
-              toPlayingPage();
-            },
-          ),
-          //歌曲列表content
-          _buildConetent(context)
-        ],
-      ),
-    );
+    return Obx(() {
+      return Container(
+        margin: EdgeInsets.only(
+            bottom: PlayingController.to.mediaItems.isNotEmpty
+                ? Adapt.tabbar_padding()
+                : 0),
+        child: CustomScrollView(
+          slivers: [
+            //header
+            const RecomDailyHeaderPage(),
+            //间距
+            SliverPersistentHeader(
+                delegate: GeneralSliverDelegate(
+              child: PreferredSize(
+                  preferredSize: Size.fromHeight(Dimens.gap_dp12),
+                  child: const SizedBox.shrink()),
+            )),
+            //播放全部
+            DayRecomPlayallBtn(
+              playAllTap: () {
+                PlayingController.to.playByIndex(0, "queueTitle",
+                    mediaItem: controller.mediaSongs.value);
+                toPlayingPage();
+              },
+            ),
+            //歌曲列表content
+            _buildConetent(context)
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildConetent(BuildContext conetxt) {

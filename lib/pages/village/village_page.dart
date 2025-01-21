@@ -9,6 +9,7 @@ import '../../commons/res/dimens.dart';
 import '../../commons/skeleton/custom_underline_indicator.dart';
 import '../../commons/widgets/music_loading.dart';
 import '../../utils/adapt.dart';
+import '../../vmusic/playing_controller.dart';
 
 class VillagePage extends StatefulWidget {
   const VillagePage({super.key});
@@ -39,9 +40,9 @@ class _VillagePageState extends State<VillagePage>
                       Adapt.topPadding()),
                 ),
                 margin: EdgeInsets.only(
-                    bottom: Dimens.gap_dp49 +
-                        Adapt.bottomPadding() +
-                        kBottomNavigationBarHeight),
+                    bottom: PlayingController.to.mediaItems.isNotEmpty
+                        ? Adapt.tabbar_padding() + kToolbarHeight
+                        : Adapt.tabbar_padding()),
                 child: Column(
                   children: [
                     Container(

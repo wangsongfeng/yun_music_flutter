@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/player/player_service.dart';
-import 'package:yun_music/commons/res/dimens.dart';
 
 class MusicPlaybarOverlay {
   OverlayEntry? _overlayEntry;
@@ -22,8 +21,7 @@ class MusicPlaybarOverlay {
                 color: Colors.transparent,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  height:
-                      Dimens.gap_dp49 + PlayerService.to.playBarHeight.value,
+                  height: PlayerService.to.playBarHeight.value,
                   child: _child,
                 ),
               ));

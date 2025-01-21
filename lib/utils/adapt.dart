@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/commons/res/dimens.dart';
 
 class Adapt {
   Adapt._();
@@ -21,7 +22,6 @@ class Adapt {
     _height = size.height;
     _bottomPadding = context.mediaQueryPadding.bottom;
     _topPadding = context.mediaQueryPadding.top;
-
   }
 
   static void _init(int number) {
@@ -52,6 +52,14 @@ class Adapt {
 
   static double topPadding() {
     return _topPadding;
+  }
+
+  static double tabbar_padding() {
+    return Dimens.gap_dp49 + bottomPadding();
+  }
+
+  static tabbar_height() {
+    return Dimens.gap_dp49;
   }
 
   static double contentHeight() {

@@ -17,6 +17,7 @@ import '../../../commons/res/dimens.dart';
 import '../../../commons/widgets/music_loading.dart';
 import '../../../utils/common_utils.dart';
 import '../../../utils/image_utils.dart';
+import '../../../vmusic/playing_controller.dart';
 
 class PlaylistContentPage extends StatefulWidget {
   const PlaylistContentPage({super.key, required this.tagModel, this.mkey});
@@ -62,25 +63,29 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
           } else {
             refreshController.loadNoData();
           }
-          return Container(
-              color: Get.theme.cardColor,
-              margin: EdgeInsets.only(
-                  bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
-              child: SmartRefresher(
-                controller: refreshController,
-                footer: const FooterLoading(
-                  noMoreText: "暂无更多歌单",
-                ),
-                onLoading: () async {
-                  playlistContentController.loadMore();
-                },
-                onRefresh: () async {
-                  playlistContentController.refreshData();
-                },
-                enablePullUp: true,
-                enablePullDown: false,
-                child: _buildContent(state.datas),
-              ));
+          return Obx(() {
+            return Container(
+                color: Get.theme.cardColor,
+                margin: EdgeInsets.only(
+                    bottom: PlayingController.to.mediaItems.isNotEmpty
+                        ? Adapt.tabbar_padding()
+                        : 0),
+                child: SmartRefresher(
+                  controller: refreshController,
+                  footer: const FooterLoading(
+                    noMoreText: "暂无更多歌单",
+                  ),
+                  onLoading: () async {
+                    playlistContentController.loadMore();
+                  },
+                  onRefresh: () async {
+                    playlistContentController.refreshData();
+                  },
+                  enablePullUp: true,
+                  enablePullDown: false,
+                  child: _buildContent(state.datas),
+                ));
+          });
         },
         onEmpty: const Text('empty'),
         onError: (err) {

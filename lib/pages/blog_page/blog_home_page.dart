@@ -7,6 +7,7 @@ import 'package:yun_music/pages/blog_page/models/blog_home_model.dart';
 import 'package:yun_music/pages/blog_page/models/blog_recom_model.dart';
 import 'package:yun_music/pages/blog_page/widgets/blog_home_grid.dart';
 import 'package:yun_music/utils/adapt.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import '../../commons/res/dimens.dart';
 import '../../commons/widgets/music_loading.dart';
@@ -67,52 +68,54 @@ class _BlogHomePageState extends State<BlogHomePage> {
 
   //创建试图
   Widget _buildListView(BuildContext context, BlogHomeModel? state) {
-    return Container(
-      padding: EdgeInsets.only(
-        top: (Get.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()),
-      ),
-      margin: EdgeInsets.only(
-          bottom: Dimens.gap_dp49 +
-              Adapt.bottomPadding() +
-              kBottomNavigationBarHeight),
-      child: SmartRefresher(
-          controller: refreshController,
-          // enablePullUp: true,
-          enablePullDown: true,
-          header: MusicRefresh(),
-          onRefresh: () {
-            controller.loadRefresh();
-          },
-          footer: CustomFooter(
-              height: Dimens.gap_dp50 + Adapt.bottomPadding(),
-              builder: (context, mode) {
-                return Container();
-              }),
-          child: CustomScrollView(
-            slivers: [
-              if (state?.banner != null)
-                SliverToBoxAdapter(
-                  child: BlogHomeBanner(
-                    banners: state!.banner!,
+    return Obx(() {
+      return Container(
+        padding: EdgeInsets.only(
+          top: (Get.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()),
+        ),
+        margin: EdgeInsets.only(
+            bottom: PlayingController.to.mediaItems.isNotEmpty
+                ? Adapt.tabbar_padding() + kToolbarHeight
+                : Adapt.tabbar_padding()),
+        child: SmartRefresher(
+            controller: refreshController,
+            // enablePullUp: true,
+            enablePullDown: true,
+            header: MusicRefresh(),
+            onRefresh: () {
+              controller.loadRefresh();
+            },
+            footer: CustomFooter(
+                height: Dimens.gap_dp50 + Adapt.bottomPadding(),
+                builder: (context, mode) {
+                  return Container();
+                }),
+            child: CustomScrollView(
+              slivers: [
+                if (state?.banner != null)
+                  SliverToBoxAdapter(
+                    child: BlogHomeBanner(
+                      banners: state!.banner!,
+                    ),
                   ),
+                if (state?.personal != null)
+                  SliverToBoxAdapter(
+                    child: BlogHomePersonal(personal: state!.personal!),
+                  ),
+                SliverList.separated(
+                  itemBuilder: (context, index) {
+                    final model = state!.data!.elementAt(index);
+                    return _buildContentItem(model);
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 2);
+                  },
+                  itemCount: state != null ? state.data!.length : 0,
                 ),
-              if (state?.personal != null)
-                SliverToBoxAdapter(
-                  child: BlogHomePersonal(personal: state!.personal!),
-                ),
-              SliverList.separated(
-                itemBuilder: (context, index) {
-                  final model = state!.data!.elementAt(index);
-                  return _buildContentItem(model);
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 2);
-                },
-                itemCount: state != null ? state.data!.length : 0,
-              ),
-            ],
-          )),
-    );
+              ],
+            )),
+      );
+    });
   }
 
   Widget _buildContentItem(BlogRecomModel model) {

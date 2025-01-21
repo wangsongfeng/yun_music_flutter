@@ -23,6 +23,7 @@ import 'package:yun_music/pages/recommend/widgets/recom_yun_product.dart';
 import 'package:yun_music/pages/recommend/widgets/recon_slide_single.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import 'widgets/recom_appbar.dart';
 
@@ -59,7 +60,6 @@ class _RecomPageState extends State<RecomPage>
       appBar: RecomAppbar(),
       extendBodyBehindAppBar: true,
       body: Container(
-        margin: EdgeInsets.only(bottom: Dimens.gap_dp49),
         color: Colors.transparent,
         child: Stack(
           children: [
@@ -68,22 +68,27 @@ class _RecomPageState extends State<RecomPage>
               top: 0,
               child: RecomHeaderBgColors(),
             ),
-            Positioned.fill(
-              top: (Get.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()),
-              bottom: kToolbarHeight,
-              child: controller.obx(
-                  (state) {
-                    refreshController.refreshCompleted();
-                    return _buildListView(context, state);
-                  },
-                  onEmpty: const Text('empty'),
-                  onError: (err) {
-                    toast(err.toString());
-                    refreshController.refreshFailed();
-                    return const SizedBox.shrink();
-                  },
-                  onLoading: _buildLoading()),
-            )
+            Obx(() {
+              return Positioned.fill(
+                top:
+                    (Get.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()),
+                bottom: PlayingController.to.mediaItems.isNotEmpty
+                    ? Adapt.tabbar_padding() + kToolbarHeight
+                    : Adapt.tabbar_height(),
+                child: controller.obx(
+                    (state) {
+                      refreshController.refreshCompleted();
+                      return _buildListView(context, state);
+                    },
+                    onEmpty: const Text('empty'),
+                    onError: (err) {
+                      toast(err.toString());
+                      refreshController.refreshFailed();
+                      return const SizedBox.shrink();
+                    },
+                    onLoading: _buildLoading()),
+              );
+            })
           ],
         ),
       ),

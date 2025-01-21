@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/player/player_service.dart';
-import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
 import 'package:yun_music/pages/blog_page/blog_home_page.dart';
 import 'package:yun_music/pages/home/drawer/drawer_view.dart';
@@ -16,6 +15,7 @@ import 'package:yun_music/pages/home/widgets/home_top_bar.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/approute_observer.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
 import '../dynamic_page/dynamic_page.dart';
 import '../mine/mine_page.dart';
@@ -56,16 +56,18 @@ class _HomePageState extends State<HomePage> with RouteAware {
     controller.homeMenuStream.add(true);
     eventBus.on<PlayBarEvent>().listen((event) {
       if (event.type == PlayBarShowHiddenType.hidden) {
-        PlayerService.to.plarBarBottom.value =
-            -(Dimens.gap_dp49 + Adapt.bottomPadding());
-        PlayerService.to.playBarHeight.value = -Dimens.gap_dp49;
-      } else if (event.type == PlayBarShowHiddenType.tabbar) {
-        PlayerService.to.plarBarBottom.value =
-            Dimens.gap_dp49 + Adapt.bottomPadding();
+        PlayerService.to.plarBarBottom.value = -Adapt.tabbar_padding();
         PlayerService.to.playBarHeight.value = 0;
+      } else if (event.type == PlayBarShowHiddenType.tabbar) {
+        if (PlayingController.to.mediaItems.isNotEmpty) {
+          PlayerService.to.plarBarBottom.value = Adapt.tabbar_padding();
+          PlayerService.to.playBarHeight.value = Adapt.tabbar_height();
+        }
       } else if (event.type == PlayBarShowHiddenType.bootom) {
-        PlayerService.to.plarBarBottom.value = 0;
-        PlayerService.to.playBarHeight.value = Adapt.bottomPadding();
+        if (PlayingController.to.mediaItems.isNotEmpty) {
+          PlayerService.to.plarBarBottom.value = 0;
+          PlayerService.to.playBarHeight.value = Adapt.tabbar_padding();
+        }
       }
     });
 
@@ -112,8 +114,13 @@ class _HomePageState extends State<HomePage> with RouteAware {
           backgroundColor: Colors.white,
           extendBodyBehindAppBar: true,
           extendBody: true,
-          drawer: const DrawerPage(
-            key: Key('home drawer'),
+          drawer: Drawer(
+            shape:
+                const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            width: Adapt.screenW() * 0.85,
+            child: const DrawerPage(
+              key: Key('home drawer'),
+            ),
           ),
           onDrawerChanged: (isOpend) {
             if (isOpend == true) {

@@ -130,11 +130,15 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
         body: Stack(
           children: [
             Positioned.fill(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
-                child: _buildContent(context),
-              ),
+              child: Obx(() {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: PlayingController.to.mediaItems.isNotEmpty
+                          ? Adapt.tabbar_padding()
+                          : 0),
+                  child: _buildContent(context),
+                );
+              }),
             )
           ],
         ));

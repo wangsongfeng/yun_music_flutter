@@ -57,30 +57,6 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
       body: Stack(
         children: [
           Positioned.fill(child: RecomDailyPage()),
-          // Positioned(
-          //   bottom: 0,
-          //   child: SlideTransition(
-          //     position: controller.animation,
-          //     child: Obx(() {
-          //       return BottomControl(
-          //         canPressed:
-          //             GetUtils.isNullOrBlank(controller.selectedSong.value) !=
-          //                 true,
-          //         nextPlayPressed: () {
-          //           if (GetUtils.isNullOrBlank(controller.selectedSong.value) !=
-          //               true) {
-          //             // final list = controller.selectedSong.value!.reversed
-          //             //     .map((e) => e.metadata)
-          //             //     .toList();
-          //             // context.player.insertListToNext(list);
-          //             // controller.selectedSong.value = null;
-          //             toast('已添加到播放列表');
-          //           }
-          //         },
-          //       );
-          //     }),
-          //   ),
-          // ),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 // ignore_for_file: unrelated_type_equality_checks
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:yun_music/commons/values/server.dart';
 
@@ -61,27 +60,27 @@ class ResponseInterceptor extends InterceptorsWrapper {
       case DioExceptionType.sendTimeout:
         return '发送请求超时，请检查网络设置';
       case DioExceptionType.unknown:
-        var res = await checkConect();
-        return res + " \n 网络异常，请稍后重试！";
+        // var res = await checkConect();
+        return "res" + " \n 网络异常，请稍后重试！";
     }
   }
 
-  static Future<dynamic> checkConect() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      return 'connected with mobile network';
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      return 'connected with wifi network';
-    } else if (connectivityResult == ConnectivityResult.ethernet) {
-      return 'connected with ethernet network';
-    } else if (connectivityResult == ConnectivityResult.vpn) {
-      return 'connected with vpn network';
-    } else if (connectivityResult == ConnectivityResult.other) {
-      return 'connected with other network';
-    } else if (connectivityResult == ConnectivityResult.none) {
-      return 'not connected to any network';
-    } else {
-      return "not connected to any network";
-    }
-  }
+  // static Future<dynamic> checkConect() async {
+  //   final connectivityResult = await (Connectivity().checkConnectivity());
+  //   if (connectivityResult == ConnectivityResult.mobile) {
+  //     return 'connected with mobile network';
+  //   } else if (connectivityResult == ConnectivityResult.wifi) {
+  //     return 'connected with wifi network';
+  //   } else if (connectivityResult == ConnectivityResult.ethernet) {
+  //     return 'connected with ethernet network';
+  //   } else if (connectivityResult == ConnectivityResult.vpn) {
+  //     return 'connected with vpn network';
+  //   } else if (connectivityResult == ConnectivityResult.other) {
+  //     return 'connected with other network';
+  //   } else if (connectivityResult == ConnectivityResult.none) {
+  //     return 'not connected to any network';
+  //   } else {
+  //     return "not connected to any network";
+  //   }
+  // }
 }

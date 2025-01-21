@@ -11,6 +11,7 @@ import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../commons/res/app_themes.dart';
 import '../../utils/approute_observer.dart';
+import '../../vmusic/playing_controller.dart';
 import 'blog_detail_songs_page.dart';
 import 'widgets/blog_detail_appbar.dart';
 import 'widgets/blog_detail_header.dart';
@@ -99,69 +100,74 @@ class _BlogDetailPageState extends State<BlogDetailPage> with RouteAware {
             ),
           ),
           backgroundColor: AppThemes.card_color,
-          body: Padding(
-            padding: EdgeInsets.only(
-                bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
-            child: ExtendedNestedScrollView(
-                // physics: const BouncingScrollPhysics(),
-                controller: _extendNestCtr,
-                onlyOneScrollInBody: true,
-                pinnedHeaderSliverHeightBuilder: () => Dimens.gap_dp40,
-                headerSliverBuilder: (context1, innerBoxIsScrolled) {
-                  return [
-                    Obx(
-                      () => SliverAppBar(
-                        automaticallyImplyLeading: false,
-                        pinned: true,
-                        elevation: 0,
-                        scrolledUnderElevation: 0,
-                        toolbarHeight: Dimens.gap_dp40,
-                        collapsedHeight: Dimens.gap_dp40,
-                        forceElevated: false,
-                        stretch: true,
-                        expandedHeight: controller.headerHeight.value,
-                        flexibleSpace: FlexibleSpaceBar(
-                          collapseMode: CollapseMode.pin,
-                          stretchModes: const [
-                            StretchMode.zoomBackground,
-                            StretchMode.blurBackground,
-                          ],
-                          // collapseMode: CollapseMode.pin,
-                          background: LayoutBuilder(
-                              builder: (context2, boxconstraints) {
-                            return BlogDetailHeader(controller: controller);
-                          }),
+          body: Obx(() {
+            return Padding(
+              padding: EdgeInsets.only(
+                  bottom: PlayingController.to.mediaItems.isNotEmpty
+                      ? Adapt.tabbar_padding()
+                      : 0),
+              child: ExtendedNestedScrollView(
+                  // physics: const BouncingScrollPhysics(),
+                  controller: _extendNestCtr,
+                  onlyOneScrollInBody: true,
+                  pinnedHeaderSliverHeightBuilder: () => Dimens.gap_dp40,
+                  headerSliverBuilder: (context1, innerBoxIsScrolled) {
+                    return [
+                      Obx(
+                        () => SliverAppBar(
+                          automaticallyImplyLeading: false,
+                          pinned: true,
+                          elevation: 0,
+                          scrolledUnderElevation: 0,
+                          toolbarHeight: Dimens.gap_dp40,
+                          collapsedHeight: Dimens.gap_dp40,
+                          forceElevated: false,
+                          stretch: true,
+                          expandedHeight: controller.headerHeight.value,
+                          flexibleSpace: FlexibleSpaceBar(
+                            collapseMode: CollapseMode.pin,
+                            stretchModes: const [
+                              StretchMode.zoomBackground,
+                              StretchMode.blurBackground,
+                            ],
+                            // collapseMode: CollapseMode.pin,
+                            background: LayoutBuilder(
+                                builder: (context2, boxconstraints) {
+                              return BlogDetailHeader(controller: controller);
+                            }),
+                          ),
                         ),
                       ),
-                    ),
-                    SliverPersistentHeader(
-                        pinned: true,
-                        delegate: GeneralSliverDelegate(
-                            child: PreferredSize(
-                                preferredSize: Size.fromHeight(Dimens.gap_dp40),
-                                child: Container(
-                                    color:
-                                        controller.scoll_stickBar.value == true
-                                            ? Colors.white
-                                            : Colors.white,
-                                    child: BlogDetailSticky(
-                                        controller: controller)))))
-                  ];
-                },
-                body: Builder(builder: (BuildContext context) {
-                  return Column(
-                    children: [
-                      Expanded(
-                          child: TabBarView(
-                              controller: controller.tabController,
-                              children: [
-                            BlogDetailSongsPage(),
-                            Container(height: 2000)
-                          ]))
-                    ],
-                  );
-                })),
-          ),
+                      SliverPersistentHeader(
+                          pinned: true,
+                          delegate: GeneralSliverDelegate(
+                              child: PreferredSize(
+                                  preferredSize:
+                                      Size.fromHeight(Dimens.gap_dp40),
+                                  child: Container(
+                                      color: controller.scoll_stickBar.value ==
+                                              true
+                                          ? Colors.white
+                                          : Colors.white,
+                                      child: BlogDetailSticky(
+                                          controller: controller)))))
+                    ];
+                  },
+                  body: Builder(builder: (BuildContext context) {
+                    return Column(
+                      children: [
+                        Expanded(
+                            child: TabBarView(
+                                controller: controller.tabController,
+                                children: [
+                              BlogDetailSongsPage(),
+                              Container(height: 2000)
+                            ]))
+                      ],
+                    );
+                  })),
+            );
+          }),
         ),
         BlogDetailAppbar(
             appBarHeight: Adapt.px(44) + Adapt.topPadding(),

@@ -10,6 +10,7 @@ import '../../commons/res/app_themes.dart';
 import '../../commons/res/dimens.dart';
 import '../../utils/adapt.dart';
 import '../../utils/approute_observer.dart';
+import '../../vmusic/playing_controller.dart';
 import 'windgets/rank_global_page.dart';
 import 'windgets/rank_official_page.dart';
 import 'windgets/rank_recom_page.dart';
@@ -102,7 +103,9 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
         ? MusicLoading().paddingOnly(top: Dimens.gap_dp100)
         : Padding(
             padding: EdgeInsets.only(
-                bottom: Dimens.gap_dp49 + Adapt.bottomPadding()),
+                bottom: PlayingController.to.mediaItems.isNotEmpty
+                    ? Adapt.tabbar_padding()
+                    : 0),
             child: CustomScrollView(
               // physics: const ClampingScrollPhysics(),
               slivers: [
