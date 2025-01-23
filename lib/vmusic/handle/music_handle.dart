@@ -93,8 +93,8 @@ class MusicHandle extends BaseAudioHandler
             .firstWhereOrNull((element) => element.name == repeatMode) ??
         AudioServiceRepeatMode.all;
     _currentIndex = _box.get(PLAY_INDEX, defaultValue: 0);
-
-    List<String> playList = _box.get(PLAY_QUEUE, defaultValue: []);
+    List<dynamic> dynamicList = _box.get(PLAY_QUEUE, defaultValue: []);
+    List<String> playList = dynamicList.map((e) => e as String).toList();
     if (playList.isNotEmpty) {
       List<MediaItem> items = await compute(getCachePlayList,
           RootIsolateData(rootIsolateToken, playList: playList));

@@ -122,7 +122,7 @@ class MusicApi {
 
   ///获取每日推荐
   static Future<RcmdSongDailyModel?> getRcmdSongs() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     return CommonService.jsonDecode(JsonStringConstants.recommend_songs)
         .then((value) {
       return RcmdSongDailyModel.fromJson(value['data']);
@@ -151,7 +151,7 @@ class MusicApi {
     //       .map((e) => PlayListTagModel.fromJson(e))
     //       .toList();
     // }
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson = await CommonService.jsonDecode(
         JsonStringConstants.playlist_collection_tags);
     data = (localJson['tags'] as List)
@@ -174,7 +174,7 @@ class MusicApi {
     // return data;
 
     PlaylistHasMoreModel? data;
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson = await CommonService.jsonDecode(
         JsonStringConstants.playlist_collection_recom);
     final list = (localJson['result'] as List)
@@ -255,7 +255,7 @@ class MusicApi {
     // return data;
 
     PlaylistDetailModel? data;
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson = await CommonService.jsonDecode(
         JsonStringConstants.playlist_detail_single);
     data = PlaylistDetailModel.fromJson(localJson);
@@ -278,7 +278,7 @@ class MusicApi {
 
     SongListModel? data;
 
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson = await CommonService.jsonDecode(
         JsonStringConstants.playlist_detail_songs);
     data = SongListModel.fromJson(localJson);
@@ -302,7 +302,7 @@ class MusicApi {
     // }
     // return List.empty();
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson =
         await CommonService.jsonDecode(JsonStringConstants.ranklist_songs);
     final list = (localJson['list'] as List)
@@ -321,7 +321,7 @@ class MusicApi {
     // }
     // return null;
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson =
         await CommonService.jsonDecode(JsonStringConstants.new_song_recom);
     final list = (localJson['result'] as List);
@@ -337,7 +337,7 @@ class MusicApi {
     //       .toList();
     // }
     // return null;
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson =
         await CommonService.jsonDecode(JsonStringConstants.new_song_all);
     final list = (localJson['data'] as List);
@@ -354,7 +354,7 @@ class MusicApi {
     // }
     // return null;
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson =
         await CommonService.jsonDecode(JsonStringConstants.new_album_news);
     final list = (localJson['products'] as List);
@@ -389,7 +389,7 @@ class MusicApi {
     // }
     // return resultData;
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson =
         await CommonService.jsonDecode(JsonStringConstants.new_album_tops);
     final resultData = List<TopAlbumModel>.empty(growable: true);
@@ -421,7 +421,7 @@ class MusicApi {
     // }
     // return data;
 
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 200));
     final localJson =
         await CommonService.jsonDecode(JsonStringConstants.blog_recom_data);
     BlogHomeModel? data;
@@ -441,7 +441,7 @@ class MusicApi {
     // }
     // return bannerList;
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     var bannerList = List<BlogBannerModel>.empty(growable: true);
     final bannerJson =
         await CommonService.jsonDecode(JsonStringConstants.blog_banner_data);
@@ -465,7 +465,7 @@ class MusicApi {
     // }
     // return data;
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     var personList = List<BlogPersonalModel>.empty(growable: true);
     final bannerJson =
         await CommonService.jsonDecode(JsonStringConstants.blog_personer_data);
@@ -487,7 +487,7 @@ class MusicApi {
     // }
     // return data;
 
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 200));
     BlogDetailModel? data;
     final json =
         await CommonService.jsonDecode(JsonStringConstants.blog_detail_data);
@@ -506,7 +506,7 @@ class MusicApi {
     // }
     // return data;
 
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 200));
     BlogDetailListsModel? data;
     final json =
         await CommonService.jsonDecode(JsonStringConstants.blog_detail_list);
@@ -516,7 +516,7 @@ class MusicApi {
 
   //获取视频Category
   static Future<List<VideoCategory>?> getVideoCategoryList() async {
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 300));
     var categoryList = List<VideoCategory>.empty(growable: true);
     final categortJson =
         await CommonService.jsonDecode(JsonStringConstants.video_category);
@@ -530,7 +530,7 @@ class MusicApi {
   //获取视频分类下的视频 https://netease-cloud-music-api-masterxing.vercel.app/video/group?id=$id&offset=$offset
 
   static Future<VideoGroupSourceList?> getVideoGroupListSource() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 200));
     VideoGroupSourceList? data;
     final json =
         await CommonService.jsonDecode(JsonStringConstants.video_group_list);
@@ -540,7 +540,7 @@ class MusicApi {
 
   //获取广场动态数据
   static Future<SquareInfo?> getSquareList() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 200));
     SquareInfo? info;
     final json =
         await CommonService.jsonDecode(JsonStringConstants.square_page_list);
@@ -550,7 +550,7 @@ class MusicApi {
 
   //获取mine 歌单
   static Future<List<MineMusicList>?> getMineMusicList() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 200));
     var personList = List<MineMusicList>.empty(growable: true);
     final bannerJson =
         await CommonService.jsonDecode(JsonStringConstants.mine_music_list);
@@ -563,13 +563,12 @@ class MusicApi {
 
   //h获取videos
   static Future<List<VideoInfo>?> getVideoLists() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 200));
     var videoList = List<VideoInfo>.empty(growable: true);
     final json =
         await CommonService.jsonDecode(JsonStringConstants.video_lists);
     final list =
         (json['data'] as List).map((e) => VideoInfo.fromJson(e)).toList();
-    print('数据长度${list.length}');
     videoList = list;
     return videoList;
   }
@@ -589,7 +588,7 @@ class MusicApi {
 
   //s
   static Future<List<HankanInfo>?> getHankVideoInfo() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 200));
     var videoList = List<HankanInfo>.empty(growable: true);
     final json =
         await CommonService.jsonDecode(JsonStringConstants.hank_videos);

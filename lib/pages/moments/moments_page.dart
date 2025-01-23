@@ -54,7 +54,6 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
   double scallTop = 300.0 * (1.0 / 3);
 
   void setTrans(marginTop) {
-    print(marginTop + 50 + MediaQuery.of(context).padding.top);
     setState(() {
       trans = marginTop;
     });

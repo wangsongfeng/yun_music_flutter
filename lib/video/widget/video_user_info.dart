@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marquee_list/marquee_list.dart';
+import 'package:marquee/marquee.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
@@ -32,7 +32,7 @@ class VideoUserInfo extends StatelessWidget {
               1
             ],
             colors: [
-              Colors.black.withOpacity(0.03),
+              Colors.black.withOpacity(0.05),
               Colors.black.withOpacity(0.01),
               Colors.black.withOpacity(0)
             ]),
@@ -47,7 +47,7 @@ class VideoUserInfo extends StatelessWidget {
           ),
           creatDesc(),
           SizedBox(
-            height: Dimens.gap_dp12,
+            height: Dimens.gap_dp10,
           ),
           marqueeText(),
         ],
@@ -59,7 +59,7 @@ class VideoUserInfo extends StatelessWidget {
     return Text(
       "@${controller!.videoInfo.value!.avatar!.nickname}",
       style: TextStyle(
-          fontSize: Dimens.font_sp15,
+          fontSize: Dimens.font_sp14,
           color: Colors.white,
           fontWeight: FontWeight.bold),
     );
@@ -69,43 +69,51 @@ class VideoUserInfo extends StatelessWidget {
     return Text(
       "${controller!.videoInfo.value!.desc}",
       style: TextStyle(
-          fontSize: Dimens.font_sp13,
-          color: Colors.white.withOpacity(0.9),
+          fontSize: Dimens.font_sp12,
+          color: Colors.white.withOpacity(0.85),
           fontWeight: FontWeight.w600),
     );
   }
 
   //文字走马灯
   Widget marqueeText() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(right: Dimens.gap_dp6),
-          child: Image.asset(
-            ImageUtils.getImagePath('icon_home_musicnote'),
-            width: Dimens.gap_dp14,
+    return SizedBox(
+      height: Dimens.gap_dp18,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(right: Dimens.gap_dp6),
+            child: Image.asset(
+              ImageUtils.getImagePath('icon_home_musicnote'),
+              width: Dimens.gap_dp12,
+            ),
           ),
-        ),
-        MarqueeList(
-            scrollDuration: Duration(milliseconds: 240),
-            scrollDirection: Axis.horizontal,
-            children: [
-              Text(
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: Marquee(
+              text:
                   '${controller!.videoInfo.value?.music?.title} - ${controller!.videoInfo.value?.music?.author}',
-                  style: TextStyle(
-                      fontSize: Dimens.font_sp13,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600)),
-              Text(
-                  '${controller!.videoInfo.value?.music?.title} - ${controller!.videoInfo.value?.music?.author}',
-                  style: TextStyle(
-                      fontSize: Dimens.font_sp13,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600)),
-            ])
-      ],
+              style: TextStyle(
+                  fontSize: Dimens.font_sp12,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600),
+              scrollAxis: Axis.horizontal,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              blankSpace: 20.0,
+              velocity: 50.0,
+              pauseAfterRound: Duration(seconds: 0),
+              startPadding: 10.0,
+              // accelerationDuration: Duration(seconds: 0),
+              // accelerationCurve: Curves.linear,
+              // decelerationDuration: Duration(milliseconds: 500),
+              // decelerationCurve: Curves.easeOut,
+            ),
+          ))
+        ],
+      ),
     );
   }
 }

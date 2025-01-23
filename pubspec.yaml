@@ -70,7 +70,7 @@ dependencies:
   dio_cookie_manager: ^3.1.1
   path_provider: ^2.1.5
   cookie_jar: ^4.0.8
-  marquee_list: ^1.0.0
+  marquee: ^2.3.0
 
 dev_dependencies:
 

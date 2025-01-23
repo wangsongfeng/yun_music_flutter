@@ -4,6 +4,7 @@ import 'package:yun_music/pages/blog_page/widgets/blog_home_appbar.dart';
 import 'package:yun_music/pages/village/village_controller.dart';
 import 'package:yun_music/pages/village/village_list_page.dart';
 
+import '../../commons/res/app_routes.dart';
 import '../../commons/res/app_themes.dart';
 import '../../commons/res/dimens.dart';
 import '../../commons/skeleton/custom_underline_indicator.dart';
@@ -26,7 +27,9 @@ class _VillagePageState extends State<VillagePage>
     super.build(context);
     return Scaffold(
       backgroundColor: AppThemes.white,
-      appBar: const BlogHomeAppbar(),
+      appBar: BlogHomeAppbar(rightClickTap: (){
+        Get.toNamed(RouterPath.Video_Lists);
+      }),
       extendBodyBehindAppBar: true,
       body: Obx(() {
         return controller.tags.value == null

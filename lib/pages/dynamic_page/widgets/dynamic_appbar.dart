@@ -70,8 +70,7 @@ class DynamicAppbar extends StatelessWidget implements PreferredSizeWidget {
           )),
           GestureDetector(
             onTap: () {
-              // Get.toNamed(RouterPath.Moments_Page);
-              Get.toNamed(RouterPath.Video_Lists);
+              Get.toNamed(RouterPath.Moments_Page);
             },
             child: Container(
               color: Colors.transparent,

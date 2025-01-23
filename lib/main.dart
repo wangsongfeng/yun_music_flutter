@@ -12,6 +12,7 @@ import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/thems.dart';
 import 'package:yun_music/services/auth_service.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/approute_observer.dart';
 import 'package:yun_music/vmusic/handle/music_handle.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
@@ -126,8 +127,6 @@ Future<void> _initGetService(GetIt getIt) async {
 
 class MainAppPage extends StatelessWidget {
   const MainAppPage({super.key});
-
-  @override
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
@@ -169,3 +168,5 @@ class MainAppPage extends StatelessWidget {
     );
   }
 }
+
+

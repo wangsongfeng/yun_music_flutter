@@ -2,12 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
 
 import '../../../commons/event/index.dart';
 import '../../../commons/event/play_bar_event.dart';
+import '../../../commons/player/player_service.dart';
 import '../../../commons/player/widgets/bottom_player_widget.dart';
 import '../../../commons/player/widgets/music_playbar_overlay.dart';
 import '../../../commons/res/app_themes.dart';
@@ -83,8 +83,8 @@ class _HomeBottomBarState extends State<HomeBottomBar>
   void initState() {
     super.initState();
     animationController.forward();
-    PlayerService.to.plarBarBottom.value =
-        -Dimens.gap_dp49 - Adapt.bottomPadding();
+
+    PlayerService.to.plarBarBottom.value = -Adapt.tabbar_padding();
     Future.delayed(const Duration(milliseconds: 240), () {
       eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
     });
@@ -113,6 +113,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -120,7 +121,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
           () => BottomBar(
             currentIndex: controller.currentIndex.value,
             focusColor: AppThemes.tab_color,
-            height: (Dimens.gap_dp49 + Adapt.bottomPadding()),
+            height: (Dimens.gap_dp49 + context.mediaQueryPadding.bottom),
             unFocusColor: AppThemes.tab_grey_color,
             onTap: (index) {
               controller.changePage(index);

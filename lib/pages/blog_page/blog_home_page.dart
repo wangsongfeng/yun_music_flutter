@@ -32,7 +32,9 @@ class _BlogHomePageState extends State<BlogHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BlogHomeAppbar(),
+      appBar: BlogHomeAppbar(rightClickTap: () {
+
+      },),
       extendBodyBehindAppBar: true,
       body: Container(
         height: double.infinity,

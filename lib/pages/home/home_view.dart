@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
     });
 
     PlayingBinding().dependencies();
+
   }
 
   @override

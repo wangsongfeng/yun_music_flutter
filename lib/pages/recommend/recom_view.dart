@@ -24,7 +24,9 @@ import 'package:yun_music/pages/recommend/widgets/recon_slide_single.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
-
+import '../../commons/event/index.dart';
+import '../../commons/event/play_bar_event.dart';
+import '../../commons/player/player_service.dart';
 import 'widgets/recom_appbar.dart';
 
 class RecomPage extends StatefulWidget {
@@ -46,6 +48,7 @@ class _RecomPageState extends State<RecomPage>
   @override
   void initState() {
     super.initState();
+
   }
 
   Future<void> _onRefresh() async {

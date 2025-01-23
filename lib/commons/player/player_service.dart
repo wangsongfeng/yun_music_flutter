@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:yun_music/commons/models/song_model.dart';
 
+import '../../utils/adapt.dart';
+
 class PlayerService extends GetxService {
   static PlayerService get to => Get.find();
 

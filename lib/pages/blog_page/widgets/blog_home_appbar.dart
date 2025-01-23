@@ -1,12 +1,16 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../commons/res/app_themes.dart';
+import '../../../commons/values/function.dart';
 import '../../../utils/adapt.dart';
 import '../../../utils/image_utils.dart';
 
 class BlogHomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const BlogHomeAppbar({super.key});
+  const BlogHomeAppbar({super.key, required this.rightClickTap});
+
+  final ParamVoidCallback rightClickTap;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +70,7 @@ class BlogHomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 )),
           ),
           GestureDetector(
+            onTap: rightClickTap,
             child: Container(
               color: Colors.transparent,
               width: Get.theme.appBarTheme.toolbarHeight,
