@@ -8,8 +8,6 @@ import 'package:yun_music/utils/adapt.dart';
 import '../../../commons/event/index.dart';
 import '../../../commons/event/play_bar_event.dart';
 import '../../../commons/player/player_service.dart';
-import '../../../commons/player/widgets/bottom_player_widget.dart';
-import '../../../commons/player/widgets/music_playbar_overlay.dart';
 import '../../../commons/res/app_themes.dart';
 import '../../../commons/res/dimens.dart';
 import '../../../utils/image_utils.dart';
@@ -99,21 +97,10 @@ class _HomeBottomBarState extends State<HomeBottomBar>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    var widgetsBinding = WidgetsBinding.instance;
-    widgetsBinding.addPostFrameCallback((callback) {
-      final overlay = MusicPlaybarOverlay(
-          context,
-          ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
-              child: const BottomPlayerBar()));
-      overlay.toggle();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

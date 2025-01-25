@@ -72,6 +72,8 @@ dependencies:
   cookie_jar: ^4.0.8
   marquee: ^2.3.0
 
+  loading_animation_widget: ^1.3.0
+
 dev_dependencies:
 
   json_serializable: ^6.8.0
@@ -92,9 +94,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+   - family: Poppins
+     fonts:
+       - asset: assets/fonts/Poppins-Bold.ttf
+       - asset: assets/fonts/Poppins-Medium.ttf
+       - asset: assets/fonts/Poppins-Regular.ttf
+       - asset: assets/fonts/Poppins-SemiBold.ttf
+
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/fonts/
     - assets/images/
     - assets/anim/
     - assets/anim/loading/

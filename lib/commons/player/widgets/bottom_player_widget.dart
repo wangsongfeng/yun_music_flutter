@@ -2,7 +2,9 @@
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:yun_music/commons/player/bottom_player_controller.dart';
 import 'package:yun_music/commons/player/widgets/rotation_cover_image.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
@@ -12,7 +14,11 @@ import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
+import 'package:yun_music/vmusic/widget/play_list_content.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
+
+import '../../event/index.dart';
+import '../../event/play_bar_event.dart';
 
 class BottomPlayerBar extends StatefulWidget {
   const BottomPlayerBar({super.key, this.bottomPadding = 0});
@@ -105,12 +111,12 @@ class _BottomContentWidget extends GetView<PlayerController> {
                   color: Get.theme.cardColor.withOpacity(1.0),
                   border: Border(
                       top: BorderSide(
-                        color: Get.theme.dividerColor.withOpacity(0.3),
+                        color: Get.theme.dividerColor.withOpacity(1.0),
                         width: 1,
                       ),
                       bottom: BorderSide(
-                        color: Get.theme.dividerColor.withOpacity(1),
-                        width: 0,
+                        color: Get.theme.dividerColor.withOpacity(0.4),
+                        width: 1,
                       ))),
               margin: EdgeInsets.only(top: isFmPlaying ? 0 : 0),
             ),
@@ -119,7 +125,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
           Container(
             color: AppThemes.white,
             child: SizedBox(
-              height: Dimens.gap_dp49,
+              height: Dimens.gap_dp49 - 0.5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: isFmPlaying
@@ -160,7 +166,9 @@ class _BottomContentWidget extends GetView<PlayerController> {
                   const SizedBox(width: 12),
 
                   InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _showPlaylist(conetx);
+                      },
                       child: Image.asset(
                         ImageUtils.getImagePath('play_btn_src'),
                         width: Dimens.gap_dp22,
@@ -175,6 +183,25 @@ class _BottomContentWidget extends GetView<PlayerController> {
         ],
       ),
     );
+  }
+
+  Future<void> _showPlaylist(BuildContext context) async {
+    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
+    HapticFeedback.lightImpact();
+    await showMaterialModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(Dimens.gap_dp12)),
+        ),
+        duration: const Duration(milliseconds: 200),
+        builder: (context) {
+          return Container(
+            height: Adapt.screenH() * 0.7,
+            child: PlayListContent(),
+          );
+        });
   }
 
   Widget _buildNormWidget(MediaItem? song) {

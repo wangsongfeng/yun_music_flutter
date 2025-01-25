@@ -82,7 +82,6 @@ class _PlayingAlbumCoverState extends State<PlayingAlbumCover>
   void didUpdateWidget(covariant PlayingAlbumCover oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (_current == widget.music) {
-      logger.d("_current====");
       _invalidatePn();
       return;
     }

@@ -46,6 +46,7 @@ class PlayingController extends GetxController
       AudioServiceRepeatMode.all.obs;
   //循环模式的icon asset
   Rx<String> repeartAsset = "".obs;
+  Rx<String> repeartTitle = "".obs;
 
   var lastPopTime = DateTime.now();
 
@@ -153,13 +154,16 @@ class PlayingController extends GetxController
     switch (audioServiceRepeatMode.value) {
       case AudioServiceRepeatMode.one:
         repeartAsset.value = ImageUtils.getImagePath('cm6_icn_one');
+        repeartTitle.value = "单曲循环";
         break;
       case AudioServiceRepeatMode.none:
         repeartAsset.value = ImageUtils.getImagePath('cm6_icn_shuffle');
+        repeartTitle.value = "随机播放";
         break;
       case AudioServiceRepeatMode.all:
       case AudioServiceRepeatMode.group:
         repeartAsset.value = ImageUtils.getImagePath('cm6_icn_loop');
+        repeartTitle.value = "列表循环";
         break;
     }
   }

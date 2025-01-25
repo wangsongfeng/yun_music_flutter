@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/res/dimens.dart';
@@ -37,7 +37,6 @@ class VideoContent extends StatelessWidget {
         Container(
           height: double.infinity,
           width: double.infinity,
-          color: Colors.black,
           alignment: Alignment.center,
           child: video,
         ),
@@ -91,12 +90,23 @@ class VideoContent extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: userInfoWidget,
                   ),
-                  if (isBuffering)
-                    const Center(
-                      child: CircularProgressIndicator(
-                        color: AppThemes.app_main_light,
-                      ),
-                    )
+                  // if (isBuffering)
+                  //   const Center(
+                  //     child: CircularProgressIndicator(
+                  //       color: AppThemes.app_main_light,
+                  //     ),
+                  //   ),
+                  Obx(() {
+                    if (videoController.controllerValue?.value.isBuffering ==
+                        true) {
+                      return Center(
+                        child: LoadingAnimationWidget.progressiveDots(
+                            color: Colors.white, size: Dimens.gap_dp32),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  })
                 ],
               )),
               GestureDetector(

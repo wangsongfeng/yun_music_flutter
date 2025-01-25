@@ -245,6 +245,8 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
       _disposeLock?.complete();
       _disposeLock = null;
     }
+
+    logger.d("${videoModel.desc}---init结束");
   }
 
   @override
@@ -273,6 +275,7 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
     }
     await controllerValue?.play();
     showPauseIcon.value = false;
+    logger.d("${videoModel.desc}---开始播放");
   }
 
   ///请求视频详情数据

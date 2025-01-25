@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
+import 'package:yun_music/vmusic/widget/play_list_content.dart';
 import 'package:yun_music/vmusic/widget/playing_album_cover.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 import 'package:yun_music/utils/adapt.dart';
@@ -184,10 +186,6 @@ class _PlayingOperationBarPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                // width: MediaQuery.of(context).size.width -
-                //     Dimens.gap_dp40 -
-                //     Dimens.gap_dp28 * 2 -
-                //     Dimens.gap_dp24,
                 height: Dimens.gap_dp24,
                 constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width -
@@ -377,7 +375,9 @@ class PlayingPauseOrPlayBarPage extends StatelessWidget {
                 )),
             IconButton(
                 iconSize: Dimens.gap_dp38,
-                onPressed: () {},
+                onPressed: () {
+                  _showPlaylist(context);
+                },
                 icon: Image.asset(
                   ImageUtils.getImagePath('cm6_icn_list'),
                   width: Dimens.gap_dp24,
@@ -387,5 +387,26 @@ class PlayingPauseOrPlayBarPage extends StatelessWidget {
         ),
       );
     });
+  }
+
+  void _showPlaylist(BuildContext context) {
+    HapticFeedback.lightImpact();
+    showMaterialModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(Dimens.gap_dp12)),
+        ),
+        duration: const Duration(milliseconds: 200),
+        builder: (context) {
+          return Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimens.gap_dp12),
+                    topRight: Radius.circular(Dimens.gap_dp12))),
+            height: Adapt.screenH() * 0.7,
+            child: const PlayListContent(),
+          );
+        });
   }
 }

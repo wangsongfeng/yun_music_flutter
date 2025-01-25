@@ -57,7 +57,7 @@ class Routes {
         page: () => const PlayingPage(),
         binding: PlayingBinding(),
         customTransition: SlideDownWithFadeTransition(),
-        transitionDuration: const Duration(milliseconds: 250),
+        transitionDuration: const Duration(milliseconds: 200),
         preventDuplicates: true //按钮防抖
         ),
 

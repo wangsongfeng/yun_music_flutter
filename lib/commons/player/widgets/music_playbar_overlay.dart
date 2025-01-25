@@ -4,11 +4,12 @@ import 'package:yun_music/commons/player/player_service.dart';
 
 class MusicPlaybarOverlay {
   OverlayEntry? _overlayEntry;
-  final BuildContext _context;
-  final Widget _child;
-  MusicPlaybarOverlay(this._context, this._child);
+  MusicPlaybarOverlay._();
 
-  void show() {
+  static final MusicPlaybarOverlay instance = MusicPlaybarOverlay._();
+  factory MusicPlaybarOverlay() => instance;
+
+  void show(BuildContext _context, Widget _child) {
     if (_overlayEntry == null) {
       _overlayEntry = OverlayEntry(builder: (context) {
         return Obx(() {
@@ -28,6 +29,8 @@ class MusicPlaybarOverlay {
         });
       });
       Overlay.of(_context).insert(_overlayEntry!);
+
+      _overlayEntry?.markNeedsBuild();
     }
   }
 
@@ -35,15 +38,6 @@ class MusicPlaybarOverlay {
     if (_overlayEntry != null) {
       _overlayEntry!.remove();
       _overlayEntry = null;
-    }
-  }
-
-  void toggle() {
-    if (_overlayEntry == null) {
-      show();
-      _overlayEntry?.markNeedsBuild();
-    } else {
-      hide();
     }
   }
 }

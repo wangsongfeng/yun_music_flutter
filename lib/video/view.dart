@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/commons/widgets/music_loading.dart';
 import 'package:yun_music/video/logic.dart';
 import 'package:yun_music/video/state.dart';
@@ -96,27 +95,20 @@ class _VideoPageState extends State<VideoPage> {
                     fitWith = false;
                   }
                   Widget content = Container();
-                  if (player.controllerValue == null ||
-                      player.prepared == false ||
-                      player.controllerValue!.value.isInitialized == false) {
+
+                  if (player.controllerValue?.value.isInitialized == false) {
                     content = Center(
                       child: _buildCover(player, fitWith, height),
                     );
                   } else {
-                    logger.d("width/height - ${width / height}");
-                    logger.d(
-                        "aspetRatio ${player.controllerValue?.value.aspectRatio}");
-                    content = Center(
-                      child: AspectRatio(
-                        aspectRatio: width / height,
-                        child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: SizedBox(
-                                width: width,
-                                height: height,
-                                child: VideoPlayer(player.controllerValue!))),
-                      ),
-                    );
+                    content = SizedBox(
+                        width: width,
+                        height: height,
+                        child: AspectRatio(
+                          aspectRatio:
+                              player.controllerValue?.value.aspectRatio ?? 0.75,
+                          child: VideoPlayer(player.controllerValue!),
+                        ));
                   }
                   return VideoContent(
                     videoController: player,

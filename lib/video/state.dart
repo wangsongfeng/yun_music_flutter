@@ -21,7 +21,7 @@ class VideoState {
   VideoState() {
     videoController = VideoScaffoldController();
     videoListController =
-        VideoListController(loadMoreCount: 2, preloadCount: 2);
+        VideoListController(loadMoreCount: 2, preloadCount: 3);
   }
 }
 
@@ -32,7 +32,7 @@ extension VideoControllerExt on List<VideoInfo> {
         builder: () async {
           final url = '${e.video!.play_addr!.url_list?.last}.mp4';
           // const url =
-          //     "https://bakoss.hishorttv.com/vod-2a265e/506cddd3a7f371ef80065114c0db0102/6033f7e8c3324d22b9e066a842046853-a4d13fe508055ee4645de08ea234ef0a-fd.m3u8";
+          //     "https://bakoss.hishorttv.com/vod-2a265e/10ec58f9cc0271efbcc336a5e8aa0102/03745b83bb2a48a1be0653a6db692f9a-a6f0adab2dec883c46a036128035ada2-fd.m3u8";
           return VideoPlayerController.networkUrl(Uri.parse(url));
         })).toList();
   }

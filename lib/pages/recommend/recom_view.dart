@@ -24,9 +24,6 @@ import 'package:yun_music/pages/recommend/widgets/recon_slide_single.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
-import '../../commons/event/index.dart';
-import '../../commons/event/play_bar_event.dart';
-import '../../commons/player/player_service.dart';
 import 'widgets/recom_appbar.dart';
 
 class RecomPage extends StatefulWidget {
@@ -48,7 +45,6 @@ class _RecomPageState extends State<RecomPage>
   @override
   void initState() {
     super.initState();
-
   }
 
   Future<void> _onRefresh() async {
@@ -62,22 +58,24 @@ class _RecomPageState extends State<RecomPage>
     return Scaffold(
       appBar: RecomAppbar(),
       extendBodyBehindAppBar: true,
-      body: Container(
-        color: Colors.transparent,
-        child: Stack(
-          children: [
-            //顶部跟随banner变动的背景
-            const Positioned(
-              top: 0,
-              child: RecomHeaderBgColors(),
-            ),
-            Obx(() {
-              return Positioned.fill(
+      body: Obx(() {
+        return Container(
+          padding: EdgeInsets.only(
+            bottom: PlayingController.to.mediaItems.isNotEmpty
+                ? Adapt.tabbar_padding() + Dimens.gap_dp49
+                : Adapt.tabbar_height(),
+          ),
+          color: Colors.transparent,
+          child: Stack(
+            children: [
+              //顶部跟随banner变动的背景
+              const Positioned(
+                top: 0,
+                child: RecomHeaderBgColors(),
+              ),
+              Positioned.fill(
                 top:
                     (Get.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()),
-                bottom: PlayingController.to.mediaItems.isNotEmpty
-                    ? Adapt.tabbar_padding() + kToolbarHeight
-                    : Adapt.tabbar_height(),
                 child: controller.obx(
                     (state) {
                       refreshController.refreshCompleted();
@@ -90,11 +88,11 @@ class _RecomPageState extends State<RecomPage>
                       return const SizedBox.shrink();
                     },
                     onLoading: _buildLoading()),
-              );
-            })
-          ],
-        ),
-      ),
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 

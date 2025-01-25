@@ -17,6 +17,9 @@ import 'package:yun_music/utils/approute_observer.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
 
+import '../../commons/player/widgets/bottom_player_widget.dart';
+import '../../commons/player/widgets/music_playbar_overlay.dart';
+import '../../commons/res/dimens.dart';
 import '../dynamic_page/dynamic_page.dart';
 import '../mine/mine_page.dart';
 import '../recommend/recom_view.dart';
@@ -48,6 +51,15 @@ class _HomePageState extends State<HomePage> with RouteAware {
   void didChangeDependencies() {
     super.didChangeDependencies();
     AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
+
+    var widgetsBinding = WidgetsBinding.instance;
+    widgetsBinding.addPostFrameCallback((callback) {
+      MusicPlaybarOverlay.instance.show(
+          context,
+          ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
+              child: const BottomPlayerBar()));
+    });
   }
 
   @override
@@ -72,7 +84,6 @@ class _HomePageState extends State<HomePage> with RouteAware {
     });
 
     PlayingBinding().dependencies();
-
   }
 
   @override
@@ -91,7 +102,9 @@ class _HomePageState extends State<HomePage> with RouteAware {
   void didPopNext() {
     super.didPopNext();
     print('HomePage didPopNext');
-    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
+    Future.delayed(Duration(milliseconds: 0)).whenComplete(() {
+      eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
+    });
   }
 
   @override
