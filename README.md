@@ -4,13 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2025。1.25日，腊月26了。过年前最后一天上班了，完成了音乐播放列表弹窗功能；还有视频播放细节优化，还有其他需要多测试处理的，过完年后找时间再仔细处理下；
+过年了，网易云音乐Flutter整体版本完成百分之90，一些小的功能不再去处理了，就以我标准的剩下百分之10，年后处理完善；
+整体项目完成后，在进行模块化总结，把里面用到的一些细节功能罗列出来，有个统筹化学习总结，
+好了，过年喽
