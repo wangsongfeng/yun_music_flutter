@@ -2,6 +2,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/pages/moments/moments_controller.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
@@ -49,9 +50,9 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
 
   int trans = 0;
 
-  final double headerImgHeight = 300.0;
+  final double headerImgHeight = 360.0;
 
-  double scallTop = 300.0 * (1.0 / 3);
+  double scallTop = 360 * (1.0 / 3);
 
   void setTrans(marginTop) {
     setState(() {
@@ -96,7 +97,10 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                                 child: TabBarView(
                                     controller: controller.tabController,
                                     children: [
-                                  Container(height: 2000),
+                                  Container(
+                                    height: 2000,
+                                    color: Colors.red,
+                                  ),
                                   Container(height: 2000)
                                 ]))
                           ],
@@ -122,10 +126,9 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
           return Stack(
             children: [
               Container(
-                padding: const EdgeInsets.only(bottom: 36),
-                child: Image(
-                  image: const NetworkImage(
-                      "https://pic.qqans.com/up/2024-6/17185940923589582.jpg"),
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Image.asset(
+                  ImageUtils.getImagePath('moment_header_bg'),
                   height: availableHeight,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
@@ -148,15 +151,27 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                           //渐变颜色[始点颜色, 结束颜色]
                           colors: [
                         Color.fromRGBO(15, 15, 15, 0),
-                        Color.fromRGBO(15, 15, 15, 0.8)
+                        Color.fromRGBO(15, 15, 15, 0.5)
                       ])),
                 ),
               ),
               Positioned(
-                  left: 12,
+                  right: Dimens.gap_dp16,
                   bottom: 0,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: const Text("hodor",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: Colors.white)),
+                        ),
+                      ),
                       Container(
                           width: 72,
                           height: 72,
@@ -174,32 +189,10 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                               ],
                               image: DecorationImage(
                                   image: AssetImage(
-                                      "assets/images/17185940928076399.jpg")),
+                                      "assets/images/mine_avatar.png")),
                               //设置图片
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6)))),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 12),
-                        child: SizedBox(
-                          height: 72,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text("吸鼠霸王",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
-                                      color: Colors.white)),
-                              Text("UID:hahaha_666",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: Colors.orange))
-                            ],
-                          ),
-                        ),
-                      )
                     ],
                   )),
             ],

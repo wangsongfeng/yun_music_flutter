@@ -10,6 +10,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
+import 'package:yun_music/vmusic/widget/play_layric_page.dart';
 import 'package:yun_music/vmusic/widget/play_list_content.dart';
 import 'package:yun_music/vmusic/widget/playing_album_cover.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
@@ -43,11 +44,13 @@ class PlayingPage extends GetView<PlayingController> {
                 child: Column(
                   children: [
                     PlayingNavBar(song: controller.mediaItem.value),
-                    SizedBox(
-                      height: Dimens.gap_dp16,
-                    ),
+                    // SizedBox(
+                    //   height: Dimens.gap_dp16,
+                    // ),
                     //唱片
-                    _CenterSectionPage(song: controller.mediaItem.value),
+                    _CenterSectionPage(
+                        song: controller.mediaItem.value,
+                        controller: controller),
                     //音乐信息，收藏，评论
                     _PlayingOperationBarPage(song: controller.mediaItem.value),
                     //进度条
@@ -104,59 +107,62 @@ class PlayingPage extends GetView<PlayingController> {
 
 ///碟片画面
 class _CenterSectionPage extends StatefulWidget {
-  const _CenterSectionPage({super.key, this.song});
+  const _CenterSectionPage({super.key, this.song, this.controller});
 
   final MediaItem? song;
+  final PlayingController? controller;
   @override
   State<_CenterSectionPage> createState() => __CenterSectionPageState();
 }
 
 class __CenterSectionPageState extends State<_CenterSectionPage> {
-  static bool _showLyric = false;
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: AnimatedCrossFade(
-        firstChild: GestureDetector(
-          onTap: () {
-            setState(() {
-              _showLyric = !_showLyric;
-            });
-          },
-          child: PlayingAlbumCover(music: widget.song),
-        ),
-        secondChild: GestureDetector(
-          onTap: () {
-            setState(() {
-              _showLyric = !_showLyric;
-            });
-          },
-          child: Container(
-            color: Colors.red,
-            width: Adapt.screenW() - Dimens.gap_dp60,
-            height: Adapt.screenW() - Dimens.gap_dp60,
+      child: Obx(() {
+        return AnimatedCrossFade(
+          firstChild: GestureDetector(
+            onTap: () {
+              widget.controller?.showLyric.value =
+                  !widget.controller!.showLyric.value;
+            },
+            child: PlayingAlbumCover(music: widget.song),
           ),
-        ),
-        crossFadeState:
-            _showLyric ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-        duration: const Duration(milliseconds: 300),
-        layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) {
-          return Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Center(
-                key: bottomChildKey,
-                child: bottomChild,
-              ),
-              Center(
-                key: topChildKey,
-                child: topChild,
-              )
-            ],
-          );
-        },
-      ),
+          secondChild: GestureDetector(
+            onTap: () {
+              widget.controller?.showLyric.value =
+                  !widget.controller!.showLyric.value;
+            },
+            child: Container(
+              padding: EdgeInsets.only(
+                  top: Dimens.gap_dp16, bottom: Dimens.gap_dp16),
+              color: Colors.transparent,
+              width: Adapt.screenW() - Dimens.gap_dp60,
+              child: PlayLayricPage(),
+              // height: Adapt.screenW() - Dimens.gap_dp60,
+            ),
+          ),
+          crossFadeState: widget.controller!.showLyric.value
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 300),
+          layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) {
+            return Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Center(
+                  key: bottomChildKey,
+                  child: bottomChild,
+                ),
+                Center(
+                  key: topChildKey,
+                  child: topChild,
+                )
+              ],
+            );
+          },
+        );
+      }),
     );
   }
 }

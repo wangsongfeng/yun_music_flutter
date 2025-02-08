@@ -10,6 +10,7 @@ import '../commons/models/song_info_dto.dart';
 import '../commons/models/song_list_model.dart';
 import '../commons/models/song_model.dart';
 import '../pages/playlist_detail/models/playlist_detail_model.dart';
+import '../vmusic/model/lyric_info_model.dart';
 
 class BujuanApi {
   //推荐歌单
@@ -113,6 +114,18 @@ class BujuanApi {
     final response = await httpManager.postUri(metaData);
     logger.d('音乐信息-${jsonDecode(response.data)}');
     return SongInfoListDto.fromJson(jsonDecode(response.data));
+  }
+
+  //获取音乐歌词
+  static Future<SongLyricWrap> songLyric(String songId) async {
+    var params = {'id': songId, 'lv': -1, 'kv': -1, 'tv': -1};
+    final metaData = DioMetaData(joinUri('/api/song/lyric'),
+        data: params,
+        options:
+            joinOptions(encryptType: EncryptType.WeApi, cookies: {'os': 'pc'}));
+    final response = await httpManager.postUri(metaData);
+    logger.d('音乐歌词-${jsonDecode(response.data)}');
+    return SongLyricWrap.fromJson(jsonDecode(response.data));
   }
 }
 

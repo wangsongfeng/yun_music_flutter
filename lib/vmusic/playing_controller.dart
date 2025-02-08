@@ -1,14 +1,20 @@
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'package:yun_music/api/bujuan_api.dart';
 import 'package:yun_music/commons/values/keys.dart';
+import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/vmusic/handle/music_handle.dart';
+import 'package:yun_music/vmusic/model/lyric_info_model.dart';
 
 import '../commons/models/song_model.dart';
 import '../utils/image_utils.dart';
+import 'model/lyrics_reader_model.dart';
+import 'model/parser_lrc.dart';
 
 class PlayingController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -55,7 +61,31 @@ class PlayingController extends GetxController
 
   final showNeedle = false.obs;
 
+  //解析后的歌词数组
+  List<LyricsLineModel> lyricsLineModels = <LyricsLineModel>[].obs;
+  //是否有翻译歌词
+  RxBool hasTran = false.obs;
+
   static PlayingController get to => Get.find<PlayingController>();
+
+  //是否正在展示歌词
+  RxBool showLyric = false.obs;
+  //歌词是否被用户滚动中
+  RxBool onMove = false.obs;
+  //当前歌词下标
+  int lastIndex = 0;
+  RxInt moveLyricIndex = 0.obs;
+  RxInt currLyricIndex = 0.obs;
+  RxString currLyric = ''.obs;
+
+  RxDouble scrollDown = 0.0.obs;
+  RxBool canScroll = true.obs;
+  //是否开启顶部歌词
+  RxBool topLyric = true.obs;
+
+  //歌词滚动控制器
+  FixedExtentScrollController lyricScrollController =
+      FixedExtentScrollController();
 
   @override
   void onInit() {
@@ -66,6 +96,8 @@ class PlayingController extends GetxController
         AudioServiceRepeatMode.all;
 
     getRepeatAsset();
+
+    topLyric.value = box.get(topLyricSp, defaultValue: false);
   }
 
   @override
@@ -91,10 +123,14 @@ class PlayingController extends GetxController
     });
 
     audioHandler.mediaItem.listen((value) async {
+      lyricsLineModels.clear();
+      currLyric.value = '';
+      moveLyricIndex.value = -1;
+      currLyricIndex.value = -1;
       duration.value = Duration.zero;
       if (value == null) return;
       mediaItem.value = value;
-
+      _getLyricInfo();
       currentIndex.value =
           mediaItems.indexWhere((e) => e.id == mediaItem.value.id);
       //获取歌词
@@ -111,6 +147,23 @@ class PlayingController extends GetxController
         }
       }
       duration.value = event;
+      if (!onMove.value && lyricsLineModels.isNotEmpty) {
+        int index = lyricsLineModels.indexOf(lyricsLineModels.firstWhere(
+            (element) => element.startTime! >= duration.value.inMilliseconds));
+        if (index != -1 && index != lastIndex) {
+          logger.d("移动中");
+          lyricScrollController.animateToItem((index > 0 ? index - 1 : index),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.linear);
+          lastIndex = index;
+          currLyricIndex.value = (index > 0 ? index - 1 : index);
+          if (topLyric.value) {
+            currLyric.value =
+                lyricsLineModels[(index > 0 ? index - 1 : index)].mainText ??
+                    '';
+          }
+        }
+      }
     });
 
     audioHandler.playbackState.listen((value) {
@@ -130,6 +183,38 @@ class PlayingController extends GetxController
       {List<MediaItem>? mediaItem}) async {
     audioHandler.queueTitle.value = queueTitle;
     audioHandler.changeQueueLists(mediaItem ?? [], index: index);
+  }
+
+  /**
+   * 获取歌词
+   */
+  Future<void> _getLyricInfo() async {
+    hasTran.value = false;
+    String lyric = box.get('lyric_${mediaItem.value.id}') ?? '';
+    String lyricTran = box.get('lyricTran_${mediaItem.value.id}') ?? '';
+    if (lyric.isEmpty) {
+      SongLyricWrap songLyricWrap =
+          await BujuanApi.songLyric(mediaItem.value.id);
+      lyric = songLyricWrap.lrc.lyric ?? "";
+      lyricTran = songLyricWrap.tlyric.lyric ?? "";
+      box.put('lyric_${mediaItem.value.id}', lyric);
+      box.put('lyricTran_${mediaItem.value.id}', lyricTran);
+    }
+    if (lyric.isNotEmpty) {
+      var list = ParserLrc(lyric).parseLines();
+      var listTran = ParserLrc(lyricTran).parseLines();
+      if (lyricTran.isNotEmpty) {
+        hasTran.value = true;
+        lyricsLineModels.addAll(list.map((e) {
+          int index = listTran
+              .indexWhere((element) => element.startTime == e.startTime);
+          if (index != -1) e.extText = listTran[index].mainText;
+          return e;
+        }).toList());
+      } else {
+        lyricsLineModels.addAll(list);
+      }
+    }
   }
 
   Future<void> changeRepeatMode() async {

@@ -5,7 +5,6 @@ import '../../commons/player/widgets/rotation_cover_image.dart';
 import '../../commons/res/dimens.dart';
 import '../../commons/res/down_up_fade.dart';
 import '../../commons/values/constants.dart';
-import '../../commons/values/server.dart';
 import '../../utils/adapt.dart';
 import '../../utils/image_utils.dart';
 import '../playing_controller.dart';
@@ -185,7 +184,7 @@ class _PlayingAlbumCoverState extends State<PlayingAlbumCover>
           "the width of cover layout should be constrainted!");
       return ClipRect(
           child: Padding(
-        padding: EdgeInsets.only(bottom: Dimens.gap_dp20),
+        padding: EdgeInsets.only(bottom: Dimens.gap_dp16, top: Dimens.gap_dp16),
         child: _build(context, constraints.maxWidth),
       ));
     });
@@ -227,11 +226,9 @@ class _PlayingAlbumCoverState extends State<PlayingAlbumCover>
                   //reset translateX to 0 when animation complete
                   _coverTranslateX = 0;
                   if (des > 0) {
-                    logger.d('animateCover _previous');
                     _current = _previous;
                     playController.audioHandler.skipToPrevious();
                   } else {
-                    logger.d('animateCover _next');
                     _current = _next;
                     playController.audioHandler.skipToNext();
                   }

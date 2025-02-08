@@ -23,3 +23,5 @@ final String HIGH_SONG = 'HIGH_SONG';
 
 // 登录信息
 final String LOGIN_DATA = 'LOGIN_DATA';
+
+final String topLyricSp = 'TOP_LYRIC';
