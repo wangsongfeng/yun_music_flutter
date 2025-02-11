@@ -40,13 +40,11 @@ class MusicApi {
     // if (cacheData != null) {
     //   oldData = RecomModel.fromJson(cacheData);
     // }
-
     // final response = await httpManager.get("/homepage/block/page", {
     //   'refresh': refresh,
     //   'cursor': oldData?.cursor ?? '',
     //   'timestamp': DateTime.now().millisecondsSinceEpoch
     // });
-
     // if (response.result) {
     //   try {
     //     final recmData = RecomModel.fromJson(response.data['data']);
@@ -115,6 +113,7 @@ class MusicApi {
       //组装新的展示数据
       final newData =
           RecomModel(recmData.cursor, diffList, recmData.pageConfig);
+
       box.write(CACHE_HOME_RECOMMEND_DATA, newData.toJson());
       return Future.value(newData);
     }

@@ -50,11 +50,6 @@ class RecomController extends SuperController<RecomModel?> {
 
   Future<void> getFoundRecList({bool refresh = false}) async {
     final cacheData = box.read<Map<String, dynamic>>(CACHE_HOME_RECOMMEND_DATA);
-    if (cacheData != null && !refresh) {
-      isSucLoad.value = true;
-      recomData.value = RecomModel.fromJson(cacheData);
-      change(RecomModel.fromJson(cacheData), status: RxStatus.success());
-    }
     MusicApi.getRecomRec(refresh: refresh, cacheData: cacheData).then(
         (newValue) {
       if (newValue != null) {

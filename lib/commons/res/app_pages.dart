@@ -11,6 +11,7 @@ import 'package:yun_music/pages/moments/moments_page.dart';
 import 'package:yun_music/pages/new_song_album/new_song_album_page.dart';
 import 'package:yun_music/pages/not_found/not_found_binding.dart';
 import 'package:yun_music/pages/not_found/not_found_view.dart';
+import 'package:yun_music/vmusic/comment/comment_page.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
 import 'package:yun_music/vmusic/playing_page.dart';
 import 'package:yun_music/pages/playlist_collection/playlist_collection.dart';
@@ -88,7 +89,11 @@ class Routes {
     CustomGetPage(
         name: RouterPath.Video_Lists,
         page: () => const VideoPage(),
-        binding: VideoBinding())
+        binding: VideoBinding()),
+
+    //评论
+    CustomGetPage(
+        name: RouterPath.Comment_Page, page: () => const CommentPage())
   ];
 
   static final unknownRoute = CustomGetPage(

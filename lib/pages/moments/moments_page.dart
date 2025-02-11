@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/pages/moments/moments_controller.dart';
 import 'package:yun_music/utils/image_utils.dart';
+import 'package:yun_music/vmusic/widget/comment_button.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
@@ -100,6 +102,13 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                                   Container(
                                     height: 2000,
                                     color: Colors.red,
+                                    child: CommentButton(
+                                      countType:
+                                          PlayingOperationBarCountType.message,
+                                      onTaps: () {
+                                        logger.d("message");
+                                      },
+                                    ),
                                   ),
                                   Container(height: 2000)
                                 ]))

@@ -11,6 +11,8 @@ import 'package:yun_music/pages/recommend/models/creative_model.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../../../commons/res/app_routes.dart';
+
 class RecomPlistVerScroll extends StatefulWidget {
   RecomPlistVerScroll({super.key, required this.resources});
 
@@ -90,6 +92,11 @@ class _RecomPlistVerScrollState extends State<RecomPlistVerScroll> {
                             Size(Dimens.gap_dp105, Dimens.gap_dp105)),
                       ),
                     );
+                  },
+                  onTap: (index) {
+                    final resource = widget.resources.elementAt(index);
+                    final resoreceId = resource.resourceId;
+                    Get.toNamed(RouterPath.PlayListDetailId(resoreceId!));
                   },
                   onIndexChanged: (index) {
                     res.value = widget.resources.elementAt(index);

@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:yun_music/api/bujuan_api.dart';
 import 'package:yun_music/commons/values/keys.dart';
-import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/vmusic/handle/music_handle.dart';
 import 'package:yun_music/vmusic/model/lyric_info_model.dart';
 
@@ -151,7 +150,6 @@ class PlayingController extends GetxController
         int index = lyricsLineModels.indexOf(lyricsLineModels.firstWhere(
             (element) => element.startTime! >= duration.value.inMilliseconds));
         if (index != -1 && index != lastIndex) {
-          logger.d("移动中");
           lyricScrollController.animateToItem((index > 0 ? index - 1 : index),
               duration: const Duration(milliseconds: 500),
               curve: Curves.linear);

@@ -7,12 +7,12 @@ part of 'user_info_model.dart';
 // **************************************************************************
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
-      json['followed'] as bool,
-      json['avatarUrl'] as String,
-      (json['gender'] as num).toInt(),
-      (json['birthday'] as num).toInt(),
-      (json['userId'] as num).toInt(),
-      json['nickname'] as String,
+      json['followed'] as bool?,
+      json['avatarUrl'] as String?,
+      (json['gender'] as num?)?.toInt(),
+      (json['birthday'] as num?)?.toInt(),
+      (json['userId'] as num?)?.toInt(),
+      json['nickname'] as String?,
       json['signature'] as String?,
       json['description'] as String?,
       json['detailDescription'] as String?,

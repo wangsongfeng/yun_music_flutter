@@ -35,4 +35,7 @@ class RouterPath {
 
   //视频列表
   static const Video_Lists = '/videolist';
+
+  //评论
+  static const Comment_Page = "/comment";
 }

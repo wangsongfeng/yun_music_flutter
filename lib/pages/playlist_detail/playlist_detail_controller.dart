@@ -144,8 +144,6 @@ class PlaylistDetailController extends GetxController {
   //音乐歌单
   Future<void> _getTracks(PlaylistDetailModel? detailModel) async {
     List<Song>? result;
-    logger.d(
-        "数据长度--${detailModel?.playlist.trackIds.length} -- tracks=${detailModel?.playlist.tracks.length}");
     if (detailModel?.playlist.trackIds.length !=
         detailModel?.playlist.tracks.length) {
       //歌曲数量和歌曲ID不一致,请求全部歌曲{id,id}

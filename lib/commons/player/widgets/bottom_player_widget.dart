@@ -175,7 +175,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
                         height: Dimens.gap_dp22,
                         color: Get.isDarkMode ? Colors.white : Colors.black,
                       )),
-                  const SizedBox(width: 8)
+                  const SizedBox(width: 8),
                 ],
               ),
             ),

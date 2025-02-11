@@ -20,55 +20,57 @@ class RecomAppbar extends StatelessWidget implements PreferredSizeWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {},
-              child: Obx(() => 
-                 Container(
-                  padding: const EdgeInsets.only(left: 12,right: 12),
-                  height: 40,
-                  margin: EdgeInsets.only(
-                    left: Get.theme.appBarTheme.toolbarHeight!,
-                    right: 0),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    color: Get.isDarkMode ? AppThemes.dark_search_bg_color : AppThemes.search_bg_color,
-                  ),
-                  alignment: Alignment.center,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: Image.asset(
-                          ImageUtils.getImagePath('home_top_bar_search'),
-                          color: Get.isDarkMode ? Colors.white : AppThemes.text_gray,
+              child: Obx(() => Container(
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 40,
+                    margin: EdgeInsets.only(
+                        left: Get.theme.appBarTheme.toolbarHeight!, right: 0),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      color: Get.isDarkMode
+                          ? AppThemes.dark_search_bg_color
+                          : AppThemes.search_bg_color,
+                    ),
+                    alignment: Alignment.center,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: Image.asset(
+                            ImageUtils.getImagePath('home_top_bar_search'),
+                            color: Get.isDarkMode
+                                ? Colors.white
+                                : AppThemes.text_gray,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 2),
-                      Text(
-                        recomController.defuleSearch.value?.showKeyword ?? "搜索",
-                        style: const TextStyle(
-                          color: AppThemes.text_gray,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500
+                        const SizedBox(width: 2),
+                        Expanded(
+                            child: Text(
+                          recomController.defuleSearch.value?.showKeyword ??
+                              "搜索",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: AppThemes.text_gray,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        )),
+                        SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: Image.asset(
+                            ImageUtils.getImagePath('home_top_bar_scan'),
+                            color: Get.isDarkMode
+                                ? Colors.white
+                                : AppThemes.text_gray,
+                          ),
                         ),
-                      ),
-
-                      const Spacer(),
-
-                      SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: Image.asset(
-                          ImageUtils.getImagePath('home_top_bar_scan'),
-                          color: Get.isDarkMode ? Colors.white : AppThemes.text_gray,
-                        ),
-                      ),
-                    ],
-                  ),
-                 )
-              ),
+                      ],
+                    ),
+                  )),
             ),
           ),
-
           GestureDetector(
             child: Container(
               color: Colors.transparent,

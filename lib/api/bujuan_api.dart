@@ -10,6 +10,7 @@ import '../commons/models/song_info_dto.dart';
 import '../commons/models/song_list_model.dart';
 import '../commons/models/song_model.dart';
 import '../pages/playlist_detail/models/playlist_detail_model.dart';
+import '../vmusic/model/comment_list.dart';
 import '../vmusic/model/lyric_info_model.dart';
 
 class BujuanApi {
@@ -126,6 +127,30 @@ class BujuanApi {
     final response = await httpManager.postUri(metaData);
     logger.d('音乐歌词-${jsonDecode(response.data)}');
     return SongLyricWrap.fromJson(jsonDecode(response.data));
+  }
+
+  //获取评论
+  static Future<CommentListData?> getSongComment(String id, String type,
+      {int pageNo = 1,
+      int pageSize = 20,
+      bool showInner = false,
+      int? sortType}) async {
+    var params = {
+      'threadId': type,
+      'pageNo': pageNo,
+      'pageSize': pageSize,
+      'showInner': showInner,
+      'sortType': sortType ?? 99,
+      'cursor': (1 - 1) * pageSize,
+    };
+    final metaData = DioMetaData(joinUri('/api/v2/resource/comments'),
+        data: params,
+        options: joinOptions(
+            encryptType: EncryptType.EApi,
+            eApiUrl: '/api/v2/resource/comments',
+            cookies: {'os': 'pc'}));
+    final response = await httpManager.postUri(metaData);
+    return CommentListData.fromJson(response.data["data"]);
   }
 }
 

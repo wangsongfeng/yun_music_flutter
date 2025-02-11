@@ -17,6 +17,7 @@ import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../commons/res/app_routes.dart';
 import 'widget/blur_background.dart';
 import 'widget/comment_button.dart';
 
@@ -229,9 +230,18 @@ class _PlayingOperationBarPage extends StatelessWidget {
           ),
           SizedBox(width: Dimens.gap_dp10),
           const Spacer(),
-          CommentButton(countType: PlayingOperationBarCountType.like),
+          CommentButton(
+            countType: PlayingOperationBarCountType.like,
+            onTaps: () {},
+          ),
           SizedBox(width: Dimens.gap_dp24),
-          CommentButton(countType: PlayingOperationBarCountType.message),
+          CommentButton(
+            countType: PlayingOperationBarCountType.message,
+            onTaps: () {
+              Get.toNamed(RouterPath.Comment_Page,
+                  arguments: PlayingController.to.mediaItem.value);
+            },
+          ),
         ],
       ),
     );

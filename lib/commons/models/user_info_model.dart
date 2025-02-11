@@ -1,29 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'user_info_model.g.dart';
 
 @JsonSerializable()
 class UserInfo extends Object {
-
-  
   @JsonKey(name: 'followed')
-  bool followed;
+  bool? followed;
 
   @JsonKey(name: 'avatarUrl')
-  String avatarUrl;
+  String? avatarUrl;
 
   @JsonKey(name: 'gender')
-  int gender;
+  int? gender;
 
   @JsonKey(name: 'birthday')
-  int birthday;
+  int? birthday;
 
   @JsonKey(name: 'userId')
-  int userId;
+  int? userId;
 
   @JsonKey(name: 'nickname')
-  String nickname;
+  String? nickname;
 
   @JsonKey(name: 'signature')
   String? signature;
@@ -71,7 +68,6 @@ class UserInfo extends Object {
             : '';
   }
 }
-
 
 @JsonSerializable()
 class AvatarDetail extends Object {

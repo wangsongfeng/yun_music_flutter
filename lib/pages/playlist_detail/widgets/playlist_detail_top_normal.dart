@@ -100,7 +100,7 @@ class PlaylistDetailTopNormal extends StatelessWidget {
                         if (controller.detail.value?.playlist.creator != null)
                           PlaylistDetailFollow(
                             followed: controller
-                                .detail.value!.playlist.creator.followed,
+                                .detail.value!.playlist.creator.followed!,
                           )
                       ],
                     ),

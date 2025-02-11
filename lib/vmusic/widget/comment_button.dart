@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
+import 'package:yun_music/vmusic/playing_controller.dart';
 
-import '../../commons/player/player_service.dart';
 import '../../commons/res/dimens.dart';
 import '../../utils/common_utils.dart';
 import '../../utils/image_utils.dart';
@@ -14,21 +13,21 @@ enum PlayingOperationBarCountType {
 }
 
 class CommentButton extends StatelessWidget {
-  CommentButton({super.key, required this.countType, this.onTap});
+  const CommentButton({super.key, required this.countType, this.onTaps});
 
-  final Function? onTap;
+  final Function? onTaps;
 
   final PlayingOperationBarCountType countType;
-
-  final controller = GetInstance().putOrFind(() => CommentController());
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap?.call(),
+      onTap: () {
+        onTaps?.call();
+      },
       child: Obx(() {
         if (countType == PlayingOperationBarCountType.message) {
-          if (controller.commentCount.value > 0) {
+          if (PlayingController.to.selectIndex.value > 0) {
             return Stack(
               children: [
                 SizedBox(
@@ -44,7 +43,7 @@ class CommentButton extends StatelessWidget {
                   padding: EdgeInsets.only(left: Dimens.gap_dp16),
                   alignment: Alignment.topRight,
                   child: Text(
-                    getCommentStrFromInt(controller.commentCount.value),
+                    getCommentStrFromInt(10),
                     style: TextStyle(
                         color: AppThemes.color_217, fontSize: Dimens.font_sp9),
                   ),
@@ -62,7 +61,7 @@ class CommentButton extends StatelessWidget {
             );
           }
         } else if (countType == PlayingOperationBarCountType.like) {
-          if (controller.likeCount.value > 0) {
+          if (PlayingController.to.selectIndex.value > 0) {
             return Stack(
               children: [
                 SizedBox(
@@ -79,7 +78,7 @@ class CommentButton extends StatelessWidget {
                   padding: EdgeInsets.only(left: Dimens.gap_dp16),
                   alignment: Alignment.topRight,
                   child: Text(
-                    getCommentStrFromInt(controller.likeCount.value),
+                    getCommentStrFromInt(10),
                     style: TextStyle(
                         color: AppThemes.color_217, fontSize: Dimens.font_sp9),
                   ),
@@ -102,27 +101,5 @@ class CommentButton extends StatelessWidget {
         }
       }),
     );
-  }
-}
-
-class CommentController extends GetxController {
-  Song? curSong;
-
-  final commentCount = 0.obs;
-  final likeCount = 0.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    _updateCommentState(PlayerService.to.curPlay.value);
-  }
-
-  void _updateCommentState(Song? song) {
-    if (curSong == song || song == null) {
-      return;
-    }
-    curSong = song;
-    commentCount.value = 417;
-    likeCount.value = 0;
   }
 }

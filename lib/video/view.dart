@@ -162,7 +162,7 @@ class _VideoPageState extends State<VideoPage> {
 
   Widget _buildHeader() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp14),
+      padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp4),
       child: Row(
         children: [
           IconButton(
