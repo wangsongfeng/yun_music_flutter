@@ -150,7 +150,12 @@ class BujuanApi {
             eApiUrl: '/api/v2/resource/comments',
             cookies: {'os': 'pc'}));
     final response = await httpManager.postUri(metaData);
-    return CommentListData.fromJson(response.data["data"]);
+    print(response);
+    if (response.code == 200) {
+      return CommentListData.fromJson(response.data["data"]);
+    } else {
+      return null;
+    }
   }
 }
 

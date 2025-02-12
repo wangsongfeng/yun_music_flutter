@@ -29,7 +29,7 @@ class CommentTitlePage extends StatelessWidget {
             music: controller?.song,
             pading: Dimens.gap_dp9,
           ),
-          _buildTitle(controller?.song),
+          Expanded(child: _buildTitle(controller?.song))
         ],
       ),
     );
