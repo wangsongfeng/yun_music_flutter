@@ -85,16 +85,32 @@ class BujuanApi {
   static Future<void> videoListByGroup(String groupId,
       {int offset = 0, bool total = true}) async {
     var params = {
-      'groupId': groupId,
-      'offset': offset,
-      'need_preview_url': true,
-      'total': total
+      "offset": offset,
+      "filterLives": '[]',
+      "withProgramInfo": 'true',
+      "needUrl": 'true',
+      "resolution": '480'
     };
-    final metaData = DioMetaData(joinUri('/api/videotimeline/otherclient/get'),
-        data: params, options: joinOptions());
+    final metaData = DioMetaData(joinUri('/api/videotimeline/get'),
+        data: params,
+        options: joinOptions(
+            encryptType: EncryptType.EApi, eApiUrl: '/api/videotimeline/get'));
 
     final response = await httpManager.postUri(metaData);
     logger.d('视频标签下的视频-$response');
+  }
+
+  //9B1ADC95792C310437EB48BCF2E622AE
+  //相关视频
+  static Future<void> relatedVideoList(String videoId) async {
+    var params = {
+      'id': videoId,
+      'type': RegExp(r'^\d+$').hasMatch(videoId) ? 0 : 1
+    };
+    final metaData = DioMetaData(joinUri('/weapi/cloudvideo/v1/allvideo/rcmd'),
+        data: params, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    logger.d('相关视频-$response');
   }
 
   //获取歌曲URL
@@ -130,18 +146,19 @@ class BujuanApi {
   }
 
   //获取评论
-  static Future<CommentListData?> getSongComment(String id, String type,
+  static Future<CommentListWrap?> getSongComment(String id, String type,
       {int pageNo = 1,
       int pageSize = 20,
       bool showInner = false,
-      int? sortType}) async {
+      int? sortType,
+      String? cursor}) async {
     var params = {
       'threadId': type,
       'pageNo': pageNo,
       'pageSize': pageSize,
       'showInner': showInner,
       'sortType': sortType ?? 99,
-      'cursor': (1 - 1) * pageSize,
+      'cursor': cursor,
     };
     final metaData = DioMetaData(joinUri('/api/v2/resource/comments'),
         data: params,
@@ -150,12 +167,46 @@ class BujuanApi {
             eApiUrl: '/api/v2/resource/comments',
             cookies: {'os': 'pc'}));
     final response = await httpManager.postUri(metaData);
-    print(response);
-    if (response.code == 200) {
-      return CommentListData.fromJson(response.data["data"]);
-    } else {
-      return null;
-    }
+    return CommentListWrap.fromJson(response.data);
+  }
+
+  ///推荐MV
+  static Future<void> personalizedMvList() async {
+    final metaData = DioMetaData(joinUri('/weapi/personalized/mv'),
+        data: {}, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    logger.d(response);
+  }
+
+  //网易出品MV
+  static Future<void> neteaseMvList(
+      {int offset = 0, int limit = 30, bool total = true}) async {
+    var params = {'total': total, 'limit': limit, 'offset': offset};
+    final metaData = DioMetaData(
+        Uri.parse('https://interface.music.163.com/api/mv/exclusive/rcmd'),
+        data: params,
+        options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    logger.d(response);
+  }
+
+  //MV详情
+  static Future<void> vDetail(String mvId) async {
+    var params = {'id': mvId};
+    final metaData = DioMetaData(joinUri('/weapi/mv/detail'),
+        data: params, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    print("MV 详情- ${response.data}");
+    print("MV 详情- ${response.data["data"]["brs"]["240"]}");
+  }
+
+  //相似MV
+  static Future<void> mvSimiList(String mvId) async {
+    var params = {'mvid': mvId};
+    final metaData = DioMetaData(joinUri('/weapi/discovery/simiMV'),
+        data: params, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    print("MV 相似- ${response.data}");
   }
 }
 

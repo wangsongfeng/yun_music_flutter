@@ -58,6 +58,7 @@ class _VillageListPageState extends State<VillageListPage>
                   noMoreText: "暂无更多数据",
                 ),
                 onLoading: () async {
+                  print("loading");
                   villageListController.loadMore();
                 },
                 onRefresh: () async {

@@ -6,6 +6,20 @@ part of 'comment_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+CommentListWrap _$CommentListWrapFromJson(Map<String, dynamic> json) =>
+    CommentListWrap(
+      json['data'] == null
+          ? null
+          : CommentListData.fromJson(json['data'] as Map<String, dynamic>),
+      (json['code'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$CommentListWrapToJson(CommentListWrap instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'code': instance.code,
+    };
+
 CommentListData _$CommentListDataFromJson(Map<String, dynamic> json) =>
     CommentListData(
       json['hasMore'] as bool?,

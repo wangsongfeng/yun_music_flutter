@@ -4,6 +4,24 @@ import '../../commons/models/user_info_model.dart';
 part 'comment_list.g.dart';
 
 @JsonSerializable()
+class CommentListWrap extends Object {
+  @JsonKey(name: 'data')
+  CommentListData? data;
+  @JsonKey(name: 'code')
+  int? code;
+
+  CommentListWrap(
+    this.data,
+    this.code,
+  );
+
+  factory CommentListWrap.fromJson(Map<String, dynamic> srcJson) =>
+      _$CommentListWrapFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$CommentListWrapToJson(this);
+}
+
+@JsonSerializable()
 class CommentListData extends Object {
   @JsonKey(name: 'hasMore')
   bool? hasMore;

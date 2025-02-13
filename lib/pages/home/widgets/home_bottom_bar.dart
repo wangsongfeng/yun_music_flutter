@@ -41,8 +41,8 @@ class _HomeBottomBarState extends State<HomeBottomBar>
           ? Tween(begin: 1.0, end: 1.0).animate(animationController)
           : Tween(begin: 1.0, end: 1.36).animate(animationController),
       child: Container(
-        width: 28,
-        height: 28,
+        width: 26,
+        height: 26,
         padding: EdgeInsets.all(Dimens.gap_dp3),
         color: isActive ? AppThemes.tab_color : Colors.transparent,
         child: Image.asset(

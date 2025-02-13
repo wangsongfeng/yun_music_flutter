@@ -35,8 +35,7 @@ class VillageController extends GetxController
       setTabController();
     });
 
-    BujuanApi.videoGroupList();
-
-    BujuanApi.videoListByGroup("60100");
+    BujuanApi.neteaseMvList();
+    BujuanApi.mvSimiList("10989376");
   }
 }

@@ -16,7 +16,7 @@ class FooterLoading extends StatelessWidget {
         height: Dimens.gap_dp90,
         builder: (context, mode) {
           Widget body;
-          if (mode == LoadStatus.idle || mode == LoadStatus.loading) {
+          if (mode == LoadStatus.loading) {
             //加载状态
             body = MusicLoading(
               axis: Axis.horizontal,
@@ -27,7 +27,7 @@ class FooterLoading extends StatelessWidget {
               "加载失败，稍后重试",
               style: body1Style().copyWith(fontSize: Dimens.font_sp14),
             );
-          } else {
+          } else if (mode == LoadStatus.noMore) {
             //没有数据
             if (noMoreText.isNotEmpty) {
               body = Text(
@@ -37,6 +37,8 @@ class FooterLoading extends StatelessWidget {
             } else {
               body = const SizedBox.shrink();
             }
+          } else {
+            body = const SizedBox.shrink();
           }
           return SizedBox(
             height: Dimens.gap_dp50,

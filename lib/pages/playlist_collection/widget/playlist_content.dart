@@ -147,14 +147,17 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
   }
 
   Widget _buildListView(List<SimplePlayListModel>? datas) {
+    final itemW = (Adapt.screenW() - Dimens.gap_dp30 - Dimens.gap_dp20) / 3.0;
+    final childAspectRatio =
+        (itemW + Dimens.gap_dp4 + Dimens.gap_dp6 + Dimens.gap_dp32);
     return GridView.builder(
       padding: EdgeInsets.only(
           left: Dimens.gap_dp15, right: Dimens.gap_dp15, top: Dimens.gap_dp12),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: Dimens.gap_dp10,
-        crossAxisSpacing: Dimens.gap_dp9,
-        childAspectRatio: 114.2 / 165.4,
+        crossAxisSpacing: Dimens.gap_dp8,
+        childAspectRatio: itemW / childAspectRatio,
       ),
       itemBuilder: (context, index) {
         final item = datas!.elementAt(index);
@@ -181,7 +184,7 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
                 ? ImageUtils.getImagePath('c_k')
                 : null,
           ),
-          SizedBox(height: Dimens.gap_dp6),
+          SizedBox(height: Dimens.gap_dp5),
           Text(
             item.name,
             maxLines: 2,

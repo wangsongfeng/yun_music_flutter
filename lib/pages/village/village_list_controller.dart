@@ -30,6 +30,7 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
   void requestData() {
     MusicApi.getVideoGroupListSource().then((value) {
       if (value != null) {
+        print(value);
         videoData.value = value;
         change(value, status: RxStatus.success());
       }

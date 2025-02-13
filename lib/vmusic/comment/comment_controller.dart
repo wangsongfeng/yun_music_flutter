@@ -10,16 +10,20 @@ class MCommentController extends GetxController
     with GetTickerProviderStateMixin {
   RxBool isLoading = true.obs;
   RxBool typeLoading = false.obs;
-  RxBool loadMore = false.obs;
+  RxBool loadings = false.obs;
   MediaItem? song;
 
-  RxInt sortType = 1.obs;
+  RxInt sortType = 2.obs;
+
+  RxList<CommentItem> commentList = <CommentItem>[].obs;
+  RxBool haseMore = false.obs;
+  RxInt totalCount = 0.obs;
 
   int pageNo = 1;
 
-  final commentWarp = Rx<CommentListData?>(null);
+  String cursor = "0";
 
-  late final CommentListData? currentListData;
+  final commentWarp = Rx<CommentListData?>(null);
 
   final List<Tab> myTabs = <Tab>[
     const Tab(text: '评论'),
@@ -29,7 +33,7 @@ class MCommentController extends GetxController
   late TabController tabController;
   late PageController pageController;
 
-  late RefreshController refreshController;
+  final refreshController = RefreshController();
   late Future futureBuilderFuture;
 
   @override
@@ -39,36 +43,41 @@ class MCommentController extends GetxController
     tabController =
         TabController(length: myTabs.length, vsync: this, initialIndex: 0);
     pageController = PageController(initialPage: 0);
-    refreshController = RefreshController();
-
     futureBuilderFuture = _requestCommentData(false);
   }
 
   Future _requestCommentData(bool clickType) async {
     if (clickType == true) {
       typeLoading.value = true;
+      commentList.value = [];
     }
-    loadMore.value = false;
+    loadings.value = true;
     String typeKey = _type2key("song") + song!.id;
-    await BujuanApi.getSongComment(song!.id, typeKey,
-            sortType: sortType.value, pageNo: pageNo)
-        .then((value) {
-      if (value != null) {
-        if (pageNo == 1) {
-          commentWarp.value = value;
-        } else {
-          loadMore.value = true;
-          commentWarp.value?.comments
-              ?.addAll(value.comments as Iterable<CommentItem>);
-        }
+    var value = await BujuanApi.getSongComment(song!.id, typeKey,
+        sortType: sortType.value, pageNo: pageNo, cursor: cursor);
+    if (value?.data != null) {
+      haseMore.value = value?.data?.hasMore ?? false;
+      totalCount.value = value?.data?.totalCount ?? 0;
+      cursor = value?.data?.cursor ?? "0";
+      if (pageNo == 1) {
+        commentWarp.value = value?.data;
+        commentList.value = commentWarp.value!.comments!;
+      } else {
+        commentList.addAll(value?.data!.comments as Iterable<CommentItem>);
       }
-    });
-    isLoading.value = false;
-    typeLoading.value = false;
-    refreshController.refreshCompleted();
-    if (commentWarp.value?.hasMore == true) {
-      refreshController.loadComplete();
     } else {
+      pageNo -= 1;
+    }
+    loadings.value = false;
+    if (isLoading.value == true) {
+      isLoading.value = false;
+    }
+    if (typeLoading.value == true) {
+      typeLoading.value = false;
+    }
+    await Future.delayed(const Duration(milliseconds: 200));
+    refreshController.loadComplete();
+    if (haseMore.value == false) {
       refreshController.loadNoData();
     }
     return commentWarp.value;
@@ -78,13 +87,15 @@ class MCommentController extends GetxController
   Future clickType(int type) async {
     if (sortType.value == type) return;
     sortType.value = type;
+    cursor = "0";
     pageNo = 1;
-    loadMore.value = false;
     _requestCommentData(true);
   }
 
   //
   Future<void> onLoading() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    if (loadings.value == true) return;
     pageNo += 1;
     _requestCommentData(false);
   }
@@ -122,5 +133,6 @@ class MCommentController extends GetxController
     super.dispose();
     tabController.dispose();
     pageController.dispose();
+    refreshController.dispose();
   }
 }
