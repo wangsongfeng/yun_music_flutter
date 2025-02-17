@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 import 'package:yun_music/vmusic/comment/comment_controller.dart';
 import 'package:yun_music/vmusic/model/comment_list.dart';
@@ -40,11 +41,10 @@ class CommentListItem extends StatelessWidget {
               children: [
                 Text(
                   item.user.nickname!,
-                  style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                          fontSize: Dimens.font_sp13,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(0.6))),
+                  style: TextStyle(
+                      fontSize: Dimens.font_sp13,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black.withOpacity(0.6)),
                 ),
                 Text(
                   item.timeStr!,
@@ -56,11 +56,11 @@ class CommentListItem extends StatelessWidget {
                       top: Dimens.gap_dp8, bottom: Dimens.gap_dp8),
                   child: Text(
                     item.content!,
-                    style: GoogleFonts.roboto(
-                        textStyle: TextStyle(
-                            fontSize: Dimens.font_sp13,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black)),
+                    style: TextStyle(
+                        fontSize: Dimens.font_sp13,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: W.fonts.PingFang,
+                        color: Colors.black),
                   ),
                 ),
                 if (item.replyCount! > 0)

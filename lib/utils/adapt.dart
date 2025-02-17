@@ -66,3 +66,14 @@ class Adapt {
     return screenH() - topPadding() - bottomPadding();
   }
 }
+
+class _Fonts {
+  final PuHuiTi = 'PuHuiTi';
+  final PuHuiTiX = 'PuHuiTiX';
+  final IconFonts = 'iconfont';
+  final PingFang = 'PingFang';
+}
+
+class W {
+  static final fonts = _Fonts();
+}

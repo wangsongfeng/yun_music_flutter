@@ -38,4 +38,7 @@ class RouterPath {
 
   //评论
   static const Comment_Page = "/comment";
+
+  //搜索
+  static const Search_Page = "/search";
 }

@@ -6,7 +6,9 @@ import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 class RecomAppbar extends StatelessWidget implements PreferredSizeWidget {
-  RecomAppbar({super.key});
+  RecomAppbar({super.key, this.onSubmit});
+
+  final Function(String)? onSubmit;
 
   final recomController = GetInstance().find<RecomController>();
 
@@ -19,7 +21,11 @@ class RecomAppbar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if (onSubmit != null) {
+                  onSubmit!("");
+                }
+              },
               child: Obx(() => Container(
                     padding: const EdgeInsets.only(left: 12, right: 12),
                     height: 40,

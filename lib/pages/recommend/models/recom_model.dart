@@ -6,6 +6,23 @@ import 'creative_model.dart';
 part 'recom_model.g.dart';
 
 @JsonSerializable()
+class RecomModelWrap extends Object {
+  @JsonKey(name: 'code')
+  int? code;
+  @JsonKey(name: 'data')
+  RecomModel? data;
+
+  RecomModelWrap(
+    this.code,
+    this.data,
+  );
+  factory RecomModelWrap.fromJson(Map<String, dynamic> srcJson) =>
+      _$RecomModelWrapFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$RecomModelWrapToJson(this);
+}
+
+@JsonSerializable()
 class RecomModel extends Object {
   @JsonKey(name: 'cursor')
   String? cursor;

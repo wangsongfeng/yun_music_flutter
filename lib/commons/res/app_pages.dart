@@ -11,6 +11,8 @@ import 'package:yun_music/pages/moments/moments_page.dart';
 import 'package:yun_music/pages/new_song_album/new_song_album_page.dart';
 import 'package:yun_music/pages/not_found/not_found_binding.dart';
 import 'package:yun_music/pages/not_found/not_found_view.dart';
+import 'package:yun_music/pages/search/search_binding.dart';
+import 'package:yun_music/pages/search/search_page.dart';
 import 'package:yun_music/vmusic/comment/comment_page.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
 import 'package:yun_music/vmusic/playing_page.dart';
@@ -93,7 +95,13 @@ class Routes {
 
     //评论
     CustomGetPage(
-        name: RouterPath.Comment_Page, page: () => const CommentPage())
+        name: RouterPath.Comment_Page, page: () => const CommentPage()),
+
+    //搜索
+    CustomGetPage(
+        name: RouterPath.Search_Page,
+        page: () => const SearchPage(),
+        binding: SearchBinding())
   ];
 
   static final unknownRoute = CustomGetPage(

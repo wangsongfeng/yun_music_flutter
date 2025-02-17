@@ -83,7 +83,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
     animationController.forward();
 
     PlayerService.to.plarBarBottom.value = -Adapt.tabbar_padding();
-    Future.delayed(const Duration(milliseconds: 240), () {
+    Future.delayed(const Duration(milliseconds: 1000), () {
       eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
     });
   }
@@ -165,7 +165,7 @@ class _BottomBarState extends State<BottomBar> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             if (selected) item.activeIcon else item.icon,
             const SizedBox(height: 2),
             DefaultTextStyle.merge(

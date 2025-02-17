@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/models/ui_element_model.dart';
@@ -10,10 +9,8 @@ import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 class ElementTitleWidget extends StatelessWidget {
-  const ElementTitleWidget({
-    super.key, 
-    required this.elementModel, 
-    this.onPressed});
+  const ElementTitleWidget(
+      {super.key, required this.elementModel, this.onPressed});
 
   final UiElementModel elementModel;
 
@@ -23,7 +20,7 @@ class ElementTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(top: Dimens.gap_dp5),
-        height: Dimens.gap_dp48,
+        height: 48,
         margin: EdgeInsets.only(left: Dimens.gap_dp15, right: Dimens.gap_dp15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,9 +35,9 @@ class ElementTitleWidget extends StatelessWidget {
                     Wrap(
                       children: [
                         NetworkImgLayer(
-                          width: Adapt.px(18), 
+                          width: Adapt.px(18),
                           height: Adapt.px(18),
-                          color:  headlineStyle().color,
+                          color: headlineStyle().color,
                         ),
                         SizedBox(width: Dimens.gap_dp4)
                       ],

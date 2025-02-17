@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-const SERVER_API_URL = 'https://netease-cloud-music-api-masterxing.vercel.app';
-// const SERVER_API_URL = 'https://netease-cloud-music-api-sable-gamma.vercel.app';
+// const SERVER_API_URL = 'https://netease-cloud-music-api-masterxing.vercel.app';
+const SERVER_API_URL = 'https://neteasecloudmusicapi-one-tan.vercel.app';
 const NEW_SERVER_URL = "https://music.163.com";
 
 const HOSTS = [
@@ -30,5 +30,3 @@ class DebugPrintConsoleOutput extends LogOutput {
     }
   }
 }
-
-

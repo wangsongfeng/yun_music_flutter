@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/pages/splash/splash_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
@@ -14,16 +15,16 @@ class SplashPage extends GetView<SplashController> {
     Adapt.initContext(context);
     return Scaffold(
       backgroundColor: AppThemes.app_main,
-      body: Container(
-        padding: EdgeInsets.only(top: controller.isFirst ? 100 : 255),
-        width: Adapt.screenW(),
-        height: Adapt.screenH(),
-        child: Column(
-          children: [
-            buildContent()
-          ],
-        ),
-      ),
+      body: AnnotatedRegion(
+          value: SystemUiOverlayStyle.light,
+          child: Container(
+            padding: EdgeInsets.only(top: controller.isFirst ? 100 : 255),
+            width: Adapt.screenW(),
+            height: Adapt.screenH(),
+            child: Column(
+              children: [buildContent()],
+            ),
+          )),
     );
   }
 

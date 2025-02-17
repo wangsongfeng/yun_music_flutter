@@ -58,9 +58,9 @@ dependencies:
 
   get_it: ^8.0.3
 
-  just_audio: ^0.9.42
+  just_audio: ^0.9.46
 
-  audio_service: ^0.18.16
+  audio_service: ^0.18.17
 
   hive: ^2.2.3
 
@@ -76,6 +76,7 @@ dependencies:
 
   clickable_list_wheel_view: ^0.2.0
   google_fonts: ^6.2.1
+  flutter_displaymode: ^0.6.0
 
 dev_dependencies:
 
@@ -110,7 +111,18 @@ flutter:
      fonts:
       #  - asset: assets/fonts/苹方黑体-中黑-简.ttf
        - asset: assets/fonts/PingFang_Medium.otf
-         weight: 500
+
+   - family: PuHuiTi
+     fonts:
+        - asset: assets/fonts\Puhuiti.ttf
+    
+   - family: PuHuiTiX
+     fonts:
+        - asset: assets\fonts\Puhuitix.ttf
+
+   - family: iconfont
+     fonts:
+        - asset: assets/fonts/iconfont.ttf
 
   # To add assets to your application, add an assets section, like this:
   assets:

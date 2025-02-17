@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yun_music/commons/models/banner_model.dart';
+import 'package:yun_music/commons/res/app_routes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/skeleton/music_recm.dart';
 import 'package:yun_music/commons/values/constants.dart';
@@ -56,7 +57,9 @@ class _RecomPageState extends State<RecomPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: RecomAppbar(),
+      appBar: RecomAppbar(onSubmit: (text) {
+        Get.toNamed(RouterPath.Search_Page);
+      }),
       extendBodyBehindAppBar: true,
       body: Obx(() {
         return Container(

@@ -236,7 +236,7 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
           onTimeout: () {},
         )
         .onError((error, stacktrace) {});
-    await controllerValue?.setLooping(true);
+    await controllerValue?.setLooping(false);
     afterInit ??= _afterInit;
     await afterInit?.call(controllerValue);
     _prepared = true;
@@ -245,8 +245,6 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
       _disposeLock?.complete();
       _disposeLock = null;
     }
-
-    logger.d("${videoModel.desc}---init结束");
   }
 
   @override

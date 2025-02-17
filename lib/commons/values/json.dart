@@ -66,4 +66,7 @@ class JsonStringConstants {
   static const String hank_videos = "assets/json/hi_short_video.json";
   //用户
   static const String user_list = "assets/json/users.json";
+
+  ///hishort的数据
+  static const String hishort_list = "assets/json/hishort_list.json";
 }

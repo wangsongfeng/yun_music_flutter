@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 
 import '../../../commons/player/widgets/rotation_cover_image.dart';
@@ -45,7 +46,11 @@ class CommentTitlePage extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         text: TextSpan(
             text: song?.title.fixAutoLines(),
-            style: titleStyle.copyWith(fontSize: Dimens.font_sp14),
+            style: TextStyle(
+                fontSize: Dimens.font_sp14,
+                fontWeight: FontWeight.w700,
+                fontFamily: W.fonts.PingFang,
+                color: Colors.black),
             children: [
               const WidgetSpan(child: SizedBox(width: 4)),
               TextSpan(

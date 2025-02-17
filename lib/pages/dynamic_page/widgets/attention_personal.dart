@@ -21,7 +21,7 @@ class AttentionPersonal extends StatelessWidget {
   Widget build(BuildContext context) {
     final itemW = (Adapt.screenW() - Dimens.gap_dp30 - Dimens.gap_dp20) / 3.0;
     final childAspectRatio =
-        (itemW + Dimens.gap_dp4 + Dimens.gap_dp6 + Dimens.gap_dp32);
+        (itemW + Dimens.gap_dp4 + Dimens.gap_dp6 + Dimens.gap_dp34);
     return Container(
       padding: EdgeInsets.only(top: Dimens.gap_dp6),
       child: Column(

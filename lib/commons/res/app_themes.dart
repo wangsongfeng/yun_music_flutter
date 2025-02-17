@@ -119,6 +119,10 @@ class AppThemes {
 
   static const Color c_30353e = Color(0xff30353e);
 
+  static const Color search_page_bg = Color.fromARGB(255, 248, 249, 252);
+
+  static const Color search_bg = Color.fromARGB(255, 237, 238, 241);
+
   static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;
 }

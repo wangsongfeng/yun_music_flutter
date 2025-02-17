@@ -16,6 +16,7 @@ import 'package:yun_music/pages/village/models/video_category.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/video/models/avatar_info.dart';
 import 'package:yun_music/video/models/hankan_info.dart';
+import 'package:yun_music/video/models/hishort_info.dart';
 import 'package:yun_music/video/models/video_list_info.dart';
 
 import '../commons/models/simple_play_list_model.dart';
@@ -31,6 +32,7 @@ import '../pages/new_song_album/models/top_album_model.dart';
 import '../pages/playlist_collection/model/playlist_has_more_model.dart';
 import '../pages/playlist_detail/models/playlist_detail_model.dart';
 import '../pages/village/models/video_group.dart';
+import 'bujuan_api.dart';
 
 class MusicApi {
   //获取首页内容
@@ -73,18 +75,39 @@ class MusicApi {
     //   }
     // }
     // return null;
-
-    //请求失败，加载本地json
-    final recomJson =
-        await CommonService.jsonDecode(JsonStringConstants.discover_pages);
-    final recmData = RecomModel.fromJson(recomJson['data']);
+    RecomModel? oldData;
+    if (cacheData != null) {
+      oldData = RecomModel.fromJson(cacheData);
+    }
+    var params = {
+      'refresh': refresh,
+      'cursor': oldData?.cursor ?? '',
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    };
+    final metaData = DioMetaData(joinUri('/weapi/homepage/block/page'),
+        data: params, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    final recmModelWrap = RecomModelWrap.fromJson(response.data);
+    final recmData = recmModelWrap.data!;
     final ballJson =
         await CommonService.jsonDecode(JsonStringConstants.discover_balls);
     recmData.blocks.insert(
         1,
         Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, ballJson['data'], null, null,
             false));
-    return recmData;
+    return _diffData(recmData, oldData);
+
+    //请求失败，加载本地json
+    // final recomJson =
+    //     await CommonService.jsonDecode(JsonStringConstants.discover_pages);
+    // final recmData = RecomModel.fromJson(recomJson['data']);
+    // final ballJson =
+    //     await CommonService.jsonDecode(JsonStringConstants.discover_balls);
+    // recmData.blocks.insert(
+    //     1,
+    //     Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, ballJson['data'], null, null,
+    //         false));
+    // return recmData;
   }
 
   // ignore: unused_element
@@ -129,9 +152,7 @@ class MusicApi {
     // final response = await httpManager.get('/recommend/songs', null);
     // if (response.result) {
     //   return RcmdSongDailyModel.fromJson(response.data['data']);
-    // } else {
-
-    // }
+    // } else {}
     // return null;
   }
 
@@ -478,8 +499,7 @@ class MusicApi {
   //获取播客详情
 
   static Future<BlogDetailModel?> getBlogDetail(String rid) async {
-    // final response =
-    //     await httpManager.get('/dj/detail?rid=$rid', null);
+    // final response = await httpManager.get('/dj/detail?rid=$rid', null);
     // BlogDetailModel? data;
     // if (response.result) {
     //   data = BlogDetailModel.fromJson(response.data['data']);
@@ -515,18 +535,31 @@ class MusicApi {
 
   //获取视频Category
   static Future<List<VideoCategory>?> getVideoCategoryList() async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    var categoryList = List<VideoCategory>.empty(growable: true);
-    final categortJson =
-        await CommonService.jsonDecode(JsonStringConstants.video_category);
-    final list = (categortJson['data'] as List)
-        .map((e) => VideoCategory.fromJson(e))
-        .toList();
-    categoryList = list;
-    return categoryList;
+    final metaData = DioMetaData(joinUri('/api/cloudvideo/group/list'),
+        data: {}, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    if (response.data["code"] == 200) {
+      var categoryList = List<VideoCategory>.empty(growable: true);
+      final list = (response.data['data'] as List)
+          .map((e) => VideoCategory.fromJson(e))
+          .toList();
+      categoryList = list;
+      return categoryList;
+    } else {
+      await Future.delayed(const Duration(milliseconds: 300));
+      var categoryList = List<VideoCategory>.empty(growable: true);
+      final categortJson =
+          await CommonService.jsonDecode(JsonStringConstants.video_category);
+      final list = (categortJson['data'] as List)
+          .map((e) => VideoCategory.fromJson(e))
+          .toList();
+      categoryList = list;
+      return categoryList;
+    }
   }
 
-  //获取视频分类下的视频 https://netease-cloud-music-api-masterxing.vercel.app/video/group?id=$id&offset=$offset
+  //获取视频分类下的视频 https://netease-cloud-music-api-masterxing.vercel.app/video/group
+  //?id=$id&offset=$offset
 
   static Future<VideoGroupSourceList?> getVideoGroupListSource() async {
     await Future.delayed(const Duration(milliseconds: 200));
@@ -568,6 +601,18 @@ class MusicApi {
         await CommonService.jsonDecode(JsonStringConstants.video_lists);
     final list =
         (json['data'] as List).map((e) => VideoInfo.fromJson(e)).toList();
+    videoList = list;
+    return videoList;
+  }
+
+  //huoqu hishort
+  static Future<List<HishortInfo>?> requestHiShortList() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    var videoList = List<HishortInfo>.empty(growable: true);
+    final json =
+        await CommonService.jsonDecode(JsonStringConstants.hishort_list);
+    final list =
+        (json['data'] as List).map((e) => HishortInfo.fromJson(e)).toList();
     videoList = list;
     return videoList;
   }

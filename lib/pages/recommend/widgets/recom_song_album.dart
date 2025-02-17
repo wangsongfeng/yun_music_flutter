@@ -260,6 +260,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum>
                 children: [
                   Text(
                     uiElement.mainTitle?.title ?? '',
+                    maxLines: 1,
                     style: headline1Style(),
                   ),
                   SizedBox(height: Dimens.gap_dp4),

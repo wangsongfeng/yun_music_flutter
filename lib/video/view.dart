@@ -102,7 +102,6 @@ class _VideoPageState extends State<VideoPage> {
                     );
                   } else {
                     content = SizedBox(
-                        width: width,
                         height: height,
                         child: AspectRatio(
                           aspectRatio:
@@ -194,8 +193,7 @@ class _VideoPageState extends State<VideoPage> {
 
   Widget _buildCover(VPVideoController? player, bool fitWidth, double height) {
     return CachedNetworkImage(
-      imageUrl:
-          "https://dy.ttentau.top/images/${player!.videoInfo.value!.video!.cover!.url_list!.first}",
+      imageUrl: player!.videoInfo.value!.video!.cover!.url_list!.first,
       width: Adapt.screenW(),
       height: height,
       fit: fitWidth ? BoxFit.fitWidth : BoxFit.cover,

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
@@ -68,6 +71,7 @@ Future<void> main() async {
 
 Future<void> _initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await _initGetService(GetIt.instance);
 }
 
@@ -128,6 +132,19 @@ class MainAppPage extends StatelessWidget {
   const MainAppPage({super.key});
   @override
   Widget build(BuildContext context) {
+    // 强制设置高帧率
+    if (Platform.isAndroid) {
+      try {
+        late List modes;
+        FlutterDisplayMode.supported.then((value) {
+          modes = value;
+          DisplayMode f = DisplayMode.auto;
+          DisplayMode preferred = modes.toList().firstWhere((el) => el == f);
+          FlutterDisplayMode.setPreferredMode(preferred);
+        });
+      } catch (_) {}
+    }
+
     return RefreshConfiguration(
       headerBuilder: () => const MaterialClassicHeader(
         color: AppThemes.app_main,

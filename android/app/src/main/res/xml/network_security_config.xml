@@ -9,5 +9,9 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">music.126.net</domain>
         <domain includeSubdomains="true">126.net</domain>
+        <domain includeSubdomains="true">music.163.com</domain>
+        <domain includeSubdomains="true">interface.music.163.com</domain>
+        <domain includeSubdomains="true">interface3.music.163.com</domain>
+        <domain includeSubdomains="true">neteasecloudmusicapi-one-tan.vercel.app</domain>
     </domain-config>
 </network-security-config>

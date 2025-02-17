@@ -50,6 +50,7 @@ class BujuanApi {
         data: params,
         options: joinOptions());
     final response = await httpManager.postUri(metaData);
+    print(response);
     final model = PlaylistDetailModel.fromJson(jsonDecode(response.data));
     return model;
   }
@@ -85,16 +86,13 @@ class BujuanApi {
   static Future<void> videoListByGroup(String groupId,
       {int offset = 0, bool total = true}) async {
     var params = {
-      "offset": offset,
-      "filterLives": '[]',
-      "withProgramInfo": 'true',
-      "needUrl": 'true',
-      "resolution": '480'
+      'groupId': groupId,
+      'offset': offset,
+      'need_preview_url': true,
+      'total': total
     };
-    final metaData = DioMetaData(joinUri('/api/videotimeline/get'),
-        data: params,
-        options: joinOptions(
-            encryptType: EncryptType.EApi, eApiUrl: '/api/videotimeline/get'));
+    final metaData = DioMetaData(joinUri('/api/videotimeline/otherclient/get'),
+        data: params, options: joinOptions());
 
     final response = await httpManager.postUri(metaData);
     logger.d('视频标签下的视频-$response');
@@ -129,6 +127,7 @@ class BujuanApi {
             encryptType: EncryptType.EApi,
             eApiUrl: '/api/song/enhance/player/url/v1'));
     final response = await httpManager.postUri(metaData);
+    print(response);
     logger.d('音乐信息-${jsonDecode(response.data)}');
     return SongInfoListDto.fromJson(jsonDecode(response.data));
   }
@@ -207,6 +206,27 @@ class BujuanApi {
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
     print("MV 相似- ${response.data}");
+  }
+
+  /// 分类 歌手列表
+  static Future<void> artistList(int initial,
+      {int offset = 0,
+      int limit = 30,
+      bool total = true,
+      int type = 1,
+      int area = -1}) async {
+    var params = {
+      'initial': initial,
+      'type': type,
+      'area': area,
+      'total': total,
+      'limit': limit,
+      'offset': offset
+    };
+    final metaData = DioMetaData(joinUri('/api/v1/artist/list'),
+        data: params, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    print("分类 歌手列表- ${response.data}");
   }
 }
 

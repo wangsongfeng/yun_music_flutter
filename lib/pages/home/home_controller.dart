@@ -18,6 +18,11 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     super.onClose();
   }
 
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
   void changePage(int index) {
     currentIndex.value = index;
     pageController.jumpToPage(index);

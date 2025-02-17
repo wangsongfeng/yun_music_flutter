@@ -6,6 +6,20 @@ part of 'recom_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+RecomModelWrap _$RecomModelWrapFromJson(Map<String, dynamic> json) =>
+    RecomModelWrap(
+      (json['code'] as num?)?.toInt(),
+      json['data'] == null
+          ? null
+          : RecomModel.fromJson(json['data'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$RecomModelWrapToJson(RecomModelWrap instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'data': instance.data,
+    };
+
 RecomModel _$RecomModelFromJson(Map<String, dynamic> json) => RecomModel(
       json['cursor'] as String?,
       (json['blocks'] as List<dynamic>)

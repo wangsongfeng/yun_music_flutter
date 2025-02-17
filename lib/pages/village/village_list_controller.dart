@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yun_music/api/bujuan_api.dart';
 import 'package:yun_music/api/music_api.dart';
 import 'package:yun_music/pages/village/models/video_category.dart';
 import 'package:yun_music/pages/village/models/video_group.dart';
@@ -16,6 +17,7 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
   @override
   void onReady() {
     super.onReady();
+    print(tagModel.id);
     requestData();
   }
 
@@ -35,6 +37,8 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
         change(value, status: RxStatus.success());
       }
     });
+
+    BujuanApi.videoListByGroup("0");
   }
 
   @override

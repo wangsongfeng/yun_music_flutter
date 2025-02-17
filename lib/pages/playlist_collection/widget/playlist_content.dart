@@ -111,6 +111,9 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
   }
 
   Widget _buildContent(List<SimplePlayListModel>? datas) {
+    final itemW = (Adapt.screenW() - Dimens.gap_dp30 - Dimens.gap_dp20) / 3.0;
+    final childAspectRatio =
+        (itemW + Dimens.gap_dp4 + Dimens.gap_dp6 + Dimens.gap_dp34);
     if (widget.tagModel.name == '精品') {
       return CustomScrollView(
         slivers: [
@@ -135,8 +138,8 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: Dimens.gap_dp10,
-                  crossAxisSpacing: Dimens.gap_dp9,
-                  childAspectRatio: 0.69),
+                  crossAxisSpacing: Dimens.gap_dp8,
+                  childAspectRatio: itemW / childAspectRatio),
             ),
           ),
         ],
@@ -149,10 +152,10 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
   Widget _buildListView(List<SimplePlayListModel>? datas) {
     final itemW = (Adapt.screenW() - Dimens.gap_dp30 - Dimens.gap_dp20) / 3.0;
     final childAspectRatio =
-        (itemW + Dimens.gap_dp4 + Dimens.gap_dp6 + Dimens.gap_dp32);
+        (itemW + Dimens.gap_dp4 + Dimens.gap_dp8 + Dimens.gap_dp34);
     return GridView.builder(
       padding: EdgeInsets.only(
-          left: Dimens.gap_dp15, right: Dimens.gap_dp15, top: Dimens.gap_dp12),
+          left: Dimens.gap_dp15, right: Dimens.gap_dp15, top: Dimens.gap_dp10),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: Dimens.gap_dp10,
@@ -184,7 +187,7 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
                 ? ImageUtils.getImagePath('c_k')
                 : null,
           ),
-          SizedBox(height: Dimens.gap_dp5),
+          SizedBox(height: Dimens.gap_dp4),
           Text(
             item.name,
             maxLines: 2,

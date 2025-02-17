@@ -31,8 +31,6 @@ extension VideoControllerExt on List<VideoInfo> {
         videoModel: e,
         builder: () async {
           final url = '${e.video!.play_addr!.url_list?.last}.mp4';
-          // const url =
-          //     "https://bakoss.hishorttv.com/vod-2a265e/10ec58f9cc0271efbcc336a5e8aa0102/03745b83bb2a48a1be0653a6db692f9a-a6f0adab2dec883c46a036128035ada2-fd.m3u8";
           return VideoPlayerController.networkUrl(Uri.parse(url));
         })).toList();
   }

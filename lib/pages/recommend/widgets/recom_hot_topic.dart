@@ -35,7 +35,7 @@ class RecomHotTopic extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ElementTitleWidget(elementModel: blocks.uiElement!),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
           Expanded(
             child: Align(
               alignment: Alignment.topLeft,
