@@ -30,7 +30,7 @@ extension VideoControllerExt on List<VideoInfo> {
     return map((e) => VPVideoController(
         videoModel: e,
         builder: () async {
-          final url = '${e.video!.play_addr!.url_list?.last}.mp4';
+          final url = '${e.video!.play_addr!.url_list?.last}';
           return VideoPlayerController.networkUrl(Uri.parse(url));
         })).toList();
   }

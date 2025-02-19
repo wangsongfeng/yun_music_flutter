@@ -77,9 +77,7 @@ class _VideoPageState extends State<VideoPage> {
                   );
                   // video
                   var width = MediaQuery.of(context).size.width;
-                  var height = MediaQuery.of(context).size.height -
-                      Dimens.gap_dp49 -
-                      context.mediaQueryPadding.bottom;
+                  var height = MediaQuery.of(context).size.height;
                   var fitWith = true;
                   if (player!.videoInfo.value!.video!.width! /
                           player.videoInfo.value!.video!.height! >=
@@ -94,6 +92,7 @@ class _VideoPageState extends State<VideoPage> {
                         player.videoInfo.value!.video!.height!;
                     fitWith = false;
                   }
+                  // print(height);
                   Widget content = Container();
 
                   if (player.controllerValue?.value.isInitialized == false) {
@@ -102,12 +101,12 @@ class _VideoPageState extends State<VideoPage> {
                     );
                   } else {
                     content = SizedBox(
-                        height: height,
+                        // height: height,
                         child: AspectRatio(
-                          aspectRatio:
-                              player.controllerValue?.value.aspectRatio ?? 0.75,
-                          child: VideoPlayer(player.controllerValue!),
-                        ));
+                      aspectRatio:
+                          player.controllerValue?.value.aspectRatio ?? 0.75,
+                      child: VideoPlayer(player.controllerValue!),
+                    ));
                   }
                   return VideoContent(
                     videoController: player,
@@ -193,7 +192,8 @@ class _VideoPageState extends State<VideoPage> {
 
   Widget _buildCover(VPVideoController? player, bool fitWidth, double height) {
     return CachedNetworkImage(
-      imageUrl: player!.videoInfo.value!.video!.cover!.url_list!.first,
+      //https://dy.ttentau.top/images/
+      imageUrl: "${player!.videoInfo.value!.video!.cover!.url_list!.first}",
       width: Adapt.screenW(),
       height: height,
       fit: fitWidth ? BoxFit.fitWidth : BoxFit.cover,

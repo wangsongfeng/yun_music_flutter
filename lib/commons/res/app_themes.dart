@@ -125,4 +125,6 @@ class AppThemes {
 
   static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;
+
+  static const textColor999 = Color(0xFF999999);
 }

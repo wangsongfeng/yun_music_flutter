@@ -41,6 +41,7 @@ const SINGLE_SEARCH = 'single_search';
 const CACHE_LOGIN_DATA = 'cache_login_data';
 const CACHE_ALBUM_POLY_DETAIL_URL = 'cache_album_poly_detail_url'; //数字专辑Url
 const CACHE_HOME_RECOMMEND_DATA = 'home_recommend_data';
+const CACHE_SEARCH_HISTORY_DATA = 'cache_search_history';
 
 //全局播放列表缓存
 const kCommonPlayingList = 'kCommonPlayingList';

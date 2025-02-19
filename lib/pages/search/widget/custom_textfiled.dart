@@ -24,12 +24,17 @@ class _CustomTextfiledState extends State<CustomTextfiled> {
   TextEditingController textEditingController = TextEditingController();
   bool autoFocus = false;
 
+  final FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
     if (widget.text != null) {
       textEditingController = TextEditingController(text: widget.text);
     }
+    Future.delayed(const Duration(milliseconds: 240), () {
+      _focusNode.requestFocus();
+    });
   }
 
   @override
@@ -48,6 +53,7 @@ class _CustomTextfiledState extends State<CustomTextfiled> {
         height: 40,
         color: Colors.transparent,
         child: TextField(
+          focusNode: _focusNode,
           enabled: true,
           autofocus: autoFocus,
           enableInteractiveSelection: false,

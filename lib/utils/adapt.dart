@@ -72,6 +72,8 @@ class _Fonts {
   final PuHuiTiX = 'PuHuiTiX';
   final IconFonts = 'iconfont';
   final PingFang = 'PingFang';
+  final Dolphin_Medium = 'Dolphin-Medium';
+  final MontserratM = 'MontserratM';
 }
 
 class W {

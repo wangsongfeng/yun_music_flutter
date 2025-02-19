@@ -1,3 +1,4 @@
+import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
@@ -58,9 +59,9 @@ class CommentListItem extends StatelessWidget {
                     item.content!,
                     style: TextStyle(
                         fontSize: Dimens.font_sp13,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: W.fonts.PingFang,
-                        color: Colors.black),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: W.fonts.Dolphin_Medium,
+                        color: Colors.black.withOpacity(1.0)),
                   ),
                 ),
                 if (item.replyCount! > 0)
@@ -73,10 +74,11 @@ class CommentListItem extends StatelessWidget {
                             Text(
                               '${item.replyCount.toString()}条回复',
                               style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(
-                                      fontSize: Dimens.font_sp12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.blue.withOpacity(0.9))),
+                                      textStyle: TextStyle(
+                                          fontSize: Dimens.font_sp12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.blue.withOpacity(0.9)))
+                                  .useSystemChineseFont(),
                             ),
                             Image.asset(ImageUtils.getImagePath('icon_more'),
                                 width: Dimens.gap_dp14,

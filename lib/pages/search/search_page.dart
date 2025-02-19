@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
-import 'package:yun_music/pages/search/widget/custom_textfiled.dart';
+import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/pages/search/widget/search_header_title.dart';
+import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
+import '../../utils/adapt.dart';
 import '../../utils/approute_observer.dart';
 import 'search_controller.dart';
+import 'widget/search_appbar.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -54,38 +58,116 @@ class _SearchPageState extends State<SearchPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppThemes.search_page_bg,
-      appBar: AppBar(
-        backgroundColor: AppThemes.search_page_bg,
-        elevation: 0,
-        titleSpacing: 0,
-        title: CustomTextfiled(
-          onSubmit: (text) {},
-        ),
-        actions: [
-          GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {},
-            child: Container(
-              width: 44,
-              height: 44,
-              margin: const EdgeInsets.only(right: 10),
-              alignment: Alignment.center,
-              child: const Text(
-                "搜索",
-                style: TextStyle(fontSize: 15, color: Colors.black),
-              ),
-            ),
-          )
-        ],
-      ),
-      body: Container(),
+      appBar: const SearchAppbar(),
+      body: _buildBody(),
     );
   }
 
-  Widget_buildBody() {
+  Widget _buildBody() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [],
+      children: [
+        Container(
+          color: Colors.transparent,
+          padding:
+              EdgeInsets.only(top: Dimens.gap_dp16, bottom: Dimens.gap_dp8),
+          child: Row(
+            children: controller.items
+                .map((e) => Expanded(child: _buildTopItem(e)))
+                .toList(),
+          ),
+        ),
+        Expanded(
+            child: CustomScrollView(
+          slivers: [
+            Obx(() {
+              if (controller.recommendHots.value == null) {
+                return const SliverToBoxAdapter(child: SizedBox.shrink());
+              } else {
+                return _buildRecommendHotHeader();
+              }
+            })
+          ],
+        ))
+      ],
+    );
+  }
+
+  //歌手，曲风，专区，识曲
+  Widget _buildTopItem(SearchTopModel model) {
+    return GestureDetector(
+      onTap: () {},
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            ImageUtils.getImagePath(model.imageName!),
+            color: Colors.red,
+            width: Dimens.gap_dp18,
+          ),
+          SizedBox(width: Dimens.gap_dp4),
+          Text(
+            model.text ?? "",
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.black.withOpacity(0.8)),
+          )
+        ],
+      ),
+    );
+  }
+
+  //猜你喜欢 header
+  Widget _buildRecommendHotHeader() {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: SearchHeaderTitle(
+                imageName: 'cm8_home_header_refresh',
+                text: "猜你喜欢",
+              ),
+            ),
+            _buildRecommendHot(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  //猜你喜欢 内容
+  Widget _buildRecommendHot() {
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      children: controller.recommendHots.value!.hots!
+          .map((e) => GestureDetector(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 12, right: 12, bottom: 4, top: 4),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  child: Text(
+                    e.first ?? "",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black.withOpacity(0.7),
+                      fontFamily: W.fonts.PuHuiTiX,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ))
+          .toList(),
     );
   }
 }

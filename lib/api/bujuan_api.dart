@@ -5,6 +5,7 @@ import 'package:yun_music/pages/dynamic_page/models/bu_new_song.dart';
 import 'package:yun_music/pages/dynamic_page/models/bu_song_list_info.dart';
 import 'package:yun_music/commons/net/init_dio.dart';
 import 'package:yun_music/commons/values/server.dart';
+import 'package:yun_music/pages/search/models/search_recommend.dart';
 
 import '../commons/models/song_info_dto.dart';
 import '../commons/models/song_list_model.dart';
@@ -227,6 +228,15 @@ class BujuanApi {
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
     print("分类 歌手列表- ${response.data}");
+  }
+
+  static Future<SearchRecommendResult> searchDefault() async {
+    final metaData = DioMetaData(joinUri('/weapi/search/hot'),
+        data: {'type': 1111},
+        options: joinOptions(userAgent: UserAgent.Mobile));
+    final response = await httpManager.postUri(metaData);
+    print("搜索关键词- ${jsonDecode(response.data)['result']}");
+    return SearchRecommendResult.fromJson(jsonDecode(response.data)['result']);
   }
 }
 

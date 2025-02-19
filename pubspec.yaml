@@ -77,6 +77,7 @@ dependencies:
   clickable_list_wheel_view: ^0.2.0
   google_fonts: ^6.2.1
   flutter_displaymode: ^0.6.0
+  chinese_font_library: ^1.2.0
 
 dev_dependencies:
 
@@ -123,6 +124,16 @@ flutter:
    - family: iconfont
      fonts:
         - asset: assets/fonts/iconfont.ttf
+   - family: Dolphin-Medium
+     fonts:
+        - asset: assets/fonts/Dolphin-Medium.ttf
+
+   - family: MontserratM
+     fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
+
+
+        
 
   # To add assets to your application, add an assets section, like this:
   assets:
