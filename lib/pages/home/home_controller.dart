@@ -13,6 +13,10 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   final StreamController<bool> homeMenuStream =
       StreamController<bool>.broadcast();
 
+  bool player_bar_add = false;
+
+  bool is_initContext = false;
+
   @override
   void onClose() {
     super.onClose();
@@ -21,6 +25,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onReady() {
     super.onReady();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   void changePage(int index) {

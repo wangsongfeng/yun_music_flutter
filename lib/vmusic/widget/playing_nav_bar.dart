@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/utils/adapt.dart';
 
 import '../../commons/player/bottom_player_controller.dart';
 import '../../commons/res/dimens.dart';
@@ -18,7 +19,7 @@ class PlayingNavBar extends StatelessWidget implements PreferredSizeWidget {
       height: Get.theme.appBarTheme.toolbarHeight,
       width: double.infinity,
       // padding: EdgeInsets.only(left: Adapt.px(2), right: Adapt.px(10)),
-      margin: EdgeInsets.only(top: context.mediaQueryPadding.top),
+      margin: EdgeInsets.only(top: Adapt.topPadding()),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,

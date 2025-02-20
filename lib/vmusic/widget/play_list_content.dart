@@ -45,9 +45,7 @@ class _PlayListContentState extends State<PlayListContent> {
       _scrollController.animateTo(
         _scrollController.position.minScrollExtent +
             Dimens.gap_dp46 * index -
-            (Adapt.screenH() * 0.7 -
-                    Dimens.gap_dp100 -
-                    context.mediaQueryPadding.bottom) /
+            (Adapt.screenH() * 0.7 - Dimens.gap_dp100 - Adapt.bottomPadding()) /
                 2.0, // 计算偏移量，50.0是每个项目的高度假设值，根据实际情况调整
         duration: const Duration(milliseconds: 200), // 动画持续时间
         curve: Curves.easeInOut, // 动画曲线
@@ -66,8 +64,8 @@ class _PlayListContentState extends State<PlayListContent> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(Dimens.gap_dp12),
               topRight: Radius.circular(Dimens.gap_dp12))),
-      padding: EdgeInsets.only(
-          top: Dimens.gap_dp8, bottom: context.mediaQueryPadding.bottom),
+      padding:
+          EdgeInsets.only(top: Dimens.gap_dp8, bottom: Adapt.bottomPadding()),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

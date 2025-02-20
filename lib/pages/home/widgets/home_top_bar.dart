@@ -26,7 +26,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
                 width: Get.theme.appBarTheme.toolbarHeight,
                 padding:
                     EdgeInsets.only(left: Adapt.px(2), right: Adapt.px(10)),
-                margin: EdgeInsets.only(top: context.mediaQueryPadding.top),
+                margin: EdgeInsets.only(top: Adapt.topPadding()),
                 child: Center(
                   child: SizedBox(
                     height: 24,

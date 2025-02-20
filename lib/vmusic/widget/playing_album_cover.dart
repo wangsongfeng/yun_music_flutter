@@ -87,9 +87,9 @@ class _PlayingAlbumCoverState extends State<PlayingAlbumCover>
 
     double offset = 0;
     if (widget.music == _previous) {
-      offset = MediaQuery.of(context).size.width;
+      offset = Adapt.screenW();
     } else if (widget.music == _next) {
-      offset = -MediaQuery.of(context).size.width;
+      offset = -Adapt.screenW();
     }
     if (offset == 0) {
       return;
@@ -209,15 +209,14 @@ class _PlayingAlbumCoverState extends State<PlayingAlbumCover>
             _beDragging = false;
 
             //左右切换封面滚动速度阈值
-            final vThreshold =
-                1.0 / (0.050 * MediaQuery.of(context).devicePixelRatio);
+            final vThreshold = 1.0 / (0.050 * Adapt.devicePixelRatio());
 
             final sameDirection =
                 (_coverTranslateX > 0 && detail.primaryVelocity! > 0) ||
                     (_coverTranslateX < 0 && detail.primaryVelocity! < 0);
             if (_coverTranslateX.abs() > layoutWidth / 2 ||
                 (sameDirection && detail.primaryVelocity!.abs() > vThreshold)) {
-              var des = MediaQuery.of(context).size.width;
+              var des = Adapt.screenW();
               if (_coverTranslateX < 0) {
                 des = -des;
               }

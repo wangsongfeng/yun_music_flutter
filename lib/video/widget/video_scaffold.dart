@@ -5,6 +5,7 @@ import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 
 import '../../commons/values/server.dart';
+import '../../utils/adapt.dart';
 
 const double scrollSpeed = 300;
 
@@ -303,8 +304,8 @@ class _RightPageTransform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = Adapt.screenW();
+    final screenHeight = Adapt.screenH();
     return Transform.translate(
       offset: Offset(max(0, offsetX! + screenWidth), 0),
       child: Container(

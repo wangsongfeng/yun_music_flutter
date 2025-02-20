@@ -2,40 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
+import 'package:yun_music/pages/search/search_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
 
 import '../../../utils/image_utils.dart';
 
-class CustomTextfiled extends StatefulWidget {
-  const CustomTextfiled({super.key, this.hintText, this.text, this.onSubmit});
+// ignore: must_be_immutable
+class CustomTextfiled extends StatelessWidget {
+  CustomTextfiled({super.key, this.onSubmit, this.controller});
 
-  final String? hintText;
-  final String? text;
+  final WSearchController? controller;
 
   final Function(String)? onSubmit;
 
-  @override
-  State<CustomTextfiled> createState() => _CustomTextfiledState();
-}
-
-class _CustomTextfiledState extends State<CustomTextfiled> {
   String regStr =
       "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]";
-  TextEditingController textEditingController = TextEditingController();
+
   bool autoFocus = false;
-
-  final FocusNode _focusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.text != null) {
-      textEditingController = TextEditingController(text: widget.text);
-    }
-    Future.delayed(const Duration(milliseconds: 240), () {
-      _focusNode.requestFocus();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +36,7 @@ class _CustomTextfiledState extends State<CustomTextfiled> {
         height: 40,
         color: Colors.transparent,
         child: TextField(
-          focusNode: _focusNode,
+          focusNode: controller?.focusNode,
           enabled: true,
           autofocus: autoFocus,
           enableInteractiveSelection: false,
@@ -71,7 +54,7 @@ class _CustomTextfiledState extends State<CustomTextfiled> {
               border: InputBorder.none,
               contentPadding:
                   const EdgeInsets.only(left: -10, right: 0, bottom: 8),
-              hintText: widget.hintText ?? '发现更多精彩',
+              hintText: controller?.hintText.value,
               hintStyle: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
@@ -82,24 +65,18 @@ class _CustomTextfiledState extends State<CustomTextfiled> {
           textInputAction: TextInputAction.search,
           onSubmitted: (String str) {
             print(">>>>>>>>>>>>>str:$str");
-            if (widget.onSubmit != null) {
-              widget.onSubmit!(str);
+            if (onSubmit != null) {
+              onSubmit!(str);
             }
           },
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: const Color(0xFF333333),
               fontSize: 15,
               fontFamily: W.fonts.IconFonts),
-          controller: textEditingController,
+          controller: controller?.textEditingController,
           textCapitalization: TextCapitalization.sentences,
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    textEditingController.dispose();
   }
 }

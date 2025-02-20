@@ -35,7 +35,7 @@ class _NewSongPageState extends State<NewSongPage>
         child: Column(
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: Adapt.screenW(),
               height: Dimens.gap_dp38,
               child: Align(
                 alignment: Alignment.center,

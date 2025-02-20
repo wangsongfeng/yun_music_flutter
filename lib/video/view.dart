@@ -76,8 +76,8 @@ class _VideoPageState extends State<VideoPage> {
                     onFavorite: () {},
                   );
                   // video
-                  var width = MediaQuery.of(context).size.width;
-                  var height = MediaQuery.of(context).size.height;
+                  var width = Adapt.screenW();
+                  var height = Adapt.screenH();
                   var fitWith = true;
                   if (player!.videoInfo.value!.video!.width! /
                           player.videoInfo.value!.video!.height! >=

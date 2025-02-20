@@ -7,6 +7,7 @@ import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/home/drawer/drawer_controller.dart';
 import 'package:yun_music/pages/home/drawer/drawer_item.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/approute_observer.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -142,7 +143,7 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
         _buildCardContent(list: getListBottomInfo(context)),
         SliverToBoxAdapter(
           child: SizedBox(
-            height: MediaQuery.of(context).padding.bottom,
+            height: Adapt.bottomPadding(),
           ),
         )
       ],

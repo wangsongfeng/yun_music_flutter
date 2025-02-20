@@ -6,6 +6,8 @@ import 'dart:ui' as ui;
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../../utils/adapt.dart';
+
 /**
  * Stack常用属性
 children：子视图
@@ -43,15 +45,14 @@ class BlurBackground extends StatelessWidget {
     return ClipRect(
       child: ImageFiltered(
         imageFilter: ui.ImageFilter.blur(
-            sigmaX: MediaQuery.of(context).size.width,
-            sigmaY: MediaQuery.of(context).size.height),
+            sigmaX: Adapt.screenW(), sigmaY: Adapt.screenH()),
         child: Stack(
           fit: StackFit.expand,
           children: [
             NetworkImgLayer(
               src: musicCoverUrl ?? "",
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+              width: Adapt.screenW(),
+              height: Adapt.screenH(),
               customplaceholder: Image.asset(
                 ImageUtils.getImagePath('fm_bg', format: 'jpg'),
                 fit: BoxFit.fitHeight,

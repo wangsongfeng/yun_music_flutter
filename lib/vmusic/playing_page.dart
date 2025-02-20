@@ -195,7 +195,7 @@ class _PlayingOperationBarPage extends StatelessWidget {
               Container(
                 height: Dimens.gap_dp24,
                 constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width -
+                    maxWidth: Adapt.screenW() -
                         Dimens.gap_dp40 -
                         Dimens.gap_dp28 * 2 -
                         Dimens.gap_dp50),

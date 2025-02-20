@@ -42,7 +42,7 @@ class _PlaylistDetailAppbarState extends State<PlaylistDetailAppbar> {
         Obx(() {
           return Container(
             width: Adapt.screenW(),
-            height: widget.appBarHeight + context.mediaQueryPadding.top,
+            height: widget.appBarHeight + Adapt.topPadding(),
             color: widget.controller.headerBgColor.value != null
                 ? widget.controller.headerBgColor.value?.withOpacity(0.1)
                 : const Color.fromRGBO(146, 150, 160, 0.1),
@@ -50,7 +50,7 @@ class _PlaylistDetailAppbarState extends State<PlaylistDetailAppbar> {
         }),
         Positioned.fill(
           child: Container(
-            padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
+            padding: EdgeInsets.only(top: Adapt.topPadding()),
             height: widget.appBarHeight,
             child: Row(
               children: [

@@ -116,7 +116,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    appbarHeight = context.mediaQueryPadding.top + Adapt.px(44);
+    appbarHeight = Adapt.topPadding() + Adapt.px(44);
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(Adapt.px(44)),

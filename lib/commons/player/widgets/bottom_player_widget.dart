@@ -29,7 +29,8 @@ class BottomPlayerBar extends StatefulWidget {
   State<BottomPlayerBar> createState() => _BottomPlayerBarState();
 }
 
-class _BottomPlayerBarState extends State<BottomPlayerBar> {
+class _BottomPlayerBarState extends State<BottomPlayerBar>
+    with AutomaticKeepAliveClientMixin {
   final PlayingController controller = Get.find<PlayingController>();
 
   late int currentIndex = 0;
@@ -51,23 +52,26 @@ class _BottomPlayerBarState extends State<BottomPlayerBar> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    print("万松锋");
     return InkWell(
       onTap: () {
         toPlayingPage();
       },
-      child: MediaQuery(
-          data: context.mediaQuery.copyWith(
-              viewInsets: context.mediaQueryViewInsets.copyWith(bottom: 0)),
-          child: Obx(() {
-            return _BottomContentWidget(
-              listSize: controller.playLists.value!.length,
-              bottomPadding: widget.bottomPadding,
-              curPlayIndex: controller.currentIndex.value,
-              playingController: controller,
-            );
-          })),
+      child: Obx(() {
+        return _BottomContentWidget(
+          listSize: controller.playLists.value!.length,
+          bottomPadding: widget.bottomPadding,
+          curPlayIndex: controller.currentIndex.value,
+          playingController: controller,
+        );
+      }),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class _BottomContentWidget extends GetView<PlayerController> {
@@ -93,7 +97,6 @@ class _BottomContentWidget extends GetView<PlayerController> {
       opacity: controller.animation,
       child: _buildContext(context),
     );
-    // return _buildContext(context);
   }
 
   Widget _buildContext(BuildContext conetx) {
@@ -111,6 +114,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
                   color: Get.theme.cardColor.withOpacity(1.0),
                   border: Border(
                       top: BorderSide(
+                        // ignore: deprecated_member_use
                         color: Get.theme.dividerColor.withOpacity(1.0),
                         width: 1,
                       ),

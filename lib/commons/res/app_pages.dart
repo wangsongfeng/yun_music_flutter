@@ -101,6 +101,7 @@ class Routes {
     CustomGetPage(
         name: RouterPath.Search_Page,
         page: () => const SearchPage(),
+        transition: Transition.native,
         binding: SearchBinding())
   ];
 

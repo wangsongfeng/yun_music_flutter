@@ -108,7 +108,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
           () => BottomBar(
             currentIndex: controller.currentIndex.value,
             focusColor: AppThemes.tab_color,
-            height: (Dimens.gap_dp49 + context.mediaQueryPadding.bottom),
+            height: (Dimens.gap_dp49 + Adapt.bottomPadding()),
             unFocusColor: AppThemes.tab_grey_color,
             onTap: (index) {
               controller.changePage(index);

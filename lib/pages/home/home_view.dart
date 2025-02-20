@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
-import 'package:yun_music/commons/player/player_service.dart';
 import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
 import 'package:yun_music/pages/blog_page/blog_home_page.dart';
 import 'package:yun_music/pages/home/drawer/drawer_view.dart';
@@ -17,6 +16,7 @@ import 'package:yun_music/utils/approute_observer.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
 
+import '../../commons/player/player_service.dart';
 import '../../commons/player/widgets/bottom_player_widget.dart';
 import '../../commons/player/widgets/music_playbar_overlay.dart';
 import '../../commons/res/dimens.dart';
@@ -33,7 +33,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with RouteAware {
+class _HomePageState extends State<HomePage>
+    with RouteAware, AutomaticKeepAliveClientMixin {
   final HomeController controller = Get.put<HomeController>(HomeController());
 
   Future<bool> _dialogExitApp(BuildContext context) async {
@@ -50,16 +51,19 @@ class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
 
-    var widgetsBinding = WidgetsBinding.instance;
-    widgetsBinding.addPostFrameCallback((callback) {
+    if (controller.player_bar_add == true) return;
+    print("didChangeDependencies");
+    AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
+    // var widgetsBinding = WidgetsBinding.instance;
+    WidgetsBinding.instance.addPostFrameCallback((callback) {
       MusicPlaybarOverlay.instance.show(
           context,
           ConstrainedBox(
               constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
               child: const BottomPlayerBar()));
     });
+    controller.player_bar_add = true;
   }
 
   @override
@@ -95,29 +99,29 @@ class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void didPush() {
     super.didPush();
-    print('HomePage didPush');
   }
 
   @override
   void didPopNext() {
     super.didPopNext();
-    print('HomePage didPopNext');
-    Future.delayed(Duration(milliseconds: 0)).whenComplete(() {
-      eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
-    });
+    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
   }
 
   @override
   void didPop() {
-    print("HomePage didPop");
     super.didPop();
   }
 
   @override
   Widget build(BuildContext context) {
-    Adapt.initContext(context);
+    super.build(context);
+    print("主页面重构");
+    if (controller.is_initContext == false) {
+      Adapt.initContext(context);
+      controller.is_initContext = true;
+    }
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () async {
         return _dialogExitApp(context);
       },
       child: AnnotatedRegion(
@@ -127,6 +131,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
         child: Scaffold(
           backgroundColor: Colors.white,
           extendBodyBehindAppBar: true,
+          resizeToAvoidBottomInset: false,
           extendBody: true,
           drawer: Drawer(
             shape:
@@ -171,4 +176,8 @@ class _HomePageState extends State<HomePage> with RouteAware {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

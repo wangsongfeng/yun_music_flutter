@@ -22,6 +22,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage>
     with RouteAware, TickerProviderStateMixin {
   late WSearchController controller = Get.put(WSearchController());
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -48,8 +49,13 @@ class _SearchPageState extends State<SearchPage>
   }
 
   @override
+  void didPop() {
+    super.didPop();
+    controller.focusNode.unfocus();
+  }
+
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller.selectedIndex = 1;
   }
@@ -58,38 +64,44 @@ class _SearchPageState extends State<SearchPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppThemes.search_page_bg,
-      appBar: const SearchAppbar(),
+      resizeToAvoidBottomInset: false,
+      appBar: SearchAppbar(),
       body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          color: Colors.transparent,
-          padding:
-              EdgeInsets.only(top: Dimens.gap_dp16, bottom: Dimens.gap_dp8),
-          child: Row(
-            children: controller.items
-                .map((e) => Expanded(child: _buildTopItem(e)))
-                .toList(),
+    return Listener(
+      onPointerMove: (event) {
+        controller.focusNode.unfocus();
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color: Colors.transparent,
+            padding:
+                EdgeInsets.only(top: Dimens.gap_dp16, bottom: Dimens.gap_dp8),
+            child: Row(
+              children: controller.items
+                  .map((e) => Expanded(child: _buildTopItem(e)))
+                  .toList(),
+            ),
           ),
-        ),
-        Expanded(
-            child: CustomScrollView(
-          slivers: [
-            Obx(() {
-              if (controller.recommendHots.value == null) {
-                return const SliverToBoxAdapter(child: SizedBox.shrink());
-              } else {
-                return _buildRecommendHotHeader();
-              }
-            })
-          ],
-        ))
-      ],
+          Expanded(
+              child: CustomScrollView(
+            slivers: [
+              Obx(() {
+                if (controller.recommendHots.value == null) {
+                  return const SliverToBoxAdapter(child: SizedBox.shrink());
+                } else {
+                  return _buildRecommendHotHeader();
+                }
+              })
+            ],
+          ))
+        ],
+      ),
     );
   }
 

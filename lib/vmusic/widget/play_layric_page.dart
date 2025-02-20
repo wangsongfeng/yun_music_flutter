@@ -2,6 +2,7 @@ import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import '../../utils/adapt.dart';
 import '../playing_controller.dart';
 
 class PlayLayricPage extends StatelessWidget {
@@ -65,7 +66,7 @@ class PlayLayricPage extends StatelessWidget {
                   childDelegate: ListWheelChildBuilderDelegate(
                       builder: (context, index) {
                         return Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: Adapt.screenW(),
                           height: playingController.hasTran.value
                               ? playingController.currLyricIndex.value == index
                                   ? Dimens.gap_dp70

@@ -61,10 +61,12 @@ class _RecomPageState extends State<RecomPage>
         Get.toNamed(RouterPath.Search_Page);
       }),
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       body: Obx(() {
         return Container(
-          padding: EdgeInsets.only(
-            bottom: PlayingController.to.mediaItems.isNotEmpty
+          width: Adapt.screenW(),
+          margin: EdgeInsets.only(
+            bottom: PlayingController.to.mediaItems.value.isNotEmpty
                 ? Adapt.tabbar_padding() + Dimens.gap_dp49
                 : Adapt.tabbar_height(),
           ),
@@ -116,13 +118,8 @@ class _RecomPageState extends State<RecomPage>
       enablePullDown: true,
       header: MusicRefresh(),
       onRefresh: _onRefresh,
-      footer: CustomFooter(
-          height: Dimens.gap_dp50 + Adapt.bottomPadding(),
-          builder: (context, mode) {
-            return Container();
-          }),
       child: ListView.separated(
-        padding: EdgeInsets.only(bottom: Dimens.gap_dp20),
+        padding: EdgeInsets.only(bottom: Dimens.gap_dp2),
         controller: listScroll,
         itemBuilder: (context, index) {
           final blocks = state!.blocks[index];
@@ -209,7 +206,6 @@ class _RecomPageState extends State<RecomPage>
           padding: const EdgeInsets.only(bottom: 0),
           child: const MusicRecmSkeleton());
     } else {
-      // refreshController.requestRefresh();
       return const SizedBox.shrink();
     }
   }

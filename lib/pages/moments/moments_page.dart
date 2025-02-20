@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/pages/moments/moments_controller.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 import 'package:yun_music/vmusic/widget/comment_button.dart';
 
@@ -84,7 +85,7 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                   controller: _extendNestCtr,
                   onlyOneScrollInBody: true,
                   pinnedHeaderSliverHeightBuilder: () =>
-                      50 + MediaQuery.of(context).padding.top,
+                      50 + Adapt.topPadding(),
                   headerSliverBuilder: (context1, innerBoxIsScrolled) {
                     return [
                       _buildHeaderWidget(),
@@ -139,7 +140,7 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                 child: Image.asset(
                   ImageUtils.getImagePath('moment_header_bg'),
                   height: availableHeight,
-                  width: MediaQuery.of(context).size.width,
+                  width: Adapt.screenW(),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -147,7 +148,7 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                 left: 0,
                 bottom: 36,
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: Adapt.screenW(),
                   height: 48,
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -222,10 +223,9 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
             duration: const Duration(milliseconds: 400),
             child: ClipRRect(
               child: Container(
-                padding:
-                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                height: 50 + MediaQuery.of(context).padding.top,
-                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: Adapt.topPadding()),
+                height: 50 + Adapt.topPadding(),
+                width: Adapt.screenW(),
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -249,7 +249,7 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
     return Positioned(
         left: 0,
         right: 0,
-        top: (MediaQuery.of(context).padding.top),
+        top: (Adapt.topPadding()),
         child: Container(
           alignment: Alignment.center,
           height: 50,

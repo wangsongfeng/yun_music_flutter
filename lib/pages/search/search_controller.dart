@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/api/bujuan_api.dart';
 import 'package:yun_music/commons/values/constants.dart';
@@ -15,6 +16,11 @@ class WSearchController extends GetxController {
 
   late final recommendHots = Rx<SearchRecommendResult?>(null);
 
+  final FocusNode focusNode = FocusNode();
+
+  TextEditingController textEditingController = TextEditingController();
+  final hintText = "发现更多精彩".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -26,6 +32,9 @@ class WSearchController extends GetxController {
   void onReady() {
     super.onReady();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
+    // Future.delayed(const Duration(milliseconds: 240), () {
+    //   focusNode.requestFocus();
+    // });
 
     BujuanApi.searchDefault().then((value) {
       recommendHots.value = value;
@@ -55,6 +64,8 @@ class WSearchController extends GetxController {
   @override
   void dispose() {
     super.dispose();
+    textEditingController.dispose();
+    focusNode.dispose();
   }
 }
 

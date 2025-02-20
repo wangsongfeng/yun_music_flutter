@@ -13,6 +13,8 @@ class Adapt {
 
   static double? _ratio;
 
+  static double _devicePixelRatio = 0;
+
   static void initContext(BuildContext context) {
     context.isDarkMode;
 
@@ -22,6 +24,7 @@ class Adapt {
     _height = size.height;
     _bottomPadding = context.mediaQueryPadding.bottom;
     _topPadding = context.mediaQueryPadding.top;
+    _devicePixelRatio = context.devicePixelRatio;
   }
 
   static void _init(int number) {
@@ -64,6 +67,10 @@ class Adapt {
 
   static double contentHeight() {
     return screenH() - topPadding() - bottomPadding();
+  }
+
+  static double devicePixelRatio() {
+    return _devicePixelRatio;
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yun_music/pages/mine/mine_controller.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../../commons/widgets/network_img_layer.dart';
@@ -25,7 +26,7 @@ class MineHeader extends StatelessWidget {
                     child: Image.asset(
                       ImageUtils.getImagePath('mine_header'),
                       height: availableHeight,
-                      width: MediaQuery.of(context).size.width,
+                      width: Adapt.screenW(),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -37,7 +38,7 @@ class MineHeader extends StatelessWidget {
                     left: 0,
                     bottom: 0,
                     child: Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: Adapt.screenW(),
                       height: 200,
                       decoration: const BoxDecoration(
                           gradient: LinearGradient(

@@ -61,7 +61,7 @@ class ResponseInterceptor extends InterceptorsWrapper {
         return '发送请求超时，请检查网络设置';
       case DioExceptionType.unknown:
         // var res = await checkConect();
-        return "res" + " \n 网络异常，请稍后重试！";
+        return "res" " \n 网络异常，请稍后重试！";
     }
   }
 

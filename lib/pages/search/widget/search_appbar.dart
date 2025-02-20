@@ -4,10 +4,13 @@ import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../../utils/adapt.dart';
+import '../search_controller.dart';
 import 'custom_textfiled.dart';
 
 class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const SearchAppbar({super.key});
+  SearchAppbar({super.key});
+
+  final controller = Get.find<WSearchController>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,9 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
             width: 24,
             height: 24,
             child: GestureDetector(
-              onTap: () => Get.back(),
+              onTap: () {
+                Get.back();
+              },
               child: Image.asset(
                 ImageUtils.getImagePath('icon_back_black'),
                 width: 22,
@@ -31,6 +36,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Expanded(
               child: CustomTextfiled(
+            controller: controller,
             onSubmit: (text) {},
           )),
           GestureDetector(
