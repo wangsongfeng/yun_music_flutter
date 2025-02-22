@@ -7,13 +7,7 @@
 
 # The following line activates a set of recommended lints for Flutter apps,
 # packages, and plugins designed to encourage good coding practices.
-analyzer:
-  errors:
-    constant_identifier_names: ignore
-    deprecated_member_use: ignore ignore
-    invalid_use_of_protected_member: ignore
-    non_constant_identifier_names: ignore
-    slash_for_doc_comments: ignore
+
 include: package:flutter_lints/flutter.yaml
 
 linter:
@@ -33,3 +27,4 @@ linter:
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+

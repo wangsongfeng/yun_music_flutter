@@ -155,7 +155,9 @@ void _handleWeApi(RequestOptions option) {
             .firstMatch(option.headers[HttpHeaders.cookieHeader] ?? '')
             ?.group(1) ??
         '';
-  } catch (e) {}
+  } catch (e) {
+    logger.d(e);
+  }
   if (csrfToken.isNotEmpty) {
     // map可能是<String,Int>类型的，默认转换成<String,dynamic>
     option.data = Map.from(option.data);

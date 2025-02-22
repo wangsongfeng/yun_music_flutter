@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/api/bujuan_api.dart';
+import 'package:yun_music/api/search_api.dart';
 import 'package:yun_music/commons/values/constants.dart';
+import 'package:yun_music/pages/search/models/search_hot_wrap.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 import '../../commons/event/index.dart';
@@ -21,6 +22,13 @@ class WSearchController extends GetxController {
   TextEditingController textEditingController = TextEditingController();
   final hintText = "发现更多精彩".obs;
 
+  SearchHotWrap? searchHotWrap;
+  SearchHotTopicWrap? searchHotTopic;
+
+  final hotRecommList = Rx<List>([]);
+
+  final requestEnd = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -32,13 +40,23 @@ class WSearchController extends GetxController {
   void onReady() {
     super.onReady();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
-    // Future.delayed(const Duration(milliseconds: 240), () {
-    //   focusNode.requestFocus();
-    // });
-
-    BujuanApi.searchDefault().then((value) {
-      recommendHots.value = value;
+    Future.delayed(const Duration(milliseconds: 300), () {
+      focusNode.requestFocus();
     });
+
+    requestData();
+  }
+
+  Future<void> requestData() async {
+    recommendHots.value = await SearchApi.searchDefault();
+    searchHotWrap = await SearchApi.requestSearchHotData();
+    searchHotTopic = await SearchApi.requestSearchTopicData();
+
+    hotRecommList.value = [
+      {'type': "hot", "data": searchHotWrap?.data},
+      {'type': 'topic', "data": searchHotTopic?.hot},
+    ];
+    requestEnd.value = true;
   }
 
   void _initSearchTopList() {

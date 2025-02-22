@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/pages/search/widget/search_header_title.dart';
+import 'package:yun_music/pages/search/widget/search_hotlist.dart';
+import 'package:yun_music/pages/search/widget/search_hottopic.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../utils/adapt.dart';
 import '../../utils/approute_observer.dart';
+import '../../vmusic/playing_controller.dart';
 import 'search_controller.dart';
 import 'widget/search_appbar.dart';
 
@@ -89,17 +92,48 @@ class _SearchPageState extends State<SearchPage>
             ),
           ),
           Expanded(
-              child: CustomScrollView(
-            slivers: [
+              child: SingleChildScrollView(
+                  child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Obx(() {
                 if (controller.recommendHots.value == null) {
-                  return const SliverToBoxAdapter(child: SizedBox.shrink());
+                  return const SizedBox.shrink();
                 } else {
                   return _buildRecommendHotHeader();
                 }
+              }),
+              Obx(() => controller.requestEnd.value == false
+                  ? const SizedBox.shrink()
+                  : SizedBox(
+                      height: 854,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final data = controller.hotRecommList.value[index];
+                            if (data["type"] == "hot") {
+                              return SearchHotlist(
+                                  title: "热搜榜", searchHotList: data["data"]);
+                            } else if (data["type"] == "topic") {
+                              return SearchHottopic(
+                                title: "话题榜",
+                                searchTopicList: data["data"],
+                              );
+                            } else {
+                              return SizedBox.fromSize();
+                            }
+                          },
+                          itemCount: controller.hotRecommList.value.length),
+                    )),
+              Obx(() {
+                return SizedBox(
+                  height: PlayingController.to.mediaItems.isNotEmpty
+                      ? Adapt.tabbar_padding() + 20
+                      : Adapt.bottomPadding(),
+                );
               })
             ],
-          ))
+          )))
         ],
       ),
     );
@@ -133,23 +167,20 @@ class _SearchPageState extends State<SearchPage>
 
   //猜你喜欢 header
   Widget _buildRecommendHotHeader() {
-    return SliverToBoxAdapter(
-      child: Container(
-        padding:
-            const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: SearchHeaderTitle(
-                imageName: 'cm8_home_header_refresh',
-                text: "猜你喜欢",
-              ),
+    return Container(
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: SearchHeaderTitle(
+              imageName: 'cm8_home_header_refresh',
+              text: "猜你喜欢",
             ),
-            _buildRecommendHot(),
-          ],
-        ),
+          ),
+          _buildRecommendHot(),
+        ],
       ),
     );
   }

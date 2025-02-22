@@ -12,6 +12,7 @@ class SplashPage extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
+    print("splash重构了");
     Adapt.initContext(context);
     return Scaffold(
       backgroundColor: AppThemes.app_main,

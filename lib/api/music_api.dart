@@ -110,7 +110,6 @@ class MusicApi {
     // return recmData;
   }
 
-  // ignore: unused_element
   static Future<RecomModel?> _diffData(
       RecomModel recmData, RecomModel? oldData) async {
     if (oldData == null || recmData.blocks.length > oldData.blocks.length) {

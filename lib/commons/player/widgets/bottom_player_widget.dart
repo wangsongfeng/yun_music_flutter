@@ -53,7 +53,6 @@ class _BottomPlayerBarState extends State<BottomPlayerBar>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print("万松锋");
     return InkWell(
       onTap: () {
         toPlayingPage();
@@ -70,12 +69,11 @@ class _BottomPlayerBarState extends State<BottomPlayerBar>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 
 class _BottomContentWidget extends GetView<PlayerController> {
-  _BottomContentWidget({
+  const _BottomContentWidget({
     super.key,
     required this.bottomPadding,
     this.curPlayIndex,
@@ -111,6 +109,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
+                  // ignore: library_prefixes, deprecated_member_use
                   color: Get.theme.cardColor.withOpacity(1.0),
                   border: Border(
                       top: BorderSide(
@@ -201,9 +200,9 @@ class _BottomContentWidget extends GetView<PlayerController> {
         ),
         duration: const Duration(milliseconds: 200),
         builder: (context) {
-          return Container(
+          return SizedBox(
             height: Adapt.screenH() * 0.7,
-            child: PlayListContent(),
+            child: const PlayListContent(),
           );
         });
   }

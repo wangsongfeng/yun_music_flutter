@@ -67,6 +67,12 @@ class JsonStringConstants {
   //用户
   static const String user_list = "assets/json/users.json";
 
+  //搜索热搜榜
+  static const String search_hot_list = "assets/json/search_hot_detail.json";
+
+  //搜索话题榜
+  static const String search_topic_list = "assets/json/search_hot_topic.json";
+
   ///hishort的数据
   static const String hishort_list = "assets/json/hishort_list.json";
 }

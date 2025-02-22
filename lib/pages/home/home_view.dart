@@ -117,7 +117,6 @@ class _HomePageState extends State<HomePage>
     super.build(context);
     print("主页面重构");
     if (controller.is_initContext == false) {
-      Adapt.initContext(context);
       controller.is_initContext = true;
     }
     return WillPopScope(

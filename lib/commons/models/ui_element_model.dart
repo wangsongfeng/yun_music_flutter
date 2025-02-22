@@ -1,5 +1,3 @@
-// ignore_for_file: empty_constructor_bodies
-
 import 'package:json_annotation/json_annotation.dart';
 part 'ui_element_model.g.dart';
 

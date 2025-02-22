@@ -49,7 +49,7 @@ class HttpManager {
               params == null ? null : Map<String, dynamic>.from(params),
           options: options);
     } on DioException catch (e) {
-      print(e);
+      logger.d(e);
       return resultError(e, path, noTip);
     }
     if (response.data is DioException) {

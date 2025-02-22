@@ -76,13 +76,13 @@ class _CommentPageState extends State<CommentPage> {
                   Obx(() {
                     return SliverList.builder(
                       itemBuilder: (context, index) {
-                        final item = controller.commentList.value[index];
+                        final item = controller.commentList[index];
                         return CommentListItem(
                           controller: controller,
                           item: item,
                         );
                       },
-                      itemCount: controller.commentList.value.length,
+                      itemCount: controller.commentList.length,
                     );
                   })
                 ],

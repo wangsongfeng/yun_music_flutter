@@ -218,7 +218,7 @@ class _PlayListContentState extends State<PlayListContent> {
       child: InkWell(
         onTap: () {
           PlayingController.to.playByIndex(index, "queueTitle",
-              mediaItem: playingController.mediaItems.value);
+              mediaItem: playingController.mediaItems);
         },
         child: Container(
           height: Dimens.gap_dp46,

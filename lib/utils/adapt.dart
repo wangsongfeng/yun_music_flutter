@@ -19,12 +19,22 @@ class Adapt {
     context.isDarkMode;
 
     /// 类似于 MediaQuery.of(context).size。
-    final size = context.mediaQuerySize;
-    _width = size.width;
-    _height = size.height;
-    _bottomPadding = context.mediaQueryPadding.bottom;
-    _topPadding = context.mediaQueryPadding.top;
-    _devicePixelRatio = context.devicePixelRatio;
+    final size = MediaQuery.sizeOf(context);
+    if (_width == 0 || _height == 0) {
+      _width = size.width;
+      _height = size.height;
+    }
+    if (_bottomPadding == 0) {
+      _bottomPadding = MediaQuery.paddingOf(context).bottom;
+    }
+
+    print("_bottomPadding--${_bottomPadding}");
+    if (_topPadding == 0) {
+      _topPadding = MediaQuery.paddingOf(context).top;
+    }
+    if (_devicePixelRatio == 0) {
+      _devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
+    }
   }
 
   static void _init(int number) {

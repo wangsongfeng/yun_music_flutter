@@ -5,8 +5,6 @@ import 'package:yun_music/pages/dynamic_page/models/bu_new_song.dart';
 import 'package:yun_music/pages/dynamic_page/models/bu_song_list_info.dart';
 import 'package:yun_music/commons/net/init_dio.dart';
 import 'package:yun_music/commons/values/server.dart';
-import 'package:yun_music/pages/search/models/search_recommend.dart';
-
 import '../commons/models/song_info_dto.dart';
 import '../commons/models/song_list_model.dart';
 import '../commons/models/song_model.dart';
@@ -51,7 +49,6 @@ class BujuanApi {
         data: params,
         options: joinOptions());
     final response = await httpManager.postUri(metaData);
-    print(response);
     final model = PlaylistDetailModel.fromJson(jsonDecode(response.data));
     return model;
   }
@@ -128,7 +125,6 @@ class BujuanApi {
             encryptType: EncryptType.EApi,
             eApiUrl: '/api/song/enhance/player/url/v1'));
     final response = await httpManager.postUri(metaData);
-    print(response);
     logger.d('音乐信息-${jsonDecode(response.data)}');
     return SongInfoListDto.fromJson(jsonDecode(response.data));
   }
@@ -196,8 +192,7 @@ class BujuanApi {
     final metaData = DioMetaData(joinUri('/weapi/mv/detail'),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
-    print("MV 详情- ${response.data}");
-    print("MV 详情- ${response.data["data"]["brs"]["240"]}");
+    return response.data;
   }
 
   //相似MV
@@ -206,7 +201,7 @@ class BujuanApi {
     final metaData = DioMetaData(joinUri('/weapi/discovery/simiMV'),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
-    print("MV 相似- ${response.data}");
+    return response.data;
   }
 
   /// 分类 歌手列表
@@ -227,16 +222,7 @@ class BujuanApi {
     final metaData = DioMetaData(joinUri('/api/v1/artist/list'),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
-    print("分类 歌手列表- ${response.data}");
-  }
-
-  static Future<SearchRecommendResult> searchDefault() async {
-    final metaData = DioMetaData(joinUri('/weapi/search/hot'),
-        data: {'type': 1111},
-        options: joinOptions(userAgent: UserAgent.Mobile));
-    final response = await httpManager.postUri(metaData);
-    print("搜索关键词- ${jsonDecode(response.data)['result']}");
-    return SearchRecommendResult.fromJson(jsonDecode(response.data)['result']);
+    return response.data;
   }
 }
 

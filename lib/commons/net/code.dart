@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import '../event/http_error_event.dart';
 import '../event/index.dart';
 

@@ -66,7 +66,7 @@ class _RecomPageState extends State<RecomPage>
         return Container(
           width: Adapt.screenW(),
           margin: EdgeInsets.only(
-            bottom: PlayingController.to.mediaItems.value.isNotEmpty
+            bottom: PlayingController.to.mediaItems.isNotEmpty
                 ? Adapt.tabbar_padding() + Dimens.gap_dp49
                 : Adapt.tabbar_height(),
           ),
