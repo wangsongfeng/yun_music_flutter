@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,14 +33,13 @@ class MyTextButtonWithIcon extends TextButton {
         );
 }
 
-
 class _TextButtonWithIconChild extends StatelessWidget {
-  const _TextButtonWithIconChild({
-    super.key, 
-    required this.label, 
-    required this.icon, 
-    this.gap = 4, 
-    required this.axisDirection});
+  const _TextButtonWithIconChild(
+      {super.key,
+      required this.label,
+      required this.icon,
+      this.gap = 4,
+      required this.axisDirection});
 
   final Widget label;
   final Widget icon;

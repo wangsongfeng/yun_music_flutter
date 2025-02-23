@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
 import 'package:yun_music/commons/values/server.dart';

@@ -33,7 +33,7 @@ dependencies:
   fluttertoast: ^8.2.6
   keframe: ^3.0.0
   card_swiper: ^3.0.1
-  cached_network_image: ^3.3.1
+  cached_network_image: ^3.4.1
   palette_generator: ^0.3.3+4
   intl: ^0.19.0
   modal_bottom_sheet: ^3.0.0

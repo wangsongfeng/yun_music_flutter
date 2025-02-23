@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/event/index.dart';
@@ -13,8 +12,6 @@ class DrawerPageController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    print('onReady');
-
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
   }
 }
@@ -94,9 +91,9 @@ List<DrawerItem> getListSettings(BuildContext context) {
             child: FittedBox(
                 fit: BoxFit.contain,
                 child: Switch(
-                    trackOutlineColor: MaterialStateProperty.resolveWith(
-                      (final Set<MaterialState> states) {
-                        if (states.contains(MaterialState.selected)) {
+                    trackOutlineColor: WidgetStateProperty.resolveWith(
+                      (final Set<WidgetState> states) {
+                        if (states.contains(WidgetState.selected)) {
                           return null;
                         }
                         return Colors.transparent;

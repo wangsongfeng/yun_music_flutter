@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/models/song_model.dart';
@@ -152,10 +154,8 @@ class _RecomSongAlbumState extends State<RecomSongAlbum>
     return PageView.builder(
       controller: PageController(viewportFraction: 0.91),
       itemBuilder: (context, index) {
-        return Container(
-          child: Column(
-            children: _buildPageItems(datas.elementAt(index).resources!),
-          ),
+        return Column(
+          children: _buildPageItems(datas.elementAt(index).resources!),
         );
       },
       itemCount: datas.length,
@@ -314,6 +314,5 @@ class _RecomSongAlbumState extends State<RecomSongAlbum>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

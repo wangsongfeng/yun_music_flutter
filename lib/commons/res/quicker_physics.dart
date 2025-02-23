@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class QuickerScrollPhysics extends BouncingScrollPhysics {
-  const QuickerScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
+  const QuickerScrollPhysics({super.parent});
 
   @override
   QuickerScrollPhysics applyTo(ScrollPhysics? ancestor) {

@@ -43,11 +43,6 @@ class _RecomPageState extends State<RecomPage>
   @override
   bool get wantKeepAlive => true;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Future<void> _onRefresh() async {
     controller.getFoundRecList(refresh: true);
     controller.getDefaultSearch();

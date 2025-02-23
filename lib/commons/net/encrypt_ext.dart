@@ -88,8 +88,7 @@ abstract class AbstractRSAExt {
 }
 
 class RSAExt extends AbstractRSAExt implements Algorithm {
-  RSAExt({RSAPublicKey? publicKey, RSAPrivateKey? privateKey})
-      : super(publicKey: publicKey, privateKey: privateKey);
+  RSAExt({super.publicKey, super.privateKey});
 
   @override
   Encrypted encrypt(Uint8List bytes, {IV? iv, Uint8List? associatedData}) {

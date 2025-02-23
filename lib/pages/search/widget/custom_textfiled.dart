@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -5,15 +7,18 @@ import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/pages/search/search_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
 
+import '../../../commons/values/function.dart';
 import '../../../utils/image_utils.dart';
 
-// ignore: must_be_immutable
 class CustomTextfiled extends StatelessWidget {
-  CustomTextfiled({super.key, this.onSubmit, this.controller});
+  CustomTextfiled(
+      {super.key, this.onSubmit, this.controller, required this.searchChange});
 
   final WSearchController? controller;
 
   final Function(String)? onSubmit;
+
+  final ParamSingleCallback<String> searchChange;
 
   String regStr =
       "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]";
@@ -22,6 +27,7 @@ class CustomTextfiled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("CustomTextfiled");
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.only(left: 12, right: 12),
@@ -64,10 +70,12 @@ class CustomTextfiled extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.deny(RegExp(regStr))],
           textInputAction: TextInputAction.search,
           onSubmitted: (String str) {
-            print(">>>>>>>>>>>>>str:$str");
             if (onSubmit != null) {
               onSubmit!(str);
             }
+          },
+          onChanged: (value) {
+            searchChange.call(value);
           },
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: const Color(0xFF333333),

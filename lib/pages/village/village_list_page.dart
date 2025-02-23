@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -58,7 +60,6 @@ class _VillageListPageState extends State<VillageListPage>
                   noMoreText: "暂无更多数据",
                 ),
                 onLoading: () async {
-                  print("loading");
                   villageListController.loadMore();
                 },
                 onRefresh: () async {
@@ -105,8 +106,8 @@ class _VillageListPageState extends State<VillageListPage>
   Widget _buildItem(VideoSurceItem item) {
     double width = Adapt.screenW();
     double imageWidth = (width - 3 * 10) / 2.0;
-    double radio = (item.data?.height ?? 0.0) / (item.data?.width ?? 1.0);
-    double imageHeight = radio * imageWidth;
+    double radio = (item.data?.width ?? 0.0) / (item.data?.height ?? 1.0);
+    double imageHeight = imageWidth / (radio <= 3 / 4 ? 3 / 4 : radio);
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -125,6 +126,7 @@ class _VillageListPageState extends State<VillageListPage>
                   child: NetworkImgLayer(
                     width: imageWidth,
                     height: imageHeight,
+                    fit: BoxFit.fitWidth,
                     src: ImageUtils.getImageUrlFromSize(
                         item.data?.coverUrl, Size(imageWidth, imageHeight)),
                     customplaceholder:

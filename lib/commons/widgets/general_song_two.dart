@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,32 +35,31 @@ class GeneralSongTwo extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(8),),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
+            ),
             child: NetworkImgLayer(
-              width: Dimens.gap_dp49, 
+              width: Dimens.gap_dp49,
               height: Dimens.gap_dp49,
               src: ImageUtils.getImageUrlFromSize(
                   songInfo.al.picUrl, Size(Dimens.gap_dp49, Dimens.gap_dp49)),
-              imageBuilder: (context ,provider) {
+              imageBuilder: (context, provider) {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
                     Image(image: provider),
-                    Image.asset(
-                                ImageUtils.getImagePath('icon_play_small'),
-                                width: Dimens.gap_dp20,
-                                height: Dimens.gap_dp20,
-                                color: Colors.white.withOpacity(0.8))
+                    Image.asset(ImageUtils.getImagePath('icon_play_small'),
+                        width: Dimens.gap_dp20,
+                        height: Dimens.gap_dp20,
+                        color: Colors.white.withOpacity(0.8))
                   ],
                 );
               },
             ),
           ),
-
           const SizedBox(width: 8),
-
-
-          Expanded(child: Column(
+          Expanded(
+              child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -89,18 +89,14 @@ class GeneralSongTwo extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 5),
-
               _buildSubTitle()
             ],
           )),
-          
         ],
       ),
     );
   }
-
 
   Widget _buildSubTitle() {
     if (GetUtils.isNullOrBlank(uiElementModel.subTitle?.title) == true) {

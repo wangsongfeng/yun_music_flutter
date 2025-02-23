@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, deprecated_member_use
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
@@ -109,11 +109,9 @@ class _BottomContentWidget extends GetView<PlayerController> {
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                  // ignore: library_prefixes, deprecated_member_use
                   color: Get.theme.cardColor.withOpacity(1.0),
                   border: Border(
                       top: BorderSide(
-                        // ignore: deprecated_member_use
                         color: Get.theme.dividerColor.withOpacity(1.0),
                         width: 1,
                       ),

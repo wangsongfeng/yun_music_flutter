@@ -13,6 +13,9 @@ import 'package:yun_music/pages/not_found/not_found_binding.dart';
 import 'package:yun_music/pages/not_found/not_found_view.dart';
 import 'package:yun_music/pages/search/search_binding.dart';
 import 'package:yun_music/pages/search/search_page.dart';
+import 'package:yun_music/pages/search/search_result_binding.dart';
+import 'package:yun_music/pages/search/search_result_page.dart';
+import 'package:yun_music/pages/single_category/single_category_page.dart';
 import 'package:yun_music/vmusic/comment/comment_page.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
 import 'package:yun_music/vmusic/playing_page.dart';
@@ -102,7 +105,20 @@ class Routes {
         name: RouterPath.Search_Page,
         page: () => const SearchPage(),
         transition: Transition.native,
-        binding: SearchBinding())
+        binding: SearchBinding()),
+    //搜索结果
+    CustomGetPage(
+        name: RouterPath.Search_Result,
+        page: () => const SearchResultPage(),
+        transition: Transition.native,
+        binding: SearchResultBinding()),
+
+    //歌手分类
+    CustomGetPage(
+      name: RouterPath.Single_Category,
+      page: () => const SingleCategoryPage(),
+      transition: Transition.native,
+    )
   ];
 
   static final unknownRoute = CustomGetPage(

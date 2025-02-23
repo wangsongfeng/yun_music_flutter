@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/utils/adapt.dart';
@@ -19,11 +21,6 @@ class MineController extends GetxController with GetTickerProviderStateMixin {
   final menuBarTop = 0.0.obs;
   late double menuBarTop_Normal = 0;
   final appbar_alpha = 0.0.obs;
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onInit() {

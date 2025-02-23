@@ -29,6 +29,10 @@ class WSearchController extends GetxController {
 
   final requestEnd = false.obs;
 
+  String searchKey = '';
+
+  late bool dialogShow = false;
+
   @override
   void onInit() {
     super.onInit();
@@ -73,10 +77,17 @@ class WSearchController extends GetxController {
           ..text = e
           ..imageName = imageList[textList.indexOf(e)])
         .toList();
-    final history = box.read<List<String>>(CACHE_SEARCH_HISTORY_DATA) ?? [];
-    if (history.isNotEmpty) {
+    final List<String>? history =
+        box.read(CACHE_SEARCH_HISTORY_DATA)?.cast<String>() ?? [];
+    if (history!.isNotEmpty) {
       historyList.value = history;
     }
+  }
+
+  //删除历史
+  Future<void> removeHistory() async {
+    box.remove(CACHE_SEARCH_HISTORY_DATA);
+    historyList.value = [];
   }
 
   @override

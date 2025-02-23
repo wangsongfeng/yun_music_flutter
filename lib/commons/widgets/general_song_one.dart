@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/models/ui_element_model.dart';
@@ -35,7 +37,7 @@ class GeneralSongOne extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
             child: NetworkImgLayer(
-              width: Dimens.gap_dp49, 
+              width: Dimens.gap_dp49,
               height: Dimens.gap_dp49,
               src: ImageUtils.getImageUrlFromSize(
                   songInfo.al.picUrl, Size(Dimens.gap_dp49, Dimens.gap_dp49)),
@@ -56,50 +58,50 @@ class GeneralSongOne extends StatelessWidget {
           SizedBox(width: Dimens.gap_dp9),
           Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                child: RichText(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                      text: uiElementModel.mainTitle?.title.toString(),
+                      style: headline1Style(),
+                      children: [
+                        WidgetSpan(child: SizedBox(width: Dimens.gap_dp4)),
+                        TextSpan(
+                          text: '-',
+                          style: TextStyle(
+                              fontSize: Dimens.font_sp10,
+                              color: const Color.fromARGB(255, 166, 166, 166)),
+                        ),
+                        WidgetSpan(child: SizedBox(width: Dimens.gap_dp4)),
+                        TextSpan(
+                          text: songInfo.arString(),
+                          style: TextStyle(
+                              fontSize: Dimens.font_sp10,
+                              color: const Color.fromARGB(255, 166, 166, 166)),
+                        ),
+                      ],
+                    )),
+              ),
+              const SizedBox(height: 6),
+              Row(
                 children: [
-                  SizedBox(
-                    child: RichText(
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(
-                          text: uiElementModel.mainTitle?.title.toString(),
-                          style: headline1Style(),
-                          children: [
-                            WidgetSpan(child: SizedBox(width: Dimens.gap_dp4)),
-                            TextSpan(
-                              text: '-',
-                              style: TextStyle(
-                                  fontSize: Dimens.font_sp10,
-                                  color: const Color.fromARGB(255, 166, 166, 166)),
-                            ),
-                            WidgetSpan(child: SizedBox(width: Dimens.gap_dp4)),
-                            TextSpan(
-                              text: songInfo.arString(),
-                              style: TextStyle(
-                                  fontSize: Dimens.font_sp10,
-                                  color: const Color.fromARGB(255, 166, 166, 166)),
-                            ),
-                          ],
-                        )),
-                  ),
-                  const SizedBox(height: 6),
                   Row(
-                    children: [
-                      Row(
-                        children: getSongTags(songInfo),
-                      ),
-                      Expanded(child: Text(
-                        uiElementModel.subTitle?.title ?? "",
-                        maxLines: 1,
+                    children: getSongTags(songInfo),
+                  ),
+                  Expanded(
+                      child: Text(uiElementModel.subTitle?.title ?? "",
+                          maxLines: 1,
                           style: TextStyle(
                               fontSize: Adapt.px(11),
                               color: const Color.fromARGB(255, 166, 166, 166))))
-                    ],
-                  )
                 ],
-              ))
+              )
+            ],
+          ))
         ],
       ),
     );

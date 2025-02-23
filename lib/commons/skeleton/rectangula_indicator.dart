@@ -137,8 +137,6 @@ class _CustomPainter extends BoxPainter {
         configuration.size!.width - (horizontalPadding * 2),
         configuration.size!.height - (2 * verticalPadding));
 
-    print("rect-${configuration.size}--${mysize}");
-
     final Offset myoffset =
         Offset(offset.dx + horizontalPadding, offset.dy + verticalPadding);
     final Rect rect = myoffset & mysize;

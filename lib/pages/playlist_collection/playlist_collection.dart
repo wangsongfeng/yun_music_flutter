@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +41,6 @@ class _PlaylistCollectionPageState extends State<PlaylistCollectionPage>
   void didPush() {
     //上一个页面push 过来viewWillappear
     super.didPush();
-    print('PlaylistCollectionPage didPush');
   }
 
   @override

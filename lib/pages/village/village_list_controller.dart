@@ -10,14 +10,8 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
   final videoData = Rx<VideoGroupSourceList?>(null);
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onReady() {
     super.onReady();
-    print(tagModel.id);
     requestData();
   }
 
@@ -32,7 +26,6 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
   void requestData() {
     MusicApi.getVideoGroupListSource().then((value) {
       if (value != null) {
-        print(value);
         videoData.value = value;
         change(value, status: RxStatus.success());
       }
@@ -42,27 +35,17 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
   }
 
   @override
-  void onDetached() {
-    // TODO: implement onDetached
-  }
+  void onDetached() {}
 
   @override
-  void onHidden() {
-    // TODO: implement onHidden
-  }
+  void onHidden() {}
 
   @override
-  void onInactive() {
-    // TODO: implement onInactive
-  }
+  void onInactive() {}
 
   @override
-  void onPaused() {
-    // TODO: implement onPaused
-  }
+  void onPaused() {}
 
   @override
-  void onResumed() {
-    // TODO: implement onResumed
-  }
+  void onResumed() {}
 }

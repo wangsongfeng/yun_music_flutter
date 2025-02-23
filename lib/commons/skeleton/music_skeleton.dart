@@ -1,4 +1,4 @@
-// ignore_for_file: slash_for_doc_comments
+// ignore_for_file: slash_for_doc_comments, deprecated_member_use
 
 import 'package:flutter/material.dart';
 
@@ -8,17 +8,13 @@ class Skeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var shimmerGradient = LinearGradient(
-      colors: [Colors.transparent,
-      Theme.of(context).colorScheme.background.withAlpha(10),
-      Theme.of(context).colorScheme.background.withAlpha(10),
-      Colors.transparent
+      colors: [
+        Colors.transparent,
+        Theme.of(context).colorScheme.background.withAlpha(10),
+        Theme.of(context).colorScheme.background.withAlpha(10),
+        Colors.transparent
       ],
-      stops: const [
-        0.1,
-        0.3,
-        0.5,
-        0.7
-      ],
+      stops: const [0.1, 0.3, 0.5, 0.7],
       begin: const Alignment(-1.0, -0.3),
       end: const Alignment(1.0, 0.9),
       tileMode: TileMode.clamp,
@@ -71,7 +67,6 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   void dispose() {
     _shimmerController.dispose();
     super.dispose();
-    
   }
 
   ///可以实现背景颜色渐变
@@ -81,9 +76,7 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
         begin: widget.linearGradient.begin,
         end: widget.linearGradient.end,
         transform:
-            _SlidingGradientTransfrom(
-              slidePercent: _shimmerController.value
-            ),
+            _SlidingGradientTransfrom(slidePercent: _shimmerController.value),
       );
   bool get isSized =>
       (context.findRenderObject() as RenderBox?)?.hasSize ?? false;
@@ -125,7 +118,6 @@ class ShimmerLoading extends StatefulWidget {
     required this.isLoading,
     required this.child,
   });
-      
 
   final bool isLoading;
   final Widget child;
@@ -178,14 +170,8 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
     return ShaderMask(
       blendMode: BlendMode.srcATop,
       shaderCallback: (bounds) {
-        return gradient.createShader(
-          Rect.fromLTWH(
-            -offsetWithinShimmer.dx,
-            -offsetWithinShimmer.dy, 
-            shimmerSize.width, 
-            shimmerSize.height
-          )
-        );
+        return gradient.createShader(Rect.fromLTWH(-offsetWithinShimmer.dx,
+            -offsetWithinShimmer.dy, shimmerSize.width, shimmerSize.height));
       },
       child: widget.child,
     );

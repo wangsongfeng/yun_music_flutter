@@ -27,11 +27,6 @@ class DaySongRecmController extends CheckSongController {
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   Future<void> _requestData() async {
     MusicApi.getRcmdSongs().then((value) {
       if (value != null) {

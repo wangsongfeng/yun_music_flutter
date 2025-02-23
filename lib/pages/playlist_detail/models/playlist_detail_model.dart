@@ -189,7 +189,6 @@ class Playlist extends Object {
 
   @override
   String toString() {
-    // TODO: implement toString
     return toJson().toString();
   }
 }

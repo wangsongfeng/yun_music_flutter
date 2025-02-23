@@ -173,7 +173,7 @@ class _SquareListItemState extends State<SquareListItem> {
                     fontSize: 16,
                     fontWeight: FontWeight.w400),
                 renderText: ({String str = '', String pattern = ''}) {
-                  Map<String, String?> map = Map<String, String>();
+                  Map<String, String?> map = <String, String>{};
                   RegExp customRegExp = RegExp(pattern);
                   RegExpMatch? match = customRegExp.firstMatch(str);
                   map['display'] = match?.group(1);
@@ -190,13 +190,13 @@ class _SquareListItemState extends State<SquareListItem> {
                     fontSize: 16,
                     fontWeight: FontWeight.w400),
                 renderText: ({String str = '', String pattern = ''}) {
-                  Map<String, String> map = Map<String, String>();
+                  Map<String, String> map = <String, String>{};
 
                   String idStr =
                       str.substring(str.indexOf(":") + 1, str.lastIndexOf("#"));
                   String showStr = str
                       .substring(str.indexOf("#"), str.lastIndexOf("#") + 1)
-                      .replaceAll(":" + idStr, "");
+                      .replaceAll(":$idStr", "");
                   map['display'] = showStr;
                   map['value'] = idStr;
                   //   print("正则:"+str+"---"+idStr+"--"+startIndex.toString()+"--"+str.lastIndexOf("#").toString());
@@ -234,7 +234,7 @@ class _SquareListItemState extends State<SquareListItem> {
                     fontSize: 16,
                     fontWeight: FontWeight.w400),
                 renderText: ({String? str, String? pattern}) {
-                  Map<String, String> map = Map<String, String>();
+                  Map<String, String> map = <String, String>{};
                   map['display'] = '展开';
                   map['value'] = '展开';
                   return map;

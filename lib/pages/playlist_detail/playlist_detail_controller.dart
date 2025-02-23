@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
@@ -124,7 +126,6 @@ class PlaylistDetailController extends GetxController {
     // final detailModel = await MusicApi.getPlaylistDetail(playlistId);
 
     final detailModel = await BujuanApi.playListDetail(playlistId);
-    ;
     if (detailModel?.isOfficial() == true) {
       //官方歌单
       isOfficial.value = true;

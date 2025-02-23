@@ -97,7 +97,7 @@ class ParsedText extends StatelessWidget {
     for (var e in parse) {
       RegExp regExp = RegExp(e.pattern.toString());
       newString = newString.splitMapJoin(regExp,
-          onMatch: (m) => "%%%%${m.group(0)}%%%%", onNonMatch: (m) => "$m");
+          onMatch: (m) => "%%%%${m.group(0)}%%%%", onNonMatch: (m) => m);
     }
 
     // splits the modified text at "%%%%"
@@ -110,7 +110,7 @@ class ParsedText extends StatelessWidget {
     List<TextSpan> widgets = splits.map<TextSpan>((element) {
       // Default Text object if not pattern is matched
       TextSpan widget = TextSpan(
-        text: "$element",
+        text: element,
       );
 
       // loop over to find patterns

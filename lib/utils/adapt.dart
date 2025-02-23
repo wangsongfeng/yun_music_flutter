@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -28,7 +30,6 @@ class Adapt {
       _bottomPadding = MediaQuery.paddingOf(context).bottom;
     }
 
-    print("_bottomPadding--${_bottomPadding}");
     if (_topPadding == 0) {
       _topPadding = MediaQuery.paddingOf(context).top;
     }

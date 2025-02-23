@@ -24,27 +24,17 @@ class SquareController extends SuperController<SquareInfo> {
   }
 
   @override
-  void onDetached() {
-    // TODO: implement onDetached
-  }
+  void onDetached() {}
 
   @override
-  void onHidden() {
-    // TODO: implement onHidden
-  }
+  void onHidden() {}
 
   @override
-  void onInactive() {
-    // TODO: implement onInactive
-  }
+  void onInactive() {}
 
   @override
-  void onPaused() {
-    // TODO: implement onPaused
-  }
+  void onPaused() {}
 
   @override
-  void onResumed() {
-    // TODO: implement onResumed
-  }
+  void onResumed() {}
 }

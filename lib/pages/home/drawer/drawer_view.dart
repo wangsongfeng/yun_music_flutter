@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
@@ -50,11 +52,6 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
   void dispose() {
     AppRouteObserver().routeObserver.unsubscribe(this);
     super.dispose();
-  }
-
-  @override
-  void didPopNext() {
-    super.didPopNext();
   }
 
   @override

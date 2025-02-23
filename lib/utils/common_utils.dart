@@ -18,9 +18,7 @@ import '../commons/player/bottom_player_controller.dart';
 
 final box = GetStorage();
 
-/**
- * 跳转到播放页面
- */
+/// 跳转到播放页面
 
 Future<void> toPlayingPage() async {
   eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
@@ -219,7 +217,7 @@ class TimeUtils {
   }
 
   static String formatSecondTime(int s) {
-    return s < 10 ? "0" + s.toString() : s.toString();
+    return s < 10 ? "0$s" : s.toString();
   }
 
   static String timeByString(int? mill) {

@@ -5,6 +5,9 @@ class JsonStringConstants {
   static const String recommend_songs = "assets/json/daily_recom_songs.json";
   //首页
   static const String discover_pages = "assets/json/discover_home_page.json";
+
+  //discover_home_banner
+  static const String discover_banner = "assets/json/discover_home_banner.json";
   //ball
   static const String discover_balls = "assets/json/discover_home_balls.json";
   //歌单广场Tags

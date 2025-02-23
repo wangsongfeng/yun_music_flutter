@@ -53,7 +53,6 @@ class _HomePageState extends State<HomePage>
     super.didChangeDependencies();
 
     if (controller.player_bar_add == true) return;
-    print("didChangeDependencies");
     AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
     // var widgetsBinding = WidgetsBinding.instance;
     WidgetsBinding.instance.addPostFrameCallback((callback) {
@@ -84,6 +83,7 @@ class _HomePageState extends State<HomePage>
           PlayerService.to.plarBarBottom.value = 0;
           PlayerService.to.playBarHeight.value = Adapt.tabbar_padding();
         }
+        print("playBarHeight--${Adapt.tabbar_padding()}");
       }
     });
 
@@ -97,25 +97,15 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  void didPush() {
-    super.didPush();
-  }
-
-  @override
   void didPopNext() {
     super.didPopNext();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.tabbar));
   }
 
   @override
-  void didPop() {
-    super.didPop();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
-    print("主页面重构");
+
     if (controller.is_initContext == false) {
       controller.is_initContext = true;
     }
@@ -177,6 +167,5 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

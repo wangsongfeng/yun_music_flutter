@@ -1,6 +1,4 @@
-
-
-// ignore_for_file: use_super_parameters
+// ignore_for_file: use_super_parameters, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,11 +10,13 @@ class NotFoundPage extends GetView<NotFoundController> {
 
   @override
   Widget build(BuildContext context) {
+    final NotFoundController notFoundController = Get.put(NotFoundController());
+    notFoundController.selected = 1;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Text(
-          '错误页面',
+          '未开发页面',
           style: headline2Style(),
         ),
       ),

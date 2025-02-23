@@ -24,11 +24,6 @@ class VillageController extends GetxController
     pageController = PageController(initialPage: 0);
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   void getTags() {
     MusicApi.getVideoCategoryList().then((value) {
       tags.value = value;

@@ -33,7 +33,6 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
   void didPush() {
     //上一个页面push 过来viewWillappear
     super.didPush();
-    print('day_song_recom didPush');
   }
 
   @override
@@ -41,13 +40,6 @@ class _RecomSongDayPageState extends State<RecomSongDayPage> with RouteAware {
     //上一个页面pop回到当前页面 viewWillappear
     super.didPopNext();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
-    print('day_song_recom didPopNext');
-  }
-
-  @override
-  void didPushNext() {
-    super.didPushNext();
-    print('day_song_recom didPushNext');
   }
 
   @override

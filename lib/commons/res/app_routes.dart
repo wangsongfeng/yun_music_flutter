@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:yun_music/commons/values/constants.dart';
 
@@ -41,4 +41,10 @@ class RouterPath {
 
   //搜索
   static const Search_Page = "/search";
+
+  //搜索结果
+  static const Search_Result = '/searchresult';
+
+  //歌手分类
+  static const Single_Category = '/singlecategory';
 }

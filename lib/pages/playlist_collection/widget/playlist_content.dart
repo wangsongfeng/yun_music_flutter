@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,9 +37,6 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
   @override
   void initState() {
     super.initState();
-
-    print("initState--${widget.tagModel.name}--${widget.mkey}");
-
     playlistContentController =
         Get.put(PlaylistContentController(), tag: widget.mkey);
     playlistContentController.tagModel = widget.tagModel;
@@ -51,10 +48,8 @@ class _PlaylistContentPageState extends State<PlaylistContentPage>
     return playlistContentController.obx(
         (state) {
           if (state == null)
-            return Container(
-              child: Center(
-                child: Text("PlaylistContentController${widget.tagModel.name}"),
-              ),
+            return Center(
+              child: Text("PlaylistContentController${widget.tagModel.name}"),
             );
           else
             refreshController.refreshCompleted();

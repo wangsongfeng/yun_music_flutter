@@ -226,17 +226,7 @@ class BujuanApi {
   }
 }
 
-/**
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
-
+// ignore: constant_identifier_names
 enum EncryptType { LinuxForward, WeApi, EApi }
 
 Options joinOptions(
@@ -259,6 +249,7 @@ Uri joinUri(String path) {
   return Uri.parse('$NEW_SERVER_URL$path');
 }
 
+// ignore: constant_identifier_names
 enum UserAgent { Random, Pc, Mobile }
 
 const userAgentList = [

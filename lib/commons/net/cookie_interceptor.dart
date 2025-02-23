@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, constant_identifier_names
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';

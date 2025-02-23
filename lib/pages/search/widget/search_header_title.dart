@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/utils/adapt.dart';
@@ -5,11 +7,12 @@ import 'package:yun_music/utils/image_utils.dart';
 
 class SearchHeaderTitle extends StatelessWidget {
   const SearchHeaderTitle(
-      {super.key, this.text, this.imageName, this.callBack});
+      {super.key, this.text, this.imageName, this.callBack, this.iconW = 18});
 
   final String? text;
   final String? imageName;
   final Function? callBack;
+  final double? iconW;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +37,8 @@ class SearchHeaderTitle extends StatelessWidget {
           },
           child: Image.asset(
             ImageUtils.getImagePath(imageName!),
-            width: 18,
-            height: 18,
+            width: iconW,
+            height: iconW,
             fit: BoxFit.cover,
             color: AppThemes.textColor999,
           ),

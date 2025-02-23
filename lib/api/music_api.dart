@@ -91,6 +91,13 @@ class MusicApi {
     final recmData = recmModelWrap.data!;
     final ballJson =
         await CommonService.jsonDecode(JsonStringConstants.discover_balls);
+    final bannerJson =
+        await CommonService.jsonDecode(JsonStringConstants.discover_banner);
+    recmData.blocks.removeAt(0);
+    recmData.blocks.insert(
+        0,
+        Blocks("HOMEPAGE_BANNER", SHOWTYPE_BANNER, bannerJson["extInfo"], null,
+            null, false));
     recmData.blocks.insert(
         1,
         Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, ballJson['data'], null, null,

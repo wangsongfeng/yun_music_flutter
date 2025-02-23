@@ -41,12 +41,6 @@ class NewSongController extends GetxController
         TabController(length: tags.length, vsync: this, initialIndex: 0);
     pageController = PageController(initialPage: 0);
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-    print("onReady");
-  }
 }
 
 class NewSongTagModel {

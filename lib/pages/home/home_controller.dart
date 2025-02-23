@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: unnecessary_overrides, non_constant_identifier_names
 
 import 'dart:async';
 
@@ -29,7 +29,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

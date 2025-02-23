@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/widgets/appbar_page.dart';
@@ -41,7 +43,6 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
   void didPush() {
     //上一个页面push 过来viewWillappear
     super.didPush();
-    print('RanklistView didPush');
   }
 
   @override

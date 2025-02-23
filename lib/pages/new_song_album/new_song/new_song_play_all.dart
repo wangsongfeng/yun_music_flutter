@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -14,7 +16,8 @@ class RecomHeaderBgColors extends StatefulWidget {
   State<RecomHeaderBgColors> createState() => _RecomHeaderBgColorsState();
 }
 
-class _RecomHeaderBgColorsState extends State<RecomHeaderBgColors>with SingleTickerProviderStateMixin {
+class _RecomHeaderBgColorsState extends State<RecomHeaderBgColors>
+    with SingleTickerProviderStateMixin {
   final controller = GetInstance().find<RecomController>();
 
   late StreamSubscription stream;

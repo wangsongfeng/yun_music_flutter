@@ -17,7 +17,8 @@ class NetworkImgLayer extends StatelessWidget {
       this.origAspectRatio,
       this.color,
       this.customplaceholder,
-      this.imageBuilder});
+      this.imageBuilder,
+      this.fit = BoxFit.cover});
 
   final String? src;
   final double width;
@@ -30,6 +31,7 @@ class NetworkImgLayer extends StatelessWidget {
   final ImageWidgetBuilder? imageBuilder;
   final Color? color;
   final Widget? customplaceholder;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class NetworkImgLayer extends StatelessWidget {
               height: height,
               memCacheWidth: memCacheWidth,
               memCacheHeight: memCacheHeight,
-              fit: BoxFit.cover,
+              fit: fit,
               fadeOutDuration:
                   fadeOutDuration ?? const Duration(milliseconds: 120),
               fadeInDuration:

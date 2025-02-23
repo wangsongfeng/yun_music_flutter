@@ -1,4 +1,4 @@
-
+// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:yun_music/commons/res/dimens.dart';
@@ -10,7 +10,8 @@ class PlayCountWidget extends StatelessWidget {
 
   final bool needBg;
 
-  const PlayCountWidget({super.key, required this.playCount, this.needBg = true});
+  const PlayCountWidget(
+      {super.key, required this.playCount, this.needBg = true});
 
   @override
   Widget build(BuildContext context) {

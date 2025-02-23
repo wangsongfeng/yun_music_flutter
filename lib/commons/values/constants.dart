@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names, slash_for_doc_comments
+// ignore_for_file: constant_identifier_names, slash_for_doc_comments, non_constant_identifier_names
 
 /* 首页推荐类型常量 --------- start ----------- */
 
