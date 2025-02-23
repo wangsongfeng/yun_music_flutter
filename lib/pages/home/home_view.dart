@@ -83,7 +83,6 @@ class _HomePageState extends State<HomePage>
           PlayerService.to.plarBarBottom.value = 0;
           PlayerService.to.playBarHeight.value = Adapt.tabbar_padding();
         }
-        print("playBarHeight--${Adapt.tabbar_padding()}");
       }
     });
 

@@ -98,6 +98,11 @@ class RecomController extends SuperController<RecomModel?> {
   }
 
   @override
+  Future<bool> didPopRoute() {
+    return super.didPopRoute();
+  }
+
+  @override
   void onDetached() {}
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/api/bujuan_api.dart';
 import 'package:yun_music/api/music_api.dart';
 import 'package:yun_music/pages/village/models/video_category.dart';
 
@@ -29,7 +28,5 @@ class VillageController extends GetxController
       tags.value = value;
       setTabController();
     });
-
-    BujuanApi.artistList(-1);
   }
 }

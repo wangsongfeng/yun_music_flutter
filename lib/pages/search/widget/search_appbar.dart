@@ -6,6 +6,7 @@ import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../../../commons/values/function.dart';
 import '../../../utils/adapt.dart';
 import '../search_controller.dart';
 import 'custom_textfiled.dart';
@@ -17,15 +18,19 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.type = SearchAppBarType.Default,
     this.onSubmit,
+    this.controller,
+    this.onDelegate,
   });
 
   final SearchAppBarType type;
 
   final Function(String)? onSubmit;
 
+  final ParamVoidCallback? onDelegate;
+
   late String searchKey = "";
 
-  final controller = Get.find<WSearchController>();
+  final WSearchController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,19 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
               child: CustomTextfiled(
             controller: controller,
             onSubmit: (text) {
+              if (text.isEmpty &&
+                  (controller!.defuleSearch.value?.showKeyword ?? "").isEmpty) {
+                toast("请输入想要搜索的内容");
+                return;
+              } else if (text.isEmpty &&
+                  (controller!.defuleSearch.value?.showKeyword ?? "")
+                      .isNotEmpty) {
+                if (onSubmit != null) {
+                  onSubmit!(
+                      (controller!.defuleSearch.value?.showKeyword ?? ""));
+                }
+                return;
+              }
               if (onSubmit != null) {
                 onSubmit!(text);
               }
@@ -60,25 +78,43 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
             searchChange: (String data) {
               searchKey = data;
             },
-          )),
-          GestureDetector(
-            onTap: () {
-              if (searchKey.isEmpty) {
-                toast("请输入想要搜索的内容");
-                return;
-              }
-              if (onSubmit != null) {
-                onSubmit!(searchKey);
+            onDelegate: () {
+              if (onDelegate != null) {
+                onDelegate!.call();
               }
             },
-            child: Container(
-              margin: const EdgeInsets.only(left: 8, right: 16),
-              child: const Text(
-                "搜索",
-                style: TextStyle(fontSize: 15, color: Colors.black),
+          )),
+          if (type == SearchAppBarType.Default)
+            GestureDetector(
+              onTap: () {
+                if (searchKey.isEmpty &&
+                    (controller!.defuleSearch.value?.showKeyword ?? "")
+                        .isEmpty) {
+                  toast("请输入想要搜索的内容");
+                  return;
+                } else if (searchKey.isEmpty &&
+                    (controller!.defuleSearch.value?.showKeyword ?? "")
+                        .isNotEmpty) {
+                  if (onSubmit != null) {
+                    onSubmit!(
+                        (controller!.defuleSearch.value?.showKeyword ?? ""));
+                  }
+                  return;
+                }
+                if (onSubmit != null) {
+                  onSubmit!(searchKey);
+                }
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 8, right: 16),
+                child: const Text(
+                  "搜索",
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
               ),
-            ),
-          )
+            )
+          else
+            const SizedBox(width: 12)
         ],
       ),
     );

@@ -203,27 +203,6 @@ class BujuanApi {
     final response = await httpManager.postUri(metaData);
     return response.data;
   }
-
-  /// 分类 歌手列表
-  static Future<void> artistList(int initial,
-      {int offset = 0,
-      int limit = 30,
-      bool total = true,
-      int type = 1,
-      int area = -1}) async {
-    var params = {
-      'initial': initial,
-      'type': type,
-      'area': area,
-      'total': total,
-      'limit': limit,
-      'offset': offset
-    };
-    final metaData = DioMetaData(joinUri('/api/v1/artist/list'),
-        data: params, options: joinOptions());
-    final response = await httpManager.postUri(metaData);
-    return response.data;
-  }
 }
 
 // ignore: constant_identifier_names

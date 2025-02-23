@@ -17,7 +17,6 @@ import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../commons/values/constants.dart';
 import '../../utils/adapt.dart';
-import '../../utils/approute_observer.dart';
 import '../../vmusic/playing_controller.dart';
 import 'search_controller.dart';
 import 'widget/search_appbar.dart';
@@ -31,24 +30,35 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage>
     with RouteAware, TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  late WSearchController controller = Get.put(WSearchController());
+  late WSearchController controller =
+      Get.put(WSearchController(), tag: "search");
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
+    // AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
   }
 
   @override
   void dispose() {
-    AppRouteObserver().routeObserver.unsubscribe(this);
+    // AppRouteObserver().routeObserver.unsubscribe(this);
+    routeObserver.unsubscribe(this);
+
     super.dispose();
   }
 
   @override
-  void didPush() {
-    //上一个页面push 过来viewWillappear
-    super.didPush();
+  void initState() {
+    super.initState();
+
+    if (controller.appBarType == SearchAppBarType.Default) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        controller.focusNode.requestFocus();
+      });
+    }
+
+    controller.requestAllDataList();
   }
 
   @override
@@ -56,19 +66,10 @@ class _SearchPageState extends State<SearchPage>
     //上一个页面pop回到当前页面 viewWillappear
     super.didPopNext();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
-
-    if (controller.dialogShow == false) {
-      Future.delayed(const Duration(milliseconds: 300), () {
-        controller.focusNode.requestFocus();
-      });
-      controller.textEditingController.text = "";
-    } else {
-      controller.focusNode.unfocus();
-    }
-
-    Future.delayed(const Duration(milliseconds: 400), () {
-      controller.dialogShow = false;
+    Future.delayed(const Duration(milliseconds: 300), () {
+      controller.focusNode.requestFocus();
     });
+    controller.textEditingController.text = "";
   }
 
   @override
@@ -78,18 +79,13 @@ class _SearchPageState extends State<SearchPage>
   }
 
   @override
-  void initState() {
-    super.initState();
-    controller.selectedIndex = 1;
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       backgroundColor: AppThemes.search_page_bg,
       resizeToAvoidBottomInset: false,
       appBar: SearchAppbar(
+        controller: controller,
         onSubmit: (searchKey) {
           if (!controller.historyList.contains(searchKey)) {
             controller.historyList.add(searchKey);

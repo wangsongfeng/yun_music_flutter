@@ -7,10 +7,14 @@ import 'package:yun_music/utils/common_utils.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
+import '../recommend/models/default_search_model.dart';
 import 'models/search_recommend.dart';
+import 'widget/search_appbar.dart';
 
 class WSearchController extends GetxController {
   int selectedIndex = 0;
+
+  final defuleSearch = Rx<DefaultSearchModel?>(null);
   List<SearchTopModel> items = [];
 
   RxList<String> historyList = <String>[].obs;
@@ -33,6 +37,8 @@ class WSearchController extends GetxController {
 
   late bool dialogShow = false;
 
+  late SearchAppBarType appBarType = SearchAppBarType.Default;
+
   @override
   void onInit() {
     super.onInit();
@@ -44,10 +50,10 @@ class WSearchController extends GetxController {
   void onReady() {
     super.onReady();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
-    Future.delayed(const Duration(milliseconds: 300), () {
-      focusNode.requestFocus();
-    });
+  }
 
+  void requestAllDataList() {
+    _requestDefaultKeyWord();
     requestData();
   }
 
@@ -84,6 +90,13 @@ class WSearchController extends GetxController {
     }
   }
 
+  //获取默认搜索关键词
+  Future<void> _requestDefaultKeyWord() async {
+    final data = await SearchApi.getDefaultSearch();
+    defuleSearch.value = data;
+    hintText.value = defuleSearch.value!.showKeyword!;
+  }
+
   //删除历史
   Future<void> removeHistory() async {
     box.remove(CACHE_SEARCH_HISTORY_DATA);
@@ -101,4 +114,5 @@ class WSearchController extends GetxController {
 class SearchTopModel {
   String? text;
   String? imageName;
+  int? id = -1;
 }

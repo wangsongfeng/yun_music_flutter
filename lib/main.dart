@@ -20,6 +20,7 @@ import 'package:yun_music/vmusic/handle/music_handle.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
 
 import 'commons/res/app_pages.dart';
+import 'utils/common_utils.dart';
 
 Future<void> main() async {
   await _initializeApp();
@@ -153,7 +154,7 @@ class MainAppPage extends StatelessWidget {
       footerBuilder: () => const ClassicFooter(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        navigatorObservers: [AppRouteObserver().routeObserver],
+        navigatorObservers: [AppRouteObserver().routeObserver, routeObserver],
         title: '网易云Flutter',
         theme: SFThemes.lightTheme,
         darkTheme: SFThemes.darkTheme,

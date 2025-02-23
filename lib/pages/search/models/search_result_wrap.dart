@@ -1,0 +1,67 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:yun_music/commons/models/song_model.dart';
+
+import '../../../commons/models/simple_play_list_model.dart';
+
+part 'search_result_wrap.g.dart';
+
+@JsonSerializable()
+class SearchResultWrapX extends Object {
+  SearchResultWrap? result;
+  SearchResultWrapX();
+  factory SearchResultWrapX.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchResultWrapXFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchResultWrapXToJson(this);
+}
+
+@JsonSerializable()
+class SearchResultWrap extends Object {
+  SearchComplexSong? song; //单曲
+  SearchComplexPlayList? playList; //歌单
+
+  SearchResultWrap();
+
+  factory SearchResultWrap.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchResultWrapFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchResultWrapToJson(this);
+}
+
+@JsonSerializable()
+class SearchComplexSong extends Object {
+  List<Song>? songs;
+  String? moreText;
+
+  String? highText;
+
+  bool? more;
+
+  List<int>? resourceIds;
+
+  SearchComplexSong();
+
+  factory SearchComplexSong.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchComplexSongFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchComplexSongToJson(this);
+}
+
+@JsonSerializable()
+class SearchComplexPlayList extends Object {
+  List<SimplePlayListModel>? playLists;
+  String? moreText;
+
+  String? highText;
+
+  bool? more;
+
+  List<int>? resourceIds;
+
+  SearchComplexPlayList();
+
+  factory SearchComplexPlayList.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchComplexPlayListFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchComplexPlayListToJson(this);
+}

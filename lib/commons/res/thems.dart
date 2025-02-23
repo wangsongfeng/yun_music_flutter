@@ -18,6 +18,7 @@ class SFThemes {
       appBarTheme: const AppBarTheme(
         toolbarHeight: kToolbarHeight,
         backgroundColor: AppThemes.card_color,
+        surfaceTintColor: Colors.transparent,
         titleTextStyle: TextStyle(
             color: AppThemes.body2_txt_color,
             fontSize: 17.0,
@@ -30,35 +31,36 @@ class SFThemes {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0)))),
       textTheme: const TextTheme(
-          displayLarge: TextStyle(
-            color: AppThemes.headline1_color,
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-          ),
-          displayMedium: TextStyle(
-            color: AppThemes.headline1_color,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          titleMedium: TextStyle(
-            color: AppThemes.headline4_color,
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
-          ),
-          bodyLarge: TextStyle(
-            color: AppThemes.body1_txt_color,
-            fontSize: 13,
-            fontWeight: FontWeight.normal,
-          ),
-          bodyMedium: TextStyle(
-            color: AppThemes.body2_txt_color,
-            fontSize: 16,
-            fontWeight: FontWeight.normal,
-          ),
-          bodySmall: TextStyle(
-            color: AppThemes.subtitle_text,
-            fontSize: 12,
-          )));
+        displayLarge: TextStyle(
+          color: AppThemes.headline1_color,
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+        displayMedium: TextStyle(
+          color: AppThemes.headline1_color,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
+        titleMedium: TextStyle(
+          color: AppThemes.headline4_color,
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+        ),
+        bodyLarge: TextStyle(
+          color: AppThemes.body1_txt_color,
+          fontSize: 13,
+          fontWeight: FontWeight.normal,
+        ),
+        bodyMedium: TextStyle(
+          color: AppThemes.body2_txt_color,
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+        bodySmall: TextStyle(
+          color: AppThemes.subtitle_text,
+          fontSize: 12,
+        ),
+      ));
 
   static final darkTheme = ThemeData.dark().copyWith(
       scaffoldBackgroundColor: AppThemes.dark_bg_color,
@@ -71,6 +73,7 @@ class SFThemes {
       appBarTheme: AppBarTheme(
         toolbarHeight: kToolbarHeight,
         backgroundColor: AppThemes.dark_card_color,
+        surfaceTintColor: Colors.transparent,
         titleTextStyle: TextStyle(
             color: AppThemes.dark_body2_txt_color,
             fontSize: 17.0,

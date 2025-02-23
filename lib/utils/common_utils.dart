@@ -18,6 +18,8 @@ import '../commons/player/bottom_player_controller.dart';
 
 final box = GetStorage();
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 /// 跳转到播放页面
 
 Future<void> toPlayingPage() async {

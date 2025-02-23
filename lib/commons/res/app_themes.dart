@@ -127,4 +127,6 @@ class AppThemes {
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;
 
   static const textColor999 = Color(0xFF999999);
+
+  static const textColor333 = Color(0xFF333333);
 }
