@@ -36,6 +36,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: Adapt.topPadding()),
+      alignment: Alignment.center,
       color: AppThemes.search_page_bg,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -38,7 +38,7 @@ class RecomNewSong extends Object {
         type,
         null,
         1,
-        0);
+        0, []);
   }
 }
 
@@ -84,6 +84,6 @@ class SongData extends Object {
 
   Song buildSong() {
     return Song(name, id, artists, alias, fee, 100, album, copyright,
-        originCoverType, mvid, songPrivilege, null, null, 0, 0);
+        originCoverType, mvid, songPrivilege, null, null, 0, 0, []);
   }
 }

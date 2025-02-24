@@ -63,14 +63,16 @@ TextStyle captionStyle() {
 }
 
 String getPlayCountStrFromInt(int count) {
-  if (count < 100000) {
+  if (count < 10000) {
     return '$count';
-  } else if (count >= 100000 && count <= 99999999) {
+  } else if (count >= 10000 && count <= 99999999) {
     return '${count ~/ 10000}万';
   } else {
     return '${(count / 100000000).toStringAsFixed(1)}亿';
   }
 }
+
+//万为单位
 
 String getCommentStrFromInt(int count) {
   if (count < 1000) {

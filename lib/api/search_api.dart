@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:yun_music/commons/net/init_dio.dart';
+import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/pages/recommend/models/default_search_model.dart';
 import 'package:yun_music/pages/search/models/search_hot_wrap.dart';
 import 'package:yun_music/pages/search/models/search_result_wrap.dart';
@@ -35,6 +36,7 @@ class SearchApi {
     final metaData = DioMetaData(_searchUrl(cloudSearch),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
+    logger.d(1);
     return SearchResultWrapX.fromJson(jsonDecode(response.data));
   }
 

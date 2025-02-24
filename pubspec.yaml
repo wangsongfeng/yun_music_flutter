@@ -112,6 +112,7 @@ flutter:
      fonts:
       #  - asset: assets/fonts/苹方黑体-中黑-简.ttf
        - asset: assets/fonts/PingFang_Medium.otf
+         weight: 500
 
    - family: PuHuiTi
      fonts:
@@ -120,10 +121,14 @@ flutter:
    - family: PuHuiTiX
      fonts:
         - asset: assets\fonts\Puhuitix.ttf
+          weight: 500
 
    - family: iconfont
      fonts:
         - asset: assets/fonts/iconfont.ttf
+          weight: 500
+
+
    - family: Dolphin-Medium
      fonts:
         - asset: assets/fonts/Dolphin-Medium.ttf

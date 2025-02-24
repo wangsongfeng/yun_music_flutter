@@ -19,7 +19,8 @@ class SearchResultWrapX extends Object {
 class SearchResultWrap extends Object {
   SearchComplexSong? song; //单曲
   SearchComplexPlayList? playList; //歌单
-
+  SearchComplexAlbum? album; //专辑
+  List<String>? order;
   SearchResultWrap();
 
   factory SearchResultWrap.fromJson(Map<String, dynamic> srcJson) =>
@@ -64,4 +65,23 @@ class SearchComplexPlayList extends Object {
       _$SearchComplexPlayListFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$SearchComplexPlayListToJson(this);
+}
+
+@JsonSerializable()
+class SearchComplexAlbum extends Object {
+  List<AlbumSimple>? albums;
+  String? moreText;
+
+  String? highText;
+
+  bool? more;
+
+  List<int>? resourceIds;
+
+  SearchComplexAlbum();
+
+  factory SearchComplexAlbum.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchComplexAlbumFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchComplexAlbumToJson(this);
 }

@@ -1,7 +1,15 @@
+// ignore_for_file: deprecated_member_use, constant_identifier_names
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/utils/adapt.dart';
+import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
+
+import '../../../commons/res/dimens.dart';
+
+const double SearchResultHeaderHeight = 48;
 
 class SearchResultHeader extends StatelessWidget {
   const SearchResultHeader(
@@ -15,22 +23,18 @@ class SearchResultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 48,
+      height: SearchResultHeaderHeight,
       child: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(title!,
-                style: const TextStyle(
-                    fontSize: 17,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold)),
+            Text(title!, style: headlineStyle()),
             if (showRightBtn!)
               Container(
-                height: 26,
-                padding: const EdgeInsets.only(left: 6, right: 6),
+                height: Dimens.gap_dp24,
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 decoration: BoxDecoration(
                     color: AppThemes.color_217.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(13)),
@@ -38,18 +42,17 @@ class SearchResultHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      ImageUtils.getImagePath('act_icn_play'),
-                      width: 16,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(width: 3),
+                    Image.asset(ImageUtils.getImagePath('icon_play_small'),
+                        color: Get.theme.iconTheme.color,
+                        width: Dimens.gap_dp12,
+                        height: Dimens.gap_dp12),
+                    const SizedBox(width: 2),
                     Center(
                       child: Text(btnTitle!,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.black,
+                              fontSize: Dimens.font_sp12,
+                              color: Get.theme.iconTheme.color,
                               fontFamily: W.fonts.PuHuiTiX,
                               fontWeight: FontWeight.bold)),
                     ),

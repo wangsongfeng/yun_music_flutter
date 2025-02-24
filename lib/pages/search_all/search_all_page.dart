@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/pages/search_all/search_all_controller.dart';
+import 'package:yun_music/pages/search_all/widgets/search_result_album.dart';
+import 'package:yun_music/pages/search_all/widgets/search_result_playlist.dart';
 import 'package:yun_music/pages/search_all/widgets/search_result_song.dart';
 
 import '../../commons/widgets/music_loading.dart';
 import '../../utils/adapt.dart';
 import '../../utils/common_utils.dart';
+import '../../vmusic/playing_controller.dart';
 import '../search/models/search_result_wrap.dart';
 
 class SearchAllPage extends StatefulWidget {
@@ -55,11 +58,30 @@ class _SearchAllPageState extends State<SearchAllPage> {
   }
 
   Widget _buildMainContext(SearchResultWrap result) {
-    return CustomScrollView(
-      slivers: [
-        if (result.song != null && result.song!.songs!.isNotEmpty)
-          SliverToBoxAdapter(child: SearchResultSong(song: result.song))
-      ],
+    return Padding(
+      padding: EdgeInsets.only(
+          bottom: PlayingController.to.mediaItems.isNotEmpty
+              ? Adapt.tabbar_padding() + 20
+              : Adapt.bottomPadding()),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          final orders = result.order![index];
+          if (orders.contains("song")) {
+            return SearchResultSong(
+              song: result.song,
+              searchKey: controller.searchKey,
+            );
+          } else if (orders.contains("playList")) {
+            return SearchResultPlaylist(
+                playList: result.playList, searchKey: controller.searchKey);
+          } else if (orders.contains("album")) {
+            return SearchResultAlbum(
+                album: result.album, searchKey: controller.searchKey);
+          }
+          return Container();
+        },
+        itemCount: result.order!.length,
+      ),
     );
   }
 }

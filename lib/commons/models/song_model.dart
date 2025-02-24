@@ -2,6 +2,8 @@ import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yun_music/commons/models/privilege_model.dart';
 
+import '../../pages/dynamic_page/models/bu_new_song.dart';
+
 part 'song_model.g.dart';
 
 @JsonSerializable()
@@ -51,6 +53,9 @@ class Song extends Object {
   @JsonKey(name: 'originSongSimpleData')
   OriginSongSimpleData? originSongSimpleData;
 
+  @JsonKey(name: 'tns')
+  List<dynamic>? tns;
+
   String? reason;
 
   Song(
@@ -69,6 +74,7 @@ class Song extends Object {
     this.originSongSimpleData,
     this.st,
     this.dt,
+    this.tns,
   );
 
   factory Song.fromJson(Map<String, dynamic> srcJson) =>
@@ -163,8 +169,39 @@ class AlbumSimple extends Object {
 
   @JsonKey(name: 'pic_str')
   String? picStr;
+  @JsonKey(name: 'publishTime')
+  int? publishTime;
+  @JsonKey(name: 'tags')
+  String? tags;
+  @JsonKey(name: 'copyrightId')
+  int? copyrightId;
+  @JsonKey(name: 'companyId')
+  int? companyId;
+  @JsonKey(name: 'company')
+  String? company;
+  @JsonKey(name: 'description')
+  String? description;
+  @JsonKey(name: 'briefDesc')
+  String? briefDesc;
+  @JsonKey(name: 'artist')
+  Artists? artist;
+  @JsonKey(name: 'artists')
+  List<Artists>? artists;
 
-  AlbumSimple(this.id, this.name, this.picUrl, this.picStr);
+  AlbumSimple(
+      this.id,
+      this.name,
+      this.picUrl,
+      this.picStr,
+      this.publishTime,
+      this.tags,
+      this.copyrightId,
+      this.companyId,
+      this.company,
+      this.description,
+      this.briefDesc,
+      this.artist,
+      this.artists);
 
   factory AlbumSimple.fromJson(Map<String, dynamic> srcJson) =>
       _$AlbumSimpleFromJson(srcJson);

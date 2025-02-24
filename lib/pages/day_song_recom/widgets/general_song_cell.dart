@@ -37,27 +37,50 @@ class GeneralSongCell extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Obx(() {
-                  return Expanded(
-                      child: RichText(
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                        text: song.name,
-                        style: playingController.mediaItem.value.id ==
-                                song.id.toString()
-                            ? titleStyle.copyWith(
-                                color: AppThemes.btn_selectd_color)
-                            : titleStyle,
-                        children: [
-                          if (song.alia.isNotEmpty)
-                            TextSpan(
-                                text:
-                                    '(${song.alia.reduce((value, element) => '$value $element')})',
-                                style: captionStyle().copyWith(
-                                    fontSize: Dimens.font_sp15,
-                                    color: Colors.black))
-                        ]),
-                  ));
+                  if (GetUtils.isNullOrBlank(song.reason) != true) {
+                    return RichText(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                          text: song.name,
+                          style: playingController.mediaItem.value.id ==
+                                  song.id.toString()
+                              ? titleStyle.copyWith(
+                                  color: AppThemes.btn_selectd_color)
+                              : titleStyle,
+                          children: [
+                            if (song.alia.isNotEmpty)
+                              TextSpan(
+                                  text:
+                                      '(${song.alia.reduce((value, element) => '$value $element')})',
+                                  style: captionStyle().copyWith(
+                                      fontSize: Dimens.font_sp15,
+                                      color: Colors.black))
+                          ]),
+                    );
+                  } else {
+                    return Expanded(
+                        child: RichText(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                          text: song.name,
+                          style: playingController.mediaItem.value.id ==
+                                  song.id.toString()
+                              ? titleStyle.copyWith(
+                                  color: AppThemes.btn_selectd_color)
+                              : titleStyle,
+                          children: [
+                            if (song.alia.isNotEmpty)
+                              TextSpan(
+                                  text:
+                                      '(${song.alia.reduce((value, element) => '$value $element')})',
+                                  style: captionStyle().copyWith(
+                                      fontSize: Dimens.font_sp15,
+                                      color: Colors.black))
+                          ]),
+                    ));
+                  }
                 }),
                 if (GetUtils.isNullOrBlank(song.reason) != true)
                   Expanded(
@@ -78,7 +101,7 @@ class GeneralSongCell extends StatelessWidget {
                             fontSize: Dimens.font_sp10),
                       ),
                     ),
-                  ))
+                  )),
               ],
             ),
             SizedBox(height: Dimens.gap_dp2),

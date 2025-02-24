@@ -29,6 +29,7 @@ Song _$SongFromJson(Map<String, dynamic> json) => Song(
               json['originSongSimpleData'] as Map<String, dynamic>),
       (json['st'] as num).toInt(),
       (json['dt'] as num?)?.toInt(),
+      json['tns'] as List<dynamic>?,
     )..reason = json['reason'] as String?;
 
 Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
@@ -47,6 +48,7 @@ Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'privilege': instance.privilege,
       'actionType': instance.actionType,
       'originSongSimpleData': instance.originSongSimpleData,
+      'tns': instance.tns,
       'reason': instance.reason,
     };
 
@@ -77,6 +79,19 @@ AlbumSimple _$AlbumSimpleFromJson(Map<String, dynamic> json) => AlbumSimple(
       json['name'] as String?,
       json['picUrl'] as String?,
       json['pic_str'] as String?,
+      (json['publishTime'] as num?)?.toInt(),
+      json['tags'] as String?,
+      (json['copyrightId'] as num?)?.toInt(),
+      (json['companyId'] as num?)?.toInt(),
+      json['company'] as String?,
+      json['description'] as String?,
+      json['briefDesc'] as String?,
+      json['artist'] == null
+          ? null
+          : Artists.fromJson(json['artist'] as Map<String, dynamic>),
+      (json['artists'] as List<dynamic>?)
+          ?.map((e) => Artists.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
@@ -85,6 +100,15 @@ Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
       'name': instance.name,
       'picUrl': instance.picUrl,
       'pic_str': instance.picStr,
+      'publishTime': instance.publishTime,
+      'tags': instance.tags,
+      'copyrightId': instance.copyrightId,
+      'companyId': instance.companyId,
+      'company': instance.company,
+      'description': instance.description,
+      'briefDesc': instance.briefDesc,
+      'artist': instance.artist,
+      'artists': instance.artists,
     };
 
 OriginSongSimpleData _$OriginSongSimpleDataFromJson(
