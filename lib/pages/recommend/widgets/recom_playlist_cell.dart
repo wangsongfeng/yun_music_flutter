@@ -152,7 +152,10 @@ class RecomPlaylistCell extends StatelessWidget {
               resource.uiElement.mainTitle?.title ?? "",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: body1Style(),
+              style: body1Style().copyWith(
+                fontFamily: W.fonts.IconFonts,
+                fontWeight: FontWeight.w500,
+              ),
             )
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/pages/dynamic_page/widgets/attention_controller.dart';
+import 'package:yun_music/utils/adapt.dart';
 import '../../../commons/res/app_themes.dart';
 import '../../../commons/values/function.dart';
 import '../../../utils/common_utils.dart';
@@ -90,7 +91,8 @@ class AttentionSongItem extends StatelessWidget {
                       style: body1Style().copyWith(
                           fontSize: Dimens.font_sp15,
                           color: Colors.black,
-                          fontWeight: FontWeight.normal),
+                          fontFamily: W.fonts.IconFonts,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   SizedBox(

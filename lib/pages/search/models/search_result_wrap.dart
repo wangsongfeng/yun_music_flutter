@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yun_music/commons/models/song_model.dart';
+import 'package:yun_music/pages/single_category/models/single_list_wrap.dart';
 
 import '../../../commons/models/simple_play_list_model.dart';
 
@@ -20,6 +21,7 @@ class SearchResultWrap extends Object {
   SearchComplexSong? song; //单曲
   SearchComplexPlayList? playList; //歌单
   SearchComplexAlbum? album; //专辑
+  SearchComplexSingle? artist; //歌手
   List<String>? order;
   SearchResultWrap();
 
@@ -84,4 +86,23 @@ class SearchComplexAlbum extends Object {
       _$SearchComplexAlbumFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$SearchComplexAlbumToJson(this);
+}
+
+@JsonSerializable()
+class SearchComplexSingle extends Object {
+  List<Singles>? artists;
+  String? moreText;
+
+  String? highText;
+
+  bool? more;
+
+  List<int>? resourceIds;
+
+  SearchComplexSingle();
+
+  factory SearchComplexSingle.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchComplexSingleFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchComplexSingleToJson(this);
 }

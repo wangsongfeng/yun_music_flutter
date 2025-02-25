@@ -4,6 +4,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
@@ -146,41 +147,46 @@ class MainAppPage extends StatelessWidget {
       } catch (_) {}
     }
 
-    return RefreshConfiguration(
-      headerBuilder: () => const MaterialClassicHeader(
-        color: AppThemes.app_main,
-        backgroundColor: Colors.white,
-      ),
-      footerBuilder: () => const ClassicFooter(),
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorObservers: [AppRouteObserver().routeObserver, routeObserver],
-        title: '网易云Flutter',
-        theme: SFThemes.lightTheme,
-        darkTheme: SFThemes.darkTheme,
-        themeMode: SFThemes.themeMode(),
-        color: Colors.white,
-        unknownRoute: Routes.unknownRoute,
-        initialBinding: BindingsBuilder(() {
-          Get.put(AuthService());
-          Get.put(PlayerService());
-          Get.put(PlayingController());
-        }),
-        getPages: Routes.getPages,
-        initialRoute: '/splash',
-        builder: (context, child) {
-          return Stack(
-            children: [
-              child!,
-              if (context.isDarkMode)
-                IgnorePointer(
-                  child: Container(
-                    color: Colors.black12,
-                  ),
-                )
-            ],
-          );
-        },
+    return ScreenUtilInit(
+      designSize: const Size(376, 667),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: RefreshConfiguration(
+        headerBuilder: () => const MaterialClassicHeader(
+          color: AppThemes.app_main,
+          backgroundColor: Colors.white,
+        ),
+        footerBuilder: () => const ClassicFooter(),
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorObservers: [AppRouteObserver().routeObserver, routeObserver],
+          title: '网易云Flutter',
+          theme: SFThemes.lightTheme,
+          darkTheme: SFThemes.darkTheme,
+          themeMode: SFThemes.themeMode(),
+          color: Colors.white,
+          unknownRoute: Routes.unknownRoute,
+          initialBinding: BindingsBuilder(() {
+            Get.put(AuthService());
+            Get.put(PlayerService());
+            Get.put(PlayingController());
+          }),
+          getPages: Routes.getPages,
+          initialRoute: '/splash',
+          builder: (context, child) {
+            return Stack(
+              children: [
+                child!,
+                if (context.isDarkMode)
+                  IgnorePointer(
+                    child: Container(
+                      color: Colors.black12,
+                    ),
+                  )
+              ],
+            );
+          },
+        ),
       ),
     );
   }

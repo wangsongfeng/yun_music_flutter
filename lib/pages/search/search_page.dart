@@ -255,7 +255,7 @@ class _SearchPageState extends State<SearchPage>
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.black.withOpacity(0.7),
-                      fontFamily: W.fonts.PuHuiTiX,
+                      fontFamily: W.fonts.IconFonts,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -314,7 +314,13 @@ class _SearchPageState extends State<SearchPage>
                 onTap: () {
                   final searchKey = e;
                   if (!controller.historyList.contains(searchKey)) {
-                    controller.historyList.add(searchKey);
+                    controller.historyList.insert(0, searchKey);
+                    final List<String> history = controller.historyList;
+                    box.write(CACHE_SEARCH_HISTORY_DATA, history);
+                  } else {
+                    final index = controller.historyList.indexOf(searchKey);
+                    controller.historyList.removeAt(index);
+                    controller.historyList.insert(0, searchKey);
                     final List<String> history = controller.historyList;
                     box.write(CACHE_SEARCH_HISTORY_DATA, history);
                   }

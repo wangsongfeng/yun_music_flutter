@@ -202,7 +202,7 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(ImageUtils.getImagePath('cm4_list_btn_icn_add'),
-                        width: 14),
+                        width: 16),
                     const SizedBox(width: 2),
                     const Text('关注',
                         style: TextStyle(fontSize: 13, color: Colors.red))

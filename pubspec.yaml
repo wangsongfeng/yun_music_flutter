@@ -79,6 +79,8 @@ dependencies:
   flutter_displaymode: ^0.6.0
   chinese_font_library: ^1.2.0
 
+  flutter_screenutil: ^5.9.3
+
 dev_dependencies:
 
   json_serializable: ^6.8.0

@@ -9,6 +9,8 @@ import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/recommend/models/recom_ball_model.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
+import '../../../utils/adapt.dart';
+
 class RecomBalls extends StatelessWidget {
   const RecomBalls(this.balls, {super.key, required this.itemHeight});
 
@@ -83,7 +85,11 @@ class RecomBalls extends StatelessWidget {
           SizedBox(height: Dimens.gap_dp5),
           Text(
             ball.name,
-            style: body1Style().copyWith(fontSize: Dimens.font_sp12),
+            style: body1Style().copyWith(
+              fontSize: Dimens.font_sp12,
+              fontFamily: W.fonts.IconFonts,
+              fontWeight: FontWeight.w500,
+            ),
           )
         ],
       ),

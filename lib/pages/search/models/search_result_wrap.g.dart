@@ -29,6 +29,9 @@ SearchResultWrap _$SearchResultWrapFromJson(Map<String, dynamic> json) =>
       ..album = json['album'] == null
           ? null
           : SearchComplexAlbum.fromJson(json['album'] as Map<String, dynamic>)
+      ..artist = json['artist'] == null
+          ? null
+          : SearchComplexSingle.fromJson(json['artist'] as Map<String, dynamic>)
       ..order =
           (json['order'] as List<dynamic>?)?.map((e) => e as String).toList();
 
@@ -37,6 +40,7 @@ Map<String, dynamic> _$SearchResultWrapToJson(SearchResultWrap instance) =>
       'song': instance.song,
       'playList': instance.playList,
       'album': instance.album,
+      'artist': instance.artist,
       'order': instance.order,
     };
 
@@ -99,6 +103,28 @@ SearchComplexAlbum _$SearchComplexAlbumFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$SearchComplexAlbumToJson(SearchComplexAlbum instance) =>
     <String, dynamic>{
       'albums': instance.albums,
+      'moreText': instance.moreText,
+      'highText': instance.highText,
+      'more': instance.more,
+      'resourceIds': instance.resourceIds,
+    };
+
+SearchComplexSingle _$SearchComplexSingleFromJson(Map<String, dynamic> json) =>
+    SearchComplexSingle()
+      ..artists = (json['artists'] as List<dynamic>?)
+          ?.map((e) => Singles.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..moreText = json['moreText'] as String?
+      ..highText = json['highText'] as String?
+      ..more = json['more'] as bool?
+      ..resourceIds = (json['resourceIds'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList();
+
+Map<String, dynamic> _$SearchComplexSingleToJson(
+        SearchComplexSingle instance) =>
+    <String, dynamic>{
+      'artists': instance.artists,
       'moreText': instance.moreText,
       'highText': instance.highText,
       'more': instance.more,

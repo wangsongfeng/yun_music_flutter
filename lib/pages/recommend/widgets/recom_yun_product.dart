@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
@@ -12,10 +10,8 @@ import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 class RecomYunProduct extends StatelessWidget {
-  const RecomYunProduct({
-    super.key, 
-    required this.blocks, 
-    required this.itemHeight});
+  const RecomYunProduct(
+      {super.key, required this.blocks, required this.itemHeight});
 
   final Blocks blocks;
 
@@ -52,11 +48,9 @@ class RecomYunProduct extends StatelessWidget {
     );
   }
 
-
   Widget _item(CreativeModel creative) {
     return BounceTouch(
-      onPressed: () {
-      },
+      onPressed: () {},
       child: SizedBox(
           width: Adapt.px(161),
           child: Column(
@@ -66,7 +60,7 @@ class RecomYunProduct extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: NetworkImgLayer(
-                  width: Adapt.px(161), 
+                  width: Adapt.px(161),
                   height: Adapt.px(97),
                   src: creative.uiElement?.image?.imageUrl ?? '',
                 ),
@@ -76,7 +70,10 @@ class RecomYunProduct extends StatelessWidget {
                 creative.uiElement?.mainTitle?.title ?? '',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: body1Style(),
+                style: body1Style().copyWith(
+                  fontFamily: W.fonts.IconFonts,
+                  fontWeight: FontWeight.w500,
+                ),
               )
             ],
           )),

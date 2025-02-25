@@ -36,7 +36,7 @@ class SearchApi {
     final metaData = DioMetaData(_searchUrl(cloudSearch),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
-    logger.d(1);
+    logger.d(jsonDecode(response.data));
     return SearchResultWrapX.fromJson(jsonDecode(response.data));
   }
 

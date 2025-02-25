@@ -12,6 +12,7 @@ import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../../commons/res/app_routes.dart';
+import '../../../utils/adapt.dart';
 
 class RecomPlistVerScroll extends StatefulWidget {
   RecomPlistVerScroll({super.key, required this.resources});
@@ -120,7 +121,10 @@ class _RecomPlistVerScrollState extends State<RecomPlistVerScroll> {
                   res.value?.uiElement.mainTitle?.title ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: body1Style(),
+                  style: body1Style().copyWith(
+                    fontFamily: W.fonts.IconFonts,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ))
           ],
         ),

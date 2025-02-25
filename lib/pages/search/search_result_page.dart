@@ -68,67 +68,64 @@ class _SearchResultPageState extends State<SearchResultPage>
           Get.back(canPop: false);
         },
       ),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            Container(
-              color: AppThemes.white,
-              width: double.infinity,
-              height: Dimens.gap_dp42,
-              child: TabBar(
-                controller: resultController.tabController,
-                tabs: [for (var i in resultController.tabList) Tab(text: i)],
-                padding: EdgeInsets.only(
-                    left: Dimens.gap_dp6,
-                    top: Dimens.gap_dp6,
-                    right: Dimens.gap_dp6),
-                labelPadding: EdgeInsets.only(
-                    left: Dimens.gap_dp12, right: Dimens.gap_dp12),
-                isScrollable: true,
-                labelStyle: TextStyle(
-                    fontSize: Dimens.font_sp13, fontWeight: FontWeight.w600),
-                dividerColor: Colors.transparent,
-                indicatorColor: AppThemes.indicator_color,
-                unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
-                labelColor: const Color.fromARGB(255, 51, 51, 51),
-                indicator: CustomUnderlineTabIndicator(
-                    width: 20,
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: AppThemes.indicator_color,
-                    ),
-                    strokeCap: StrokeCap.round),
-                indicatorPadding: EdgeInsets.only(
-                    bottom: Dimens.gap_dp6, top: Dimens.gap_dp21),
-                indicatorSize: TabBarIndicatorSize.label,
-                enableFeedback: true,
-                splashBorderRadius: BorderRadius.circular(10),
-                tabAlignment: TabAlignment.center,
-                onTap: (value) {
-                  resultController.pageController.animateToPage(value,
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.easeIn);
-                },
-              ),
+      body: Column(
+        children: [
+          Container(
+            color: Colors.transparent,
+            width: double.infinity,
+            height: Dimens.gap_dp42,
+            child: TabBar(
+              controller: resultController.tabController,
+              tabs: [for (var i in resultController.tabList) Tab(text: i)],
+              padding: EdgeInsets.only(
+                  left: Dimens.gap_dp6,
+                  top: Dimens.gap_dp6,
+                  right: Dimens.gap_dp6),
+              labelPadding: EdgeInsets.only(
+                  left: Dimens.gap_dp12, right: Dimens.gap_dp12),
+              isScrollable: true,
+              labelStyle: TextStyle(
+                  fontSize: Dimens.font_sp13, fontWeight: FontWeight.w600),
+              dividerColor: Colors.transparent,
+              indicatorColor: AppThemes.indicator_color,
+              unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
+              labelColor: const Color.fromARGB(255, 51, 51, 51),
+              indicator: CustomUnderlineTabIndicator(
+                  width: 20,
+                  borderSide: BorderSide(
+                    width: 3,
+                    color: AppThemes.indicator_color,
+                  ),
+                  strokeCap: StrokeCap.round),
+              indicatorPadding:
+                  EdgeInsets.only(bottom: Dimens.gap_dp6, top: Dimens.gap_dp21),
+              indicatorSize: TabBarIndicatorSize.label,
+              enableFeedback: true,
+              splashBorderRadius: BorderRadius.circular(10),
+              tabAlignment: TabAlignment.center,
+              onTap: (value) {
+                resultController.pageController.animateToPage(value,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.easeIn);
+              },
             ),
-            Expanded(
-                child: PageView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: resultController.tabList.length,
-                    controller: resultController.pageController,
-                    onPageChanged: (page) {
-                      resultController.tabController.animateTo(page);
-                    },
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return SearchAllPage(
-                            searchKey: resultController.searchKey);
-                      }
-                      return Container();
-                    }))
-          ],
-        ),
+          ),
+          Expanded(
+              child: PageView.builder(
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: resultController.tabList.length,
+                  controller: resultController.pageController,
+                  onPageChanged: (page) {
+                    resultController.tabController.animateTo(page);
+                  },
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return SearchAllPage(
+                          searchKey: resultController.searchKey);
+                    }
+                    return Container();
+                  }))
+        ],
       ),
     );
   }

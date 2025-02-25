@@ -15,6 +15,8 @@ import 'package:yun_music/pages/recommend/models/recom_model.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../../../utils/adapt.dart';
+
 class RecomHotTopic extends StatelessWidget {
   const RecomHotTopic(
       {super.key, required this.blocks, required this.itemHeight});
@@ -86,8 +88,10 @@ class RecomHotTopic extends StatelessWidget {
                   TextSpan(children: [
                     TextSpan(
                         text: element.uiElement.mainTitle?.title,
-                        style: headline2Style()
-                            .copyWith(fontWeight: FontWeight.normal)),
+                        style: headline2Style().copyWith(
+                          fontFamily: W.fonts.IconFonts,
+                          fontWeight: FontWeight.w500,
+                        )),
                     if (GetUtils.isNullOrBlank(element.uiElement.labelUrls)! !=
                         true)
                       WidgetSpan(

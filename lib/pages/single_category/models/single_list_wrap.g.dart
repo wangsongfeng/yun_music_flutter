@@ -33,6 +33,7 @@ Singles _$SinglesFromJson(Map<String, dynamic> json) => Singles()
   ..briefDesc = json['briefDesc'] as String?
   ..followed = json['followed'] as bool?
   ..publishTime = (json['publishTime'] as num?)?.toInt()
+  ..identityIconUrl = json['identityIconUrl'] as String?
   ..alias = (json['alias'] as List<dynamic>?)?.map((e) => e as String).toList();
 
 Map<String, dynamic> _$SinglesToJson(Singles instance) => <String, dynamic>{
@@ -51,5 +52,6 @@ Map<String, dynamic> _$SinglesToJson(Singles instance) => <String, dynamic>{
       'briefDesc': instance.briefDesc,
       'followed': instance.followed,
       'publishTime': instance.publishTime,
+      'identityIconUrl': instance.identityIconUrl,
       'alias': instance.alias,
     };

@@ -114,8 +114,11 @@ class AttentionPersonalItem extends StatelessWidget {
                     TextSpan(
                         text: info?.name ?? "",
                         style: TextStyle(
-                            fontSize: Dimens.gap_dp11,
-                            color: AppThemes.body1_txt_color))
+                          fontSize: Dimens.gap_dp11,
+                          color: AppThemes.body1_txt_color,
+                          fontFamily: W.fonts.IconFonts,
+                          fontWeight: FontWeight.w500,
+                        ))
                   ])),
             )
           ],

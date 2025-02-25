@@ -38,9 +38,15 @@ class Singles extends Object {
 
   int? publishTime;
 
+  String? identityIconUrl;
+
   List<String>? alias;
 
   Singles();
+
+  String getCoverUrl() {
+    return img1v1Url ?? picUrl ?? "";
+  }
 
   factory Singles.fromJson(Map<String, dynamic> srcJson) =>
       _$SinglesFromJson(srcJson);

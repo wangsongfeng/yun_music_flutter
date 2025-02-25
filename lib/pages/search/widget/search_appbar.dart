@@ -108,9 +108,14 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 8, right: 16),
-                child: const Text(
+                child: Text(
                   "搜索",
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                    fontFamily: W.fonts.IconFonts,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             )

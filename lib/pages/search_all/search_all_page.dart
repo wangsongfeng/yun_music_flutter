@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:yun_music/pages/search_all/search_all_controller.dart';
 import 'package:yun_music/pages/search_all/widgets/search_result_album.dart';
 import 'package:yun_music/pages/search_all/widgets/search_result_playlist.dart';
+import 'package:yun_music/pages/search_all/widgets/search_result_single.dart';
 import 'package:yun_music/pages/search_all/widgets/search_result_song.dart';
 
 import '../../commons/widgets/music_loading.dart';
@@ -77,6 +78,9 @@ class _SearchAllPageState extends State<SearchAllPage> {
           } else if (orders.contains("album")) {
             return SearchResultAlbum(
                 album: result.album, searchKey: controller.searchKey);
+          } else if (orders.contains("artist")) {
+            return SearchResultSingle(
+                artist: result.artist, searchKey: controller.searchKey);
           }
           return Container();
         },

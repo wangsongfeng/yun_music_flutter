@@ -143,7 +143,7 @@ class SearchResultSongItem extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: Dimens.font_sp11,
-                              color: AppThemes.color_150,
+                              color: AppThemes.color_109,
                               fontWeight: FontWeight.w500,
                               fontFamily: W.fonts.IconFonts,
                             ),

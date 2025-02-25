@@ -132,7 +132,7 @@ class SearchResultAlbumItem extends StatelessWidget {
                       "${album.artist?.name ?? ""},${TimeUtils.getFormat1(time: album.publishTime)}",
                       style: TextStyle(
                         fontSize: Dimens.font_sp11,
-                        color: AppThemes.color_150,
+                        color: AppThemes.color_109,
                         fontWeight: FontWeight.w500,
                         fontFamily: W.fonts.IconFonts,
                       ),
