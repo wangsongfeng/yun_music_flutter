@@ -75,3 +75,16 @@ Map<String, dynamic> _$SearchHotTopicItemToJson(SearchHotTopicItem instance) =>
       'participateCount': instance.participateCount,
       'sharePicUrl': instance.sharePicUrl,
     };
+
+SearchComplexSimQueryItem _$SearchComplexSimQueryItemFromJson(
+        Map<String, dynamic> json) =>
+    SearchComplexSimQueryItem()
+      ..keyword = json['keyword'] as String?
+      ..alg = json['alg'] as String?;
+
+Map<String, dynamic> _$SearchComplexSimQueryItemToJson(
+        SearchComplexSimQueryItem instance) =>
+    <String, dynamic>{
+      'keyword': instance.keyword,
+      'alg': instance.alg,
+    };

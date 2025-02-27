@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/pages/splash/splash_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
+import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/res/app_themes.dart';
@@ -15,8 +16,8 @@ class SplashPage extends GetView<SplashController> {
     Adapt.initContext(context);
     return Scaffold(
       backgroundColor: AppThemes.app_main,
-      body: AnnotatedRegion(
-          value: SystemUiOverlayStyle.light,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: getSystemUiOverlayStyle(isDark: false),
           child: Container(
             padding: EdgeInsets.only(top: controller.isFirst ? 100 : 255),
             width: Adapt.screenW(),

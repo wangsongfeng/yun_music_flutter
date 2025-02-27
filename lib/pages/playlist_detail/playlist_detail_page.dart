@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
@@ -127,20 +128,23 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
             )),
         extendBodyBehindAppBar: true,
         backgroundColor: AppThemes.card_color,
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: Obx(() {
-                return Padding(
-                  padding: EdgeInsets.only(
-                      bottom: PlayingController.to.mediaItems.isNotEmpty
-                          ? Adapt.tabbar_padding()
-                          : 0),
-                  child: _buildContent(context),
-                );
-              }),
-            )
-          ],
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: getSystemUiOverlayStyle(isDark: false),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Obx(() {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        bottom: PlayingController.to.mediaItems.isNotEmpty
+                            ? Adapt.tabbar_padding()
+                            : 0),
+                    child: _buildContent(context),
+                  );
+                }),
+              )
+            ],
+          ),
         ));
   }
 

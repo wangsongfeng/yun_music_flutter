@@ -15,6 +15,7 @@ import 'package:yun_music/pages/search/search_binding.dart';
 import 'package:yun_music/pages/search/search_page.dart';
 import 'package:yun_music/pages/search/search_result_binding.dart';
 import 'package:yun_music/pages/search/search_result_page.dart';
+import 'package:yun_music/pages/single_category/artist_detail_page.dart';
 import 'package:yun_music/pages/single_category/single_category_binding.dart';
 import 'package:yun_music/pages/single_category/single_category_page.dart';
 import 'package:yun_music/vmusic/comment/comment_page.dart';
@@ -119,7 +120,10 @@ class Routes {
         name: RouterPath.Single_Category,
         page: () => const SingleCategoryPage(),
         transition: Transition.native,
-        binding: SingleCategoryBinding())
+        binding: SingleCategoryBinding()),
+    //歌手详情
+    CustomGetPage(
+        name: RouterPath.Artist_Detail, page: () => const ArtistDetailPage())
   ];
 
   static final unknownRoute = CustomGetPage(

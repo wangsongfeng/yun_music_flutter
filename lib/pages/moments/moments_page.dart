@@ -12,6 +12,7 @@ import 'package:yun_music/vmusic/widget/comment_button.dart';
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
 import '../../utils/approute_observer.dart';
+import '../../utils/common_utils.dart';
 import 'widgets/sliver_flexble_header.dart';
 
 class MomentsPage extends StatefulWidget {
@@ -65,12 +66,12 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
       value: trans > scallTop
           ? ((trans - scallTop) / 40 > 1
-              ? SystemUiOverlayStyle.dark
-              : SystemUiOverlayStyle.dark)
-          : SystemUiOverlayStyle.light,
+              ? getSystemUiOverlayStyle(isDark: true)
+              : getSystemUiOverlayStyle(isDark: true))
+          : getSystemUiOverlayStyle(isDark: false),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Stack(

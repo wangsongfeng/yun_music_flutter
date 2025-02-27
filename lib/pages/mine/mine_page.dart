@@ -10,6 +10,7 @@ import 'package:yun_music/pages/mine/widgets/mine_header.dart';
 import 'package:yun_music/pages/mine/widgets/mine_music_page.dart';
 import 'package:yun_music/utils/adapt.dart';
 
+import '../../utils/common_utils.dart';
 import 'widgets/mine_appbar.dart';
 import 'widgets/mine_menu_tab.dart';
 
@@ -59,10 +60,10 @@ class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return AnnotatedRegion(
+      return AnnotatedRegion<SystemUiOverlayStyle>(
         value: controller.appbar_alpha.value < 0.3
-            ? SystemUiOverlayStyle.light
-            : SystemUiOverlayStyle.dark,
+            ? getSystemUiOverlayStyle(isDark: false)
+            : getSystemUiOverlayStyle(isDark: true),
         child: Stack(
           children: [
             NotificationListener(

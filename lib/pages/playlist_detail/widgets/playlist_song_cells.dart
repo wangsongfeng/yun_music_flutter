@@ -1,9 +1,8 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unrelated_type_equality_checks
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/player_context.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/pages/playlist_detail/playlist_detail_controller.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
@@ -61,7 +60,8 @@ class PlaylistSongCells extends StatelessWidget {
                                         (element) => element.id == song.id) !=
                                     -1,
                           )
-                        : context.playerService.curPlayId.value == song.id
+                        : (playingController.mediaItem.value.id ==
+                                song.id.toString())
                             ? Image.asset(
                                 ImageUtils.getPlayingMusicTag(),
                                 color: AppThemes.btn_selectd_color,

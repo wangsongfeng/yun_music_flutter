@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:yun_music/pages/search/models/search_hot_wrap.dart';
 
 import '../../../commons/res/app_themes.dart';
+import '../../../commons/values/function.dart';
 import '../../../utils/adapt.dart';
 import '../../../utils/common_utils.dart';
 
 class SearchHottopic extends StatelessWidget {
-  const SearchHottopic({super.key, required this.title, this.searchTopicList});
+  const SearchHottopic(
+      {super.key,
+      required this.title,
+      this.searchTopicList,
+      required this.searchChange});
 
   final String title;
 
   final List<SearchHotTopicItem>? searchTopicList;
+
+  final ParamSingleCallback<String> searchChange;
 
   @override
   Widget build(BuildContext context) {
@@ -52,32 +59,38 @@ class SearchHottopic extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               bool isTop = index <= 2;
               SearchHotTopicItem item = searchTopicList![index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "${index + 1}",
-                      style: headline2Style().copyWith(
-                          fontSize: 16,
-                          color: isTop ? Colors.red : AppThemes.textColor999),
-                    ),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Text(
-                        item.title ?? "",
-                        softWrap: true,
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+              return GestureDetector(
+                onTap: () {
+                  searchChange.call(item.title ?? "");
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    children: [
+                      Text(
+                        "${index + 1}",
                         style: headline2Style().copyWith(
-                            fontSize: 15,
-                            color:
-                                isTop ? Colors.black : AppThemes.textColor999),
+                            fontSize: 16,
+                            color: isTop ? Colors.red : AppThemes.textColor999),
                       ),
-                    ))
-                  ],
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          item.title ?? "",
+                          softWrap: true,
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: headline2Style().copyWith(
+                              fontSize: 15,
+                              color: isTop
+                                  ? Colors.black
+                                  : AppThemes.textColor999),
+                        ),
+                      ))
+                    ],
+                  ),
                 ),
               );
             },

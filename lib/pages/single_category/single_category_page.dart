@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:yun_music/commons/res/app_routes.dart';
 import 'package:yun_music/commons/widgets/user_avatar_page.dart';
 import 'package:yun_music/pages/single_category/models/single_list_wrap.dart';
 import 'package:yun_music/pages/single_category/single_category_controller.dart';
@@ -163,54 +164,63 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
   }
 
   Widget _buildSinglesItem(Singles single) {
-    return Container(
-      color: Colors.white,
-      height: 72,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            UserAvatarPage(avatar: single.picUrl!, size: 52),
-            const SizedBox(width: 8),
-            Text(
-              single.name!,
-              style: const TextStyle(fontSize: 15, color: Colors.black),
-            ),
-            Expanded(
-                child: Text(
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              single.alias!.isNotEmpty ? "(${single.alias?.first ?? ""})" : "",
-              style: TextStyle(
-                  fontSize: 15,
-                  color: AppThemes.body1_txt_color.withOpacity(0.9)),
-            )),
-            const SizedBox(width: 8),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 68,
-                height: 28,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(14)),
-                  border: Border.all(color: Colors.red, width: 1.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(ImageUtils.getImagePath('cm4_list_btn_icn_add'),
-                        width: 16),
-                    const SizedBox(width: 2),
-                    const Text('关注',
-                        style: TextStyle(fontSize: 13, color: Colors.red))
-                  ],
-                ),
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(RouterPath.Artist_Detail,
+            arguments: {"artist_id": single.id});
+      },
+      child: Container(
+        color: Colors.white,
+        height: 72,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              UserAvatarPage(avatar: single.picUrl!, size: 52),
+              const SizedBox(width: 8),
+              Text(
+                single.name!,
+                style: const TextStyle(fontSize: 15, color: Colors.black),
               ),
-            )
-          ],
+              Expanded(
+                  child: Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                single.alias!.isNotEmpty
+                    ? "(${single.alias?.first ?? ""})"
+                    : "",
+                style: TextStyle(
+                    fontSize: 15,
+                    color: AppThemes.body1_txt_color.withOpacity(0.9)),
+              )),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 68,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(14)),
+                    border: Border.all(color: Colors.red, width: 1.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                          ImageUtils.getImagePath('cm4_list_btn_icn_add'),
+                          width: 16),
+                      const SizedBox(width: 2),
+                      const Text('关注',
+                          style: TextStyle(fontSize: 13, color: Colors.red))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

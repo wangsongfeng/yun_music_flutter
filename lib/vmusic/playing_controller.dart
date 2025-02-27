@@ -183,6 +183,11 @@ class PlayingController extends GetxController
     audioHandler.changeQueueLists(mediaItem ?? [], index: index);
   }
 
+  playInsertBgMedia({MediaItem? mediaItem}) async {
+    mediaItems.insert(currentIndex.value, mediaItem!);
+    audioHandler.changeQueueLists(mediaItems, index: currentIndex.value);
+  }
+
   /**
    * 获取歌词
    */
@@ -268,6 +273,23 @@ class PlayingController extends GetxController
                   'title': typeName
                 }))
         .toList();
+  }
+
+  MediaItem songToChangeMediaItem(Song song, {String? typeName}) {
+    return MediaItem(
+        id: song.id.toString(),
+        title: song.name,
+        album: song.al.name,
+        duration: Duration(milliseconds: song.dt ?? 0),
+        artUri: Uri.parse('${song.al.picUrl}'),
+        artist: (song.ar).map((e) => e.name).toList().join(' / '),
+        extras: {
+          'type': MediaType.playlist.name,
+          'image': song.al.picUrl,
+          'mv': song.mv,
+          'fee': song.fee,
+          'title': typeName
+        });
   }
 
   Future<MediaItem> getPreviousMediaItem() async {

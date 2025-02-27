@@ -86,3 +86,16 @@ class SearchHotTopicItem {
 
   Map<String, dynamic> toJson() => _$SearchHotTopicItemToJson(this);
 }
+
+@JsonSerializable()
+class SearchComplexSimQueryItem extends Object {
+  String? keyword;
+  String? alg;
+
+  SearchComplexSimQueryItem();
+
+  factory SearchComplexSimQueryItem.fromJson(Map<String, dynamic> json) =>
+      _$SearchComplexSimQueryItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SearchComplexSimQueryItemToJson(this);
+}

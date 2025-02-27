@@ -90,7 +90,7 @@ class PlaylistDetailController extends GetxController {
     headerBgHeight.value = expandedHeight;
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
     ));
     coverImage.listen((p) async {
       final paletteGenerator = await PaletteGenerator.fromImageProvider(p!,

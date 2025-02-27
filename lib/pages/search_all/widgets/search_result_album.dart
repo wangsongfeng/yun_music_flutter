@@ -28,7 +28,7 @@ class SearchResultAlbum extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = SearchResultHeaderHeight +
-        SearchResultFooterHeight +
+        (album?.more ?? false ? SearchResultFooterHeight : 0) +
         SearchResultAlbumItemHeight * album!.albums!.length;
     return SizedBox.fromSize(
         size: Size.fromHeight(height),

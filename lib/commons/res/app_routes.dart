@@ -47,4 +47,7 @@ class RouterPath {
 
   //歌手分类
   static const Single_Category = '/singlecategory';
+
+  //歌手详情
+  static const Artist_Detail = '/artistdetail';
 }

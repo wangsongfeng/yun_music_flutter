@@ -2,10 +2,12 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/commons/widgets/custom_touch.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/commons/widgets/parsed_text/parsed_text.dart';
 
 import '../../../commons/models/simple_play_list_model.dart';
+import '../../../commons/res/app_routes.dart';
 import '../../../commons/res/app_themes.dart';
 import '../../../commons/res/dimens.dart';
 import '../../../commons/widgets/parsed_text/match_text.dart';
@@ -27,7 +29,7 @@ class SearchResultPlaylist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = SearchResultHeaderHeight +
-        SearchResultFooterHeight +
+        (playList?.more ?? false ? SearchResultFooterHeight : 0) +
         SearchResultPlayListItemHeight * playList!.playLists!.length;
     return SizedBox.fromSize(
         size: Size.fromHeight(height),
@@ -58,78 +60,85 @@ class SearchResultPlayListItem extends StatelessWidget {
   final String? searchKey;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: SearchResultPlayListItemHeight,
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                //封面
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  child: NetworkImgLayer(
-                    width: SearchResultPlayListItemHeight - 16,
-                    height: SearchResultPlayListItemHeight - 16,
-                    src: ImageUtils.getImageUrlFromSize(playList.getCoverUrl(),
-                        Size(Dimens.gap_dp40, Dimens.gap_dp40)),
-                    customplaceholder:
-                        Container(color: AppThemes.load_image_placeholder()),
+    return BounceTouch(
+      onPressed: () {
+        Get.toNamed(RouterPath.PlayListDetailId(playList.id.toString()));
+      },
+      child: Container(
+          height: SearchResultPlayListItemHeight,
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  //封面
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    child: NetworkImgLayer(
+                      width: SearchResultPlayListItemHeight - 16,
+                      height: SearchResultPlayListItemHeight - 16,
+                      src: ImageUtils.getImageUrlFromSize(
+                          playList.getCoverUrl(),
+                          Size(Dimens.gap_dp40, Dimens.gap_dp40)),
+                      customplaceholder:
+                          Container(color: AppThemes.load_image_placeholder()),
+                    ),
                   ),
-                ),
 
-                const SizedBox(width: 12),
+                  const SizedBox(width: 12),
 
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ParsedText(
-                        text: playList.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: body1Style().copyWith(
-                          fontSize: Dimens.font_sp13,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: W.fonts.IconFonts,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ParsedText(
+                          text: playList.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: body1Style().copyWith(
+                            fontSize: Dimens.font_sp13,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: W.fonts.IconFonts,
+                          ),
+                          parse: [
+                            if (GetUtils.isNullOrBlank(searchKey) == false)
+                              MatchText(
+                                  pattern: searchKey ?? "",
+                                  style: body1Style().copyWith(
+                                    fontSize: Dimens.font_sp13,
+                                    color: AppThemes.search_parse_color,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: W.fonts.IconFonts,
+                                  ),
+                                  renderText: ({String? str, String? pattern}) {
+                                    Map<String, String> map =
+                                        <String, String>{};
+                                    map["display"] = searchKey ?? "";
+                                    map["value"] = searchKey ?? "";
+                                    return map;
+                                  })
+                          ],
                         ),
-                        parse: [
-                          if (GetUtils.isNullOrBlank(searchKey) == false)
-                            MatchText(
-                                pattern: searchKey ?? "",
-                                style: body1Style().copyWith(
-                                  fontSize: Dimens.font_sp13,
-                                  color: AppThemes.search_parse_color,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: W.fonts.IconFonts,
-                                ),
-                                renderText: ({String? str, String? pattern}) {
-                                  Map<String, String> map = <String, String>{};
-                                  map["display"] = searchKey ?? "";
-                                  map["value"] = searchKey ?? "";
-                                  return map;
-                                })
-                        ],
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        playList.getCountAndBy(),
-                        style: TextStyle(
-                          fontSize: Dimens.font_sp11,
-                          color: AppThemes.color_109,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: W.fonts.IconFonts,
+                        const SizedBox(height: 2),
+                        Text(
+                          playList.getCountAndBy(),
+                          style: TextStyle(
+                            fontSize: Dimens.font_sp11,
+                            color: AppThemes.color_109,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: W.fonts.IconFonts,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
-        ));
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          )),
+    );
   }
 }
 

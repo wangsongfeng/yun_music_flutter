@@ -7,6 +7,7 @@ import 'package:yun_music/utils/common_utils.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
+import '../../commons/res/app_routes.dart';
 import '../recommend/models/default_search_model.dart';
 import 'models/search_recommend.dart';
 import 'widget/search_appbar.dart';
@@ -88,6 +89,23 @@ class WSearchController extends GetxController {
     if (history!.isNotEmpty) {
       historyList.value = history;
     }
+  }
+
+  //点击搜索关键词进入结果页面
+  void didClickSearchKeyPushNext(String searchKey) {
+    if (!historyList.contains(searchKey)) {
+      historyList.insert(0, searchKey);
+      final List<String> history = historyList;
+      box.write(CACHE_SEARCH_HISTORY_DATA, history);
+    } else {
+      final index = historyList.indexOf(searchKey);
+      historyList.removeAt(index);
+      historyList.insert(0, searchKey);
+      final List<String> history = historyList;
+      box.write(CACHE_SEARCH_HISTORY_DATA, history);
+    }
+    focusNode.unfocus();
+    Get.toNamed(RouterPath.Search_Result, arguments: {"searchKey": searchKey});
   }
 
   //获取默认搜索关键词

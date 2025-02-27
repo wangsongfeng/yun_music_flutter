@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
 import 'package:yun_music/vmusic/widget/play_layric_page.dart';
 import 'package:yun_music/vmusic/widget/play_list_content.dart';
@@ -30,8 +31,8 @@ class PlayingPage extends GetView<PlayingController> {
     return Scaffold(
       backgroundColor: Get.theme.cardColor,
       resizeToAvoidBottomInset: false,
-      body: AnnotatedRegion(
-        value: SystemUiOverlayStyle.light,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: getSystemUiOverlayStyle(isDark: false),
         child: Stack(
           children: [
             Obx(() {

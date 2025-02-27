@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/player/widgets/music_playbar_overlay.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
@@ -15,7 +16,6 @@ import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
-import '../../commons/values/constants.dart';
 import '../../utils/adapt.dart';
 import '../../vmusic/playing_controller.dart';
 import 'search_controller.dart';
@@ -70,6 +70,11 @@ class _SearchPageState extends State<SearchPage>
       controller.focusNode.requestFocus();
     });
     controller.textEditingController.text = "";
+
+    ///这里延迟0.1秒执行，是为了确保已经push到其他页面了，当前页面路由已修改，再去修改导航栏状态栏，否则可能会被覆盖
+    Future.delayed(const Duration(milliseconds: 100)).then((value) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    });
   }
 
   @override
@@ -87,17 +92,11 @@ class _SearchPageState extends State<SearchPage>
       appBar: SearchAppbar(
         controller: controller,
         onSubmit: (searchKey) {
-          if (!controller.historyList.contains(searchKey)) {
-            controller.historyList.add(searchKey);
-            final List<String> history = controller.historyList;
-            box.write(CACHE_SEARCH_HISTORY_DATA, history);
-          }
-          controller.focusNode.unfocus();
-          Get.toNamed(RouterPath.Search_Result,
-              arguments: {"searchKey": searchKey});
+          controller.didClickSearchKeyPushNext(searchKey);
         },
       ),
-      body: _buildBody(),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: getSystemUiOverlayStyle(isDark: true), child: _buildBody()),
     );
   }
 
@@ -145,11 +144,19 @@ class _SearchPageState extends State<SearchPage>
                             final data = controller.hotRecommList.value[index];
                             if (data["type"] == "hot") {
                               return SearchHotlist(
-                                  title: "热搜榜", searchHotList: data["data"]);
+                                title: "热搜榜",
+                                searchHotList: data["data"],
+                                searchChange: (String data) {
+                                  controller.didClickSearchKeyPushNext(data);
+                                },
+                              );
                             } else if (data["type"] == "topic") {
                               return SearchHottopic(
                                 title: "话题榜",
                                 searchTopicList: data["data"],
+                                searchChange: (String data) {
+                                  controller.didClickSearchKeyPushNext(data);
+                                },
                               );
                             } else {
                               return SizedBox.fromSize();
@@ -235,14 +242,7 @@ class _SearchPageState extends State<SearchPage>
           .map((e) => GestureDetector(
                 onTap: () {
                   final searchKey = e.first ?? "";
-                  if (!controller.historyList.contains(searchKey)) {
-                    controller.historyList.add(searchKey);
-                    final List<String> history = controller.historyList;
-                    box.write(CACHE_SEARCH_HISTORY_DATA, history);
-                  }
-                  controller.focusNode.unfocus();
-                  Get.toNamed(RouterPath.Search_Result,
-                      arguments: {"searchKey": searchKey});
+                  controller.didClickSearchKeyPushNext(searchKey);
                 },
                 child: Container(
                   padding: const EdgeInsets.only(
@@ -313,20 +313,7 @@ class _SearchPageState extends State<SearchPage>
           .map((e) => GestureDetector(
                 onTap: () {
                   final searchKey = e;
-                  if (!controller.historyList.contains(searchKey)) {
-                    controller.historyList.insert(0, searchKey);
-                    final List<String> history = controller.historyList;
-                    box.write(CACHE_SEARCH_HISTORY_DATA, history);
-                  } else {
-                    final index = controller.historyList.indexOf(searchKey);
-                    controller.historyList.removeAt(index);
-                    controller.historyList.insert(0, searchKey);
-                    final List<String> history = controller.historyList;
-                    box.write(CACHE_SEARCH_HISTORY_DATA, history);
-                  }
-                  controller.focusNode.unfocus();
-                  Get.toNamed(RouterPath.Search_Result,
-                      arguments: {"searchKey": searchKey});
+                  controller.didClickSearchKeyPushNext(searchKey);
                 },
                 child: Container(
                   padding: const EdgeInsets.only(

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yun_music/commons/widgets/music_loading.dart';
+import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/video/logic.dart';
 import 'package:yun_music/video/state.dart';
 
@@ -53,8 +54,8 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle.light,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: getSystemUiOverlayStyle(isDark: false),
       child: VideoScaffold(
         controller: state.videoController,
         header: _buildHeader(),
@@ -193,7 +194,8 @@ class _VideoPageState extends State<VideoPage> {
   Widget _buildCover(VPVideoController? player, bool fitWidth, double height) {
     return CachedNetworkImage(
       //https://dy.ttentau.top/images/
-      imageUrl: "${player!.videoInfo.value!.video!.cover!.url_list!.first}",
+      imageUrl:
+          "https://dy.ttentau.top/images/${player!.videoInfo.value!.video!.cover!.url_list!.first}",
       width: Adapt.screenW(),
       height: height,
       fit: fitWidth ? BoxFit.fitWidth : BoxFit.cover,

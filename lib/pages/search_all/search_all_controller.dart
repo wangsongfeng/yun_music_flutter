@@ -8,6 +8,7 @@ class SearchAllController extends SuperController<SearchResultWrapX> {
   late final recomData = Rx<SearchResultWrapX?>(null);
 
   Future<void> resultSearchKey(String keyWord) async {
+    change(SearchResultWrapX(), status: RxStatus.loading());
     SearchApi.searchComplex(keyWord).then((value) {
       recomData.value = value;
       change(value, status: RxStatus.success());

@@ -12,3 +12,5 @@ A new Flutter project.
 
 2025.2.23周末，完成了搜索页面，处理了大部分细节问题，还有键盘弹起，造成rebuild问题；
 搜索结果页面大框架搭建完成，接下来完成单曲，歌单，等这些CustomSliveView的
+
+//rm -rf android 删除某一个终端支持 

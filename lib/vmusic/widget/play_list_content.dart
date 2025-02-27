@@ -262,11 +262,13 @@ class _PlayListContentState extends State<PlayListContent> {
               SizedBox(
                 width: Dimens.gap_dp4,
               ),
-              Text(
-                "- ${item.artist ?? ""}",
-                style: captionStyle(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: Text(
+                  "- ${item.artist ?? ""}",
+                  style: captionStyle(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               )
             ],
           ),

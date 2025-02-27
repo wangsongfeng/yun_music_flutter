@@ -6,6 +6,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/delegate/expaned_sliver_delegate.dart';
+import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/vmusic/comment/comment_controller.dart';
 
 import '../../commons/widgets/footer_loading.dart';
@@ -32,8 +33,8 @@ class _CommentPageState extends State<CommentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle.dark,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: getSystemUiOverlayStyle(isDark: true),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: CommentAppbar(controller: controller),

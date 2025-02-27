@@ -1,8 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yun_music/commons/models/song_model.dart';
+import 'package:yun_music/commons/models/user_info_model.dart';
 import 'package:yun_music/pages/single_category/models/single_list_wrap.dart';
 
 import '../../../commons/models/simple_play_list_model.dart';
+import 'search_hot_wrap.dart';
 
 part 'search_result_wrap.g.dart';
 
@@ -22,6 +26,9 @@ class SearchResultWrap extends Object {
   SearchComplexPlayList? playList; //歌单
   SearchComplexAlbum? album; //专辑
   SearchComplexSingle? artist; //歌手
+  SearchComplexUser? user; // 用户
+  SearchComplexSimQuery? sim_query; //相关搜索
+
   List<String>? order;
   SearchResultWrap();
 
@@ -105,4 +112,36 @@ class SearchComplexSingle extends Object {
       _$SearchComplexSingleFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$SearchComplexSingleToJson(this);
+}
+
+@JsonSerializable()
+class SearchComplexUser extends Object {
+  List<UserInfo>? users;
+  String? moreText;
+
+  String? highText;
+
+  bool? more;
+
+  List<int>? resourceIds;
+
+  SearchComplexUser();
+
+  factory SearchComplexUser.fromJson(Map<String, dynamic> srcJson) =>
+      _$SearchComplexUserFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SearchComplexUserToJson(this);
+}
+
+@JsonSerializable()
+class SearchComplexSimQuery extends Object {
+  late List<SearchComplexSimQueryItem> sim_querys;
+  bool? more;
+
+  SearchComplexSimQuery();
+
+  factory SearchComplexSimQuery.fromJson(Map<String, dynamic> json) =>
+      _$SearchComplexSimQueryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SearchComplexSimQueryToJson(this);
 }
