@@ -104,11 +104,8 @@ flutter:
   fonts:
    - family: Poppins
      fonts:
-       - asset: assets/fonts/Poppins_Bold.ttf
        - asset: assets/fonts/Poppins_Medium.ttf
        - asset: assets/fonts/Poppins_Regular.ttf
-       - asset: assets/fonts/Poppins_SemiBold.ttf
-         weight: 500
 
    - family: PingFang
      fonts:
@@ -120,26 +117,10 @@ flutter:
      fonts:
         - asset: assets/fonts\Puhuiti.ttf
     
-   - family: PuHuiTiX
-     fonts:
-        - asset: assets\fonts\Puhuitix.ttf
-          weight: 500
-
    - family: iconfont
      fonts:
         - asset: assets/fonts/iconfont.ttf
           weight: 500
-
-
-   - family: Dolphin-Medium
-     fonts:
-        - asset: assets/fonts/Dolphin-Medium.ttf
-
-   - family: MontserratM
-     fonts:
-        - asset: assets/fonts/Montserrat-Medium.ttf
-
-
         
 
   # To add assets to your application, add an assets section, like this:
