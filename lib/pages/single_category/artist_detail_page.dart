@@ -41,18 +41,47 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
   }
 
   void setTrans(marginTop) {
-    print(marginTop);
+    final appbarTop =
+        controller!.headerHeight.value - controller!.cardHeight.value;
+    if (marginTop > appbarTop / 1.4) {
+      if (controller?.appbarMenuTop.value == false) {
+        controller?.appbarMenuTop.value = true;
+      }
+    } else {
+      if (controller?.appbarMenuTop.value == true) {
+        controller?.appbarMenuTop.value = false;
+      }
+    }
+
+    if (marginTop >= appbarTop) {
+      if (controller?.appbar_alpha.value == 0) {
+        controller?.appbar_alpha.value = 1;
+      }
+    } else {
+      if (controller?.appbar_alpha.value == 1) {
+        controller?.appbar_alpha.value = 0;
+      }
+    }
+
+    if (marginTop >=
+        controller!.headerHeight.value - Dimens.gap_dp44 - Adapt.topPadding()) {
+      if (controller?.follow_show.value == false) {
+        controller?.follow_show.value = true;
+      }
+    } else {
+      if (controller?.follow_show.value == true) {
+        controller?.follow_show.value = false;
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppThemes.bg_color,
-      appBar: ArtistDetailAppbar(controller: controller!),
-      extendBodyBehindAppBar: true,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: getSystemUiOverlayStyle(isDark: false),
-        child: Obx(() {
+        backgroundColor: AppThemes.bg_color,
+        appBar: ArtistDetailAppbar(controller: controller!),
+        extendBodyBehindAppBar: true,
+        body: Obx(() {
           if (controller?.loading.value == true) {
             return Container(
               margin: EdgeInsets.only(
@@ -66,9 +95,7 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
               children: [_buildArtistTopBg(), _buildArtisterHeader()],
             );
           }
-        }),
-      ),
-    );
+        }));
   }
 
   ///header
@@ -89,15 +116,21 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
           headerSliverBuilder: (context1, innerBoxIsScrolled) {
             return [
               Obx(() => SliverAppBar(
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: controller?.follow_show.value == true
+                        ? AppThemes.bg_color
+                        : Colors.transparent,
                     automaticallyImplyLeading: false,
                     pinned: true,
-                    elevation: 0,
+                    elevation: 1,
                     scrolledUnderElevation: 0,
                     toolbarHeight: 0,
                     collapsedHeight: 0,
-                    forceElevated: true,
+                    forceElevated: false,
                     stretch: true,
+                    primary: true,
+                    systemOverlayStyle: controller!.appbarMenuTop.value == false
+                        ? getSystemUiOverlayStyle(isDark: false)
+                        : getSystemUiOverlayStyle(isDark: true),
                     expandedHeight: controller!.headerHeight.value +
                         controller!.animValue.value * controller!.simitHeight,
                     flexibleSpace: FlexibleSpaceBar(

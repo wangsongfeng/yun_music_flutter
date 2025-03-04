@@ -93,7 +93,7 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
               : Positioned(
                   left: Dimens.gap_dp15,
                   right: Dimens.gap_dp26,
-                  bottom: Dimens.gap_dp56,
+                  bottom: Dimens.gap_dp50,
                   child: ClipRect(
                     clipper: MyContentRect(
                       yOffset: controller.clipOffset(),

@@ -107,6 +107,9 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
       controller.extraPicHeight +=
           changed - controller.prev_dy; //新的一个y值减去前一次的y值然后累加，作为加载到图片上的高度。
     }
+    if (controller.expandedHeight > 300) {
+      controller.expandedHeight = 300;
+    }
     setState(() {
       //更新数据
       controller.prev_dy = changed;
@@ -153,7 +156,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
     return Listener(
       onPointerMove: (result) {
         //手指的移动时
-        // updatePicHeight(result.position.dy); //自定义方法，图片的放大由它完成。
+        updatePicHeight(result.position.dy); //自定义方法，图片的放大由它完成。
       },
       onPointerUp: (_) {
         runAnimate(); //动画执行

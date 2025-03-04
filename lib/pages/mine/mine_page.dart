@@ -75,15 +75,18 @@ class _MinePageState extends State<MinePage> {
                   return true;
                 },
                 child: ExtendedNestedScrollView(
-                  physics: const BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
                   controller: _extendNestCtr,
                   onlyOneScrollInBody: true,
                   pinnedHeaderSliverHeightBuilder: () => 0,
                   headerSliverBuilder: (context1, innerBoxIsScrolled) {
                     return [
                       SliverToBoxAdapter(
-                        child: _buildHeaderWidget(),
-                      )
+                        child: MineHeader(
+                          controller: controller,
+                        ),
+                      ),
                     ];
                   },
                   body: Builder(builder: (BuildContext context) {
@@ -139,11 +142,5 @@ class _MinePageState extends State<MinePage> {
         ),
       );
     });
-  }
-
-  Widget _buildHeaderWidget() {
-    return MineHeader(
-      controller: controller,
-    );
   }
 }

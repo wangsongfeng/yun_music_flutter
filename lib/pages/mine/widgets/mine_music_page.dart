@@ -45,11 +45,14 @@ class MineMusicPage extends StatelessWidget {
           ),
         ),
         Expanded(
-            child: TabBarView(controller: controller.tabController, children: [
-          const MineMusicListPage(),
-          Container(),
-          Container(),
-        ]))
+            child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: controller.tabController,
+                children: [
+              const MineMusicListPage(),
+              Container(),
+              Container(),
+            ]))
       ],
     );
   }

@@ -28,7 +28,6 @@ class ArtistDetailController extends GetxController
   final coverImage = Rx<ImageProvider?>(null);
   final headerBgColor = Rx<Color?>(null);
 
-  final appbar_alpha = 0.0.obs;
   final headerHeight = Adapt.px(480.0 - 44.0 - Adapt.topPadding()).obs;
 
   final cardHeight = Adapt.px(152.0).obs;
@@ -43,6 +42,10 @@ class ArtistDetailController extends GetxController
   List<SingerTabModel>? tabs;
   TabController? tabController;
 
+  //判断滑动导航栏颜色的变化
+  final appbarMenuTop = false.obs; //是否已滑动到特定位置，返回按钮和more按钮变色
+  final appbar_alpha = 0.0.obs;
+  final follow_show = false.obs;
   @override
   void dispose() {
     super.dispose();

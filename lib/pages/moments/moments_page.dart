@@ -1,4 +1,3 @@
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/pages/moments/moments_controller.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
-import 'package:yun_music/vmusic/widget/comment_button.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
@@ -64,6 +62,38 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
     });
   }
 
+  // ExtendedNestedScrollView(
+  //                 physics: const BouncingScrollPhysics(),
+  //                 controller: _extendNestCtr,
+  //                 onlyOneScrollInBody: true,
+  //                 pinnedHeaderSliverHeightBuilder: () =>
+  //                     50 + Adapt.topPadding(),
+  //                 headerSliverBuilder: (context1, innerBoxIsScrolled) {
+  //                   return [
+  //                     _buildHeaderWidget(),
+  //                   ];
+  //                 },
+  //                 body: Builder(builder: (BuildContext context) {
+  //                   return Stack(
+  //                     children: [
+  //                       Column(
+  //                         children: [
+  //                           Expanded(
+  //                               child: TabBarView(
+  //                                   controller: controller.tabController,
+  //                                   children: [
+  //                                 Container(
+  //                                   height: 2000,
+  //                                 ),
+  //                                 Container(height: 2000)
+  //                               ]))
+  //                         ],
+  //                       ),
+  //                     ],
+  //                   );
+  //                 }),
+  //               )
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -81,44 +111,25 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                   setTrans(notification.metrics.pixels.toInt());
                   return true;
                 },
-                child: ExtendedNestedScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  controller: _extendNestCtr,
-                  onlyOneScrollInBody: true,
-                  pinnedHeaderSliverHeightBuilder: () =>
-                      50 + Adapt.topPadding(),
-                  headerSliverBuilder: (context1, innerBoxIsScrolled) {
-                    return [
-                      _buildHeaderWidget(),
-                    ];
-                  },
-                  body: Builder(builder: (BuildContext context) {
-                    return Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Expanded(
-                                child: TabBarView(
-                                    controller: controller.tabController,
-                                    children: [
-                                  Container(
-                                    height: 2000,
-                                    color: Colors.red,
-                                    child: CommentButton(
-                                      countType:
-                                          PlayingOperationBarCountType.message,
-                                      onTaps: () {
-                                        logger.d("message");
-                                      },
-                                    ),
-                                  ),
-                                  Container(height: 2000)
-                                ]))
-                          ],
-                        ),
-                      ],
-                    );
-                  }),
+                child: CustomScrollView(
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  slivers: [
+                    _buildHeaderWidget(),
+                    SliverList.builder(
+                        itemBuilder: (context, index) {
+                          return Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Container(
+                                height: 50,
+                                child: Text(
+                                  "$index",
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ));
+                        },
+                        itemCount: 100)
+                  ],
                 )),
             _buildOpacityWidget(),
             _buildBackAndPubWidget(),
@@ -133,16 +144,22 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
     return SliverFlexibleHeader(
       visibleExtent: (headerImgHeight + 36.0),
       builder: (context, availableHeight, direction) {
-        return LayoutBuilder(builder: (context, cons) {
-          return Stack(
+        return SizedBox(
+          height: availableHeight,
+          child: Stack(
             children: [
-              Container(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Image.asset(
-                  ImageUtils.getImagePath('moment_header_bg'),
-                  height: availableHeight,
-                  width: Adapt.screenW(),
-                  fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  print("图片点击");
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Image.asset(
+                    ImageUtils.getImagePath('moment_header_bg'),
+                    height: availableHeight,
+                    width: Adapt.screenW(),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Positioned(
@@ -183,32 +200,37 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                                   color: Colors.white)),
                         ),
                       ),
-                      Container(
-                          width: 72,
-                          height: 72,
-                          //设置了 decoration 就不能设置color，两者只能存在一个
-                          decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0, 0.0),
-                                    //阴影y轴偏移量
-                                    blurRadius: 2,
-                                    //阴影模糊程度
-                                    spreadRadius: 1 //阴影扩散程度
-                                    )
-                              ],
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/mine_avatar.png")),
-                              //设置图片
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(6)))),
+                      GestureDetector(
+                        onTap: () {
+                          logger.d("头像点击");
+                        },
+                        child: Container(
+                            width: 72,
+                            height: 72,
+                            //设置了 decoration 就不能设置color，两者只能存在一个
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0, 0.0),
+                                      //阴影y轴偏移量
+                                      blurRadius: 2,
+                                      //阴影模糊程度
+                                      spreadRadius: 1 //阴影扩散程度
+                                      )
+                                ],
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/mine_avatar.png")),
+                                //设置图片
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6)))),
+                      ),
                     ],
                   )),
             ],
-          );
-        });
+          ),
+        );
       },
     );
   }

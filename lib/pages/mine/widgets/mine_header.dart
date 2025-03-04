@@ -125,7 +125,9 @@ class MineHeader extends StatelessWidget {
 
   Widget buildRowBtnWidget(String imagename, String title) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        print("1");
+      },
       child: Container(
         width: 80,
         height: 36,
