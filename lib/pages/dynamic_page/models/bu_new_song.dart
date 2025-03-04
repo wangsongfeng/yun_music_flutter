@@ -196,6 +196,9 @@ class Artists extends Object {
   @JsonKey(name: 'publishTime')
   int? publishTime;
 
+  @JsonKey(name: 'alias')
+  List<String>? alias;
+
   Artists(
     this.id,
     this.accountId,
@@ -212,6 +215,7 @@ class Artists extends Object {
     this.briefDesc,
     this.followed,
     this.publishTime,
+    this.alias,
   );
 
   factory Artists.fromJson(Map<String, dynamic> srcJson) =>

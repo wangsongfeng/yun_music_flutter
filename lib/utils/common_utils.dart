@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -70,6 +71,10 @@ String getPlayCountStrFromInt(int count) {
   } else {
     return '${(count / 100000000).toStringAsFixed(1)}亿';
   }
+}
+
+int randomFloatInRange(int min, int max) {
+  return Random().nextInt(10) * (max - min) + min;
 }
 
 //万为单位

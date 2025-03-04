@@ -31,7 +31,9 @@ class VillageListController extends SuperController<VideoGroupSourceList> {
       }
     });
 
-    BujuanApi.videoListByGroup("0");
+    // BujuanApi.videoListByGroup("58100");
+    // BujuanApi.videoGroupList();
+    BujuanApi.djRadioSubListDioMetaData();
   }
 
   @override

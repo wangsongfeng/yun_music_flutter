@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:yun_music/api/common_service.dart';
 import 'package:yun_music/commons/models/mine_music_list.dart';
@@ -150,11 +152,18 @@ class MusicApi {
 
   ///获取每日推荐
   static Future<RcmdSongDailyModel?> getRcmdSongs() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    return CommonService.jsonDecode(JsonStringConstants.recommend_songs)
-        .then((value) {
-      return RcmdSongDailyModel.fromJson(value['data']);
-    });
+    final metaData = DioMetaData(joinUri('/api/v3/discovery/recommend/songs'),
+        data: {}, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+
+    return RcmdSongDailyModel.fromJson(jsonDecode(response.data)["data"]);
+
+    // await Future.delayed(const Duration(milliseconds: 200));
+    // return CommonService.jsonDecode(JsonStringConstants.recommend_songs)
+    //     .then((value) {
+    //   return RcmdSongDailyModel.fromJson(value['data']);
+    // });
+
     // final response = await httpManager.get('/recommend/songs', null);
     // if (response.result) {
     //   return RcmdSongDailyModel.fromJson(response.data['data']);

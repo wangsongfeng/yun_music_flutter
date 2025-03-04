@@ -78,4 +78,7 @@ class JsonStringConstants {
 
   ///hishort的数据
   static const String hishort_list = "assets/json/hishort_list.json";
+
+  //歌手
+  static const String artist_simit = "assets/json/artist_simit_list.json";
 }

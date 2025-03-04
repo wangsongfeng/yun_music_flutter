@@ -81,7 +81,9 @@ class _MinePageState extends State<MinePage> {
                   pinnedHeaderSliverHeightBuilder: () => 0,
                   headerSliverBuilder: (context1, innerBoxIsScrolled) {
                     return [
-                      _buildHeaderWidget(),
+                      SliverToBoxAdapter(
+                        child: _buildHeaderWidget(),
+                      )
                     ];
                   },
                   body: Builder(builder: (BuildContext context) {

@@ -6,7 +6,6 @@ import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../../commons/widgets/network_img_layer.dart';
-import '../../moments/widgets/sliver_flexble_header.dart';
 
 class MineHeader extends StatelessWidget {
   const MineHeader({super.key, required this.controller});
@@ -15,147 +14,143 @@ class MineHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverFlexibleHeader(
-        visibleExtent: controller.headerHeight.value,
-        builder: (context, availableHeight, direction) {
-          return LayoutBuilder(builder: (context, cons) {
-            return Container(
-              color: Colors.black87,
-              child: Stack(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 0),
-                    child: Image.asset(
-                      ImageUtils.getImagePath('mine_header'),
-                      height: availableHeight,
-                      width: Adapt.screenW(),
-                      fit: BoxFit.cover,
+    return Container(
+      height: controller.headerHeight.value,
+      color: Colors.black87,
+      child: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(bottom: 0),
+            child: Image.asset(
+              ImageUtils.getImagePath('mine_header'),
+              height: double.infinity,
+              width: Adapt.screenW(),
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+              child: Container(
+            color: Colors.black87.withOpacity(0.1),
+          )),
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: Container(
+              width: Adapt.screenW(),
+              height: 200,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [
+                    0.0,
+                    0.5,
+                    1.0
+                  ], //[渐变起始点, 渐变结束点]
+                      //渐变颜色[始点颜色, 结束颜色]
+                      colors: [
+                    Color.fromRGBO(15, 15, 15, 0),
+                    Color.fromRGBO(15, 15, 15, 0.8),
+                    Color.fromRGBO(15, 15, 15, 0.9)
+                  ])),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: const BorderRadius.all(Radius.circular(42)),
+                      border: Border.all(width: 1.0, color: Colors.white)),
+                  width: 84,
+                  height: 84,
+                  child: const ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(42)),
+                    child: NetworkImgLayer(
+                      width: 84,
+                      height: 84,
+                      src:
+                          'https://q1.itc.cn/q_70/images03/20240807/4802bc995acb4420bcc4b49035244907.jpeg',
                     ),
                   ),
-                  Positioned.fill(
-                      child: Container(
-                    color: Colors.black87.withOpacity(0.1),
-                  )),
-                  Positioned(
-                    left: 0,
-                    bottom: 0,
-                    child: Container(
-                      width: Adapt.screenW(),
-                      height: 200,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: [
-                            0.0,
-                            0.5,
-                            1.0
-                          ], //[渐变起始点, 渐变结束点]
-                              //渐变颜色[始点颜色, 结束颜色]
-                              colors: [
-                            Color.fromRGBO(15, 15, 15, 0),
-                            Color.fromRGBO(15, 15, 15, 0.8),
-                            Color.fromRGBO(15, 15, 15, 0.9)
-                          ])),
-                    ),
+                ),
+                _buildUserNameWidget(),
+                _buildTimeWidget(),
+                _buildCountWidget(),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      buildRowBtnWidget('zuijinbofang', '最近'),
+                      buildRowBtnWidget('down_5', '本地'),
+                      buildRowBtnWidget('huiyunpan1', '云盘'),
+                      buildRowBtnWidget('iocn_yigoumaide', '最近'),
+                      Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.15),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(6)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              ImageUtils.getImagePath('mine_menu1'),
+                              width: 14,
+                              color: Colors.white,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(42)),
-                                border: Border.all(
-                                    width: 1.0, color: Colors.white)),
-                            width: 84,
-                            height: 84,
-                            child: const ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(42)),
-                              child: NetworkImgLayer(
-                                width: 84,
-                                height: 84,
-                                src:
-                                    'https://q1.itc.cn/q_70/images03/20240807/4802bc995acb4420bcc4b49035244907.jpeg',
-                              ),
-                            ),
-                          ),
-                          _buildUserNameWidget(),
-                          _buildTimeWidget(),
-                          _buildCountWidget(),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 30),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                buildRowBtnWidget('zuijinbofang', '最近'),
-                                buildRowBtnWidget('down_5', '本地'),
-                                buildRowBtnWidget('huiyunpan1', '云盘'),
-                                buildRowBtnWidget('iocn_yigoumaide', '最近'),
-                                Container(
-                                  width: 36,
-                                  height: 36,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.withOpacity(0.15),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(6)),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        ImageUtils.getImagePath('mine_menu1'),
-                                        width: 14,
-                                        color: Colors.white,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ))
-                ],
-              ),
-            );
-          });
-        });
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget buildRowBtnWidget(String imagename, String title) {
-    return Container(
-      width: 80,
-      height: 36,
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.15),
-        borderRadius: const BorderRadius.all(Radius.circular(6)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            ImageUtils.getImagePath(imagename),
-            width: 16,
-            color: Colors.white,
-          ),
-          const SizedBox(
-            width: 6,
-          ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 12, color: Colors.white),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        width: 80,
+        height: 36,
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.15),
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              ImageUtils.getImagePath(imagename),
+              width: 16,
+              color: Colors.white,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 12, color: Colors.white),
+            )
+          ],
+        ),
       ),
     );
   }

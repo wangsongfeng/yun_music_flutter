@@ -49,6 +49,7 @@ class BujuanApi {
         data: params,
         options: joinOptions());
     final response = await httpManager.postUri(metaData);
+    print(response.data);
     final model = PlaylistDetailModel.fromJson(jsonDecode(response.data));
     return model;
   }
@@ -89,8 +90,10 @@ class BujuanApi {
       'need_preview_url': true,
       'total': total
     };
-    final metaData = DioMetaData(joinUri('/api/videotimeline/otherclient/get'),
-        data: params, options: joinOptions());
+    final metaData = DioMetaData(
+        joinUri('/api/videotimeline/videogroup/otherclient/get'),
+        data: params,
+        options: joinOptions());
 
     final response = await httpManager.postUri(metaData);
     logger.d('视频标签下的视频-$response');
@@ -201,6 +204,16 @@ class BujuanApi {
     final metaData = DioMetaData(joinUri('/weapi/discovery/simiMV'),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
+    return response.data;
+  }
+
+  static Future<void> djRadioSubListDioMetaData(
+      {bool total = true, int offset = 0, int limit = 30}) async {
+    var params = {'total': total, 'limit': limit, 'offset': offset};
+    final metaData = DioMetaData(joinUri('/weapi/djradio/get/subed'),
+        data: params, options: joinOptions());
+    final response = await httpManager.postUri(metaData);
+    print(response.data);
     return response.data;
   }
 }

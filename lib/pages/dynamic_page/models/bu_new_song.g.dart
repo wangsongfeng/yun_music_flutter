@@ -146,6 +146,7 @@ Artists _$ArtistsFromJson(Map<String, dynamic> json) => Artists(
       json['briefDesc'] as String?,
       json['followed'] as bool?,
       (json['publishTime'] as num?)?.toInt(),
+      (json['alias'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$ArtistsToJson(Artists instance) => <String, dynamic>{
@@ -164,6 +165,7 @@ Map<String, dynamic> _$ArtistsToJson(Artists instance) => <String, dynamic>{
       'briefDesc': instance.briefDesc,
       'followed': instance.followed,
       'publishTime': instance.publishTime,
+      'alias': instance.alias,
     };
 
 NewAlbum _$NewAlbumFromJson(Map<String, dynamic> json) => NewAlbum(

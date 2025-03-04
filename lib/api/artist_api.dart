@@ -4,7 +4,10 @@ import 'package:yun_music/commons/values/server.dart';
 import 'package:yun_music/pages/single_category/models/single_list_wrap.dart';
 
 import '../commons/net/init_dio.dart';
+import '../commons/values/json.dart';
+import '../pages/single_category/models/artist_detail_wrap.dart';
 import 'bujuan_api.dart';
+import 'common_service.dart';
 
 class ArtistApi {
   //获取歌手列表
@@ -24,15 +27,19 @@ class ArtistApi {
     final metaData = DioMetaData(joinUri('/api/v1/artist/list'),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
+    Map<String, dynamic> responseData = jsonDecode(response.data);
+    logger.d(responseData);
     return SingleListWrap.fromJson(jsonDecode(response.data));
   }
 
-  static Future<void> requestArtistDetail({required String artistId}) async {
+  static Future<ArtistDetailData?> requestArtistDetail(
+      {required String artistId}) async {
     final metaData = DioMetaData(joinUri('/api/artist/head/info/get'),
         data: {'id': artistId}, options: joinOptions());
     final response = await httpManager.postUri(metaData);
     Map<String, dynamic> responseData = jsonDecode(response.data)["data"];
     logger.d(responseData);
+    return ArtistDetailData.fromJson(responseData);
   }
 
   static Future<void> artistDesc(String artistId) async {
@@ -41,5 +48,29 @@ class ArtistApi {
     final response = await httpManager.postUri(metaData);
     Map<String, dynamic> responseData = jsonDecode(response.data);
     logger.d(responseData);
+  }
+
+  /// 歌手信息+歌曲
+  static Future<void> artistDetailAndSongList(String artistId) async {
+    // final metaData = DioMetaData(joinUri('/weapi/v1/artist/$artistId'),
+    //     data: {'id': artistId}, options: joinOptions());
+    // final response = await httpManager.postUri(metaData);
+    // Map<String, dynamic> responseData = jsonDecode(response.data);
+    // logger.d(responseData);
+  }
+
+  ///相似歌手
+  static Future<List<Singles>?> artistSimiList(String artistId) async {
+    // final metaData = DioMetaData(joinUri('/weapi/discovery/simiArtist'),
+    //     data: {'artistid': artistId}, options: joinOptions());
+    // final response = await httpManager.postUri(metaData);
+    // print(jsonDecode(response.data));
+
+    await Future.delayed(const Duration(milliseconds: 200));
+    final localJson =
+        await CommonService.jsonDecode(JsonStringConstants.artist_simit);
+    final list =
+        (localJson['artists'] as List).map((e) => Singles.fromJson(e)).toList();
+    return list;
   }
 }

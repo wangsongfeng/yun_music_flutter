@@ -61,11 +61,7 @@ class PlaylistDetailTopNormal extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              // toUserDetail(
-                              //     accountId: controller
-                              //         .detail.value?.playlist.creator.userId);
-                            },
+                            onTap: () {},
                             child: RichText(
                                 textAlign: TextAlign.center,
                                 text: TextSpan(children: [
@@ -100,10 +96,16 @@ class PlaylistDetailTopNormal extends StatelessWidget {
                         SizedBox(width: Dimens.gap_dp2),
                         //focuse creator
                         if (controller.detail.value?.playlist.creator != null)
-                          PlaylistDetailFollow(
-                            followed: controller
-                                .detail.value!.playlist.creator.followed!,
-                          )
+                          Expanded(
+                            child: PlaylistDetailFollow(
+                              followed: controller
+                                  .detail.value!.playlist.creator.followed!,
+                            ),
+                          ),
+
+                        const SizedBox(
+                          width: 2,
+                        )
                       ],
                     ),
                   )),

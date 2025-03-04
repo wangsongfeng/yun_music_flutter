@@ -235,7 +235,9 @@ class _PlayingOperationBarPage extends StatelessWidget {
             countType: PlayingOperationBarCountType.like,
             onTaps: () {},
           ),
-          SizedBox(width: Dimens.gap_dp24),
+          Expanded(
+            child: SizedBox(width: Dimens.gap_dp28),
+          ),
           CommentButton(
             countType: PlayingOperationBarCountType.message,
             onTaps: () {
