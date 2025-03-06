@@ -63,6 +63,12 @@ class PlaylistDetailController extends GetxController {
 
   final headerBgHeight = 0.0.obs;
 
+  //是否是垂直滑动
+  bool isVerticalMove = false;
+  //初始坐标
+  double initialDy = 0;
+  double initialDx = 0;
+
   late double extraPicHeight;
   late BoxFit fitType;
   late double prev_dy;

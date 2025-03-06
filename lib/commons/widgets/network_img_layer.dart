@@ -73,9 +73,9 @@ class NetworkImgLayer extends StatelessWidget {
               memCacheHeight: memCacheHeight,
               fit: fit,
               fadeOutDuration:
-                  fadeOutDuration ?? const Duration(milliseconds: 120),
+                  fadeOutDuration ?? const Duration(milliseconds: 1000),
               fadeInDuration:
-                  fadeInDuration ?? const Duration(milliseconds: 120),
+                  fadeInDuration ?? const Duration(milliseconds: 500),
               filterQuality: FilterQuality.low,
               errorWidget: (BuildContext context, String url, Object error) {
                 return placeholder(context);

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -92,6 +94,23 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
     });
   }
 
+  onPointerMove(result) {
+    //这里我们计算一下滑动倾角，超过45度无效，角度计算通过x,y坐标计算tan函数即可
+    double deltaY = result.position.dy - controller.initialDy;
+    double deltaX = result.position.dx - controller.initialDx;
+    double angle =
+        (deltaY == 0) ? 90 : atan(deltaX.abs() / deltaY.abs()) * 180 / pi;
+    debugPrint('onPointerMove angle : $angle');
+    if (angle < 45) {
+      controller.isVerticalMove = true; // It's a valid vertical movement
+      updatePicHeight(
+          result.position.dy); // Custom method to handle vertical movement
+    } else {
+      controller.isVerticalMove =
+          false; // It's not a valid vertical movement, ignore it
+    }
+  }
+
   updatePicHeight(changed) {
     if (controller.prev_dy == 0) {
       //如果是手指第一次点下时，我们不希望图片大小就直接发生变化，所以进行一个判定。
@@ -107,9 +126,10 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
       controller.extraPicHeight +=
           changed - controller.prev_dy; //新的一个y值减去前一次的y值然后累加，作为加载到图片上的高度。
     }
-    if (controller.expandedHeight > 300) {
-      controller.expandedHeight = 300;
+    if (controller.extraPicHeight > 240) {
+      controller.extraPicHeight = 240;
     }
+
     setState(() {
       //更新数据
       controller.prev_dy = changed;
@@ -156,11 +176,24 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
     return Listener(
       onPointerMove: (result) {
         //手指的移动时
-        updatePicHeight(result.position.dy); //自定义方法，图片的放大由它完成。
+        // updatePicHeight(result.position.dy); //自定义方法，图片的放大由它完成。
+
+        onPointerMove(result);
       },
       onPointerUp: (_) {
-        runAnimate(); //动画执行
-        animationController.forward(from: 0); //重置动画
+        if (controller.isVerticalMove) {
+          if (controller.extraPicHeight < 0) {
+            controller.extraPicHeight = 0;
+            controller.prev_dy = 0;
+            return;
+          }
+          runAnimate(); //动画执行
+          animationController.forward(from: 0); //重置动画
+        }
+      },
+      onPointerDown: (result) {
+        controller.initialDy = result.position.dy;
+        controller.initialDx = result.position.dx;
       },
       child: SliverFabMain(
         topScalingEdge: appbarHeight,
