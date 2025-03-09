@@ -25,17 +25,17 @@ class PlaylistDetailTopNormal extends StatelessWidget {
           GenerralCoverPlaycount(
             imageUrl: controller.detail.value?.playlist.coverImgUrl ?? '',
             playCount: controller.detail.value?.playlist.playCount ?? 0,
-            coverSize: const Size(122, 122),
+            coverSize: Size(controller.cover_width, controller.cover_width),
             coverRadius: Dimens.gap_dp8,
             imageCallback: (provider) async {
-              await Future.delayed(const Duration(milliseconds: 10));
+              await Future.delayed(const Duration(milliseconds: 0));
               controller.coverImage.value = provider;
             },
           ),
           SizedBox(width: Dimens.gap_dp14),
           Expanded(
             child: SizedBox(
-              height: 122,
+              height: 112,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,60 +55,9 @@ class PlaylistDetailTopNormal extends StatelessWidget {
                   //creator
                   Expanded(
                       child: Container(
-                    alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.only(top: 12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                            onTap: () {},
-                            child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(children: [
-                                  WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    child: UserAvatarPage(
-                                      avatar: ImageUtils.getImageUrlFromSize(
-                                          controller.detail.value?.playlist
-                                              .creator.avatarUrl,
-                                          Size(Dimens.gap_dp25,
-                                              Dimens.gap_dp25)),
-                                      size: Dimens.gap_dp25,
-                                      identityIconUrl: controller
-                                          .detail
-                                          .value
-                                          ?.playlist
-                                          .creator
-                                          .avatarDetail
-                                          ?.identityIconUrl,
-                                    ),
-                                  ),
-                                  WidgetSpan(
-                                      child: SizedBox(width: Dimens.gap_dp2)),
-                                  TextSpan(
-                                      text: controller.detail.value?.playlist
-                                          .creator.nickname,
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color: AppThemes.white
-                                              .withOpacity(0.7))),
-                                ]))),
-                        SizedBox(width: Dimens.gap_dp2),
-                        //focuse creator
-                        if (controller.detail.value?.playlist.creator != null)
-                          Expanded(
-                            child: PlaylistDetailFollow(
-                              followed: controller
-                                  .detail.value!.playlist.creator.followed!,
-                            ),
-                          ),
-
-                        const SizedBox(
-                          width: 2,
-                        )
-                      ],
-                    ),
-                  )),
+                          alignment: Alignment.topLeft,
+                          margin: const EdgeInsets.only(top: 12),
+                          child: _buildCreatView())),
                   //description
                   Expanded(
                     flex: 0,
@@ -145,6 +94,54 @@ class PlaylistDetailTopNormal extends StatelessWidget {
         ],
       );
     });
+  }
+
+  Widget _buildCreatView() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+            onTap: () {},
+            child: RichText(
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                text: TextSpan(children: [
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: UserAvatarPage(
+                      avatar: ImageUtils.getImageUrlFromSize(
+                          controller.detail.value?.playlist.creator.avatarUrl,
+                          Size(Dimens.gap_dp25, Dimens.gap_dp25)),
+                      size: Dimens.gap_dp25,
+                      identityIconUrl: controller.detail.value?.playlist.creator
+                          .avatarDetail?.identityIconUrl,
+                    ),
+                  ),
+                ]))),
+        SizedBox(width: Dimens.gap_dp4),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+              maxWidth: Adapt.screenW() -
+                  Dimens.gap_dp35 -
+                  Dimens.gap_dp14 -
+                  Dimens.gap_dp30 -
+                  30),
+          child: Text(
+              maxLines: 1,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              "${controller.detail.value?.playlist.creator.nickname}",
+              style: TextStyle(
+                  fontSize: 13, color: AppThemes.white.withOpacity(0.7))),
+        ),
+        SizedBox(width: Dimens.gap_dp4),
+        //focuse creator
+        if (controller.detail.value?.playlist.creator != null)
+          PlaylistDetailFollow(
+            followed: controller.detail.value!.playlist.creator.followed!,
+          ),
+      ],
+    );
   }
 }
 

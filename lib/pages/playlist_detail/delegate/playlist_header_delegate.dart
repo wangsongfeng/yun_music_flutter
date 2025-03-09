@@ -65,13 +65,16 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
               return Container(
                 padding: EdgeInsets.only(
                   left: Dimens.gap_dp15,
-                  right: Dimens.gap_dp26,
-                  top: Adapt.topPadding() + kToolbarHeight + Dimens.gap_dp12,
+                  right: Dimens.gap_dp20,
+                  top: controller.header_top,
                 ),
                 color: Get.isDarkMode
                     ? Colors.transparent
                     : const Color.fromRGBO(146, 150, 160, 1.0),
-                child: const Skeleton(child: PlaylistDetailTopPlaceholder()),
+                child: Skeleton(
+                    child: PlaylistDetailTopPlaceholder(
+                  coverSize: Size(Dimens.gap_dp122, Dimens.gap_dp122),
+                )),
               );
             } else {
               return Obx(() {
@@ -92,7 +95,7 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
               ? Container()
               : Positioned(
                   left: Dimens.gap_dp15,
-                  right: Dimens.gap_dp26,
+                  right: Dimens.gap_dp20,
                   bottom: Dimens.gap_dp50,
                   child: ClipRect(
                     clipper: MyContentRect(

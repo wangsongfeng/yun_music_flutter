@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
 
@@ -24,7 +25,11 @@ class GeneralSongCell extends StatelessWidget {
   }
 
   Widget _buildContext(BuildContext context) {
-    final titleStyle = body1Style().copyWith(fontSize: Dimens.font_sp16);
+    final titleStyle = body1Style().copyWith(
+        fontSize: Dimens.font_sp15,
+        fontWeight: FontWeight.w500,
+        fontFamily: W.fonts.IconFonts,
+        color: Colors.black);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,

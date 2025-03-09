@@ -76,3 +76,55 @@ class CustomDialogShow {
     }
   }
 }
+
+class CustomAlertDialogShow {
+  OverlayEntry? _overlayEntry;
+  CustomAlertDialogShow._();
+
+  static final CustomAlertDialogShow instance = CustomAlertDialogShow._();
+  factory CustomAlertDialogShow() => instance;
+
+  double childHeight = 0.0;
+  final childBottom = 0.0.obs;
+
+  void show(
+      {required BuildContext context,
+      Color bgColor = Colors.transparent,
+      required double height,
+      required Widget child}) {
+    if (_overlayEntry == null) {
+      childHeight = height;
+      childBottom.value = -childHeight;
+      _overlayEntry = OverlayEntry(builder: (context) {
+        return Obx(() {
+          return AnimatedPositioned(
+              left: 0,
+              right: 0,
+              bottom: childBottom.value,
+              duration: const Duration(milliseconds: 200),
+              child: Material(
+                color: Colors.transparent,
+                child: child,
+              ));
+        });
+      });
+      Overlay.of(context).insert(_overlayEntry!);
+
+      _overlayEntry?.markNeedsBuild();
+
+      Future.delayed(const Duration(milliseconds: 200)).then((value) {
+        childBottom.value = 0;
+      });
+    }
+  }
+
+  void hide() {
+    childBottom.value = -childHeight;
+    Future.delayed(const Duration(milliseconds: 200)).then((value) {
+      if (_overlayEntry != null) {
+        _overlayEntry!.remove();
+        _overlayEntry = null;
+      }
+    });
+  }
+}

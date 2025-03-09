@@ -13,6 +13,9 @@ A new Flutter project.
 2025.2.23周末，完成了搜索页面，处理了大部分细节问题，还有键盘弹起，造成rebuild问题；
 搜索结果页面大框架搭建完成，接下来完成单曲，歌单，等这些CustomSliveView的
 
+2025.3.9 找到一个类似于抖音我的页面headerView 向下拖拽慢慢变大效果，比较完美；还有歌手详情页面headerView+中间tabbar + 底部，tableView ，目前整体完善达到百分之90。页面效果完美；
+
+
 //rm -rf android 删除某一个终端支持 
 
 /// 安卓打包相关的

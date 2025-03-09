@@ -46,6 +46,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
   @override
   void dispose() {
     AppRouteObserver().routeObserver.unsubscribe(this);
+    animationController.dispose();
     super.dispose();
   }
 
@@ -100,7 +101,6 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
     double deltaX = result.position.dx - controller.initialDx;
     double angle =
         (deltaY == 0) ? 90 : atan(deltaX.abs() / deltaY.abs()) * 180 / pi;
-    debugPrint('onPointerMove angle : $angle');
     if (angle < 45) {
       controller.isVerticalMove = true; // It's a valid vertical movement
       updatePicHeight(
@@ -126,6 +126,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
       controller.extraPicHeight +=
           changed - controller.prev_dy; //新的一个y值减去前一次的y值然后累加，作为加载到图片上的高度。
     }
+
     if (controller.extraPicHeight > 240) {
       controller.extraPicHeight = 240;
     }

@@ -112,7 +112,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
                   color: Get.theme.cardColor.withOpacity(1.0),
                   border: Border(
                       top: BorderSide(
-                        color: Get.theme.dividerColor.withOpacity(1.0),
+                        color: Get.theme.dividerColor.withOpacity(0.9),
                         width: 1,
                       ),
                       bottom: BorderSide(

@@ -81,6 +81,9 @@ dependencies:
 
   flutter_screenutil: ^5.9.3
 
+  #ui库
+  # shadcn_ui: ^0.22.5
+
 dev_dependencies:
 
   json_serializable: ^6.8.0

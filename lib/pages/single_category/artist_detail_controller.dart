@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:yun_music/api/artist_api.dart';
-import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
 import 'package:yun_music/pages/single_category/models/artist_detail_wrap.dart';
 import 'package:yun_music/utils/adapt.dart';
 
+import '../../commons/event/index.dart';
+import '../../commons/event/play_bar_event.dart';
 import '../../utils/common_utils.dart';
-import 'artist_song_page.dart';
 import 'models/single_list_wrap.dart';
 
 class ArtistDetailController extends GetxController
@@ -17,6 +17,8 @@ class ArtistDetailController extends GetxController
   late String? artistid;
 
   final artistDetail = Rx<ArtistDetailData?>(null);
+
+  final ScrollController extendNestCtr = ScrollController();
 
   late RxList<Singles>? artistsList = <Singles>[].obs;
 
@@ -46,16 +48,29 @@ class ArtistDetailController extends GetxController
   final appbarMenuTop = false.obs; //是否已滑动到特定位置，返回按钮和more按钮变色
   final appbar_alpha = 0.0.obs;
   final follow_show = false.obs;
+  final margin_top = 0.0.obs;
+
+  //是否是垂直滑动
+  bool isVerticalMove = false;
+  //初始坐标
+  double initialDy = 0;
+  double initialDx = 0;
+
+  final extraPicHeight = 0.0.obs;
+  final prev_dy = 0.0.obs;
+
   @override
   void dispose() {
     super.dispose();
     animController?.dispose();
     tabController?.dispose();
+    extendNestCtr.dispose();
   }
 
   @override
   void onReady() {
     super.onReady();
+    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
 
     artistid = Get.arguments["artist_id"].toString();
     requestDataDetail();
@@ -103,6 +118,15 @@ class ArtistDetailController extends GetxController
     }
   }
 
+  //页面滑动到头部
+  void scrollToTop() {
+    final offset = headerHeight.value +
+        animValue.value * simitHeight +
+        extraPicHeight.value;
+    extendNestCtr.animateTo(offset,
+        duration: const Duration(milliseconds: 200), curve: Curves.bounceInOut);
+  }
+
   //获取Card的Height
   void getCardViewHeight() {
     if (artistDetail.value?.showPriMsg == true &&
@@ -135,30 +159,6 @@ class ArtistDetailController extends GetxController
         type: SingerTabType.mvPage, title: "专辑", num: getMvSize() ?? 0));
     tabController =
         TabController(length: tabs!.length, vsync: this, initialIndex: 1);
-  }
-
-  List<Widget> getTabBarViews() {
-    final widgets = List<Widget>.empty(growable: true);
-    for (var element in tabs!) {
-      switch (element.type) {
-        case SingerTabType.homePage:
-          widgets.add(const KeepAliveWrapper(child: ArtistSongPage()));
-          break;
-        case SingerTabType.songPage:
-          widgets.add(const KeepAliveWrapper(child: ArtistSongPage()));
-          break;
-        case SingerTabType.albumPage:
-          widgets.add(KeepAliveWrapper(child: Container()));
-          break;
-        case SingerTabType.mvPage:
-          widgets.add(KeepAliveWrapper(child: Container()));
-          break;
-        case SingerTabType.evenPage:
-          widgets.add(KeepAliveWrapper(child: Container()));
-          break;
-      }
-    }
-    return widgets;
   }
 
   int? getAlbumSize() {

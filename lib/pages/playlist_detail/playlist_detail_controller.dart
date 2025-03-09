@@ -73,6 +73,9 @@ class PlaylistDetailController extends GetxController {
   late BoxFit fitType;
   late double prev_dy;
 
+  double header_top = (Adapt.topPadding() + Dimens.gap_dp58);
+  double cover_width = Dimens.gap_dp122;
+
   @override
   void onInit() {
     super.onInit();
@@ -87,12 +90,7 @@ class PlaylistDetailController extends GetxController {
 
     expandedHeight = secondOpenOfficial
         ? Adapt.screenH() * 0.55
-        : (Adapt.topPadding() +
-            kToolbarHeight +
-            122 +
-            4 +
-            Dimens.gap_dp12 +
-            Dimens.gap_dp56);
+        : (header_top + cover_width + 4 + Dimens.gap_dp50);
     headerBgHeight.value = expandedHeight;
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -100,8 +98,8 @@ class PlaylistDetailController extends GetxController {
     ));
     coverImage.listen((p) async {
       final paletteGenerator = await PaletteGenerator.fromImageProvider(p!,
-          size: const Size(122, 122),
-          region: Offset.zero & const Size(122, 122),
+          size: Size(cover_width, cover_width),
+          region: Offset.zero & Size(cover_width, cover_width),
           maximumColorCount: 1);
       if (paletteGenerator.colors.isNotEmpty) {
         Future.delayed(const Duration(milliseconds: 0)).whenComplete(() {

@@ -11,7 +11,7 @@ class AppThemes {
   static const Color tab_color = Color.fromRGBO(236, 67, 94, 1);
   static const Color tab_grey_color = Color.fromRGBO(104, 110, 125, 1);
 
-  static const Color bg_color = Color.fromARGB(255, 251, 251, 251);
+  static const Color bg_color = Color.fromARGB(255, 255, 254, 255);
   static const Color dark_bg_color = Color.fromARGB(255, 13, 13, 12);
 
   static const Color search_bg_color = Color.fromARGB(255, 235, 237, 241);

@@ -14,7 +14,7 @@ class RoundCheckBox extends StatefulWidget {
 
   // final ParamSingleCallback<bool> onChanged;
 
-  RoundCheckBox(Key? key, {required this.value, this.size = 22})
+  RoundCheckBox(Key? key, {required this.value, this.size = 18})
       : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class _RoundCheckBoxState extends State<RoundCheckBox> {
                 color: AppThemes.app_main_light,
                 child: Image.asset(
                   ImageUtils.getImagePath('icn_check'),
-                  width: Dimens.gap_dp13,
+                  width: Dimens.gap_dp12,
                   color: AppThemes.white,
                 ),
               ),

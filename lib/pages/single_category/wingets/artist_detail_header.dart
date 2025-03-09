@@ -20,7 +20,8 @@ class ArtistDetailHeader extends StatelessWidget {
     return Obx(() {
       return Container(
         height: controller.headerHeight.value +
-            controller.animValue.value * controller.simitHeight,
+            controller.animValue.value * controller.simitHeight +
+            controller.extraPicHeight.value,
         color: Colors.transparent,
         child: Stack(
           children: [

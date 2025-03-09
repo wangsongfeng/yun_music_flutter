@@ -76,7 +76,8 @@ class _AttentionPageState extends State<AttentionPage>
           if (controller.newSongListWarp.value!.result!.isNotEmpty)
             SliverToBoxAdapter(
               child: Container(
-                padding: EdgeInsets.only(top: Dimens.gap_dp12),
+                padding: EdgeInsets.only(
+                    top: Dimens.gap_dp6, bottom: Dimens.gap_dp6),
                 child: BlogHeaderWidget(
                   onPressed: () {},
                   personal: null,
