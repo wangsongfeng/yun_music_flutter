@@ -14,13 +14,23 @@ class MineController extends GetxController with GetTickerProviderStateMixin {
     const Tab(text: '动态'),
   ];
 
-  final headerHeight = 400.0.obs;
+  final headerHeight = 296.0.obs;
 
   final appbarHeight = (50 + Adapt.topPadding());
 
   final menuBarTop = 0.0.obs;
   late double menuBarTop_Normal = 0;
   final appbar_alpha = 0.0.obs;
+
+  //是否是垂直滑动
+  bool isVerticalMove = false;
+  //初始坐标
+  double initialDy = 0;
+  double initialDx = 0;
+
+  final extraPicHeight = 0.0.obs;
+  final prev_dy = 0.0.obs;
+  final Rx<BoxFit> fitType = BoxFit.cover.obs;
 
   @override
   void onInit() {

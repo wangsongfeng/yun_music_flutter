@@ -119,20 +119,22 @@ class PlaylistDetailTopNormal extends StatelessWidget {
                   ),
                 ]))),
         SizedBox(width: Dimens.gap_dp4),
-        ConstrainedBox(
-          constraints: BoxConstraints(
-              maxWidth: Adapt.screenW() -
-                  Dimens.gap_dp35 -
-                  Dimens.gap_dp14 -
-                  Dimens.gap_dp30 -
-                  30),
-          child: Text(
-              maxLines: 1,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              "${controller.detail.value?.playlist.creator.nickname}",
-              style: TextStyle(
-                  fontSize: 13, color: AppThemes.white.withOpacity(0.7))),
+        Expanded(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth: Adapt.screenW() -
+                    Dimens.gap_dp35 -
+                    Dimens.gap_dp14 -
+                    Dimens.gap_dp30 -
+                    30),
+            child: Text(
+                maxLines: 1,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                "${controller.detail.value?.playlist.creator.nickname}",
+                style: TextStyle(
+                    fontSize: 13, color: AppThemes.white.withOpacity(0.7))),
+          ),
         ),
         SizedBox(width: Dimens.gap_dp4),
         //focuse creator
@@ -155,7 +157,7 @@ class PlaylistDetailTopPlaceholder extends StatelessWidget {
     return Row(
       children: [
         Column(
-          mainAxisSize: MainAxisSize.max,
+          // mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // //突出的背景
@@ -188,7 +190,8 @@ class PlaylistDetailTopPlaceholder extends StatelessWidget {
         SizedBox(width: Dimens.gap_dp14),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(top: Dimens.gap_dp10),
+            padding: EdgeInsets.only(top: Dimens.gap_dp12),
+            // height: 112,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -200,7 +203,7 @@ class PlaylistDetailTopPlaceholder extends StatelessWidget {
                           BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
                     )),
                 SizedBox(
-                  height: Dimens.gap_dp10,
+                  height: Dimens.gap_dp14,
                 ),
                 Container(
                     margin: EdgeInsets.only(right: Dimens.gap_dp36),
@@ -211,7 +214,7 @@ class PlaylistDetailTopPlaceholder extends StatelessWidget {
                           BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
                     )),
                 SizedBox(
-                  height: Dimens.gap_dp10,
+                  height: Dimens.gap_dp14,
                 ),
                 Row(
                   children: [

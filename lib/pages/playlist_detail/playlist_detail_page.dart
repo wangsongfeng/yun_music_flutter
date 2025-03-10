@@ -127,8 +127,8 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
           changed - controller.prev_dy; //新的一个y值减去前一次的y值然后累加，作为加载到图片上的高度。
     }
 
-    if (controller.extraPicHeight > 240) {
-      controller.extraPicHeight = 240;
+    if (controller.extraPicHeight > 150.0) {
+      controller.extraPicHeight = 150.0;
     }
 
     setState(() {

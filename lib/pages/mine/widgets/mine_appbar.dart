@@ -171,5 +171,6 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(50 + Adapt.topPadding());
+  Size get preferredSize =>
+      Size.fromHeight(Get.theme.appBarTheme.toolbarHeight ?? 56);
 }

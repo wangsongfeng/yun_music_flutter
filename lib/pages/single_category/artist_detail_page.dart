@@ -199,13 +199,13 @@ class _ArtistDetailPageState extends State<ArtistDetailPage>
           controller?.prev_dy.value); //新的一个y值减去前一次的y值然后累加，作为加载到图片上的高度。
     }
 
-    if (controller!.extraPicHeight.value > 240) {
-      controller?.extraPicHeight.value = 240.0;
+    if (controller!.extraPicHeight.value > 180) {
+      controller?.extraPicHeight.value = 180.0;
     }
 
     //更新数据
     controller?.prev_dy.value = changed;
-    controller?.extraPicHeight.value = controller!.extraPicHeight.value;
+    // controller?.extraPicHeight.value = controller!.extraPicHeight.value;
   }
 
   @override

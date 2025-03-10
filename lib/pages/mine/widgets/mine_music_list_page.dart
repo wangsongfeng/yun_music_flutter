@@ -29,7 +29,7 @@ class _MineMusicListPageState extends State<MineMusicListPage> {
               child: Center(child: MusicLoading()),
             )
           : CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               slivers: [
                 SliverPadding(
                   padding: EdgeInsets.only(
