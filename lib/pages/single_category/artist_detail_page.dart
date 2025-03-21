@@ -14,7 +14,7 @@ import 'package:yun_music/utils/approute_observer.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 import '../../commons/event/index.dart';
-import '../../commons/player/widgets/music_playbar_overlay.dart';
+import '../../vmusic/comment/player/widgets/music_playbar_overlay.dart';
 import '../../commons/widgets/keep_alive_wrapper.dart';
 import '../../commons/widgets/music_loading.dart';
 import '../../utils/image_utils.dart';

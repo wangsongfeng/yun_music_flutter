@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/utils/adapt.dart';
 
-import '../../commons/player/bottom_player_controller.dart';
+import '../comment/player/bottom_player_controller.dart';
 import '../../commons/res/dimens.dart';
 import '../../utils/image_utils.dart';
 

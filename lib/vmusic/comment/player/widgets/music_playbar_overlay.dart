@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/player_service.dart';
+import 'package:yun_music/vmusic/comment/player/player_service.dart';
 import 'package:yun_music/utils/adapt.dart';
 
 class MusicPlaybarOverlay {

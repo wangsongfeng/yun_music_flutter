@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/widgets/music_playbar_overlay.dart';
+import 'package:yun_music/vmusic/comment/player/widgets/music_playbar_overlay.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';

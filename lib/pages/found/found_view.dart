@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/commons/res/app_themes.dart';
+import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
 import 'package:yun_music/pages/found/found_controller.dart';
-import 'dart:math' as math;
+
+import '../../commons/res/dimens.dart';
+import '../../utils/adapt.dart';
+import '../../vmusic/playing_controller.dart';
+import '../blog_page/blog_home_page.dart';
+import 'widgets/found_appbar.dart';
 
 class FoundPage extends StatefulWidget {
   const FoundPage({super.key});
@@ -21,72 +28,92 @@ class _FoundPageState extends State<FoundPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Found'),
-      ),
-      body: Center(
-          child: ClipPath(
-        clipper: MyClipper(),
-        child: Container(
-          width: 200,
-          height: 30,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                Color(0xFFFFD5D5),
-                Color(0xFFFFECE6),
-              ])),
-        ),
-      )),
+      backgroundColor: AppThemes.bg_color,
+      extendBodyBehindAppBar: false,
+      appBar: FoundAppbar(controller: controller),
+      body: Obx(() {
+        return Container(
+          margin: EdgeInsets.only(
+            bottom: PlayingController.to.mediaItems.isNotEmpty
+                ? Adapt.tabbar_padding() + kToolbarHeight
+                : Adapt.tabbar_padding(),
+          ),
+          child: TabBarView(controller: controller.tabController, children: [
+            const FoundMusicPage(),
+            const KeepAliveWrapper(child: BlogHomePage()),
+            Container()
+          ]),
+        );
+      }),
     );
   }
 }
 
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-
-    path.moveTo(0, 0);
-    final center = Offset(size.height / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2;
-    path.arcTo(Rect.fromCircle(center: center, radius: radius), math.pi / 2,
-        math.pi, true);
-    path.close();
-    path.moveTo(size.height / 2, size.height);
-    path.lineTo(size.width - 30, size.height);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.height / 2, 0);
-    return path;
-  }
+class FoundMusicPage extends StatefulWidget {
+  const FoundMusicPage({super.key});
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
-  }
+  State<FoundMusicPage> createState() => _FoundMusicPageState();
 }
 
+class _FoundMusicPageState extends State<FoundMusicPage>
+    with AutomaticKeepAliveClientMixin {
+  final controller = GetInstance().putOrFind(() => FoundController());
 
-/**
- * 1、moveTo  就把绘制的七点移动到指定的位置
- * 2、lineTo  就是从起点绘制一条直线到 lineTo 里面指定的一个点
- * 3、quadraticBezierTo  是绘制二阶贝塞尔曲线的 
- * path.quadraticBezierTo(size.width / 2, size.height, size.width, size.height / 2);
- * 需要三个点，一个起点，一个控制点，一个终点
- * 
- * 4、cubicTo 绘制三阶贝塞尔曲线的 需要两个控制点
- * 
- * 5、arcTo  方法是绘制弧线的，
- * arcTo(Rect rect, double startAngle, double sweepAngle, bool forceMoveTo)
- * rect: 圆弧所在矩形
- * startAngle : 开始弧度
- * sweepAngle : 需要绘制的弧度大小
- * forceMoveTo  : 如果“forceMoveTo”参数为false，则添加一条直线段和一条弧段。
- * 如果“forceMoveTo”参数为true，则启动一个新的子路径，其中包含一个弧段。
- * 
- * 6、addRect 绘制矩形。
- * 7、addOval 绘制椭圆。
- */
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Column(
+      children: [
+        Container(
+          color: Colors.transparent,
+          height: Dimens.gap_dp32,
+          child: TabBar(
+            controller: controller.musicTabController,
+            tabs: [for (var i in controller.tabsConfig) Tab(text: i['label'])],
+            padding: EdgeInsets.only(
+                left: Dimens.gap_dp6,
+                right: Dimens.gap_dp50,
+                top: Dimens.gap_dp2),
+            labelPadding:
+                EdgeInsets.only(left: Dimens.gap_dp12, right: Dimens.gap_dp12),
+            isScrollable: true,
+            labelStyle: TextStyle(
+                fontSize: Dimens.font_sp13, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: TextStyle(
+                fontSize: Dimens.font_sp13, fontWeight: FontWeight.w500),
+            dividerColor: Colors.transparent,
+            indicatorColor: Colors.transparent,
+            indicator: null,
+            indicatorPadding: EdgeInsets.zero,
+            unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
+            labelColor: const Color.fromARGB(255, 51, 51, 51),
+            enableFeedback: true,
+            dividerHeight: 0,
+            splashBorderRadius: BorderRadius.circular(10),
+            tabAlignment: TabAlignment.center,
+            onTap: (value) {
+              controller.pageController.animateToPage(value,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.easeIn);
+            },
+          ),
+        ),
+        Expanded(
+            child: PageView.builder(
+                physics: const ClampingScrollPhysics(),
+                itemCount: controller.tabsConfig.length,
+                controller: controller.pageController,
+                onPageChanged: (page) {
+                  controller.tabController.animateTo(page);
+                },
+                itemBuilder: (context, index) {
+                  return Container();
+                }))
+      ],
+    );
+  }
+}

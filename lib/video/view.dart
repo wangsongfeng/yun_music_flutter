@@ -78,7 +78,7 @@ class _VideoPageState extends State<VideoPage> {
                   );
                   // video
                   var width = Adapt.screenW();
-                  var height = Adapt.screenH();
+                  var height = Adapt.screenH() - Adapt.tabbar_padding();
                   var fitWith = true;
                   if (player!.videoInfo.value!.video!.width! /
                           player.videoInfo.value!.video!.height! >=
@@ -96,24 +96,36 @@ class _VideoPageState extends State<VideoPage> {
                   // print(height);
                   Widget content = Container();
 
-                  if (player.controllerValue?.value.isInitialized == false) {
+                  if (player.controllerValue != null &&
+                      player.controllerValue?.value.isInitialized == false) {
                     content = Center(
                       child: _buildCover(player, fitWith, height),
                     );
                   } else {
                     content = SizedBox(
-                        // height: height,
+                        width: width,
+                        height: height,
                         child: AspectRatio(
-                      aspectRatio:
-                          player.controllerValue?.value.aspectRatio ?? 0.75,
-                      child: VideoPlayer(player.controllerValue!),
-                    ));
+                          aspectRatio: width / height,
+                          child: VideoPlayer(player.controllerValue!),
+                        ));
                   }
+
+                  bool isBuffing = true;
+
+                  if (player.controller.value == null) {
+                    isBuffing = true;
+                    print("加载状态1-${isBuffing}");
+                  } else {
+                    isBuffing =
+                        player.controllerValue?.value.isBuffering ?? true;
+                    print("加载状态2-${isBuffing}");
+                  }
+
                   return VideoContent(
                     videoController: player,
                     video: content,
-                    isBuffering:
-                        player.controllerValue?.value.isBuffering ?? true,
+                    isBuffering: isBuffing,
                     rightButtonColumn: rightButtons,
                     userInfoWidget: VideoUserInfo(controller: player),
                     onSingleTap: () async {
@@ -194,8 +206,7 @@ class _VideoPageState extends State<VideoPage> {
   Widget _buildCover(VPVideoController? player, bool fitWidth, double height) {
     return CachedNetworkImage(
       //https://dy.ttentau.top/images/
-      imageUrl:
-          "https://dy.ttentau.top/images/${player!.videoInfo.value!.video!.cover!.url_list!.first}",
+      imageUrl: "${player!.videoInfo.value!.video!.cover!.url_list!.first}",
       width: Adapt.screenW(),
       height: height,
       fit: fitWidth ? BoxFit.fitWidth : BoxFit.cover,

@@ -17,6 +17,20 @@ class PlaylistDetailTopNormal extends StatelessWidget {
 
   final PlaylistDetailController controller;
 
+  Size boundingTextSize(String text, TextStyle style,
+      {int maxLines = 2 ^ 31, double maxWidth = double.infinity}) {
+    if (text.isEmpty) {
+      return Size.zero;
+    }
+    final TextPainter textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+      text: TextSpan(text: text, style: style),
+      maxLines: maxLines,
+      textAlign: TextAlign.left,
+    )..layout(maxWidth: maxWidth);
+    return textPainter.size;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -97,6 +111,18 @@ class PlaylistDetailTopNormal extends StatelessWidget {
   }
 
   Widget _buildCreatView() {
+    final maxWidth = Adapt.screenW() -
+        Dimens.gap_dp35 -
+        Dimens.gap_dp14 -
+        Dimens.gap_dp25 -
+        Dimens.gap_dp8 -
+        Dimens.gap_dp30 -
+        controller.cover_width;
+    final createName = "${controller.detail.value?.playlist.creator.nickname}";
+    final creatStyle =
+        TextStyle(fontSize: 13, color: AppThemes.white.withOpacity(0.7));
+    final createSize = boundingTextSize(createName, creatStyle,
+        maxLines: 1, maxWidth: Adapt.screenW());
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -119,23 +145,22 @@ class PlaylistDetailTopNormal extends StatelessWidget {
                   ),
                 ]))),
         SizedBox(width: Dimens.gap_dp4),
-        Expanded(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-                maxWidth: Adapt.screenW() -
-                    Dimens.gap_dp35 -
-                    Dimens.gap_dp14 -
-                    Dimens.gap_dp30 -
-                    30),
+        if (createSize.width >= maxWidth)
+          Expanded(
             child: Text(
                 maxLines: 1,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
-                "${controller.detail.value?.playlist.creator.nickname}",
-                style: TextStyle(
-                    fontSize: 13, color: AppThemes.white.withOpacity(0.7))),
-          ),
-        ),
+                createName,
+                style: creatStyle),
+          )
+        else
+          Text(
+              maxLines: 1,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              createName,
+              style: creatStyle),
         SizedBox(width: Dimens.gap_dp4),
         //focuse creator
         if (controller.detail.value?.playlist.creator != null)

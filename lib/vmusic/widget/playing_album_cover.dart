@@ -1,7 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../commons/player/widgets/rotation_cover_image.dart';
+import '../comment/player/widgets/rotation_cover_image.dart';
 import '../../commons/res/dimens.dart';
 import '../../commons/res/down_up_fade.dart';
 import '../../commons/values/constants.dart';

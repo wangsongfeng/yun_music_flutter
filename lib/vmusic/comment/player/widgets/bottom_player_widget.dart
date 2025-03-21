@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:yun_music/commons/player/bottom_player_controller.dart';
-import 'package:yun_music/commons/player/widgets/rotation_cover_image.dart';
+import 'package:yun_music/vmusic/comment/player/bottom_player_controller.dart';
+import 'package:yun_music/vmusic/comment/player/widgets/rotation_cover_image.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/values/constants.dart';
@@ -17,8 +17,8 @@ import 'package:yun_music/vmusic/playing_controller.dart';
 import 'package:yun_music/vmusic/widget/play_list_content.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 
-import '../../event/index.dart';
-import '../../event/play_bar_event.dart';
+import '../../../../commons/event/index.dart';
+import '../../../../commons/event/play_bar_event.dart';
 
 class BottomPlayerBar extends StatefulWidget {
   const BottomPlayerBar({super.key, this.bottomPadding = 0});

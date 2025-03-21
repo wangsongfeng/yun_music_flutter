@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/player/widgets/music_playbar_overlay.dart';
+import 'package:yun_music/vmusic/comment/player/widgets/music_playbar_overlay.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/music_songs_event.dart';
 import 'package:yun_music/utils/common_utils.dart';

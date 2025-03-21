@@ -15,7 +15,7 @@ import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
-import '../commons/player/bottom_player_controller.dart';
+import '../vmusic/comment/player/bottom_player_controller.dart';
 
 final box = GetStorage();
 
@@ -395,19 +395,4 @@ getSystemUiOverlayStyle({bool isDark = true}) {
   return value;
 }
 
-// class CommonUtils {
-//   static Size boundingTextSize(String text, TextStyle style,
-//       {int maxLines = 2 ^ 31, double maxWidth = double.infinity}) {
-//     if (text.isEmpty) {
-//       return Size.zero;
-//     }
-//     final TextPainter textPainter = TextPainter(
-//         textDirection: TextDirection.ltr,
-//         text: TextSpan(text: text, style: style),
-//         maxLines: maxLines,
-//         textAlign: TextAlign.left,
-//       )
-//       ..layout(maxWidth: maxWidth);
-//     return textPainter.size;
-//   }
-// }
+class CommonUtils {}

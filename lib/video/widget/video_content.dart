@@ -90,23 +90,22 @@ class VideoContent extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: userInfoWidget,
                   ),
-                  // if (isBuffering)
-                  //   const Center(
-                  //     child: CircularProgressIndicator(
-                  //       color: AppThemes.app_main_light,
-                  //     ),
-                  //   ),
-                  Obx(() {
-                    if (videoController.controllerValue?.value.isBuffering ==
-                        true) {
-                      return Center(
-                        child: LoadingAnimationWidget.progressiveDots(
-                            color: Colors.white, size: Dimens.gap_dp32),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  })
+                  if (isBuffering)
+                    Center(
+                      child: LoadingAnimationWidget.progressiveDots(
+                          color: Colors.white, size: Dimens.gap_dp32),
+                    ),
+                  // Obx(() {
+                  //   if (videoController.controllerValue?.value.isBuffering ==
+                  //       true) {
+                  //     return Center(
+                  //       child: LoadingAnimationWidget.progressiveDots(
+                  //           color: Colors.white, size: Dimens.gap_dp32),
+                  //     );
+                  //   } else {
+                  //     return const SizedBox.shrink();
+                  //   }
+                  // })
                 ],
               )),
               GestureDetector(

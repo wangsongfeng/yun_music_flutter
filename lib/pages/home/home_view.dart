@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
-import 'package:yun_music/pages/blog_page/blog_home_page.dart';
 import 'package:yun_music/pages/home/drawer/drawer_view.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/pages/home/widgets/home_top_bar.dart';
@@ -17,11 +16,12 @@ import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/vmusic/playing_binding.dart';
 import 'package:yun_music/vmusic/playing_controller.dart';
 
-import '../../commons/player/player_service.dart';
-import '../../commons/player/widgets/bottom_player_widget.dart';
-import '../../commons/player/widgets/music_playbar_overlay.dart';
+import '../../vmusic/comment/player/player_service.dart';
+import '../../vmusic/comment/player/widgets/bottom_player_widget.dart';
+import '../../vmusic/comment/player/widgets/music_playbar_overlay.dart';
 import '../../commons/res/dimens.dart';
 import '../dynamic_page/dynamic_page.dart';
+import '../found/found_view.dart';
 import '../mine/mine_page.dart';
 import '../recommend/recom_view.dart';
 import '../village/village_page.dart';
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage>
                   controller: controller.pageController,
                   children: const [
                     RecomPage(),
-                    KeepAliveWrapper(child: BlogHomePage()),
+                    KeepAliveWrapper(child: FoundPage()),
                     VillagePage(),
                     KeepAliveWrapper(child: DynamicPage()),
                     MinePage(),

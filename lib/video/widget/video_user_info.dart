@@ -32,9 +32,9 @@ class VideoUserInfo extends StatelessWidget {
               1
             ],
             colors: [
-              Colors.black.withOpacity(0.05),
+              Colors.black.withOpacity(0.0),
               Colors.black.withOpacity(0.01),
-              Colors.black.withOpacity(0)
+              Colors.black.withOpacity(0.04)
             ]),
       ),
       child: Column(

@@ -22,14 +22,14 @@ class _DynamicPageState extends State<DynamicPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: DynamicAppbar(controller: controller),
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       body: Obx(() {
         return Container(
           margin: EdgeInsets.only(
-              bottom: PlayingController.to.mediaItems.isNotEmpty
-                  ? Adapt.tabbar_padding() + kToolbarHeight
-                  : Adapt.tabbar_padding(),
-              top: Adapt.topPadding() + Get.theme.appBarTheme.toolbarHeight!),
+            bottom: PlayingController.to.mediaItems.isNotEmpty
+                ? Adapt.tabbar_padding() + kToolbarHeight
+                : Adapt.tabbar_padding(),
+          ),
           child:
               TabBarView(controller: controller.tabController, children: const [
             SquarePage(),

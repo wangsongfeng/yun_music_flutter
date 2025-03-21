@@ -12,7 +12,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yun_music/commons/net/init_dio.dart';
-import 'package:yun_music/commons/player/player_service.dart';
+import 'package:yun_music/vmusic/comment/player/player_service.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/thems.dart';
 import 'package:yun_music/services/auth_service.dart';

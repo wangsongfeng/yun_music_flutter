@@ -4,7 +4,7 @@ import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 
-import '../../../commons/player/widgets/rotation_cover_image.dart';
+import '../player/widgets/rotation_cover_image.dart';
 import '../../../utils/common_utils.dart';
 import '../comment_controller.dart';
 

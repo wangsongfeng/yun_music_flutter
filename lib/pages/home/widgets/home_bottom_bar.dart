@@ -7,7 +7,7 @@ import 'package:yun_music/utils/adapt.dart';
 
 import '../../../commons/event/index.dart';
 import '../../../commons/event/play_bar_event.dart';
-import '../../../commons/player/player_service.dart';
+import '../../../vmusic/comment/player/player_service.dart';
 import '../../../commons/res/app_themes.dart';
 import '../../../commons/res/dimens.dart';
 import '../../../utils/image_utils.dart';
