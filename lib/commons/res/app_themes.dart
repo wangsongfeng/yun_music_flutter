@@ -130,5 +130,7 @@ class AppThemes {
 
   static const textColor333 = Color(0xFF333333);
 
+  static const textColor666 = Color(0xFF666666);
+
   static const Color search_parse_color = Color.fromARGB(255, 88, 121, 167);
 }

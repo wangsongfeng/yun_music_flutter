@@ -1,38 +1,34 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
-import 'package:yun_music/commons/res/dimens.dart';
-import 'package:yun_music/commons/widgets/element_title_widget.dart';
-import 'package:yun_music/commons/widgets/general_song_two.dart';
-import 'package:yun_music/pages/recommend/models/creative_model.dart';
 import 'package:yun_music/pages/recommend/models/recom_model.dart';
-import 'package:yun_music/pages/recommend/models/recom_new_song.dart';
-import 'package:yun_music/utils/adapt.dart';
 
-class RecomSlideSongAlign extends StatelessWidget {
-  const RecomSlideSongAlign(
-      {super.key, required this.blocks, required this.itemHeight});
+import '../../../commons/res/app_themes.dart';
+import '../../../commons/res/dimens.dart';
+import '../../../commons/widgets/general_song_two.dart';
+import '../../recommend/models/creative_model.dart';
+import '../../recommend/models/recom_new_song.dart';
+import 'found_appbar.dart';
 
+double FoundNewSongImageWidth = Dimens.gap_dp56;
+
+class FoundNewSong extends StatelessWidget {
+  const FoundNewSong({super.key, required this.title, required this.blocks});
+
+  final String title;
   final Blocks blocks;
-
-  final double itemHeight;
 
   @override
   Widget build(BuildContext context) {
+    final double itemheight =
+        FoundNewSongImageWidth * 3 + Dimens.gap_dp8 * 3 + Dimens.gap_dp30;
     return Container(
-      height: itemHeight,
-      decoration: BoxDecoration(
-        color: Get.theme.cardColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(Dimens.gap_dp10),
-        ),
-      ),
+      color: Colors.transparent,
+      padding: EdgeInsets.only(top: Dimens.gap_dp8, bottom: 0),
+      height: itemheight,
       child: Column(
         children: [
-          ElementTitleWidget(
-            elementModel: blocks.uiElement!,
-            onPressed: () {},
-          ),
+          FoundSectionTitleView(title: title),
           Expanded(
               child: PageView.builder(
                   controller: PageController(viewportFraction: 0.91),
@@ -60,14 +56,14 @@ class RecomSlideSongAlign extends StatelessWidget {
           children: [
             if (widgets.isNotEmpty)
               Container(
-                margin: EdgeInsets.only(left: Adapt.px(58)),
+                margin: EdgeInsets.only(left: FoundNewSongImageWidth),
                 child: const Divider(
                   height: 1,
                   color: AppThemes.bg_color,
                 ),
               ),
             SizedBox(
-              height: Adapt.px(58),
+              height: FoundNewSongImageWidth,
               child: GeneralSongTwo(
                 songInfo: song,
                 uiElementModel: element.uiElement,

@@ -21,7 +21,6 @@ class BujuanApi {
     final metaData = DioMetaData(joinUri('/weapi/personalized/playlist'),
         data: params, options: joinOptions());
     final response = await httpManager.postUri(metaData);
-
     final model = BuSongPlayListWarp.fromJson(jsonDecode(response.data));
     return model;
   }

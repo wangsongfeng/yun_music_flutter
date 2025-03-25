@@ -53,7 +53,7 @@ class BlogHomeBanner extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(
             Dimens.gap_dp15, Dimens.gap_dp5, Dimens.gap_dp15, 0),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(Dimens.gap_dp12),
+          borderRadius: BorderRadius.circular(Dimens.gap_dp8),
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
             return NetworkImgLayer(

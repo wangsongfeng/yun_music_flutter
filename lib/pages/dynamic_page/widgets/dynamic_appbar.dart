@@ -35,7 +35,7 @@ class DynamicAppbar extends StatelessWidget implements PreferredSizeWidget {
                     TabBar(
                       controller: controller.tabController,
                       tabs: controller.myTabs,
-                      // padding: EdgeInsets.only(top: Dimens.gap_dp6),
+                      overlayColor: WidgetStateProperty.all(Colors.transparent),
                       labelPadding: const EdgeInsets.only(left: 20, right: 20),
                       isScrollable: false,
                       labelStyle: TextStyle(

@@ -27,7 +27,7 @@ class _VillagePageState extends State<VillagePage>
     super.build(context);
     return Scaffold(
       backgroundColor: AppThemes.white,
-      appBar: BlogHomeAppbar(rightClickTap: (){
+      appBar: BlogHomeAppbar(rightClickTap: () {
         Get.toNamed(RouterPath.Video_Lists);
       }),
       extendBodyBehindAppBar: true,
@@ -73,6 +73,8 @@ class _VillagePageState extends State<VillagePage>
                         unselectedLabelColor:
                             const Color.fromARGB(255, 114, 114, 114),
                         labelColor: const Color.fromARGB(255, 51, 51, 51),
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
                         indicator: CustomUnderlineTabIndicator(
                             width: 0.0,
                             borderSide: BorderSide(

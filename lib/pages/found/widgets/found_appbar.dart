@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/pages/found/found_controller.dart';
+import 'package:yun_music/utils/common_utils.dart';
 
 import '../../../commons/res/app_themes.dart';
 import '../../../commons/res/dimens.dart';
@@ -32,6 +33,7 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TabBar(
+                      overlayColor: WidgetStateProperty.all(Colors.transparent),
                       controller: controller.tabController,
                       tabs: controller.myTabs,
                       // padding: EdgeInsets.only(top: Dimens.gap_dp6),
@@ -42,7 +44,7 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                           fontSize: Dimens.font_sp15,
                           fontWeight: FontWeight.w600),
                       dividerColor: Colors.transparent,
-                      indicatorColor: AppThemes.indicator_color,
+                      indicatorColor: Colors.transparent,
                       unselectedLabelColor:
                           const Color.fromARGB(255, 114, 114, 114),
                       labelColor: const Color.fromARGB(254, 51, 51, 51),
@@ -57,10 +59,11 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                           bottom: Dimens.gap_dp8, top: Dimens.gap_dp16),
                       indicatorSize: TabBarIndicatorSize.label,
                       enableFeedback: true,
-                      splashBorderRadius: BorderRadius.circular(10),
                       tabAlignment: TabAlignment.center,
                       onTap: (value) {
-                        // clickCallback.call(value);
+                        controller.pageController.animateToPage(value,
+                            duration: const Duration(milliseconds: 100),
+                            curve: Curves.easeIn);
                       },
                     ),
                   ],
@@ -96,4 +99,34 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize =>
       Size.fromHeight(Get.theme.appBarTheme.toolbarHeight!);
+}
+
+class FoundSectionTitleView extends StatelessWidget {
+  const FoundSectionTitleView(
+      {super.key, required this.title, this.showRightArrow = false});
+
+  final String title;
+  final bool showRightArrow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
+      height: Dimens.gap_dp30,
+      child: Padding(
+        padding: EdgeInsets.only(left: Dimens.gap_dp16, right: Dimens.gap_dp16),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: body1Style().copyWith(
+                  fontSize: Dimens.font_sp14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black.withOpacity(0.8)),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }

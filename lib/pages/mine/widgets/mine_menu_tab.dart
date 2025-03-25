@@ -48,7 +48,7 @@ class MineMenuTab extends StatelessWidget {
                     TabBar(
                       controller: controller.tabController,
                       tabs: controller.myTabs,
-                      // padding: EdgeInsets.only(top: Dimens.gap_dp6),
+                      overlayColor: WidgetStateProperty.all(Colors.transparent),
                       labelPadding: const EdgeInsets.only(left: 40, right: 40),
                       isScrollable: false,
                       labelStyle: TextStyle(

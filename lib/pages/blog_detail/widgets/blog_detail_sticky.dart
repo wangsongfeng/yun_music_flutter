@@ -57,6 +57,7 @@ class BlogDetailSticky extends StatelessWidget {
             indicatorPadding:
                 EdgeInsets.only(bottom: Dimens.gap_dp9, top: Dimens.gap_dp21),
             indicatorSize: TabBarIndicatorSize.label,
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
             enableFeedback: true,
             splashBorderRadius: BorderRadius.circular(10),
             tabAlignment: TabAlignment.center,

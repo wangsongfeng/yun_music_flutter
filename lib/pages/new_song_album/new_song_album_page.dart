@@ -83,6 +83,7 @@ class _NewSongAlbumPageState extends State<NewSongAlbumPage> with RouteAware {
             tabs: controller.myTabs,
             labelColor: Colors.white,
             unselectedLabelColor: AppThemes.app_main_light,
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
             controller: controller.tabController,
             isScrollable: false,
             dividerHeight: 0,

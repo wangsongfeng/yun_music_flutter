@@ -21,6 +21,7 @@ class AttentionController extends GetxController {
   Future _personalizedPlaylist() async {
     await BujuanApi.requestPersonPlayList().then((value) {
       playListWarp.value = value;
+      print(value.result?.length);
     });
 
     await BujuanApi.personalizedSongList().then((value) {

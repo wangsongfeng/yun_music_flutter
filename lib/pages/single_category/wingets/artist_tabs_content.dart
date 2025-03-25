@@ -17,7 +17,7 @@ class ArtistTabsContent extends StatelessWidget {
           TabBar(
             controller: controller.tabController,
             tabs: tabsWidget(),
-            // padding: EdgeInsets.only(top: Dimens.gap_dp6),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
             labelPadding:
                 EdgeInsets.only(left: Dimens.gap_dp26, right: Dimens.gap_dp26),
             isScrollable: false,

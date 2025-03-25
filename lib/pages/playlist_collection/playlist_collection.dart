@@ -94,6 +94,8 @@ class _PlaylistCollectionPageState extends State<PlaylistCollectionPage>
                             fontWeight: FontWeight.w600),
                         dividerColor: Colors.transparent,
                         indicatorColor: AppThemes.indicator_color,
+                        overlayColor:
+                            WidgetStateProperty.all(Colors.transparent),
                         unselectedLabelColor:
                             const Color.fromARGB(255, 114, 114, 114),
                         labelColor: const Color.fromARGB(255, 51, 51, 51),

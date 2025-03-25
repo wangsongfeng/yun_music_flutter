@@ -98,6 +98,7 @@ class _SearchResultPageState extends State<SearchResultPage>
                 dividerColor: Colors.transparent,
                 indicatorColor: AppThemes.indicator_color,
                 unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
                 labelColor: const Color.fromARGB(255, 51, 51, 51),
                 indicator: CustomUnderlineTabIndicator(
                     width: 20,

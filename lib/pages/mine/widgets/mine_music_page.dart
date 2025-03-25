@@ -30,6 +30,7 @@ class MineMusicPage extends StatelessWidget {
                 fontSize: Dimens.font_sp12, fontWeight: FontWeight.w600),
             dividerColor: Colors.transparent,
             indicatorColor: AppThemes.indicator_color,
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
             indicatorWeight: 0.0,
             indicator: const UnderlineTabIndicator(),
             unselectedLabelColor: const Color.fromARGB(180, 114, 114, 114),

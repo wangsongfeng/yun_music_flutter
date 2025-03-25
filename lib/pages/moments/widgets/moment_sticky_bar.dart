@@ -30,6 +30,7 @@ class MomentStickyBar extends StatelessWidget {
           indicatorColor: AppThemes.indicator_color,
           unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
           labelColor: const Color.fromARGB(255, 51, 51, 51),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
           indicator: CustomUnderlineTabIndicator(
               width: 0.0,
               borderSide: BorderSide(

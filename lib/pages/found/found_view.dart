@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
 import 'package:yun_music/pages/found/found_controller.dart';
+import 'package:yun_music/pages/found/found_picked_view.dart';
+import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/res/dimens.dart';
 import '../../utils/adapt.dart';
@@ -68,52 +70,110 @@ class _FoundMusicPageState extends State<FoundMusicPage>
     super.build(context);
     return Column(
       children: [
-        Container(
-          color: Colors.transparent,
-          height: Dimens.gap_dp32,
-          child: TabBar(
-            controller: controller.musicTabController,
-            tabs: [for (var i in controller.tabsConfig) Tab(text: i['label'])],
-            padding: EdgeInsets.only(
-                left: Dimens.gap_dp6,
-                right: Dimens.gap_dp50,
-                top: Dimens.gap_dp2),
-            labelPadding:
-                EdgeInsets.only(left: Dimens.gap_dp12, right: Dimens.gap_dp12),
-            isScrollable: true,
-            labelStyle: TextStyle(
-                fontSize: Dimens.font_sp13, fontWeight: FontWeight.w600),
-            unselectedLabelStyle: TextStyle(
-                fontSize: Dimens.font_sp13, fontWeight: FontWeight.w500),
-            dividerColor: Colors.transparent,
-            indicatorColor: Colors.transparent,
-            indicator: null,
-            indicatorPadding: EdgeInsets.zero,
-            unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
-            labelColor: const Color.fromARGB(255, 51, 51, 51),
-            enableFeedback: true,
-            dividerHeight: 0,
-            splashBorderRadius: BorderRadius.circular(10),
-            tabAlignment: TabAlignment.center,
-            onTap: (value) {
-              controller.pageController.animateToPage(value,
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.easeIn);
-            },
-          ),
+        Stack(
+          children: [
+            Container(
+              color: Colors.transparent,
+              height: Dimens.gap_dp28,
+              child: TabBar(
+                controller: controller.musicTabController,
+                tabs: [
+                  for (var i in controller.tabsConfig) Tab(text: i['label'])
+                ],
+                padding: EdgeInsets.only(
+                  left: Dimens.gap_dp12,
+                  right: Dimens.gap_dp36,
+                ),
+                labelPadding: EdgeInsets.only(
+                    left: Dimens.gap_dp14,
+                    right: Dimens.gap_dp14,
+                    top: Dimens.gap_dp2),
+                isScrollable: true,
+                labelStyle: TextStyle(
+                    fontSize: Dimens.font_sp13, fontWeight: FontWeight.w600),
+                unselectedLabelStyle: TextStyle(
+                    fontSize: Dimens.font_sp13, fontWeight: FontWeight.w500),
+                indicatorColor: Colors.transparent,
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
+                indicator: BoxDecoration(
+                    color: AppThemes.color_242,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(Dimens.gap_dp14)),
+                indicatorPadding: EdgeInsets.only(
+                    left: -Dimens.gap_dp12, right: -Dimens.gap_dp12),
+                unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
+                labelColor: const Color.fromARGB(255, 51, 51, 51),
+                enableFeedback: true,
+                dividerHeight: 0,
+                splashBorderRadius: BorderRadius.circular(Dimens.gap_dp14),
+                tabAlignment: TabAlignment.center,
+                onTap: (value) {
+                  controller.musicPageController.animateToPage(value,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.easeIn);
+                },
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: Dimens.gap_dp46,
+                height: Dimens.gap_dp28,
+                decoration: BoxDecoration(
+                    color: AppThemes.bg_color,
+                    boxShadow: const [
+                      BoxShadow(
+                          color: AppThemes.bg_color,
+                          offset: Offset(1, 1),
+                          blurRadius: 5.0),
+                    ],
+                    gradient: //线性渐变
+                        LinearGradient(
+                      colors: [
+                        AppThemes.bg_color.withOpacity(0.1),
+                        AppThemes.bg_color
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    )),
+                child: GestureDetector(
+                  child: Center(
+                    child: Image.asset(
+                        ImageUtils.getImagePath("cm8_profile_head_arrow_down")),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         Expanded(
             child: PageView.builder(
-                physics: const ClampingScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.tabsConfig.length,
-                controller: controller.pageController,
+                controller: controller.musicPageController,
                 onPageChanged: (page) {
-                  controller.tabController.animateTo(page);
+                  controller.musicTabController.animateTo(page);
                 },
                 itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return KeepAliveWrapper(
+                        child: FoundPickedView(controller: controller));
+                  }
                   return Container();
                 }))
       ],
     );
+  }
+}
+
+class LeftEdgeClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTRB(0, 0, size.width * 0.2, size.height);
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> oldClipper) {
+    return false;
   }
 }

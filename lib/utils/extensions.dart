@@ -6,3 +6,12 @@ extension ImageExtension on num {
     return (this * Adapt.devicePixelRatio()).round();
   }
 }
+
+extension ListExtension on List {
+  List<List<E>> chunked<E>(int chunkSize) {
+    return [
+      for (var i = 0; i < length; i += chunkSize)
+        sublist(i, i + chunkSize).cast<E>()
+    ];
+  }
+}
