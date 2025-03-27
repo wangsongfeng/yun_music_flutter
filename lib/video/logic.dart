@@ -9,7 +9,6 @@ import 'package:yun_music/video/state.dart';
 import '../api/music_api.dart';
 import '../commons/event/index.dart';
 import '../commons/event/play_bar_event.dart';
-import 'models/avatar_info.dart';
 
 class VideoLogic extends GetxController with WidgetsBindingObserver {
   final videoState = VideoState();
@@ -56,58 +55,58 @@ class VideoLogic extends GetxController with WidgetsBindingObserver {
   Future<void> _getVideoLists({bool showLoading = false}) async {
     if (showLoading) EasyLoading.show();
 
-    var videoList = List<VideoInfo>.empty(growable: true);
-    final hishortModel = await MusicApi.requestHiShortList();
-    for (var model in hishortModel!) {
-      final videoInfo = VideoInfo();
-      final avatarUrlsInfo = AvatarUrlsInfo(
-          100,
-          100,
-          [
-            "https://iknow-pic.cdn.bcebos.com/96dda144ad345982c29d3c0f1ef431adcbef841c"
-          ],
-          "uri");
-      videoInfo.avatar = AvatarInfo(
-          avatarUrlsInfo, avatarUrlsInfo, "city", "uid", model.vidName);
-      videoInfo.desc = model.vidDescribe;
-      final statistics = Statistics(
-          digg_count: model.likeNums,
-          comment_count: 656,
-          collect_count: model.collectNums,
-          share_count: 145);
-      videoInfo.statistics = statistics;
+    // var videoList = List<VideoInfo>.empty(growable: true);
+    // final hishortModel = await MusicApi.requestHiShortList();
+    // for (var model in hishortModel!) {
+    //   final videoInfo = VideoInfo();
+    //   final avatarUrlsInfo = AvatarUrlsInfo(
+    //       100,
+    //       100,
+    //       [
+    //         "https://iknow-pic.cdn.bcebos.com/96dda144ad345982c29d3c0f1ef431adcbef841c"
+    //       ],
+    //       "uri");
+    //   videoInfo.avatar = AvatarInfo(
+    //       avatarUrlsInfo, avatarUrlsInfo, "city", "uid", model.vidName);
+    //   videoInfo.desc = model.vidDescribe;
+    //   final statistics = Statistics(
+    //       digg_count: model.likeNums,
+    //       comment_count: 656,
+    //       collect_count: model.collectNums,
+    //       share_count: 145);
+    //   videoInfo.statistics = statistics;
 
-      final music = Music();
-      final coverMedium = CoverMedium(url_list: [
-        "https://iknow-pic.cdn.bcebos.com/96dda144ad345982c29d3c0f1ef431adcbef841c"
-      ]);
-      music.cover_medium = coverMedium;
-      music.title = model.vidName;
-      videoInfo.music = music;
+    //   final music = Music();
+    //   final coverMedium = CoverMedium(url_list: [
+    //     "https://iknow-pic.cdn.bcebos.com/96dda144ad345982c29d3c0f1ef431adcbef841c"
+    //   ]);
+    //   music.cover_medium = coverMedium;
+    //   music.title = model.vidName;
+    //   videoInfo.music = music;
 
-      final jsonVideo = Video();
-      jsonVideo.width = 720;
-      jsonVideo.height = 1280;
-      final playAddr = PlayAddr(url_list: [model.firstPlayUrl!]);
-      jsonVideo.play_addr = playAddr;
-      final videoCover = CoverMedium(url_list: [model.coverUrl!]);
-      jsonVideo.cover = videoCover;
-      videoInfo.video = jsonVideo;
-      videoList.add(videoInfo);
-    }
-    videos.value = videoList;
+    //   final jsonVideo = Video();
+    //   jsonVideo.width = 720;
+    //   jsonVideo.height = 1280;
+    //   final playAddr = PlayAddr(url_list: [model.firstPlayUrl!]);
+    //   jsonVideo.play_addr = playAddr;
+    //   final videoCover = CoverMedium(url_list: [model.coverUrl!]);
+    //   jsonVideo.cover = videoCover;
+    //   videoInfo.video = jsonVideo;
+    //   videoList.add(videoInfo);
+    // }
+    // videos.value = videoList;
 
     //https://dy.ttentau.top/images/
 
-    // final detailModel = await MusicApi.getVideoLists();
-    // var videoLists = detailModel?.sublist(0, 30);
-    // final userList = await MusicApi.getUsersLists();
-    // videoLists = videoLists?.map((e) {
-    //   e.avatar =
-    //       userList?.firstWhere((u) => u.uid == e.author_user_id.toString());
-    //   return e;
-    // }).toList();
-    // videos.value = detailModel?.sublist(0, 30);
+    final detailModel = await MusicApi.getVideoLists();
+    var videoLists = detailModel?.sublist(0, 30);
+    final userList = await MusicApi.getUsersLists();
+    videoLists = videoLists?.map((e) {
+      e.avatar =
+          userList?.firstWhere((u) => u.uid == e.author_user_id.toString());
+      return e;
+    }).toList();
+    videos.value = detailModel?.sublist(0, 30);
     EasyLoading.dismiss();
     _initVideoController(videos.value!, 0);
   }

@@ -4,9 +4,6 @@ import 'package:yun_music/commons/values/constants.dart';
 import 'package:yun_music/pages/rank_list/models/ranklist_detail_section.dart';
 import 'package:yun_music/pages/rank_list/models/ranklist_item.dart';
 
-import '../../commons/event/index.dart';
-import '../../commons/event/play_bar_event.dart';
-
 class RanklistContrller extends GetxController {
   final items = Rx<List<RanklistItem>?>(null);
 
@@ -15,7 +12,6 @@ class RanklistContrller extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
 
     _request();
   }

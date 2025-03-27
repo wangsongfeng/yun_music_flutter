@@ -12,13 +12,16 @@ import '../../commons/res/app_themes.dart';
 import '../../commons/res/dimens.dart';
 import '../../utils/adapt.dart';
 import '../../utils/approute_observer.dart';
+import '../../utils/common_utils.dart';
 import '../../vmusic/playing_controller.dart';
 import 'windgets/rank_global_page.dart';
 import 'windgets/rank_official_page.dart';
 import 'windgets/rank_recom_page.dart';
 
 class RanklistView extends StatefulWidget {
-  const RanklistView({super.key});
+  const RanklistView({super.key, this.type = "normal"});
+
+  final String type;
 
   @override
   State<RanklistView> createState() => _RanklistViewState();
@@ -49,54 +52,66 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
   void didPopNext() {
     //上一个页面pop回到当前页面 viewWillappear
     super.didPopNext();
-    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
+    if (widget.type == "normal") {
+      eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    controller = GetInstance().putOrFind(() => RanklistContrller());
+    controller =
+        GetInstance().putOrFind(() => RanklistContrller(), tag: widget.type);
+    if (widget.type == "normal") {
+      eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppThemes.rank_list_bg_color,
-      appBar: MusicAppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(
-          '排行榜',
-          style: TextStyle(
-              fontSize: Dimens.font_sp16,
-              fontWeight: FontWeight.bold,
-              color: Get.isDarkMode
-                  ? AppThemes.white.withOpacity(0.9)
-                  : Colors.black),
-        ),
-        actions: [
-          UnconstrainedBox(
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding:
-                    const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
-                margin: const EdgeInsets.only(right: 15),
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-                    border: Border.all(
-                        color: const Color(0xFF999999).withOpacity(0.5))),
-                child: Text("定制首页榜单",
-                    style: TextStyle(
-                      color: const Color(0xFF333333),
-                      fontSize: Dimens.font_sp12,
-                    )),
+    if (widget.type == "normal") {
+      return Scaffold(
+        backgroundColor: AppThemes.rank_list_bg_color,
+        appBar: MusicAppBar(
+          backgroundColor: Colors.transparent,
+          title: Text(
+            '排行榜',
+            style: TextStyle(
+                fontSize: Dimens.font_sp16,
+                fontWeight: FontWeight.bold,
+                color: Get.isDarkMode
+                    ? AppThemes.white.withOpacity(0.9)
+                    : Colors.black),
+          ),
+          systemUiOverlayStyle: getSystemUiOverlayStyle(isDark: true),
+          actions: [
+            UnconstrainedBox(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 5, right: 5, top: 2, bottom: 2),
+                  margin: const EdgeInsets.only(right: 15),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(12.0)),
+                      border: Border.all(
+                          color: const Color(0xFF999999).withOpacity(0.5))),
+                  child: Text("定制首页榜单",
+                      style: TextStyle(
+                        color: const Color(0xFF333333),
+                        fontSize: Dimens.font_sp12,
+                      )),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      body: _buildContent(),
-    );
+          ],
+        ),
+        body: _buildContent(),
+      );
+    } else {
+      return _buildContent();
+    }
   }
 
   Widget _buildContent() {
@@ -105,7 +120,9 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
         : Padding(
             padding: EdgeInsets.only(
                 bottom: PlayingController.to.mediaItems.isNotEmpty
-                    ? Adapt.tabbar_padding()
+                    ? widget.type == "normal"
+                        ? Adapt.tabbar_padding()
+                        : 0
                     : 0),
             child: CustomScrollView(
               // physics: const ClampingScrollPhysics(),

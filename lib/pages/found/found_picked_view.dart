@@ -5,6 +5,7 @@ import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/pages/found/found_controller.dart';
 import 'package:yun_music/pages/found/widgets/found_new_song.dart';
 import 'package:yun_music/pages/found/widgets/found_playlist.dart';
+import 'package:yun_music/pages/found/widgets/found_turn_more.dart';
 
 import '../../commons/widgets/music_loading.dart';
 import '../../commons/widgets/music_refresh.dart';
@@ -58,6 +59,10 @@ class FoundPickedView extends StatelessWidget {
                       title: dic["title"], songList: dic["list"]);
                 } else if (dic["type"] == "newSong") {
                   return FoundNewSong(title: dic["title"], blocks: dic["list"]);
+                } else if (dic["type"] == "more") {
+                  return FoundTurnMore(
+                    moreDic: dic["list"],
+                  );
                 }
                 return Container();
               },

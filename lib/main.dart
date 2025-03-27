@@ -148,7 +148,7 @@ class MainAppPage extends StatelessWidget {
     }
 
     return ScreenUtilInit(
-      designSize: const Size(376, 667),
+      designSize: const Size(414, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       child: RefreshConfiguration(

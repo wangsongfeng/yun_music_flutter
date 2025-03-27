@@ -122,7 +122,7 @@ class FoundSectionTitleView extends StatelessWidget {
               style: body1Style().copyWith(
                   fontSize: Dimens.font_sp14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.8)),
+                  color: Colors.black.withOpacity(0.9)),
             )
           ],
         ),

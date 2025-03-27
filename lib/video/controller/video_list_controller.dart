@@ -231,13 +231,15 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
     _actLocks.add(completer.future);
     _requestVideoInfo();
     await _initController();
-    await controllerValue
-        ?.initialize()
-        .timeout(
-          const Duration(seconds: 3),
-          onTimeout: () {},
-        )
-        .onError((error, stacktrace) {});
+    await controllerValue?.initialize().timeout(
+      const Duration(seconds: 10),
+      onTimeout: () {
+        // debugPrint("视频加载超时了");
+      },
+    ).onError((error, stacktrace) {
+      // debugPrint("视频播放失败了$error");
+    });
+    print("初始化成功了");
     await controllerValue?.setLooping(false);
     afterInit ??= _afterInit;
     await afterInit?.call(controllerValue);

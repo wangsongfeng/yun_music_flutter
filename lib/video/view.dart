@@ -206,7 +206,8 @@ class _VideoPageState extends State<VideoPage> {
   Widget _buildCover(VPVideoController? player, bool fitWidth, double height) {
     return CachedNetworkImage(
       //https://dy.ttentau.top/images/
-      imageUrl: "${player!.videoInfo.value!.video!.cover!.url_list!.first}",
+      imageUrl:
+          "https://dy.ttentau.top/images/${player!.videoInfo.value!.video!.cover!.url_list!.first}",
       width: Adapt.screenW(),
       height: height,
       fit: fitWidth ? BoxFit.fitWidth : BoxFit.cover,

@@ -164,7 +164,7 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
               ),
               Positioned(
                 left: 0,
-                bottom: 36,
+                bottom: 20,
                 child: Container(
                   width: Adapt.screenW(),
                   height: 48,
@@ -179,24 +179,24 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                           //渐变颜色[始点颜色, 结束颜色]
                           colors: [
                         Color.fromRGBO(15, 15, 15, 0),
-                        Color.fromRGBO(15, 15, 15, 0.5)
+                        Color.fromRGBO(15, 15, 15, 0.4)
                       ])),
                 ),
               ),
               Positioned(
-                  right: Dimens.gap_dp16,
+                  right: Dimens.gap_dp12,
                   bottom: 0,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 12),
+                        padding: EdgeInsets.only(right: Dimens.gap_dp6),
                         child: Container(
-                          padding: const EdgeInsets.only(top: 16),
+                          padding: EdgeInsets.only(top: Dimens.gap_dp12),
                           child: const Text("hodor",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   color: Colors.white)),
                         ),
                       ),
@@ -205,8 +205,8 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                           logger.d("头像点击");
                         },
                         child: Container(
-                            width: 72,
-                            height: 72,
+                            width: Dimens.gap_dp64,
+                            height: Dimens.gap_dp64,
                             //设置了 decoration 就不能设置color，两者只能存在一个
                             decoration: const BoxDecoration(
                                 boxShadow: [
@@ -221,7 +221,7 @@ class _MomentsPageState extends State<MomentsPage> with RouteAware {
                                 ],
                                 image: DecorationImage(
                                     image: AssetImage(
-                                        "assets/images/mine_avatar.png")),
+                                        "assets/images/IMG_1022.png")),
                                 //设置图片
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(6)))),

@@ -45,6 +45,14 @@ class FoundController extends GetxController with GetTickerProviderStateMixin {
 
   final RxList<dynamic> blocks = [].obs;
 
+  late List<dynamic> findMoreDic = [
+    {"title": "按曲风浏览", "type": "qufeng"},
+    {"title": "按歌手浏览", "type": "single"},
+    {"title": "音乐专区", "type": "song"},
+    {"title": "歌单广场", "type": "playlist"},
+    {"title": "宝藏曲库", "type": "qufeng"},
+  ];
+
   @override
   void onInit() {
     super.onInit();
@@ -63,7 +71,7 @@ class FoundController extends GetxController with GetTickerProviderStateMixin {
 
   //推荐歌单
   Future requestRecommendData() async {
-    blocks.clear();
+    final List<dynamic> newBlocks = [];
     playListWarp.value = await BujuanApi.requestPersonPlayList();
     playListWarp.value!.result?.sublist(1);
     final List<List<BuSongListInfo>>? chundList =
@@ -72,9 +80,9 @@ class FoundController extends GetxController with GetTickerProviderStateMixin {
       songListOne = chundList.first;
       songListTwo = chundList.last;
     }
-    blocks.add({"type": "banner", "list": carousels});
-    blocks.add({"type": "playlist", "list": songListOne, "title": "甄选歌单"});
-    blocks.add({"type": "playlist", "list": songListTwo, "title": "云村新鲜事"});
+    newBlocks.add({"type": "banner", "list": carousels});
+    newBlocks.add({"type": "playlist", "list": songListOne, "title": "甄选歌单"});
+    newBlocks.add({"type": "playlist", "list": songListTwo, "title": "云村新鲜事"});
 
     final cacheData =
         box.read<Map<String, dynamic>?>(CACHE_HOME_RECOMMEND_DATA);
@@ -86,9 +94,11 @@ class FoundController extends GetxController with GetTickerProviderStateMixin {
           .toList();
       if (list.isNotEmpty) {
         newSongs = list.first;
-        blocks.add({"type": "newSong", "list": newSongs, "title": "新歌新碟"});
+        newBlocks.add({"type": "newSong", "list": newSongs, "title": "新歌新碟"});
       }
     }
+    newBlocks.add({"type": "more", "list": findMoreDic});
+    blocks.value = newBlocks;
     isLoading.value = false;
   }
 

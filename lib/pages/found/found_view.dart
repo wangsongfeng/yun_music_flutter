@@ -4,6 +4,8 @@ import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/keep_alive_wrapper.dart';
 import 'package:yun_music/pages/found/found_controller.dart';
 import 'package:yun_music/pages/found/found_picked_view.dart';
+import 'package:yun_music/pages/rank_list/ranklist_contrller.dart';
+import 'package:yun_music/pages/rank_list/ranklist_view.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../commons/res/dimens.dart';
@@ -22,7 +24,8 @@ class FoundPage extends StatefulWidget {
 class _FoundPageState extends State<FoundPage>
     with AutomaticKeepAliveClientMixin {
   final controller = GetInstance().putOrFind(() => FoundController());
-
+  final ranklistController =
+      GetInstance().putOrFind(() => RanklistContrller(), tag: "found");
   @override
   bool get wantKeepAlive => true;
 
@@ -74,7 +77,7 @@ class _FoundMusicPageState extends State<FoundMusicPage>
           children: [
             Container(
               color: Colors.transparent,
-              height: Dimens.gap_dp28,
+              height: Dimens.gap_dp26,
               child: TabBar(
                 controller: controller.musicTabController,
                 tabs: [
@@ -96,7 +99,7 @@ class _FoundMusicPageState extends State<FoundMusicPage>
                 indicatorColor: Colors.transparent,
                 overlayColor: WidgetStateProperty.all(Colors.transparent),
                 indicator: BoxDecoration(
-                    color: AppThemes.color_242,
+                    color: AppThemes.color_228,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(Dimens.gap_dp14)),
                 indicatorPadding: EdgeInsets.only(
@@ -158,6 +161,8 @@ class _FoundMusicPageState extends State<FoundMusicPage>
                   if (index == 0) {
                     return KeepAliveWrapper(
                         child: FoundPickedView(controller: controller));
+                  } else if (index == 1) {
+                    return const RanklistView(type: "found");
                   }
                   return Container();
                 }))
