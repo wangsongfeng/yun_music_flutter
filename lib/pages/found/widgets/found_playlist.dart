@@ -122,9 +122,8 @@ class FoundPlaylist extends StatelessWidget {
                           child: Text(item.name ?? "",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: body1Style().copyWith(
                                 fontSize: Dimens.gap_dp12,
-                                color: Colors.black,
                                 fontFamily: W.fonts.IconFonts,
                                 fontWeight: FontWeight.w500,
                               )),

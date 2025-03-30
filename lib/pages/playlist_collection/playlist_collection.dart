@@ -73,7 +73,7 @@ class _PlaylistCollectionPageState extends State<PlaylistCollectionPage>
               : Column(
                   children: [
                     Container(
-                      color: AppThemes.white,
+                      color: Get.theme.cardColor,
                       width: double.infinity,
                       height: Dimens.gap_dp40,
                       child: TabBar(
@@ -96,9 +96,12 @@ class _PlaylistCollectionPageState extends State<PlaylistCollectionPage>
                         indicatorColor: AppThemes.indicator_color,
                         overlayColor:
                             WidgetStateProperty.all(Colors.transparent),
-                        unselectedLabelColor:
-                            const Color.fromARGB(255, 114, 114, 114),
-                        labelColor: const Color.fromARGB(255, 51, 51, 51),
+                        unselectedLabelColor: context.isDarkMode
+                            ? const Color.fromARGB(255, 114, 114, 114)
+                            : const Color.fromARGB(255, 114, 114, 114),
+                        labelColor: context.isDarkMode
+                            ? const Color.fromARGB(255, 236, 236, 237)
+                            : const Color.fromARGB(255, 51, 51, 51),
                         indicator: CustomUnderlineTabIndicator(
                             width: 0.0,
                             borderSide: BorderSide(

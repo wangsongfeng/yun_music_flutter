@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/playlist_detail/playlist_detail_controller.dart';
 import 'package:yun_music/pages/playlist_detail/widgets/playlist_top_official.dart';
@@ -69,7 +70,7 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
                   top: controller.header_top,
                 ),
                 color: Get.isDarkMode
-                    ? Colors.transparent
+                    ? const Color.fromRGBO(146, 150, 160, 1.0)
                     : const Color.fromRGBO(146, 150, 160, 1.0),
                 child: Skeleton(
                     child: PlaylistDetailTopPlaceholder(
@@ -125,6 +126,9 @@ class PlaylistHeaderDelegate extends SliverPersistentHeaderDelegate {
               height: expandHeight + extraPicHeight,
               src: controller.detail.value?.playlist.backgroundCoverUrl ?? '',
               fadeInDuration: const Duration(milliseconds: 200),
+              customplaceholder: Container(
+                color: AppThemes.load_image_placeholder(),
+              ),
             ),
           ),
           if (controller.detail.value?.playlist.titleImageUrl != null)

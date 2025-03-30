@@ -22,12 +22,12 @@ class MineMenuTab extends StatelessWidget {
         Positioned.fill(
             bottom: 2,
             child: Container(
-              color: Colors.black,
+              color: context.isDarkMode ? Colors.transparent : Colors.black,
             )),
         Positioned.fill(child: Obx(() {
           return Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Get.theme.cardColor,
                 borderRadius: BorderRadius.only(
                     topLeft:
                         controller.menuBarTop.value - controller.appbarHeight ==
@@ -56,9 +56,12 @@ class MineMenuTab extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                       dividerColor: Colors.transparent,
                       indicatorColor: AppThemes.indicator_color,
-                      unselectedLabelColor:
-                          const Color.fromARGB(255, 114, 114, 114),
-                      labelColor: const Color.fromARGB(255, 51, 51, 51),
+                      unselectedLabelColor: context.isDarkMode
+                          ? const Color.fromARGB(255, 188, 188, 189)
+                          : const Color.fromARGB(255, 114, 114, 114),
+                      labelColor: context.isDarkMode
+                          ? const Color.fromARGB(255, 236, 236, 237)
+                          : const Color.fromARGB(255, 51, 51, 51),
                       indicator: CustomUnderlineTabIndicator(
                           width: 20,
                           borderSide: BorderSide(

@@ -29,7 +29,7 @@ class RecomBalls extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             final ball = balls[index];
-            return _buildBalls(ball);
+            return _buildBalls(ball, context);
           },
           separatorBuilder: (context, index) {
             return SizedBox(width: Dimens.gap_dp24);
@@ -38,7 +38,7 @@ class RecomBalls extends StatelessWidget {
     );
   }
 
-  Widget _buildBalls(Ball ball) {
+  Widget _buildBalls(Ball ball, BuildContext context) {
     return GestureDetector(
       onTap: () {
         RoutesUtils.routeFromActionStr(ball.url);
@@ -50,7 +50,9 @@ class RecomBalls extends StatelessWidget {
             child: Container(
               width: Dimens.gap_dp46,
               height: Dimens.gap_dp46,
-              color: AppThemes.app_main.withOpacity(0.05),
+              color: context.isDarkMode
+                  ? AppThemes.app_main.withOpacity(0.1)
+                  : AppThemes.app_main.withOpacity(0.05),
               child: NetworkImgLayer(
                 width: Dimens.gap_dp46,
                 height: Dimens.gap_dp46,

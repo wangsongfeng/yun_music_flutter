@@ -14,7 +14,7 @@ class SingleCatHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-          color: Colors.white,
+          color: Get.theme.cardColor,
           width: double.infinity,
           height: controller.headerH.value,
           child: Stack(
@@ -67,8 +67,11 @@ class SingleCatHeader extends StatelessWidget {
                                   color: controller.currentArea["area"] ==
                                           e["area"]
                                       ? Colors.red
-                                      : AppThemes.body1_txt_color
-                                          .withOpacity(0.9))),
+                                      : Get.isDarkMode
+                                          ? AppThemes.dark_body1_txt_color
+                                              .withOpacity(0.9)
+                                          : AppThemes.body1_txt_color
+                                              .withOpacity(0.9))),
                           const SizedBox(
                             width: 30,
                           )
@@ -92,8 +95,11 @@ class SingleCatHeader extends StatelessWidget {
                                   color: controller.currentType["type"] ==
                                           e["type"]
                                       ? Colors.red
-                                      : AppThemes.body1_txt_color
-                                          .withOpacity(0.9))),
+                                      : Get.isDarkMode
+                                          ? AppThemes.dark_body1_txt_color
+                                              .withOpacity(0.9)
+                                          : AppThemes.body1_txt_color
+                                              .withOpacity(0.9))),
                           const SizedBox(
                             width: 46,
                           )
@@ -118,10 +124,10 @@ class SingleCatHeader extends StatelessWidget {
                     controller.currentType["type"] == "-1")
                 ? "全部歌手"
                 : "${controller.currentArea["name"]}.${controller.currentType["name"]}",
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: AppThemes.textColor333),
+                color: Get.isDarkMode ? Colors.white : AppThemes.textColor333),
           ),
           const Spacer(),
           GestureDetector(
@@ -135,14 +141,17 @@ class SingleCatHeader extends StatelessWidget {
                 Image.asset(
                   ImageUtils.getImagePath("cm_btn_filter"),
                   width: 14,
+                  color: Get.isDarkMode ? Colors.white : Colors.black,
                 ),
                 const SizedBox(width: 4),
-                const Text(
+                Text(
                   "筛选",
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: AppThemes.body2_txt_color),
+                      color: Get.isDarkMode
+                          ? Colors.white
+                          : AppThemes.body2_txt_color),
                 ),
               ],
             ),

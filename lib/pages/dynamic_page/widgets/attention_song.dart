@@ -73,7 +73,7 @@ class AttentionSongItem extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         fontSize: Dimens.font_sp15,
                         color: Get.isDarkMode
-                            ? AppThemes.white.withOpacity(0.4)
+                            ? AppThemes.white.withOpacity(0.9)
                             : AppThemes.color_156),
                   ),
                 ),
@@ -90,7 +90,6 @@ class AttentionSongItem extends StatelessWidget {
                       text: song.name,
                       style: body1Style().copyWith(
                           fontSize: Dimens.font_sp15,
-                          color: Colors.black,
                           fontFamily: W.fonts.IconFonts,
                           fontWeight: FontWeight.w500),
                     ),

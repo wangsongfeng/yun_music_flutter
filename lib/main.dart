@@ -12,6 +12,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yun_music/commons/net/init_dio.dart';
+import 'package:yun_music/utils/strorage.dart';
 import 'package:yun_music/vmusic/comment/player/player_service.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/thems.dart';
@@ -26,6 +27,7 @@ import 'utils/common_utils.dart';
 Future<void> main() async {
   await _initializeApp();
   await GetStorage.init();
+  await GStrorage.init();
 
   /// 自定义报错页面
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
@@ -146,6 +148,10 @@ class MainAppPage extends StatelessWidget {
         });
       } catch (_) {}
     }
+    Box setting = GStrorage.setting;
+    // 主题模式
+    ThemeType currentThemeValue = ThemeType.values[setting
+        .get(SettingBoxKey.themeMode, defaultValue: ThemeType.system.code)];
 
     return ScreenUtilInit(
       designSize: const Size(414, 812),
@@ -163,7 +169,11 @@ class MainAppPage extends StatelessWidget {
           title: '网易云Flutter',
           theme: SFThemes.lightTheme,
           darkTheme: SFThemes.darkTheme,
-          themeMode: SFThemes.themeMode(),
+          themeMode: currentThemeValue == ThemeType.system
+              ? ThemeMode.system
+              : currentThemeValue == ThemeType.dark
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
           color: Colors.white,
           unknownRoute: Routes.unknownRoute,
           initialBinding: BindingsBuilder(() {

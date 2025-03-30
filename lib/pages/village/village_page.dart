@@ -26,11 +26,11 @@ class _VillagePageState extends State<VillagePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: AppThemes.white,
+      backgroundColor: Theme.of(context).cardColor,
       appBar: BlogHomeAppbar(rightClickTap: () {
         Get.toNamed(RouterPath.Video_Lists);
       }),
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       body: Obx(() {
         return controller.tags.value == null
             ? Center(
@@ -38,10 +38,6 @@ class _VillagePageState extends State<VillagePage>
                 axis: Axis.horizontal,
               ))
             : Container(
-                padding: EdgeInsets.only(
-                  top: (Get.theme.appBarTheme.toolbarHeight! +
-                      Adapt.topPadding()),
-                ),
                 margin: EdgeInsets.only(
                     bottom: PlayingController.to.mediaItems.isNotEmpty
                         ? Adapt.tabbar_padding() + kToolbarHeight
@@ -49,7 +45,7 @@ class _VillagePageState extends State<VillagePage>
                 child: Column(
                   children: [
                     Container(
-                      color: AppThemes.white,
+                      color: Colors.transparent,
                       width: double.infinity,
                       height: Dimens.gap_dp40,
                       child: TabBar(
@@ -70,9 +66,12 @@ class _VillagePageState extends State<VillagePage>
                             fontWeight: FontWeight.w600),
                         dividerColor: Colors.transparent,
                         indicatorColor: AppThemes.indicator_color,
-                        unselectedLabelColor:
-                            const Color.fromARGB(255, 114, 114, 114),
-                        labelColor: const Color.fromARGB(255, 51, 51, 51),
+                        unselectedLabelColor: context.isDarkMode
+                            ? const Color.fromARGB(255, 114, 114, 114)
+                            : const Color.fromARGB(255, 114, 114, 114),
+                        labelColor: context.isDarkMode
+                            ? const Color.fromARGB(255, 236, 236, 237)
+                            : const Color.fromARGB(255, 51, 51, 51),
                         overlayColor:
                             WidgetStateProperty.all(Colors.transparent),
                         indicator: CustomUnderlineTabIndicator(

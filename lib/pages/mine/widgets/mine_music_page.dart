@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/pages/mine/widgets/mine_music_controller.dart';
-
-import '../../../commons/res/app_themes.dart';
+import '../../../commons/skeleton/custom_underline_indicator.dart';
 import 'mine_music_list_page.dart';
 
 class MineMusicPage extends StatelessWidget {
@@ -15,7 +14,7 @@ class MineMusicPage extends StatelessWidget {
     return Column(
       children: [
         Container(
-          color: Colors.transparent,
+          color: Get.theme.cardColor,
           width: double.infinity,
           height: Dimens.gap_dp24,
           child: TabBar(
@@ -29,20 +28,26 @@ class MineMusicPage extends StatelessWidget {
             labelStyle: TextStyle(
                 fontSize: Dimens.font_sp12, fontWeight: FontWeight.w600),
             dividerColor: Colors.transparent,
-            indicatorColor: AppThemes.indicator_color,
+            indicatorColor: Colors.transparent,
             overlayColor: WidgetStateProperty.all(Colors.transparent),
             indicatorWeight: 0.0,
-            indicator: const UnderlineTabIndicator(),
-            unselectedLabelColor: const Color.fromARGB(180, 114, 114, 114),
-            labelColor: const Color.fromARGB(255, 51, 51, 51),
+            indicator: const CustomUnderlineTabIndicator(
+                width: 20,
+                borderSide: BorderSide(
+                  width: 4,
+                  color: Colors.transparent,
+                ),
+                strokeCap: StrokeCap.round),
+            unselectedLabelColor: context.isDarkMode
+                ? const Color.fromARGB(255, 188, 188, 189)
+                : const Color.fromARGB(255, 114, 114, 114),
+            labelColor: context.isDarkMode
+                ? const Color.fromARGB(255, 236, 236, 237)
+                : const Color.fromARGB(255, 51, 51, 51),
             enableFeedback: true,
             splashBorderRadius: BorderRadius.circular(10),
             tabAlignment: TabAlignment.center,
-            onTap: (value) {
-              // controller.pageController.animateToPage(value,
-              //     duration: const Duration(milliseconds: 100),
-              //     curve: Curves.easeIn);
-            },
+            onTap: (value) {},
           ),
         ),
         Expanded(

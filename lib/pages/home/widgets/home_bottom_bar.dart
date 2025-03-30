@@ -47,7 +47,11 @@ class _HomeBottomBarState extends State<HomeBottomBar>
         color: isActive ? AppThemes.tab_color : Colors.transparent,
         child: Image.asset(
           ImageUtils.getImagePath(path),
-          color: isActive ? Colors.white : AppThemes.tab_grey_color,
+          color: isActive
+              ? Colors.white
+              : Get.isDarkMode
+                  ? const Color.fromRGBO(187, 187, 188, 1.0)
+                  : AppThemes.tab_grey_color,
         ),
       ),
     ));
@@ -101,30 +105,37 @@ class _HomeBottomBarState extends State<HomeBottomBar>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Obx(
-          () => BottomBar(
-            currentIndex: controller.currentIndex.value,
-            focusColor: AppThemes.tab_color,
-            height: (Dimens.gap_dp49 + Adapt.bottomPadding()),
-            unFocusColor: AppThemes.tab_grey_color,
-            onTap: (index) {
-              controller.changePage(index);
-              animationController.forward();
-            },
-            items: List<BottomBarItem>.generate(
-              5,
-              (index) => BottomBarItem(
-                icon: _getBarIcon(index, false),
-                title: _getBarText(index),
-                activeIcon: _getBarIcon(index, true),
+    return Container(
+      color: context.isDarkMode
+          ? const Color.fromRGBO(29, 29, 35, 1.0)
+          : Theme.of(context).cardColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Obx(
+            () => BottomBar(
+              currentIndex: controller.currentIndex.value,
+              focusColor: AppThemes.tab_color,
+              height: (Dimens.gap_dp49 + Adapt.bottomPadding()),
+              unFocusColor: Get.isDarkMode
+                  ? const Color.fromRGBO(187, 187, 188, 1.0)
+                  : AppThemes.tab_grey_color,
+              onTap: (index) {
+                controller.changePage(index);
+                animationController.forward();
+              },
+              items: List<BottomBarItem>.generate(
+                5,
+                (index) => BottomBarItem(
+                  icon: _getBarIcon(index, false),
+                  title: _getBarText(index),
+                  activeIcon: _getBarIcon(index, true),
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -165,7 +176,7 @@ class _BottomBarState extends State<BottomBar> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
             if (selected) item.activeIcon else item.icon,
             const SizedBox(height: 2),
             DefaultTextStyle.merge(
@@ -194,7 +205,9 @@ class _BottomBarState extends State<BottomBar> {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
-                  color: AppThemes.card_color,
+                  color: Get.isDarkMode
+                      ? AppThemes.dark_tab_bg_color
+                      : AppThemes.tab_bg_color,
                 ),
               ),
             ),

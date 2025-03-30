@@ -96,7 +96,9 @@ class SearchResultSongItem extends StatelessWidget {
             fontFamily: W.fonts.IconFonts,
             color: PlayingController.to.mediaItem.value.id == song.id.toString()
                 ? AppThemes.btn_selectd_color
-                : Colors.black),
+                : Get.isDarkMode
+                    ? Colors.white
+                    : Colors.black),
         parse: [
           MatchText(
               pattern: searchKey ?? "",
@@ -198,7 +200,9 @@ class SearchResultSongItem extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: Dimens.font_sp11,
-                                color: AppThemes.color_109,
+                                color: Get.isDarkMode
+                                    ? AppThemes.color_156
+                                    : AppThemes.color_109,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: W.fonts.IconFonts,
                               ),
@@ -238,6 +242,8 @@ class SearchResultSongItem extends StatelessWidget {
                     child: Image.asset(
                       ImageUtils.getImagePath('cm4_btm_icn_video'),
                       width: 24,
+                      color:
+                          Get.isDarkMode ? Colors.white : AppThemes.color_109,
                     ),
                   ),
                 ),
@@ -249,9 +255,8 @@ class SearchResultSongItem extends StatelessWidget {
                     child: Image.asset(
                       ImageUtils.getImagePath('cb'),
                       width: 24,
-                      color: Get.isDarkMode
-                          ? AppThemes.white.withOpacity(0.6)
-                          : AppThemes.color_187,
+                      color:
+                          Get.isDarkMode ? Colors.white : AppThemes.color_109,
                     ),
                   ),
                 ),

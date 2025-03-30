@@ -55,7 +55,9 @@ class RankOfficialPage extends StatelessWidget {
             right: Dimens.gap_dp15,
             bottom: Dimens.gap_dp15),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.isDarkMode
+              ? const Color.fromRGBO(37, 37, 40, 1.0)
+              : Colors.white,
           borderRadius: BorderRadius.circular(Dimens.gap_dp12),
         ),
         child: Column(
@@ -130,14 +132,20 @@ class RankOfficialPage extends StatelessWidget {
                                   ),
                                   child: Text(
                                     "${item.tracks.indexOf(e) + 1}",
-                                    style: body1Style()
-                                        .copyWith(fontWeight: FontWeight.w900),
+                                    style: body1Style().copyWith(
+                                        fontWeight: FontWeight.w900,
+                                        color: context.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ),
                                 Text(
                                   e.first,
-                                  style: body1Style()
-                                      .copyWith(fontWeight: FontWeight.w600),
+                                  style: body1Style().copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: context.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black),
                                 ),
                                 Expanded(
                                     child: Text(

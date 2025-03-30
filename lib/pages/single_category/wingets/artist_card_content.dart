@@ -20,6 +20,9 @@ class ArtistCardContent extends StatelessWidget {
   final ArtistDetailController controller;
   @override
   Widget build(BuildContext context) {
+    final BgColor = Get.isDarkMode
+        ? const Color.fromRGBO(40, 40, 48, 1)
+        : Get.theme.cardColor;
     return Obx(() {
       return Container(
         width: Adapt.screenW() - 32,
@@ -34,14 +37,12 @@ class ArtistCardContent extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Get.theme.cardColor.withOpacity(0.95),
-                  Get.theme.cardColor,
-                  Get.theme.cardColor
-                ]),
+                colors: [BgColor.withOpacity(0.99), BgColor, BgColor]),
             boxShadow: [
               BoxShadow(
-                  color: Get.theme.shadowColor,
+                  color: Get.isDarkMode
+                      ? Colors.transparent
+                      : Get.theme.shadowColor,
                   offset: const Offset(0, 5),
                   blurRadius: 12.0)
             ],
@@ -59,7 +60,9 @@ class ArtistCardContent extends StatelessWidget {
                   controller.artistDetail.value?.artist?.name ?? "",
                   style: TextStyle(
                       fontSize: Dimens.font_sp17,
-                      color: Colors.black.withOpacity(0.8),
+                      color: Get.isDarkMode
+                          ? Colors.white
+                          : Colors.black.withOpacity(0.8),
                       fontFamily: W.fonts.IconFonts,
                       fontWeight: FontWeight.w600),
                 ),
@@ -90,7 +93,10 @@ class ArtistCardContent extends StatelessWidget {
             Text(
               controller.getAliasName()!,
               style: body1Style().copyWith(
-                  color: AppThemes.subtitle_text, fontSize: Dimens.font_sp11),
+                  color: context.isDarkMode
+                      ? AppThemes.dark_subtitle_text
+                      : AppThemes.subtitle_text,
+                  fontSize: Dimens.font_sp11),
             ),
             const SizedBox(height: 4),
             //粉丝，
@@ -101,7 +107,9 @@ class ArtistCardContent extends StatelessWidget {
                 Text(
                   "399万",
                   style: body1Style().copyWith(
-                      color: AppThemes.body1_txt_color.withOpacity(0.6),
+                      color: context.isDarkMode
+                          ? AppThemes.dark_body1_txt_color.withOpacity(0.6)
+                          : AppThemes.body1_txt_color.withOpacity(0.6),
                       fontSize: Dimens.font_sp11,
                       fontWeight: FontWeight.w600,
                       fontFamily: W.fonts.IconFonts),
@@ -110,7 +118,9 @@ class ArtistCardContent extends StatelessWidget {
                 Text(
                   "粉丝",
                   style: body1Style().copyWith(
-                      color: AppThemes.subtitle_text,
+                      color: context.isDarkMode
+                          ? AppThemes.dark_subtitle_text
+                          : AppThemes.subtitle_text,
                       fontSize: Dimens.font_sp11),
                 ),
               ],
@@ -120,7 +130,10 @@ class ArtistCardContent extends StatelessWidget {
               Text(
                 controller.artistDesc()!,
                 style: body1Style().copyWith(
-                    color: AppThemes.subtitle_text, fontSize: Dimens.font_sp11),
+                    color: context.isDarkMode
+                        ? AppThemes.dark_subtitle_text
+                        : AppThemes.subtitle_text,
+                    fontSize: Dimens.font_sp11),
               ),
             const SizedBox(height: 12),
 
@@ -214,8 +227,7 @@ class ArtistCardContent extends StatelessWidget {
           margin: EdgeInsets.only(left: Dimens.gap_dp6, right: Dimens.gap_dp6),
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
-            color:
-                Get.isDarkMode ? const Color(0xff292929) : AppThemes.color_242,
+            color: Get.isDarkMode ? Colors.black45 : AppThemes.color_242,
             borderRadius: BorderRadius.all(
               Radius.circular(Dimens.gap_dp10),
             ),

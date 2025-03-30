@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
@@ -19,7 +20,9 @@ class CommentTitlePage extends StatelessWidget {
           bottom: Dimens.gap_dp4,
           left: Dimens.gap_dp16,
           right: Dimens.gap_dp16),
-      color: Colors.white,
+      color: context.isDarkMode
+          ? const Color.fromRGBO(21, 21, 21, 1.0)
+          : Colors.white,
       height: Dimens.gap_dp52,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -46,11 +49,11 @@ class CommentTitlePage extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         text: TextSpan(
             text: song?.title.fixAutoLines(),
-            style: TextStyle(
-                fontSize: Dimens.font_sp14,
-                fontWeight: FontWeight.w700,
-                fontFamily: W.fonts.PingFang,
-                color: Colors.black),
+            style: body1Style().copyWith(
+              fontSize: Dimens.font_sp13,
+              fontWeight: FontWeight.w600,
+              fontFamily: W.fonts.IconFonts,
+            ),
             children: [
               const WidgetSpan(child: SizedBox(width: 4)),
               TextSpan(

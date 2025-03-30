@@ -45,9 +45,12 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                           fontWeight: FontWeight.w600),
                       dividerColor: Colors.transparent,
                       indicatorColor: Colors.transparent,
-                      unselectedLabelColor:
-                          const Color.fromARGB(255, 114, 114, 114),
-                      labelColor: const Color.fromARGB(254, 51, 51, 51),
+                      unselectedLabelColor: context.isDarkMode
+                          ? const Color.fromARGB(255, 114, 114, 114)
+                          : const Color.fromARGB(255, 114, 114, 114),
+                      labelColor: context.isDarkMode
+                          ? Colors.white
+                          : const Color.fromARGB(255, 51, 51, 51),
                       indicator: CustomUnderlineTabIndicator(
                           width: 20,
                           borderSide: BorderSide(
@@ -61,9 +64,9 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                       enableFeedback: true,
                       tabAlignment: TabAlignment.center,
                       onTap: (value) {
-                        controller.pageController.animateToPage(value,
-                            duration: const Duration(milliseconds: 100),
-                            curve: Curves.easeIn);
+                        // controller.pageController.animateToPage(value,
+                        //     duration: const Duration(milliseconds: 100),
+                        //     curve: Curves.easeIn);
                       },
                     ),
                   ],
@@ -81,10 +84,11 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   child: SizedBox(
-                    width: Dimens.gap_dp28,
-                    height: Dimens.gap_dp28,
+                    width: Dimens.gap_dp26,
+                    height: Dimens.gap_dp26,
                     child: Image.asset(
                       ImageUtils.getImagePath('home_top_bar_search'),
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
@@ -120,9 +124,9 @@ class FoundSectionTitleView extends StatelessWidget {
             Text(
               title,
               style: body1Style().copyWith(
-                  fontSize: Dimens.font_sp14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.9)),
+                fontSize: Dimens.font_sp14,
+                fontWeight: FontWeight.bold,
+              ),
             )
           ],
         ),

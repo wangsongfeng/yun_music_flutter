@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/widgets/element_title_widget.dart';
 import 'package:yun_music/commons/widgets/general_song_two.dart';
@@ -40,7 +39,7 @@ class RecomSlideSongAlign extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final creative = blocks.creatives!.elementAt(index);
                     return Column(
-                      children: _buildPageItems(creative),
+                      children: _buildPageItems(creative, context),
                     );
                   }))
         ],
@@ -48,7 +47,7 @@ class RecomSlideSongAlign extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildPageItems(CreativeModel creative) {
+  List<Widget> _buildPageItems(CreativeModel creative, BuildContext context) {
     if (creative.resources?.isEmpty == true) return List.empty();
     final List<Widget> widgets = List.empty(growable: true);
     for (final element in creative.resources!) {
@@ -61,9 +60,11 @@ class RecomSlideSongAlign extends StatelessWidget {
             if (widgets.isNotEmpty)
               Container(
                 margin: EdgeInsets.only(left: Adapt.px(58)),
-                child: const Divider(
-                  height: 1,
-                  color: AppThemes.bg_color,
+                child: Divider(
+                  height: 0.7,
+                  color: context.isDarkMode
+                      ? const Color.fromRGBO(45, 46, 49, 0.2)
+                      : const Color.fromRGBO(45, 46, 49, 0.06),
                 ),
               ),
             SizedBox(

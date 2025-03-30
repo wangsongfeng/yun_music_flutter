@@ -71,7 +71,9 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
   Widget build(BuildContext context) {
     if (widget.type == "normal") {
       return Scaffold(
-        backgroundColor: AppThemes.rank_list_bg_color,
+        backgroundColor: Get.isDarkMode
+            ? AppThemes.dark_card_color
+            : AppThemes.rank_list_bg_color,
         appBar: MusicAppBar(
           backgroundColor: Colors.transparent,
           title: Text(
@@ -83,7 +85,9 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
                     ? AppThemes.white.withOpacity(0.9)
                     : Colors.black),
           ),
-          systemUiOverlayStyle: getSystemUiOverlayStyle(isDark: true),
+          systemUiOverlayStyle: context.isDarkMode
+              ? getSystemUiOverlayStyle(isDark: false)
+              : getSystemUiOverlayStyle(isDark: true),
           actions: [
             UnconstrainedBox(
               child: GestureDetector(
@@ -99,7 +103,9 @@ class _RanklistViewState extends State<RanklistView> with RouteAware {
                           color: const Color(0xFF999999).withOpacity(0.5))),
                   child: Text("定制首页榜单",
                       style: TextStyle(
-                        color: const Color(0xFF333333),
+                        color: context.isDarkMode
+                            ? AppThemes.textColor999
+                            : const Color(0xFF333333),
                         fontSize: Dimens.font_sp12,
                       )),
                 ),

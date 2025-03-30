@@ -102,12 +102,16 @@ class BlogPersonalItem extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              width: Dimens.gap_dp1,
-                              color: captionStyle().color!.withOpacity(0.2))),
+                              width: 1,
+                              color: context.isDarkMode
+                                  ? captionStyle().color!.withOpacity(0.6)
+                                  : captionStyle().color!.withOpacity(0.2))),
                       child: Text(
                         item?.secondCategory ?? "",
                         style: TextStyle(
-                            color: const Color(0xFF999999),
+                            color: context.isDarkMode
+                                ? captionStyle().color!.withOpacity(0.6)
+                                : const Color(0xFF999999),
                             fontSize: Dimens.font_sp9,
                             fontWeight: FontWeight.w500),
                       ),
@@ -117,7 +121,9 @@ class BlogPersonalItem extends StatelessWidget {
                       text: item?.name ?? "",
                       style: TextStyle(
                         fontSize: Dimens.gap_dp11,
-                        color: AppThemes.body1_txt_color,
+                        color: context.isDarkMode
+                            ? AppThemes.dark_body1_txt_color
+                            : AppThemes.body1_txt_color,
                         fontFamily: W.fonts.IconFonts,
                         fontWeight: FontWeight.w500,
                       ))

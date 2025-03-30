@@ -73,7 +73,10 @@ class _SearchPageState extends State<SearchPage>
 
     ///这里延迟0.1秒执行，是为了确保已经push到其他页面了，当前页面路由已修改，再去修改导航栏状态栏，否则可能会被覆盖
     Future.delayed(const Duration(milliseconds: 100)).then((value) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+      Get.isDarkMode
+          ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light)
+          : SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+      ;
     });
   }
 
@@ -87,7 +90,7 @@ class _SearchPageState extends State<SearchPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: AppThemes.search_page_bg,
+      backgroundColor: Get.theme.cardColor,
       resizeToAvoidBottomInset: false,
       appBar: SearchAppbar(
         controller: controller,
@@ -96,7 +99,10 @@ class _SearchPageState extends State<SearchPage>
         },
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: getSystemUiOverlayStyle(isDark: true), child: _buildBody()),
+          value: context.isDarkMode
+              ? getSystemUiOverlayStyle(isDark: false)
+              : getSystemUiOverlayStyle(isDark: true),
+          child: _buildBody()),
     );
   }
 
@@ -196,7 +202,7 @@ class _SearchPageState extends State<SearchPage>
           children: [
             Image.asset(
               ImageUtils.getImagePath(model.imageName!),
-              color: Colors.red,
+              color: const Color.fromRGBO(235, 77, 69, 1.0),
               width: Dimens.gap_dp18,
             ),
             SizedBox(width: Dimens.gap_dp4),
@@ -205,7 +211,9 @@ class _SearchPageState extends State<SearchPage>
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black.withOpacity(0.8)),
+                  color: context.isDarkMode
+                      ? Colors.white
+                      : Colors.black.withOpacity(0.8)),
             )
           ],
         ),
@@ -247,14 +255,23 @@ class _SearchPageState extends State<SearchPage>
                 child: Container(
                   padding: const EdgeInsets.only(
                       left: 12, right: 12, bottom: 4, top: 4),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  decoration: BoxDecoration(
+                      color: context.isDarkMode
+                          ? const Color.fromRGBO(13, 13, 18, 1.0)
+                          : Colors.white,
+                      border: Border.all(
+                          color: context.isDarkMode
+                              ? const Color.fromRGBO(35, 35, 39, 1.0)
+                              : Colors.white),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15.0))),
                   child: Text(
                     e.first ?? "",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black.withOpacity(0.7),
+                      color: context.isDarkMode
+                          ? const Color.fromRGBO(165, 166, 167, 1.0)
+                          : Colors.black.withOpacity(0.7),
                       fontFamily: W.fonts.IconFonts,
                       fontWeight: FontWeight.w500,
                     ),
@@ -318,14 +335,23 @@ class _SearchPageState extends State<SearchPage>
                 child: Container(
                   padding: const EdgeInsets.only(
                       left: 12, right: 12, bottom: 4, top: 4),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  decoration: BoxDecoration(
+                      color: context.isDarkMode
+                          ? const Color.fromRGBO(13, 13, 18, 1.0)
+                          : Colors.white,
+                      border: Border.all(
+                          color: context.isDarkMode
+                              ? const Color.fromRGBO(35, 35, 39, 1.0)
+                              : Colors.white),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15.0))),
                   child: Text(
                     e,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black.withOpacity(0.7),
+                      color: context.isDarkMode
+                          ? const Color.fromRGBO(165, 166, 167, 1.0)
+                          : Colors.black.withOpacity(0.7),
                       fontFamily: W.fonts.PuHuiTiX,
                       fontWeight: FontWeight.w500,
                     ),

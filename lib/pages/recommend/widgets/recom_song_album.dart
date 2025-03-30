@@ -263,7 +263,7 @@ class _RecomSongAlbumState extends State<RecomSongAlbum>
                     maxLines: 1,
                     style: headline1Style(),
                   ),
-                  SizedBox(height: Dimens.gap_dp4),
+                  SizedBox(height: Dimens.gap_dp8),
                   Row(
                     children: [
                       Container(

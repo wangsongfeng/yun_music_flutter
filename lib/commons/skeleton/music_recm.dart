@@ -25,7 +25,9 @@ class MusicRecmSkeleton extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  color: AppThemes.color_245,
+                  color: context.isDarkMode
+                      ? AppThemes.color_245.withOpacity(0.2)
+                      : AppThemes.color_245,
                 ),
               ),
             ),
@@ -50,14 +52,18 @@ class MusicRecmSkeleton extends StatelessWidget {
                         child: Container(
                           width: Dimens.gap_dp46,
                           height: Dimens.gap_dp46,
-                          color: AppThemes.color_245,
+                          color: context.isDarkMode
+                              ? AppThemes.color_245.withOpacity(0.2)
+                              : AppThemes.color_245,
                         ),
                       ),
                       SizedBox(height: Dimens.gap_dp5),
                       Container(
                         width: Dimens.gap_dp46,
                         height: 15,
-                        color: AppThemes.color_245,
+                        color: context.isDarkMode
+                            ? AppThemes.color_245.withOpacity(0.2)
+                            : AppThemes.color_245,
                       )
                     ],
                   ),
@@ -101,16 +107,22 @@ class MusicRecmSkeleton extends StatelessWidget {
                       Container(
                           width: Dimens.gap_dp120,
                           height: Dimens.gap_dp24,
-                          decoration: const BoxDecoration(
-                            color: AppThemes.color_245,
-                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                          decoration: BoxDecoration(
+                            color: context.isDarkMode
+                                ? AppThemes.color_245.withOpacity(0.2)
+                                : AppThemes.color_245,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
                           )),
                       Container(
                           width: Dimens.gap_dp48,
                           height: Dimens.gap_dp24,
-                          decoration: const BoxDecoration(
-                            color: AppThemes.color_245,
-                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                          decoration: BoxDecoration(
+                            color: context.isDarkMode
+                                ? AppThemes.color_245.withOpacity(0.2)
+                                : AppThemes.color_245,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
                           )),
                     ],
                   ),
@@ -138,7 +150,9 @@ class MusicRecmSkeleton extends StatelessWidget {
                                   left: Dimens.gap_dp12,
                                   right: Dimens.gap_dp12),
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade300.withOpacity(0.4),
+                                color: context.isDarkMode
+                                    ? AppThemes.color_245.withOpacity(0.2)
+                                    : AppThemes.color_245,
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(Dimens.gap_dp12),
                                     topRight: Radius.circular(Dimens.gap_dp12)),
@@ -150,26 +164,32 @@ class MusicRecmSkeleton extends StatelessWidget {
                               child: Container(
                                 width: Dimens.gap_dp105,
                                 height: Dimens.gap_dp105,
-                                color: AppThemes.color_245,
+                                color: context.isDarkMode
+                                    ? AppThemes.color_245.withOpacity(0.2)
+                                    : AppThemes.color_245,
                               ),
                             ),
                             SizedBox(height: Dimens.gap_dp5),
                             Container(
                                 width: Dimens.gap_dp76,
                                 height: Dimens.gap_dp14,
-                                decoration: const BoxDecoration(
-                                  color: AppThemes.color_245,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2)),
+                                decoration: BoxDecoration(
+                                  color: context.isDarkMode
+                                      ? AppThemes.color_245.withOpacity(0.2)
+                                      : AppThemes.color_245,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(2)),
                                 )),
                             SizedBox(height: Dimens.gap_dp5),
                             Container(
                                 width: Dimens.gap_dp60,
                                 height: Dimens.gap_dp14,
-                                decoration: const BoxDecoration(
-                                  color: AppThemes.color_245,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2)),
+                                decoration: BoxDecoration(
+                                  color: context.isDarkMode
+                                      ? AppThemes.color_245.withOpacity(0.2)
+                                      : AppThemes.color_245,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(2)),
                                 )),
                           ],
                         ),

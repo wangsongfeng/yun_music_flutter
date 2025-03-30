@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
@@ -36,7 +35,7 @@ class ArtistDetailHeader extends StatelessWidget {
                   clipper: _CoverImgRect(),
                   child: Obx(() {
                     return Container(
-                      color: AppThemes.bg_color,
+                      color: Get.theme.cardColor,
                       width: Adapt.screenW(),
                       height: controller.cardHeight.value +
                           controller.animValue.value * controller.simitHeight,

@@ -20,7 +20,7 @@ class _DynamicPageState extends State<DynamicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).cardColor,
       appBar: DynamicAppbar(controller: controller),
       extendBodyBehindAppBar: false,
       body: Obx(() {

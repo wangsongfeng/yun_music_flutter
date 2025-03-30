@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/res/dimens.dart';
+import 'package:yun_music/commons/res/thems.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/home/drawer/drawer_controller.dart';
 import 'package:yun_music/pages/home/drawer/drawer_item.dart';
@@ -95,16 +96,14 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
                     SizedBox(width: Dimens.gap_dp8),
                     Text(
                       "那个人，那个梦",
-                      style: TextStyle(
-                        fontSize: Dimens.font_sp13,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: Dimens.font_sp13,
+                          fontWeight: FontWeight.w600),
                     ),
                     Icon(
                       TablerIcons.chevron_right,
                       size: Dimens.gap_dp16,
-                      color: Colors.black54,
+                      color: Get.isDarkMode ? Colors.white : Colors.black54,
                     )
                   ],
                 ),
@@ -113,7 +112,7 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
               GestureDetector(
                 child: Icon(
                   TablerIcons.scan,
-                  color: Colors.black54,
+                  color: Get.isDarkMode ? Colors.white : Colors.black54,
                   size: Dimens.gap_dp20,
                 ),
               ),
@@ -123,28 +122,33 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
   }
 
   Widget _buildContent() {
-    return Expanded(
-        child: CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: _buildVipContent(),
-        ),
-        _buildCardContent(
-          list: getTopItem(
-            context,
-            messageCount: 9,
-          ),
-        ),
-        _buildCardContent(list: getListMusicService(context)),
-        _buildCardContent(list: getListSettings(context)),
-        _buildCardContent(list: getListBottomInfo(context)),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: Adapt.bottomPadding(),
-          ),
-        )
-      ],
-    ));
+    return Obx(() => Expanded(
+            child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: _buildVipContent(),
+            ),
+            _buildCardContent(
+              list: getTopItem(
+                context,
+                messageCount: 9,
+              ),
+            ),
+            _buildCardContent(list: getListMusicService(context)),
+            _buildCardContent(
+                list: getListSettings(
+                    context,
+                    controller.themeType.value == ThemeType.dark
+                        ? true
+                        : false)),
+            _buildCardContent(list: getListBottomInfo(context)),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: Adapt.bottomPadding(),
+              ),
+            )
+          ],
+        )));
   }
 
   ///会员信息黑View
@@ -152,7 +156,9 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
     return Container(
       margin: EdgeInsets.only(left: Dimens.gap_dp16, right: Dimens.gap_dp16),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.70),
+        color: Get.isDarkMode
+            ? Colors.white.withOpacity(0.16)
+            : Colors.black.withOpacity(0.70),
         borderRadius: BorderRadius.circular(Dimens.gap_dp12),
       ),
       child: Padding(
@@ -256,7 +262,11 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
     final itemColor = color ?? Colors.black;
 
     return InkWell(
-      onTap: onTap ?? () {},
+      onTap: () {
+        if (text == "深色模式") {
+          controller.onChangeTheme();
+        }
+      },
       child: Padding(
         padding: EdgeInsets.only(top: Dimens.gap_dp16, bottom: Dimens.gap_dp16),
         child: Row(
@@ -344,7 +354,9 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: Get.isDarkMode
+                ? const Color.fromRGBO(37, 37, 40, 1.0)
+                : Colors.white,
             borderRadius: BorderRadius.circular(Dimens.gap_dp12),
           ),
           child: Padding(
@@ -355,7 +367,7 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
                   _buildListItem(context,
                       icon: list[i].icon,
                       text: list[i].text,
-                      color: list[i].color,
+                      color: Get.isDarkMode ? Colors.white : Colors.black,
                       trailing: list[i].trailing,
                       badge: list[i].badge,
                       onTap: list[i].onTap,
@@ -372,9 +384,9 @@ class _DrawerPageState extends State<DrawerPage> with RouteAware {
 
   Widget _buildDivider() {
     return Divider(
-      height: 1,
+      height: 0.8,
       color: Theme.of(context).brightness == Brightness.dark
-          ? Colors.grey[800]
+          ? const Color.fromRGBO(45, 46, 49, 1.0)
           : Colors.grey[100],
     );
   }

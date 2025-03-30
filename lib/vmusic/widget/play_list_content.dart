@@ -60,7 +60,9 @@ class _PlayListContentState extends State<PlayListContent> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppThemes.white,
+          color: Get.isDarkMode
+              ? const Color.fromRGBO(29, 29, 32, 1.0)
+              : AppThemes.card_color,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(Dimens.gap_dp12),
               topRight: Radius.circular(Dimens.gap_dp12))),
@@ -94,10 +96,15 @@ class _PlayListContentState extends State<PlayListContent> {
               style: TextStyle(
                   fontSize: Dimens.font_sp15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.78)),
+                  color: context.isDarkMode
+                      ? Colors.white
+                      : Colors.black.withOpacity(0.78)),
             ),
           ),
-          Divider(color: AppThemes.diver_color.withOpacity(0.2)),
+          Divider(
+              color: context.isDarkMode
+                  ? AppThemes.dark_line_color
+                  : AppThemes.diver_color.withOpacity(0.2)),
           _buildSettingContent(),
           _buildListContent(),
         ],
@@ -137,7 +144,7 @@ class _PlayListContentState extends State<PlayListContent> {
                       Image.asset(
                         playingController.repeartAsset.value,
                         width: Dimens.gap_dp16,
-                        color: Colors.black,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                       ),
                       SizedBox(
                         width: Dimens.gap_dp4,
@@ -160,7 +167,7 @@ class _PlayListContentState extends State<PlayListContent> {
               child: Image.asset(
                 ImageUtils.getImagePath('cm8_playlist_download'),
                 width: Dimens.gap_dp18,
-                color: Colors.black,
+                color: context.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
           ),
@@ -171,7 +178,7 @@ class _PlayListContentState extends State<PlayListContent> {
               child: Image.asset(
                 ImageUtils.getImagePath('cm8_playlist_add_video'),
                 width: Dimens.gap_dp18,
-                color: Colors.black,
+                color: context.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
           ),
@@ -182,7 +189,7 @@ class _PlayListContentState extends State<PlayListContent> {
               child: Image.asset(
                 ImageUtils.getImagePath('cm8_playlist_delete'),
                 width: Dimens.gap_dp18,
-                color: Colors.black,
+                color: context.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
           )
@@ -254,7 +261,9 @@ class _PlayListContentState extends State<PlayListContent> {
                         color: playingController.mediaItem.value.id ==
                                 item.id.toString()
                             ? AppThemes.btn_selectd_color
-                            : Colors.black,
+                            : context.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
                         fontWeight: FontWeight.normal),
                   ),
                 );

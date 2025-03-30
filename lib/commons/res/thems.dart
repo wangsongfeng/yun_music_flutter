@@ -8,59 +8,60 @@ import '../../utils/common_utils.dart';
 
 class SFThemes {
   static final lightTheme = ThemeData.light().copyWith(
-      scaffoldBackgroundColor: AppThemes.bg_color,
-      dividerColor: AppThemes.diver_color,
-      shadowColor: AppThemes.shadow_color,
-      iconTheme: const IconThemeData(color: AppThemes.icon_color, size: 15),
-      highlightColor: AppThemes.blue,
-      hintColor: Colors.grey.shade300,
-      cardColor: AppThemes.card_color,
-      appBarTheme: const AppBarTheme(
-        toolbarHeight: kToolbarHeight,
-        backgroundColor: AppThemes.card_color,
-        surfaceTintColor: Colors.transparent,
-        titleTextStyle: TextStyle(
-            color: AppThemes.body2_txt_color,
-            fontSize: 17.0,
-            fontWeight: FontWeight.w600),
-        elevation: 0,
-      ),
-      dialogTheme: const DialogTheme(
-          backgroundColor: Colors.black87,
-          elevation: 24.0,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(14.0)))),
-      textTheme: const TextTheme(
-        displayLarge: TextStyle(
-          color: AppThemes.headline1_color,
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-        ),
-        displayMedium: TextStyle(
-          color: AppThemes.headline1_color,
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-        ),
-        titleMedium: TextStyle(
-          color: AppThemes.headline4_color,
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-        ),
-        bodyLarge: TextStyle(
-          color: AppThemes.body1_txt_color,
-          fontSize: 13,
-          fontWeight: FontWeight.normal,
-        ),
-        bodyMedium: TextStyle(
+    scaffoldBackgroundColor: AppThemes.card_color,
+    dividerColor: AppThemes.diver_color,
+    shadowColor: AppThemes.shadow_color,
+    iconTheme: const IconThemeData(color: AppThemes.icon_color, size: 15),
+    highlightColor: AppThemes.blue,
+    hintColor: Colors.grey.shade300,
+    cardColor: AppThemes.card_color,
+    appBarTheme: const AppBarTheme(
+      toolbarHeight: kToolbarHeight,
+      backgroundColor: AppThemes.card_color,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: TextStyle(
           color: AppThemes.body2_txt_color,
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),
-        bodySmall: TextStyle(
-          color: AppThemes.subtitle_text,
-          fontSize: 12,
-        ),
-      ));
+          fontSize: 17.0,
+          fontWeight: FontWeight.w600),
+      elevation: 0,
+    ),
+    dialogTheme: const DialogTheme(
+        backgroundColor: Colors.black87,
+        elevation: 24.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14.0)))),
+    textTheme: const TextTheme(
+      displayLarge: TextStyle(
+        color: AppThemes.headline1_color,
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
+      ),
+      displayMedium: TextStyle(
+        color: AppThemes.headline1_color,
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
+      titleMedium: TextStyle(
+        color: AppThemes.headline4_color,
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+      ),
+      bodyLarge: TextStyle(
+        color: AppThemes.body1_txt_color,
+        fontSize: 13,
+        fontWeight: FontWeight.normal,
+      ),
+      bodyMedium: TextStyle(
+        color: AppThemes.body2_txt_color,
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+      bodySmall: TextStyle(
+        color: AppThemes.subtitle_text,
+        fontSize: 12,
+      ),
+    ),
+  );
 
   static final darkTheme = ThemeData.dark().copyWith(
       scaffoldBackgroundColor: AppThemes.dark_bg_color,
@@ -136,4 +137,18 @@ class SFThemes {
     await setThemeModeIsLight(mode);
     Get.changeThemeMode(mode);
   }
+}
+
+enum ThemeType {
+  light,
+  dark,
+  system,
+}
+
+extension ThemeTypeDesc on ThemeType {
+  String get description => ['浅色', '深色', '跟随系统'][index];
+}
+
+extension ThemeTypeCode on ThemeType {
+  int get code => [0, 1, 2][index];
 }

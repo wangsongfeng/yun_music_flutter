@@ -80,7 +80,7 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.theme.cardColor,
       appBar: AppBar(
         title: Text(
           '歌手分类',
@@ -122,7 +122,9 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
                           maxHeight: Dimens.gap_dp24,
                           minHeight: Dimens.gap_dp24,
                           child: Container(
-                            color: AppThemes.color_250,
+                            color: context.isDarkMode
+                                ? AppThemes.body1_txt_color
+                                : AppThemes.color_250,
                             child: Padding(
                               padding:
                                   const EdgeInsets.only(left: 20, right: 20),
@@ -132,8 +134,10 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
                                   '热门歌手',
                                   style: TextStyle(
                                       fontSize: 13,
-                                      color: AppThemes.body1_txt_color
-                                          .withOpacity(0.8)),
+                                      color: context.isDarkMode
+                                          ? AppThemes.dark_body1_txt_color
+                                          : AppThemes.body1_txt_color
+                                              .withOpacity(0.8)),
                                 ),
                               ),
                             ),
@@ -170,7 +174,7 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
             arguments: {"artist_id": single.id});
       },
       child: Container(
-        color: Colors.white,
+        color: Get.theme.cardColor,
         height: 72,
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -182,7 +186,9 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
               const SizedBox(width: 8),
               Text(
                 single.name!,
-                style: const TextStyle(fontSize: 15, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Get.isDarkMode ? Colors.white : Colors.black),
               ),
               Expanded(
                   child: Text(
@@ -193,7 +199,9 @@ class _SingleCategoryPageState extends State<SingleCategoryPage>
                     : "",
                 style: TextStyle(
                     fontSize: 15,
-                    color: AppThemes.body1_txt_color.withOpacity(0.9)),
+                    color: context.isDarkMode
+                        ? Colors.white
+                        : AppThemes.body1_txt_color.withOpacity(0.9)),
               )),
               const SizedBox(width: 8),
               GestureDetector(

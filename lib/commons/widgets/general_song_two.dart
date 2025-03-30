@@ -57,7 +57,7 @@ class GeneralSongTwo extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           Expanded(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +89,7 @@ class GeneralSongTwo extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
               _buildSubTitle()
             ],
           )),

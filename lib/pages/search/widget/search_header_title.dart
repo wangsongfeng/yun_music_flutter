@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
@@ -24,7 +25,9 @@ class SearchHeaderTitle extends StatelessWidget {
           text ?? "",
           style: TextStyle(
             fontSize: 14,
-            color: Colors.black.withOpacity(0.8),
+            color: context.isDarkMode
+                ? Colors.white
+                : Colors.black.withOpacity(0.8),
             fontFamily: W.fonts.PuHuiTiX,
             fontWeight: FontWeight.w600,
           ),

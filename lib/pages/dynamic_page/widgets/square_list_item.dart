@@ -57,16 +57,20 @@ class _SquareListItemState extends State<SquareListItem> {
                 children: [
                   Text(
                     widget.model.userInfo!.nick!,
-                    style: const TextStyle(
-                        color: AppThemes.body1_txt_color,
+                    style: TextStyle(
+                        color: context.isDarkMode
+                            ? AppThemes.dark_body1_txt_color
+                            : AppThemes.body1_txt_color,
                         fontSize: 16,
                         fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     widget.model.userInfo!.decs!,
-                    style: const TextStyle(
-                        color: AppThemes.color_165,
+                    style: TextStyle(
+                        color: context.isDarkMode
+                            ? AppThemes.color_195
+                            : AppThemes.color_165,
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
                   ),
@@ -86,7 +90,7 @@ class _SquareListItemState extends State<SquareListItem> {
                   child: _buildNineGuard(widget.model.picurl!),
                 ),
                 Container(
-                  color: Colors.white,
+                  color: Get.theme.cardColor,
                   padding: const EdgeInsets.only(top: 16),
                   child: _creatMenuPage(),
                 ),
@@ -108,7 +112,7 @@ class _SquareListItemState extends State<SquareListItem> {
       customplaceholder: Container(
         width: size,
         height: size,
-        color: AppThemes.white,
+        color: Get.theme.cardColor,
         child: Image.asset(
           ImageUtils.getImagePath('icon_avatar_nor'),
           color: AppThemes.color_204,
@@ -160,8 +164,10 @@ class _SquareListItemState extends State<SquareListItem> {
         padding: const EdgeInsets.only(top: 6),
         child: ParsedText(
           text: mTextContent,
-          style: const TextStyle(
-              color: AppThemes.body1_txt_color,
+          style: TextStyle(
+              color: context.isDarkMode
+                  ? AppThemes.dark_body1_txt_color
+                  : AppThemes.body1_txt_color,
               height: 1.6,
               fontSize: 16,
               fontWeight: FontWeight.w400),
@@ -533,7 +539,7 @@ class _SquareListItemState extends State<SquareListItem> {
 
   Widget _buildItem(String iconName, String name, bool canClicked,
       ParamVoidCallback callBack) {
-    final fColor = Get.isDarkMode ? AppThemes.color_109 : AppThemes.color_128;
+    final fColor = Get.isDarkMode ? AppThemes.color_195 : AppThemes.color_128;
 
     return GestureDetector(
       onTap: callBack,

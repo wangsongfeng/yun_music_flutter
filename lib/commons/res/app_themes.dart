@@ -11,17 +11,23 @@ class AppThemes {
   static const Color tab_color = Color.fromRGBO(236, 67, 94, 1);
   static const Color tab_grey_color = Color.fromRGBO(104, 110, 125, 1);
 
+  static const Color tab_bg_color = Color.fromRGBO(255, 255, 255, 1);
+  static const Color dark_tab_bg_color = Color.fromRGBO(29, 29, 35, 1.0);
+
   static const Color bg_color = Color.fromARGB(255, 245, 246, 249);
   static const Color dark_bg_color = Color.fromARGB(255, 13, 13, 12);
 
   static const Color search_bg_color = Color.fromARGB(255, 235, 237, 241);
-  static const Color dark_search_bg_color = Color.fromARGB(255, 235, 237, 241);
+  static const Color dark_search_bg_color = Color.fromARGB(255, 28, 27, 32);
 
   static const Color diver_color = Color.fromARGB(178, 224, 224, 224);
   static const Color dark_diver_color = Color.fromARGB(10, 255, 255, 255);
 
-  static const Color card_color = Color.fromARGB(255, 255, 255, 255);
-  static const Color dark_card_color = Color.fromARGB(255, 18, 17, 17);
+  static const Color line_color = Color.fromRGBO(45, 46, 49, 0.06);
+  static const Color dark_line_color = Color.fromRGBO(45, 46, 49, 0.2);
+
+  static const Color card_color = Color.fromARGB(255, 244, 246, 249);
+  static const Color dark_card_color = Color.fromARGB(255, 13, 13, 18);
 
   static const Color headline4_color = Color.fromARGB(255, 39, 38, 40);
   static const Color dark_headline4_color = Color.fromARGB(255, 254, 254, 254);
@@ -77,6 +83,8 @@ class AppThemes {
 
   static const Color text_gray = Color.fromARGB(255, 191, 190, 191);
 
+  static const Color color_66 = Color.fromARGB(255, 66, 66, 66);
+
   static const Color color_109 = Color.fromARGB(255, 109, 109, 109);
 
   static const Color color_245 = Color.fromARGB(255, 245, 245, 245);
@@ -126,7 +134,7 @@ class AppThemes {
   static const Color search_bg = Color.fromARGB(255, 237, 238, 241);
 
   static Color load_image_placeholder() =>
-      Get.isDarkMode ? white.withOpacity(0.1) : color_245;
+      Get.isDarkMode ? white.withOpacity(0.05) : color_245;
 
   static const textColor999 = Color(0xFF999999);
 

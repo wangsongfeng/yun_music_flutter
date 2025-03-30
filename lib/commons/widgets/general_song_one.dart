@@ -86,7 +86,7 @@ class GeneralSongOne extends StatelessWidget {
                       ],
                     )),
               ),
-              const SizedBox(height: 6),
+              SizedBox(height: Dimens.gap_dp8),
               Row(
                 children: [
                   Row(

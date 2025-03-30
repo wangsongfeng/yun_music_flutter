@@ -17,7 +17,9 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-        color: Colors.white.withOpacity(controller.appbar_alpha.value),
+        color: context.isDarkMode
+            ? Colors.black.withOpacity(controller.appbar_alpha.value)
+            : Get.theme.cardColor.withOpacity(controller.appbar_alpha.value),
         width: Adapt.screenW(),
         alignment: Alignment.center,
         padding: EdgeInsets.only(left: 6, top: Adapt.topPadding(), right: 6),
@@ -42,8 +44,11 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
                           ImageUtils.getImagePath('home_top_bar_menus'),
                           color: controller.appbar_alpha.value < 0.2
                               ? Colors.white
-                              : AppThemes.body2_txt_color
-                                  .withOpacity(controller.appbar_alpha.value),
+                              : context.isDarkMode
+                                  ? AppThemes.dark_body2_txt_color.withOpacity(
+                                      controller.appbar_alpha.value)
+                                  : AppThemes.body2_txt_color.withOpacity(
+                                      controller.appbar_alpha.value),
                         ),
                       ),
                     ),
@@ -64,8 +69,11 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
                           ImageUtils.getImagePath('home_top_bar_search'),
                           color: controller.appbar_alpha.value < 0.2
                               ? Colors.white
-                              : AppThemes.body2_txt_color
-                                  .withOpacity(controller.appbar_alpha.value),
+                              : context.isDarkMode
+                                  ? AppThemes.dark_body2_txt_color.withOpacity(
+                                      controller.appbar_alpha.value)
+                                  : AppThemes.body2_txt_color.withOpacity(
+                                      controller.appbar_alpha.value),
                         ),
                       ),
                     ),
@@ -85,8 +93,11 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
                           ImageUtils.getImagePath('cb'),
                           color: controller.appbar_alpha.value < 0.2
                               ? Colors.white
-                              : AppThemes.body2_txt_color
-                                  .withOpacity(controller.appbar_alpha.value),
+                              : context.isDarkMode
+                                  ? AppThemes.dark_body2_txt_color.withOpacity(
+                                      controller.appbar_alpha.value)
+                                  : AppThemes.body2_txt_color.withOpacity(
+                                      controller.appbar_alpha.value),
                         ),
                       ),
                     ),
@@ -133,11 +144,11 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
                           offset: Offset(0,
                               controller.appbar_alpha.value >= 1.0 ? 0 : -0.5),
                           duration: const Duration(milliseconds: 100),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              ClipRRect(
+                              const ClipRRect(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12)),
                                 child: NetworkImgLayer(
@@ -147,12 +158,14 @@ class MineAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       'https://q1.itc.cn/q_70/images03/20240807/4802bc995acb4420bcc4b49035244907.jpeg',
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 '那个人那个梦',
                                 style: TextStyle(
                                     fontSize: 12,
-                                    color: Colors.black87,
+                                    color: Get.isDarkMode
+                                        ? Colors.white
+                                        : Colors.black87,
                                     fontWeight: FontWeight.w500),
                               ),
                             ],

@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/pages/home/home_controller.dart';
 import 'package:yun_music/pages/mine/mine_controller.dart';
 import 'package:yun_music/pages/mine/widgets/mine_header.dart';
@@ -128,7 +127,7 @@ class _MinePageState extends State<MinePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppThemes.bg_color,
+      backgroundColor: Theme.of(context).cardColor,
       extendBodyBehindAppBar: true,
       appBar: MineAppbar(controller: controller),
       body: NotificationListener(
@@ -174,8 +173,12 @@ class _MinePageState extends State<MinePage> with TickerProviderStateMixin {
                         toolbarHeight: 0,
                         collapsedHeight: 0,
                         systemOverlayStyle: controller.appbar_alpha.value < 0.3
-                            ? getSystemUiOverlayStyle(isDark: false)
-                            : getSystemUiOverlayStyle(isDark: true),
+                            ? context.isDarkMode
+                                ? getSystemUiOverlayStyle(isDark: false)
+                                : getSystemUiOverlayStyle(isDark: false)
+                            : context.isDarkMode
+                                ? getSystemUiOverlayStyle(isDark: false)
+                                : getSystemUiOverlayStyle(isDark: true),
                         expandedHeight: controller.headerHeight.value +
                             controller.extraPicHeight.value,
                         flexibleSpace: FlexibleSpaceBar(
@@ -197,7 +200,7 @@ class _MinePageState extends State<MinePage> with TickerProviderStateMixin {
                           maxHeight: 46,
                           minHeight: 46,
                           child: Container(
-                              color: Colors.white,
+                              color: Get.theme.cardColor,
                               height: 46,
                               child: MineMenuTab(
                                 controller: controller,

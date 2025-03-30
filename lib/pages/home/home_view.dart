@@ -19,7 +19,6 @@ import 'package:yun_music/vmusic/playing_controller.dart';
 import '../../vmusic/comment/player/player_service.dart';
 import '../../vmusic/comment/player/widgets/bottom_player_widget.dart';
 import '../../vmusic/comment/player/widgets/music_playbar_overlay.dart';
-import '../../commons/res/dimens.dart';
 import '../dynamic_page/dynamic_page.dart';
 import '../found/found_view.dart';
 import '../mine/mine_page.dart';
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage>
       MusicPlaybarOverlay.instance.show(
           context,
           ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: Dimens.gap_dp49),
+              constraints: BoxConstraints(maxHeight: Adapt.tabbar_padding()),
               child: const BottomPlayerBar()));
     });
     controller.player_bar_add = true;
@@ -118,7 +117,7 @@ class _HomePageState extends State<HomePage>
             ? getSystemUiOverlayStyle(isDark: false)
             : getSystemUiOverlayStyle(isDark: true),
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).hoverColor,
           extendBodyBehindAppBar: true,
           resizeToAvoidBottomInset: false,
           extendBody: true,

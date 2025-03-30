@@ -32,7 +32,7 @@ class ArtistSongPage extends StatelessWidget {
     controller.requestArtistAllSongList(artistId ?? "");
 
     return Obx(() => Container(
-          color: AppThemes.bg_color,
+          color: Get.theme.cardColor,
           padding: EdgeInsets.only(
               bottom: PlayingController.to.mediaItems.isNotEmpty
                   ? Adapt.tabbar_padding()
@@ -159,7 +159,9 @@ class ArtistSongPage extends StatelessWidget {
                         "播放热门 ${controller.songs.value?.length}",
                         style: body1Style().copyWith(
                             fontSize: Dimens.font_sp13,
-                            color: AppThemes.body2_txt_color,
+                            color: context.isDarkMode
+                                ? AppThemes.dark_body2_txt_color
+                                : AppThemes.body2_txt_color,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -196,6 +198,8 @@ class ArtistSongPage extends StatelessWidget {
                           ImageUtils.getImagePath(
                               "cm8_artistPage_add_playlist"),
                           width: Dimens.gap_dp18,
+                          color:
+                              context.isDarkMode ? Colors.white : Colors.black,
                         ),
                       ),
                     ),
@@ -214,8 +218,11 @@ class ArtistSongPage extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.only(left: Dimens.gap_dp8),
                         child: Image.asset(
-                            ImageUtils.getImagePath("cm8_artistPage_manage"),
-                            width: Dimens.gap_dp18),
+                          ImageUtils.getImagePath("cm8_artistPage_manage"),
+                          width: Dimens.gap_dp18,
+                          color:
+                              context.isDarkMode ? Colors.white : Colors.black,
+                        ),
                       ),
                     ),
                   ],
@@ -260,7 +267,9 @@ class ArtistSongPage extends StatelessWidget {
                                     controller.songTypes.elementAt(
                                         controller.selectedSongType.value)
                                 ? Colors.white
-                                : AppThemes.body2_txt_color,
+                                : Get.isDarkMode
+                                    ? AppThemes.dark_body2_txt_color
+                                    : AppThemes.body2_txt_color,
                             fontWeight: FontWeight.bold),
                       ),
                     ),

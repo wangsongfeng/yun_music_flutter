@@ -41,7 +41,9 @@ class CustomTextfiled extends StatelessWidget {
       margin: const EdgeInsets.only(right: 8, left: 0),
       constraints: const BoxConstraints(minHeight: 40, maxHeight: 40),
       decoration: BoxDecoration(
-        color: AppThemes.search_bg,
+        color: Get.isDarkMode
+            ? AppThemes.dark_search_bg_color
+            : AppThemes.search_bg_color,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -51,11 +53,13 @@ class CustomTextfiled extends StatelessWidget {
             child: Obx(() {
               return TextField(
                 focusNode: controller?.focusNode,
+
                 enabled: true,
                 autofocus: autoFocus,
                 enableInteractiveSelection: false,
                 //禁用menu
                 maxLines: 1,
+
                 decoration: InputDecoration(
                     icon: SizedBox(
                       width: 20,
@@ -94,7 +98,9 @@ class CustomTextfiled extends StatelessWidget {
                   }
                 },
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: const Color(0xFF333333),
+                    color: context.isDarkMode
+                        ? Colors.white
+                        : const Color(0xFF333333),
                     fontSize: 15,
                     fontFamily: W.fonts.IconFonts),
                 controller: controller?.textEditingController,

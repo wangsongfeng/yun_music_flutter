@@ -100,7 +100,10 @@ class _MyWidgetState extends State<SquarePage>
             },
             separatorBuilder: (context, index) {
               return Container(
-                  color: AppThemes.diver_color.withOpacity(0.3), height: 1);
+                  color: context.isDarkMode
+                      ? AppThemes.dark_line_color
+                      : AppThemes.line_color,
+                  height: 1);
             },
             itemCount: datas?.length,
           ),

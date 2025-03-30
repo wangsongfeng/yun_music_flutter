@@ -9,7 +9,6 @@ import 'package:yun_music/utils/adapt.dart';
 
 import '../../commons/event/index.dart';
 import '../../commons/event/play_bar_event.dart';
-import '../../commons/res/app_themes.dart';
 import '../../utils/approute_observer.dart';
 import '../../vmusic/playing_controller.dart';
 import 'blog_detail_songs_page.dart';
@@ -99,7 +98,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> with RouteAware {
               elevation: 0,
             ),
           ),
-          backgroundColor: AppThemes.card_color,
+          backgroundColor: Get.theme.cardColor,
           body: Obx(() {
             return Padding(
               padding: EdgeInsets.only(

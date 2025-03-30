@@ -65,7 +65,7 @@ class _SearchResultPageState extends State<SearchResultPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppThemes.search_page_bg,
+      backgroundColor: Get.theme.cardColor,
       resizeToAvoidBottomInset: false,
       appBar: SearchAppbar(
         type: SearchAppBarType.Result,
@@ -76,7 +76,9 @@ class _SearchResultPageState extends State<SearchResultPage>
         },
       ),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: getSystemUiOverlayStyle(isDark: true),
+        value: context.isDarkMode
+            ? getSystemUiOverlayStyle(isDark: false)
+            : getSystemUiOverlayStyle(isDark: true),
         child: Column(
           children: [
             Container(
@@ -97,9 +99,13 @@ class _SearchResultPageState extends State<SearchResultPage>
                     fontSize: Dimens.font_sp13, fontWeight: FontWeight.w600),
                 dividerColor: Colors.transparent,
                 indicatorColor: AppThemes.indicator_color,
-                unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
+                unselectedLabelColor: context.isDarkMode
+                    ? const Color.fromARGB(255, 114, 114, 114)
+                    : const Color.fromARGB(255, 114, 114, 114),
+                labelColor: context.isDarkMode
+                    ? const Color.fromARGB(255, 236, 236, 237)
+                    : const Color.fromARGB(255, 51, 51, 51),
                 overlayColor: WidgetStateProperty.all(Colors.transparent),
-                labelColor: const Color.fromARGB(255, 51, 51, 51),
                 indicator: CustomUnderlineTabIndicator(
                     width: 20,
                     borderSide: BorderSide(

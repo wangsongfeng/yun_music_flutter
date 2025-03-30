@@ -34,18 +34,21 @@ class BlogHeaderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildLeftWidget(),
+          _buildLeftWidget(context),
           showRight == true ? _buildRightWidget() : const SizedBox.shrink(),
         ],
       ),
     );
   }
 
-  Widget _buildLeftWidget() {
+  Widget _buildLeftWidget(BuildContext context) {
     if (personal != null) {
       return Row(
         children: [
-          Image.asset(ImageUtils.getImagePath('cm8_refresh_new_items')),
+          Image.asset(
+            ImageUtils.getImagePath('cm8_refresh_new_items'),
+            color: context.isDarkMode ? Colors.white : Colors.black,
+          ),
           Padding(
             padding: EdgeInsets.only(left: Dimens.gap_dp3),
             child: Text(

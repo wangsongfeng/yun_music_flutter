@@ -1,18 +1,61 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 
+import '../../../commons/res/thems.dart';
+import '../../../utils/strorage.dart';
 import 'drawer_item.dart';
 
 class DrawerPageController extends GetxController {
+  Box setting = GStrorage.setting;
+  Rx<ThemeType> themeType = ThemeType.system.obs;
+
   late bool viewAppear = false;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    themeType.value = ThemeType.values[setting.get(SettingBoxKey.themeMode,
+        defaultValue: ThemeType.system.code)];
+  }
+
   @override
   void onReady() {
     super.onReady();
     eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
+  }
+
+  onChangeTheme() {
+    Brightness currentBrightness =
+        MediaQuery.of(Get.context!).platformBrightness;
+    ThemeType currentTheme = themeType.value;
+    switch (currentTheme) {
+      case ThemeType.dark:
+        setting.put(SettingBoxKey.themeMode, ThemeType.light.code);
+        themeType.value = ThemeType.light;
+        break;
+      case ThemeType.light:
+        setting.put(SettingBoxKey.themeMode, ThemeType.dark.code);
+        themeType.value = ThemeType.dark;
+        break;
+      case ThemeType.system:
+        // 判断当前的颜色模式
+        if (currentBrightness == Brightness.light) {
+          setting.put(SettingBoxKey.themeMode, ThemeType.dark.code);
+          themeType.value = ThemeType.dark;
+        } else {
+          setting.put(SettingBoxKey.themeMode, ThemeType.light.code);
+          themeType.value = ThemeType.light;
+        }
+        break;
+    }
+    Get.forceAppUpdate();
   }
 }
 
@@ -76,7 +119,7 @@ List<DrawerItem> getListMusicService(BuildContext context) {
   ];
 }
 
-List<DrawerItem> getListSettings(BuildContext context) {
+List<DrawerItem> getListSettings(BuildContext context, bool isDark) {
   return [
     DrawerItem(
       icon: TablerIcons.settings,
@@ -86,25 +129,13 @@ List<DrawerItem> getListSettings(BuildContext context) {
         icon: TablerIcons.moon_stars,
         text: "深色模式",
         trailing: SizedBox(
-            height: Dimens.gap_dp30,
-            width: Dimens.gap_dp66,
+            height: Dimens.gap_dp16,
+            width: Dimens.gap_dp16,
             child: FittedBox(
                 fit: BoxFit.contain,
-                child: Switch(
-                    trackOutlineColor: WidgetStateProperty.resolveWith(
-                      (final Set<WidgetState> states) {
-                        if (states.contains(WidgetState.selected)) {
-                          return null;
-                        }
-                        return Colors.transparent;
-                      },
-                    ),
-                    activeTrackColor: Colors.red,
-                    // 当开关关闭时的轨道颜色
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey[200],
-                    value: false,
-                    onChanged: (value) {})))),
+                child: Icon(
+                  isDark ? CupertinoIcons.sun_max : CupertinoIcons.moon,
+                )))),
     DrawerItem(
       icon: TablerIcons.stopwatch,
       text: "定时关闭",

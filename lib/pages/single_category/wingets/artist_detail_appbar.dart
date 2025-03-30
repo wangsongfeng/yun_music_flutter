@@ -18,7 +18,9 @@ class ArtistDetailAppbar extends StatelessWidget
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-        color: AppThemes.bg_color.withOpacity(controller.appbar_alpha.value),
+        color: context.isDarkMode
+            ? Get.theme.cardColor.withOpacity(controller.appbar_alpha.value)
+            : AppThemes.bg_color.withOpacity(controller.appbar_alpha.value),
         padding: EdgeInsets.only(left: 6, right: 6, top: Adapt.topPadding()),
         height: Dimens.gap_dp44 + Adapt.topPadding(),
         child: Row(
@@ -36,7 +38,9 @@ class ArtistDetailAppbar extends StatelessWidget
                   ImageUtils.getImagePath('cm8_nav_icn_back'),
                   width: 24,
                   color: controller.appbarMenuTop.value
-                      ? Colors.black
+                      ? context.isDarkMode
+                          ? Colors.white
+                          : Colors.black
                       : Colors.white,
                 ),
               ),
@@ -49,7 +53,9 @@ class ArtistDetailAppbar extends StatelessWidget
                     controller.artistDetail.value?.artist?.name ?? "",
                     style: TextStyle(
                         fontSize: Dimens.font_sp16,
-                        color: Colors.black.withOpacity(0.8),
+                        color: context.isDarkMode
+                            ? Colors.white
+                            : Colors.black.withOpacity(0.8),
                         fontFamily: W.fonts.IconFonts,
                         fontWeight: FontWeight.w600),
                   ),
@@ -79,7 +85,9 @@ class ArtistDetailAppbar extends StatelessWidget
                   ImageUtils.getImagePath('cm6_nav_icn_more'),
                   width: 24,
                   color: controller.appbarMenuTop.value
-                      ? Colors.black
+                      ? context.isDarkMode
+                          ? Colors.white
+                          : Colors.black
                       : Colors.white,
                 ),
               ),

@@ -85,7 +85,7 @@ class PlaylistFabCountPage extends StatelessWidget
 
   Widget _buildItem(String iconName, String name, bool canClicked) {
     final fColor =
-        Get.isDarkMode ? AppThemes.color_109 : AppThemes.headline4_color;
+        Get.isDarkMode ? AppThemes.color_237 : AppThemes.headline4_color;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

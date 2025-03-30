@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
@@ -37,7 +36,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       padding: EdgeInsets.only(top: Adapt.topPadding()),
       alignment: Alignment.center,
-      color: AppThemes.search_page_bg,
+      color: Get.theme.cardColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -52,6 +51,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
               child: Image.asset(
                 ImageUtils.getImagePath('icon_back_black'),
                 width: 22,
+                color: context.isDarkMode ? Colors.white : Colors.black,
               ),
             ),
           ),
@@ -112,7 +112,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
                   "搜索",
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.black,
+                    color: context.isDarkMode ? Colors.white : Colors.black,
                     fontFamily: W.fonts.IconFonts,
                     fontWeight: FontWeight.w500,
                   ),

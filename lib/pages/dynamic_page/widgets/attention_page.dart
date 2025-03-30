@@ -65,42 +65,46 @@ class _AttentionPageState extends State<AttentionPage>
       onRefresh: () {
         controller.loadRefresh();
       },
-      child: CustomScrollView(
-        slivers: [
-          if (controller.playListWarp.value!.result!.isNotEmpty)
-            SliverToBoxAdapter(
-                child: AttentionPersonal(
-                    playLists: controller.playListWarp.value!.result!.length > 6
-                        ? controller.playListWarp.value!.result!.sublist(0, 6)
-                        : controller.playListWarp.value!.result!)),
-          if (controller.newSongListWarp.value!.result!.isNotEmpty)
-            SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: Dimens.gap_dp6, bottom: Dimens.gap_dp6),
-                child: BlogHeaderWidget(
-                  onPressed: () {},
-                  personal: null,
-                  recomModel: BlogRecomModel(categoryName: '每日推荐'),
-                  showRight: false,
+      child: Container(
+        color: Theme.of(context).cardColor,
+        child: CustomScrollView(
+          slivers: [
+            if (controller.playListWarp.value!.result!.isNotEmpty)
+              SliverToBoxAdapter(
+                  child: AttentionPersonal(
+                      playLists: controller.playListWarp.value!.result!.length >
+                              6
+                          ? controller.playListWarp.value!.result!.sublist(0, 6)
+                          : controller.playListWarp.value!.result!)),
+            if (controller.newSongListWarp.value!.result!.isNotEmpty)
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: Dimens.gap_dp6, bottom: Dimens.gap_dp6),
+                  child: BlogHeaderWidget(
+                    onPressed: () {},
+                    personal: null,
+                    recomModel: BlogRecomModel(categoryName: '每日推荐'),
+                    showRight: false,
+                  ),
                 ),
               ),
-            ),
-          if (controller.newSongListWarp.value!.result!.isNotEmpty)
-            SliverList.builder(
-              itemBuilder: (context, index) {
-                final item =
-                    controller.newSongListWarp.value!.result!.elementAt(index);
-                return AttentionSongItem(
-                  song: item,
-                  index: index,
-                  cellClickCallback: (item) {},
-                  controller: controller,
-                );
-              },
-              itemCount: controller.newSongListWarp.value!.result!.length,
-            )
-        ],
+            if (controller.newSongListWarp.value!.result!.isNotEmpty)
+              SliverList.builder(
+                itemBuilder: (context, index) {
+                  final item = controller.newSongListWarp.value!.result!
+                      .elementAt(index);
+                  return AttentionSongItem(
+                    song: item,
+                    index: index,
+                    cellClickCallback: (item) {},
+                    controller: controller,
+                  );
+                },
+                itemCount: controller.newSongListWarp.value!.result!.length,
+              )
+          ],
+        ),
       ),
     );
   }

@@ -80,7 +80,9 @@ class BlogHomeGrid extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: Dimens.gap_dp11,
-                color: AppThemes.body1_txt_color,
+                color: Get.isDarkMode
+                    ? AppThemes.dark_body1_txt_color
+                    : AppThemes.body1_txt_color,
                 fontFamily: W.fonts.IconFonts,
                 fontWeight: FontWeight.w500,
               ),

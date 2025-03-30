@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/pages/blog_detail/blog_detail_controller.dart';
+import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/common_utils.dart';
 
 import '../../commons/res/app_themes.dart';
@@ -71,12 +72,17 @@ class BlogDetailSongsPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       program.name ?? "",
-                      style: body1Style(),
+                      style: body1Style().copyWith(
+                          color: conetext.isDarkMode
+                              ? Colors.white.withOpacity(0.9)
+                              : Colors.black.withOpacity(0.75),
+                          fontFamily: W.fonts.IconFonts,
+                          fontWeight: FontWeight.bold),
                       maxLines: 2,
                       softWrap: true,
                       textAlign: TextAlign.left,

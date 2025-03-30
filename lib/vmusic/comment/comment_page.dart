@@ -34,9 +34,13 @@ class _CommentPageState extends State<CommentPage> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: getSystemUiOverlayStyle(isDark: true),
+      value: context.isDarkMode
+          ? getSystemUiOverlayStyle(isDark: false)
+          : getSystemUiOverlayStyle(isDark: true),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: context.isDarkMode
+            ? const Color.fromRGBO(21, 21, 21, 1.0)
+            : Get.theme.cardColor,
         appBar: CommentAppbar(controller: controller),
         resizeToAvoidBottomInset: true,
         body: Stack(children: [
@@ -58,7 +62,9 @@ class _CommentPageState extends State<CommentPage> {
                   ),
                   SliverToBoxAdapter(
                       child: Container(
-                    color: AppThemes.bg_color,
+                    color: context.isDarkMode
+                        ? const Color.fromRGBO(21, 21, 21, 1.0)
+                        : AppThemes.bg_color,
                     height: Dimens.gap_dp8,
                   )),
                   Obx(() {
@@ -113,7 +119,9 @@ class CommentHeaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: context.isDarkMode
+          ? const Color.fromRGBO(21, 21, 21, 1.0)
+          : Colors.white,
       height: Dimens.gap_dp36,
       padding: EdgeInsets.only(left: Dimens.gap_dp16, right: Dimens.gap_dp16),
       child: Obx(() {

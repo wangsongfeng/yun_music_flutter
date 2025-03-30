@@ -29,7 +29,7 @@ class GeneralSongCell extends StatelessWidget {
         fontSize: Dimens.font_sp15,
         fontWeight: FontWeight.w500,
         fontFamily: W.fonts.IconFonts,
-        color: Colors.black);
+        color: context.isDarkMode ? Colors.white : Colors.black);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,

@@ -68,9 +68,11 @@ class FoundNewSong extends StatelessWidget {
             if (widgets.isNotEmpty)
               Container(
                 margin: EdgeInsets.only(left: FoundNewSongImageWidth),
-                child: const Divider(
+                child: Divider(
                   height: 1,
-                  color: AppThemes.bg_color,
+                  color: Get.isDarkMode
+                      ? AppThemes.dark_line_color
+                      : AppThemes.line_color,
                 ),
               ),
             SizedBox(
@@ -160,7 +162,7 @@ class GeneralSongsThree extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
               _buildSubTitle()
             ],
           )),

@@ -20,7 +20,7 @@ class PlaylistTopOfficial extends StatelessWidget {
         CachedNetworkImage(
           height: Dimens.gap_dp32,
           fit: BoxFit.contain,
-          color: AppThemes.white,
+          color: Colors.transparent,
           imageUrl: controller.detail.value!.playlist.titleImageUrl!,
           imageBuilder: (context, provider) {
             return ClipRect(

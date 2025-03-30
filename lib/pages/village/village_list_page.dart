@@ -53,7 +53,7 @@ class _VillageListPageState extends State<VillageListPage>
           }
           refreshController.loadComplete();
           return Container(
-              color: AppThemes.color_204.withOpacity(0.1),
+              color: Get.theme.cardColor,
               child: SmartRefresher(
                 controller: refreshController,
                 footer: const FooterLoading(
@@ -112,8 +112,10 @@ class _VillageListPageState extends State<VillageListPage>
       onTap: () {},
       child: Container(
         width: imageWidth,
-        decoration: const BoxDecoration(
-            color: Colors.white,
+        decoration: BoxDecoration(
+            color: Get.isDarkMode
+                ? const Color.fromRGBO(37, 37, 40, 1.0)
+                : Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(8.0))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +164,7 @@ class _VillageListPageState extends State<VillageListPage>
                   Text(
                     item.data?.title ?? "",
                     style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w500),
+                        fontSize: 12, fontWeight: FontWeight.w600),
                     softWrap: true,
                     maxLines: 2,
                     textAlign: TextAlign.left,
@@ -178,6 +180,7 @@ class _VillageListPageState extends State<VillageListPage>
                           Image.asset(
                             ImageUtils.getImagePath('cm2_act_icn_praise'),
                             width: 12,
+                            color: const Color(0xFF999999),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 3),
@@ -232,6 +235,7 @@ class _VillageListPageState extends State<VillageListPage>
               )
             ],
           ),
+          const SizedBox(width: 4),
           Expanded(
               child: Text(
             name ?? "",

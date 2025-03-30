@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/pages/search/models/search_hot_wrap.dart';
 import 'package:yun_music/utils/adapt.dart';
@@ -24,11 +25,14 @@ class SearchHotlist extends StatelessWidget {
     return Container(
       width: Adapt.screenW() - Adapt.px(160),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: const [
+        color: context.isDarkMode
+            ? const Color.fromRGBO(38, 37, 42, 1.0)
+            : Colors.white,
+        boxShadow: [
           BoxShadow(
-            color: AppThemes.color_250,
-            offset: Offset(0, 2),
+            color:
+                context.isDarkMode ? Colors.transparent : AppThemes.color_250,
+            offset: const Offset(0, 2),
             blurRadius: 6.0,
           ),
         ],
@@ -41,14 +45,16 @@ class SearchHotlist extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-                fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
+            style: body1Style()
+                .copyWith(fontSize: 17, fontWeight: FontWeight.w600),
           ),
           Container(
             margin: const EdgeInsets.only(top: 16),
             width: double.infinity,
             height: 0.8,
-            color: AppThemes.diver_color,
+            color: context.isDarkMode
+                ? AppThemes.diver_color.withOpacity(0.1)
+                : AppThemes.diver_color,
           ),
           Expanded(
               child: ListView.builder(
@@ -71,7 +77,11 @@ class SearchHotlist extends StatelessWidget {
                         "${index + 1}",
                         style: headline2Style().copyWith(
                             fontSize: 16,
-                            color: isTop ? Colors.red : AppThemes.textColor999),
+                            color: isTop
+                                ? Colors.red
+                                : context.isDarkMode
+                                    ? Colors.white
+                                    : AppThemes.textColor999),
                       ),
                       Expanded(
                           child: Padding(
@@ -84,9 +94,11 @@ class SearchHotlist extends StatelessWidget {
                           maxLines: 1,
                           style: headline2Style().copyWith(
                               fontSize: 15,
-                              color: isTop
-                                  ? Colors.black
-                                  : AppThemes.textColor999),
+                              color: context.isDarkMode
+                                  ? Colors.white
+                                  : isTop
+                                      ? Colors.black
+                                      : AppThemes.textColor999),
                         ),
                       ))
                     ],

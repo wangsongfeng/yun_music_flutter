@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yun_music/commons/models/banner_model.dart';
 import 'package:yun_music/commons/res/app_routes.dart';
+import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/skeleton/music_recm.dart';
 import 'package:yun_music/commons/values/constants.dart';
@@ -14,7 +15,6 @@ import 'package:yun_music/pages/recommend/models/recom_model.dart';
 import 'package:yun_music/pages/recommend/recom_controller.dart';
 import 'package:yun_music/pages/recommend/widgets/recom_balls.dart';
 import 'package:yun_music/pages/recommend/widgets/recom_banner.dart';
-import 'package:yun_music/pages/recommend/widgets/recom_header_bg.dart';
 import 'package:yun_music/pages/recommend/widgets/recom_hot_topic.dart';
 import 'package:yun_music/pages/recommend/widgets/recom_music_calendar.dart';
 import 'package:yun_music/pages/recommend/widgets/recom_playlist_cell.dart';
@@ -52,6 +52,7 @@ class _RecomPageState extends State<RecomPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: RecomAppbar(onSubmit: (text) {
         Get.toNamed(RouterPath.Search_Page);
       }),
@@ -69,10 +70,10 @@ class _RecomPageState extends State<RecomPage>
           child: Stack(
             children: [
               //顶部跟随banner变动的背景
-              const Positioned(
-                top: 0,
-                child: RecomHeaderBgColors(),
-              ),
+              // const Positioned(
+              //   top: 0,
+              //   child: RecomHeaderBgColors(),
+              // ),
               Positioned.fill(
                 top:
                     (Get.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()),
@@ -124,7 +125,17 @@ class _RecomPageState extends State<RecomPage>
           return _buildItem(blocks, index, nextType);
         },
         separatorBuilder: (context, index) {
-          return const SizedBox(height: 2);
+          final blocks = state!.blocks[index];
+          return index == 0 ||
+                  blocks.showType == "DRAGON_BALL" ||
+                  blocks.showType == "SLIDE_PLAYABLE_DRAGON_BALL_NEW_BROADCAST"
+              ? const SizedBox.shrink()
+              : Container(
+                  color: context.isDarkMode
+                      ? AppThemes.dark_tab_bg_color
+                      : AppThemes.color_237,
+                  height: Dimens.gap_dp2,
+                );
         },
         itemCount: state != null ? state.blocks.length : 0,
       ),

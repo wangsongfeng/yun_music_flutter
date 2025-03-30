@@ -33,7 +33,7 @@ class _FoundPageState extends State<FoundPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: AppThemes.bg_color,
+      backgroundColor: Theme.of(context).cardColor,
       extendBodyBehindAppBar: false,
       appBar: FoundAppbar(controller: controller),
       body: Obx(() {
@@ -99,13 +99,19 @@ class _FoundMusicPageState extends State<FoundMusicPage>
                 indicatorColor: Colors.transparent,
                 overlayColor: WidgetStateProperty.all(Colors.transparent),
                 indicator: BoxDecoration(
-                    color: AppThemes.color_228,
+                    color: context.isDarkMode
+                        ? const Color.fromARGB(255, 27, 28, 32)
+                        : AppThemes.color_228,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(Dimens.gap_dp14)),
                 indicatorPadding: EdgeInsets.only(
                     left: -Dimens.gap_dp12, right: -Dimens.gap_dp12),
-                unselectedLabelColor: const Color.fromARGB(255, 114, 114, 114),
-                labelColor: const Color.fromARGB(255, 51, 51, 51),
+                unselectedLabelColor: context.isDarkMode
+                    ? const Color.fromARGB(255, 188, 188, 189)
+                    : const Color.fromARGB(255, 114, 114, 114),
+                labelColor: context.isDarkMode
+                    ? const Color.fromARGB(255, 236, 236, 237)
+                    : const Color.fromARGB(255, 51, 51, 51),
                 enableFeedback: true,
                 dividerHeight: 0,
                 splashBorderRadius: BorderRadius.circular(Dimens.gap_dp14),
@@ -123,18 +129,18 @@ class _FoundMusicPageState extends State<FoundMusicPage>
                 width: Dimens.gap_dp46,
                 height: Dimens.gap_dp28,
                 decoration: BoxDecoration(
-                    color: AppThemes.bg_color,
-                    boxShadow: const [
+                    color: Theme.of(context).cardColor,
+                    boxShadow: [
                       BoxShadow(
-                          color: AppThemes.bg_color,
-                          offset: Offset(1, 1),
+                          color: Theme.of(context).cardColor,
+                          offset: const Offset(1, 1),
                           blurRadius: 5.0),
                     ],
                     gradient: //线性渐变
                         LinearGradient(
                       colors: [
-                        AppThemes.bg_color.withOpacity(0.1),
-                        AppThemes.bg_color
+                        Theme.of(context).cardColor.withOpacity(0.1),
+                        Theme.of(context).cardColor
                       ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
@@ -142,7 +148,11 @@ class _FoundMusicPageState extends State<FoundMusicPage>
                 child: GestureDetector(
                   child: Center(
                     child: Image.asset(
-                        ImageUtils.getImagePath("cm8_profile_head_arrow_down")),
+                      ImageUtils.getImagePath("cm8_profile_head_arrow_down"),
+                      color: context.isDarkMode
+                          ? const Color.fromARGB(255, 188, 188, 189)
+                          : const Color.fromARGB(255, 114, 114, 114),
+                    ),
                   ),
                 ),
               ),

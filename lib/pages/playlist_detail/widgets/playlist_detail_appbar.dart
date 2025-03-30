@@ -45,9 +45,13 @@ class _PlaylistDetailAppbarState extends State<PlaylistDetailAppbar> {
           return Container(
             width: Adapt.screenW(),
             height: widget.appBarHeight + Adapt.topPadding(),
-            color: widget.controller.headerBgColor.value != null
-                ? widget.controller.headerBgColor.value?.withOpacity(0.1)
-                : const Color.fromRGBO(146, 150, 160, 0.1),
+            color: widget.controller.detail.value?.isOfficial() == true
+                ? Colors.transparent
+                : widget.controller.headerBgColor.value != null
+                    ? widget.controller.headerBgColor.value?.withOpacity(0.1)
+                    : widget.controller.secondOpenOfficial
+                        ? AppThemes.load_image_placeholder()
+                        : const Color.fromRGBO(146, 150, 160, 0.5),
           );
         }),
         Positioned.fill(

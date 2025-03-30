@@ -211,7 +211,7 @@ class _ArtistDetailPageState extends State<ArtistDetailPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppThemes.bg_color,
+        backgroundColor: Get.theme.cardColor,
         appBar: ArtistDetailAppbar(controller: controller!),
         extendBodyBehindAppBar: true,
         body: Obx(() {
@@ -287,7 +287,9 @@ class _ArtistDetailPageState extends State<ArtistDetailPage>
                       systemOverlayStyle:
                           controller!.appbarMenuTop.value == false
                               ? getSystemUiOverlayStyle(isDark: false)
-                              : getSystemUiOverlayStyle(isDark: true),
+                              : context1.isDarkMode
+                                  ? getSystemUiOverlayStyle(isDark: false)
+                                  : getSystemUiOverlayStyle(isDark: true),
                       expandedHeight: controller!.headerHeight.value +
                           controller!.animValue.value *
                               controller!.simitHeight +
@@ -325,7 +327,7 @@ class _ArtistDetailPageState extends State<ArtistDetailPage>
               return Obx(() {
                 if (controller?.artistDetail.value == null) {
                   return Container(
-                    color: AppThemes.bg_color,
+                    color: Get.theme.cardColor,
                     width: double.infinity,
                     height: double.infinity,
                   );

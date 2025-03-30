@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/delegate/general_sliver_delegate.dart';
 import 'package:yun_music/pages/playlist_detail/delegate/playlist_header_delegate.dart';
@@ -151,7 +150,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage>
               controller: controller,
             )),
         extendBodyBehindAppBar: true,
-        backgroundColor: AppThemes.card_color,
+        backgroundColor: Get.theme.cardColor,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: getSystemUiOverlayStyle(isDark: false),
           child: Stack(

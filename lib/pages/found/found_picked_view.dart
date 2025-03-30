@@ -62,6 +62,7 @@ class FoundPickedView extends StatelessWidget {
                 } else if (dic["type"] == "more") {
                   return FoundTurnMore(
                     moreDic: dic["list"],
+                    title: '探索更多',
                   );
                 }
                 return Container();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/values/constants.dart';
 import 'package:yun_music/pages/blog_page/blog_home_controller.dart';
 import 'package:yun_music/pages/blog_page/models/blog_home_model.dart';
@@ -31,7 +30,7 @@ class _BlogHomePageState extends State<BlogHomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppThemes.bg_color,
+      color: Theme.of(context).cardColor,
       child: controller.obx(
           (state) {
             refreshController.refreshCompleted();

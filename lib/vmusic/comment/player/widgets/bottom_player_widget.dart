@@ -97,26 +97,34 @@ class _BottomContentWidget extends GetView<PlayerController> {
     );
   }
 
-  Widget _buildContext(BuildContext conetx) {
+  Widget _buildContext(BuildContext conetxt) {
     final currenIndex = curPlayIndex;
     controller.pageController = PageController(
         initialPage:
             (currenIndex == -1 || currenIndex == null) ? 0 : currenIndex);
-    return SizedBox(
+    return Container(
+      color: conetxt.isDarkMode
+          ? AppThemes.dark_tab_bg_color
+          : AppThemes.tab_bg_color,
+      height: double.infinity,
       width: Adapt.screenW(),
       child: Stack(
         children: [
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                  color: Get.theme.cardColor.withOpacity(1.0),
+                  color: conetxt.isDarkMode
+                      ? AppThemes.dark_tab_bg_color
+                      : AppThemes.tab_bg_color,
                   border: Border(
                       top: BorderSide(
                         color: Get.theme.dividerColor.withOpacity(0.9),
                         width: 1,
                       ),
                       bottom: BorderSide(
-                        color: Get.theme.dividerColor.withOpacity(0.4),
+                        color: conetxt.isDarkMode
+                            ? AppThemes.dark_line_color
+                            : AppThemes.line_color,
                         width: 1,
                       ))),
               margin: EdgeInsets.only(top: isFmPlaying ? 0 : 0),
@@ -124,7 +132,9 @@ class _BottomContentWidget extends GetView<PlayerController> {
           ),
           //内容
           Container(
-            color: AppThemes.white,
+            color: conetxt.isDarkMode
+                ? AppThemes.dark_tab_bg_color
+                : AppThemes.tab_bg_color,
             child: SizedBox(
               height: Dimens.gap_dp49 - 0.5,
               child: Row(
@@ -168,7 +178,7 @@ class _BottomContentWidget extends GetView<PlayerController> {
 
                   InkWell(
                       onTap: () {
-                        _showPlaylist(conetx);
+                        _showPlaylist(conetxt);
                       },
                       child: Image.asset(
                         ImageUtils.getImagePath('play_btn_src'),
@@ -237,7 +247,10 @@ class _BottomContentWidget extends GetView<PlayerController> {
         overflow: TextOverflow.ellipsis,
         text: TextSpan(
             text: song?.title.fixAutoLines(),
-            style: titleStyle.copyWith(fontSize: Dimens.font_sp14),
+            style: titleStyle.copyWith(
+                fontSize: Dimens.font_sp14,
+                fontFamily: W.fonts.IconFonts,
+                fontWeight: FontWeight.bold),
             children: [
               const WidgetSpan(child: SizedBox(width: 4)),
               TextSpan(

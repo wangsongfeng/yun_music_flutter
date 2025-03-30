@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/utils/adapt.dart';
+import 'package:yun_music/utils/common_utils.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
 import '../../../commons/values/function.dart';
@@ -24,7 +26,9 @@ class SearchHistoryDialog extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: context.isDarkMode
+                  ? const Color.fromRGBO(38, 37, 42, 1.0)
+                  : Colors.white,
               borderRadius: BorderRadius.circular(18),
             ),
             width: Adapt.px(300),
@@ -38,10 +42,12 @@ class SearchHistoryDialog extends StatelessWidget {
                 children: [
                   Text(
                     content,
-                    style: const TextStyle(
+                    style: TextStyle(
                         decoration: TextDecoration.none,
                         fontSize: 15,
-                        color: AppThemes.body1_txt_color,
+                        color: context.isDarkMode
+                            ? AppThemes.dark_body1_txt_color
+                            : AppThemes.body1_txt_color,
                         fontWeight: FontWeight.w400),
                   ),
                   Row(
@@ -56,18 +62,17 @@ class SearchHistoryDialog extends StatelessWidget {
                           child: Container(
                             height: 44,
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Colors.transparent,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(22)),
                                 border: Border.all(
                                     width: Dimens.gap_dp1,
                                     color: AppThemes.color_173)),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 '取消',
-                                style: TextStyle(
+                                style: body1Style().copyWith(
                                     decoration: TextDecoration.none,
-                                    color: Colors.black,
                                     fontSize: 17,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -115,6 +120,9 @@ class SearchHistoryDialog extends StatelessWidget {
               icon: Image.asset(
                 ImageUtils.getImagePath('cm6_post_event_image_close'),
                 width: 30,
+                color: context.isDarkMode
+                    ? AppThemes.tab_grey_color
+                    : Colors.black,
               ))
         ],
       ),

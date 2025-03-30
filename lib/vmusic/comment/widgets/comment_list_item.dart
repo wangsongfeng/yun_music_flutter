@@ -1,5 +1,6 @@
 import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
@@ -21,7 +22,7 @@ class CommentListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: context.isDarkMode ? Colors.transparent : Colors.white,
       padding: EdgeInsets.only(
           left: Dimens.gap_dp16, right: Dimens.gap_dp16, top: Dimens.gap_dp8),
       child: Row(
@@ -45,7 +46,9 @@ class CommentListItem extends StatelessWidget {
                   style: TextStyle(
                       fontSize: Dimens.font_sp13,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black.withOpacity(0.6)),
+                      color: context.isDarkMode
+                          ? Colors.white
+                          : Colors.black.withOpacity(0.6)),
                 ),
                 Text(
                   item.timeStr!,
@@ -61,7 +64,8 @@ class CommentListItem extends StatelessWidget {
                         fontSize: Dimens.font_sp13,
                         fontWeight: FontWeight.w500,
                         fontFamily: W.fonts.Dolphin_Medium,
-                        color: Colors.black.withOpacity(1.0)),
+                        color:
+                            context.isDarkMode ? Colors.white : Colors.black),
                   ),
                 ),
                 if (item.replyCount! > 0)
@@ -86,8 +90,10 @@ class CommentListItem extends StatelessWidget {
                           ],
                         ),
                       )),
-                const Divider(
-                  color: AppThemes.bg_color,
+                Divider(
+                  color: context.isDarkMode
+                      ? AppThemes.dark_line_color
+                      : AppThemes.bg_color,
                   height: 0.5,
                 )
               ],
@@ -105,6 +111,7 @@ class CommentListItem extends StatelessWidget {
               Image.asset(
                 ImageUtils.getImagePath("cm5_event_detail_like"),
                 width: Dimens.gap_dp24,
+                color: Colors.grey,
               )
             ],
           )

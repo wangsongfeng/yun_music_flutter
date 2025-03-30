@@ -42,7 +42,9 @@ class SearchResultHeader extends StatelessWidget {
                   height: Dimens.gap_dp24,
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
-                      color: AppThemes.color_217.withOpacity(0.5),
+                      color: context.isDarkMode
+                          ? AppThemes.color_217.withOpacity(0.1)
+                          : AppThemes.color_217.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(13)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

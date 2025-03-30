@@ -115,7 +115,9 @@ class AttentionPersonalItem extends StatelessWidget {
                         text: info?.name ?? "",
                         style: TextStyle(
                           fontSize: Dimens.gap_dp11,
-                          color: AppThemes.body1_txt_color,
+                          color: context.isDarkMode
+                              ? AppThemes.dark_body1_txt_color
+                              : AppThemes.body1_txt_color,
                           fontFamily: W.fonts.IconFonts,
                           fontWeight: FontWeight.w500,
                         ))

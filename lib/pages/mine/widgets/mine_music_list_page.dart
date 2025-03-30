@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/commons/models/mine_music_list.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/pages/mine/widgets/mine_music_controller.dart';
+import 'package:yun_music/utils/common_utils.dart';
 
 import '../../../commons/res/dimens.dart';
 import '../../../commons/widgets/music_loading.dart';
@@ -74,12 +74,15 @@ class _MineMusicListPageState extends State<MineMusicListPage> {
               children: [
                 Text(
                   item.name!,
-                  style: const TextStyle(
-                      fontSize: 15,
-                      color: AppThemes.body1_txt_color,
-                      fontWeight: FontWeight.w600),
+                  style: body1Style().copyWith(
+                      fontSize: Dimens.font_sp13,
+                      fontFamily: W.fonts.IconFonts,
+                      color: context.isDarkMode
+                          ? Colors.white
+                          : Colors.black.withOpacity(0.74),
+                      fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [

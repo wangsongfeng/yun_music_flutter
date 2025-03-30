@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yun_music/commons/models/song_model.dart';
 import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
@@ -19,7 +20,9 @@ class MusicSongsEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(247, 248, 248, 1.0),
+      color: Get.isDarkMode
+          ? AppThemes.dark_tab_bg_color
+          : const Color.fromRGBO(247, 248, 248, 1.0),
       height: MusicSongsEventHeight,
       child: Padding(
         padding: EdgeInsets.only(top: Dimens.gap_dp6),
@@ -37,7 +40,9 @@ class MusicSongsEvent extends StatelessWidget {
                   child: Image.asset(
                     ImageUtils.getImagePath("cm4_video_next_icn_prs"),
                     width: Dimens.gap_dp24,
-                    color: AppThemes.dark_card_color.withOpacity(0.8),
+                    color: context.isDarkMode
+                        ? AppThemes.color_109
+                        : AppThemes.dark_card_color.withOpacity(0.8),
                   ),
                 ),
                 text: "下一首播放",
@@ -51,6 +56,8 @@ class MusicSongsEvent extends StatelessWidget {
                   child: Image.asset(
                     ImageUtils.getImagePath("cm8_mlog_playlist_collection"),
                     width: Dimens.gap_dp24,
+                    color:
+                        context.isDarkMode ? AppThemes.color_109 : Colors.black,
                   ),
                 ),
                 text: "收藏到歌单",
@@ -67,7 +74,9 @@ class MusicSongsEvent extends StatelessWidget {
                   child: Image.asset(
                     ImageUtils.getImagePath("cm8_play_song_download"),
                     width: Dimens.gap_dp24,
-                    color: AppThemes.dark_card_color.withOpacity(0.8),
+                    color: context.isDarkMode
+                        ? AppThemes.color_109
+                        : AppThemes.dark_card_color.withOpacity(0.8),
                   ),
                 ),
                 text: "下载",
@@ -84,7 +93,9 @@ class MusicSongsEvent extends StatelessWidget {
                   child: Image.asset(
                     ImageUtils.getImagePath("cm8_play_song_delete"),
                     width: Dimens.gap_dp24,
-                    color: AppThemes.dark_card_color.withOpacity(0.8),
+                    color: context.isDarkMode
+                        ? AppThemes.color_109
+                        : AppThemes.dark_card_color.withOpacity(0.8),
                   ),
                 ),
                 text: "删除下载",
@@ -117,7 +128,7 @@ class CustomIconTextButton extends StatelessWidget {
       child: Column(
         children: [
           icon,
-          SizedBox(height: Dimens.gap_dp1),
+          SizedBox(height: Dimens.gap_dp2),
           Text(
             text,
             style: captionStyle().copyWith(fontSize: 11),
