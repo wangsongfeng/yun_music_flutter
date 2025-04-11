@@ -43,6 +43,9 @@ class _ArtistDetailPageState extends State<ArtistDetailPage>
   @override
   void initState() {
     super.initState();
+
+    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
+
     final artistid = Get.arguments["artist_id"].toString();
     controller = Get.put(ArtistDetailController(), tag: artistid);
     arristDetailListController =

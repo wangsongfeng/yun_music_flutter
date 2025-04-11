@@ -106,6 +106,7 @@ class _HomeBottomBarState extends State<HomeBottomBar>
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: (Dimens.gap_dp49 + Adapt.bottomPadding()),
       color: context.isDarkMode
           ? const Color.fromRGBO(29, 29, 35, 1.0)
           : Theme.of(context).cardColor,

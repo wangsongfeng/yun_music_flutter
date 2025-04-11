@@ -6,9 +6,6 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:yun_music/api/artist_api.dart';
 import 'package:yun_music/pages/single_category/models/artist_detail_wrap.dart';
 import 'package:yun_music/utils/adapt.dart';
-
-import '../../commons/event/index.dart';
-import '../../commons/event/play_bar_event.dart';
 import '../../utils/common_utils.dart';
 import 'models/single_list_wrap.dart';
 
@@ -70,7 +67,6 @@ class ArtistDetailController extends GetxController
   @override
   void onReady() {
     super.onReady();
-    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.bootom));
 
     artistid = Get.arguments["artist_id"].toString();
     requestDataDetail();

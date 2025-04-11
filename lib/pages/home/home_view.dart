@@ -104,8 +104,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     if (controller.is_initContext == false) {
+      Adapt.initContext(context);
       controller.is_initContext = true;
     }
     return WillPopScope(

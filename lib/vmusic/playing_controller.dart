@@ -106,7 +106,14 @@ class PlayingController extends GetxController
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    lyricScrollController.dispose();
+  }
+
+  @override
   void onClose() {
+    debugPrint("onClose");
     super.onClose();
   }
 
@@ -270,7 +277,8 @@ class PlayingController extends GetxController
                   'image': e.al.picUrl,
                   'mv': e.mv,
                   'fee': e.fee,
-                  'title': typeName
+                  'title': typeName,
+                  'artist_id': e.arIds()
                 }))
         .toList();
   }
@@ -288,7 +296,8 @@ class PlayingController extends GetxController
           'image': song.al.picUrl,
           'mv': song.mv,
           'fee': song.fee,
-          'title': typeName
+          'title': typeName,
+          'artist_id': song.arIds()
         });
   }
 

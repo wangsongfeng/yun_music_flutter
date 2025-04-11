@@ -55,7 +55,7 @@ Future<void> main() async {
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.white,
+        systemNavigationBarColor: Colors.transparent,
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarIconBrightness: Brightness.dark,
       );
@@ -160,7 +160,7 @@ class MainAppPage extends StatelessWidget {
       child: RefreshConfiguration(
         headerBuilder: () => const MaterialClassicHeader(
           color: AppThemes.app_main,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
         ),
         footerBuilder: () => const ClassicFooter(),
         child: GetMaterialApp(
@@ -174,7 +174,7 @@ class MainAppPage extends StatelessWidget {
               : currentThemeValue == ThemeType.dark
                   ? ThemeMode.dark
                   : ThemeMode.light,
-          color: Colors.white,
+          color: Colors.transparent,
           unknownRoute: Routes.unknownRoute,
           initialBinding: BindingsBuilder(() {
             Get.put(AuthService());

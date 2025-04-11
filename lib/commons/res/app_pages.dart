@@ -61,13 +61,13 @@ class Routes {
         page: () => const PlaylistDetailPage()),
     //播放页面
     CustomGetPage(
-        name: RouterPath.PlayingPage,
-        page: () => const PlayingPage(),
-        binding: PlayingBinding(),
-        customTransition: SlideDownWithFadeTransition(),
-        transitionDuration: const Duration(milliseconds: 200),
-        preventDuplicates: true //按钮防抖
-        ),
+      name: RouterPath.PlayingPage,
+      page: () => const PlayingPage(),
+      binding: PlayingBinding(),
+      customTransition: SlideDownWithFadeTransition(),
+      transitionDuration: const Duration(milliseconds: 200),
+      preventDuplicates: true, //按钮防抖
+    ),
 
     //排行榜页面
     CustomGetPage(

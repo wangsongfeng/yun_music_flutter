@@ -1,6 +1,7 @@
 import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import '../../utils/adapt.dart';
 import '../playing_controller.dart';
@@ -93,9 +94,8 @@ class PlayLayricPage extends StatelessWidget {
                                                 index
                                             ? FontWeight.bold
                                             : FontWeight.normal,
-                                        color: Theme.of(context)
-                                            .cardColor
-                                            .withOpacity(playingController
+                                        color: AppThemes.card_color.withOpacity(
+                                            playingController
                                                         .currLyricIndex.value ==
                                                     index
                                                 ? 0.8
@@ -124,9 +124,8 @@ class PlayLayricPage extends StatelessWidget {
                                           '',
                                       style: TextStyle(
                                         fontSize: Dimens.font_sp14,
-                                        color: Theme.of(context)
-                                            .cardColor
-                                            .withOpacity(playingController
+                                        color: AppThemes.card_color.withOpacity(
+                                            playingController
                                                         .currLyricIndex.value ==
                                                     index
                                                 ? 0.8

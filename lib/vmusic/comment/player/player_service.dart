@@ -33,47 +33,6 @@ class PlayerService extends GetxService {
     // _update();
   }
 
-  // void _update() {
-  //   curPlayId.value = selectedSong.value?.id;
-  //   curPlay.value = selectedSong.value;
-  // }
-
-  // void getCachePlayingList() {
-  //   final playingList = box.read(kCommonPlayingList);
-
-  //   final currentSong = box.read<Map<String, dynamic>>(kCurrentPlayingSong);
-  //   if (playingList != null) {
-  //     final List<dynamic> jsonArray = jsonDecode(playingList);
-  //     selectedSongList.value = jsonArray.map((e) => Song.fromJson(e)).toList();
-  //   }
-  //   if (currentSong != null) {
-  //     selectedSong.value = Song.fromJson(currentSong);
-  //   }
-  // }
-
-  // void playList(List<Song> list, Song song) {
-  //   if (listEquals(selectedSongList.value, list) == false) {
-  //     box.write(kCommonPlayingList, jsonEncode(list));
-  //     box.write(kCurrentPlayingSong, song.toJson());
-  //     selectedSongList.value = list;
-  //   }
-  //   selectedSong.value = song;
-  //   _update();
-  //   final playerController = Get.find<PlayerController>();
-  //   final currenIndex = selectedSongList.value
-  //       ?.indexWhere((element) => element.id == curPlayId.value);
-  //   if (currenIndex != -1) {
-  //     playerController.pageController?.animateToPage(currenIndex!,
-  //         duration: const Duration(milliseconds: 10), curve: Curves.easeIn);
-  //   }
-  // }
-
-  // void playFromIndex(int index) {
-  //   final currentSong = selectedSongList.value?[index];
-  //   selectedSong.value = currentSong;
-  //   _update();
-  // }
-
   void getPlayingBgColor() {
     PaletteGenerator.fromImageProvider(
             NetworkImage(PlayerService.to.curPlay.value?.al.picUrl ?? ""))

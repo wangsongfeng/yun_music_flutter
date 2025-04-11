@@ -70,7 +70,10 @@ class _RecomPlistVerScrollState extends State<RecomPlistVerScroll> {
                   decoration: BoxDecoration(
                       color: Get.theme.scaffoldBackgroundColor,
                       border: Border.all(
-                          color: AppThemes.color_217, width: Dimens.gap_dp1),
+                          color: context.isDarkMode
+                              ? AppThemes.color_109
+                              : AppThemes.color_217,
+                          width: Dimens.gap_dp1),
                       borderRadius:
                           BorderRadius.all(Radius.circular(Dimens.gap_dp10))),
                   child: const SizedBox.shrink(),

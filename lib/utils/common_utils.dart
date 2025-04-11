@@ -10,12 +10,11 @@ import 'package:intl/intl.dart';
 import 'package:yun_music/commons/event/index.dart';
 import 'package:yun_music/commons/event/play_bar_event.dart';
 import 'package:yun_music/commons/models/song_model.dart';
-import 'package:yun_music/commons/res/app_routes.dart';
+import 'package:yun_music/commons/res/app_themes.dart';
 import 'package:yun_music/commons/widgets/network_img_layer.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
-
-import '../vmusic/comment/player/bottom_player_controller.dart';
+import 'package:yun_music/vmusic/playing_page.dart';
 
 final box = GetStorage();
 
@@ -25,10 +24,17 @@ final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 Future<void> toPlayingPage() async {
   eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
-  final controller = Get.find<PlayerController>();
-  controller.animationController.forward();
+  // final controller = Get.find<PlayerController>();
+  // controller.animationController.forward();
   HapticFeedback.lightImpact();
-  Get.toNamed(RouterPath.PlayingPage);
+  // Get.toNamed(RouterPath.PlayingPage);
+
+  Get.to(() => const PlayingPage(),
+      transition: Transition.downToUp, // 从下向上的动画
+      duration: const Duration(milliseconds: 200),
+      opaque: false,
+      popGesture: true,
+      preventDuplicates: true);
 }
 
 Future toast(dynamic message) async {
@@ -381,13 +387,14 @@ getSystemUiOverlayStyle({bool isDark = true}) {
       statusBarColor: Colors.transparent,
 
       /// 安卓系统状态栏存在底色，所以需要加这个
-      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarColor:
+          isDark ? AppThemes.tab_bg_color : AppThemes.dark_tab_bg_color,
       systemNavigationBarIconBrightness:
           isDark ? Brightness.dark : Brightness.light,
       statusBarIconBrightness: isDark ? Brightness.dark : Brightness.light,
 
       /// 状态栏字体颜色
-      statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+      statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
     );
   } else {
     value = isDark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light;

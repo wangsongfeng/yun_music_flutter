@@ -17,6 +17,8 @@ class Adapt {
 
   static double _devicePixelRatio = 0;
 
+  static bool padding_b_h = false;
+
   static void initContext(BuildContext context) {
     context.isDarkMode;
 
@@ -28,8 +30,8 @@ class Adapt {
     }
     if (_bottomPadding == 0) {
       _bottomPadding = MediaQuery.paddingOf(context).bottom;
+      padding_b_h = true;
     }
-
     if (_topPadding == 0) {
       _topPadding = MediaQuery.paddingOf(context).top;
     }

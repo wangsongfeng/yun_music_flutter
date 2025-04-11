@@ -27,7 +27,8 @@ class NewSongPlayAll extends StatelessWidget {
     return Container(
         height: Dimens.gap_dp50,
         decoration: BoxDecoration(
-            color: Get.isDarkMode ? AppThemes.dark_bg_color : AppThemes.white,
+            color:
+                Get.isDarkMode ? AppThemes.dark_bg_color : Get.theme.cardColor,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(Dimens.gap_dp16),
                 topRight: Radius.circular(Dimens.gap_dp16))),

@@ -14,15 +14,17 @@ class MusicPlaybarOverlay {
     if (_overlayEntry == null) {
       _overlayEntry = OverlayEntry(builder: (context) {
         return Obx(() {
+          debugPrint(
+              "刷新playBar了${PlayerService.to.plarBarBottom.value}--height-${PlayerService.to.playBarHeight.value}");
           return AnimatedPositioned(
               left: 0,
               right: 0,
               bottom: PlayerService.to.plarBarBottom.value,
-              duration: const Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 180),
               child: Material(
                 color: Colors.transparent,
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 180),
                   height: PlayerService.to.playBarHeight.value,
                   child: child,
                 ),

@@ -55,9 +55,12 @@ class _NewSongPageState extends State<NewSongPage>
                       fontSize: Dimens.font_sp13, fontWeight: FontWeight.w500),
                   dividerColor: Colors.transparent,
                   indicatorColor: AppThemes.indicator_color,
-                  unselectedLabelColor:
-                      const Color.fromARGB(255, 114, 114, 114),
-                  labelColor: const Color.fromARGB(255, 51, 51, 51),
+                  unselectedLabelColor: context.isDarkMode
+                      ? const Color.fromARGB(255, 114, 114, 114)
+                      : const Color.fromARGB(255, 114, 114, 114),
+                  labelColor: context.isDarkMode
+                      ? const Color.fromARGB(255, 236, 236, 237)
+                      : const Color.fromARGB(255, 51, 51, 51),
                   overlayColor: WidgetStateProperty.all(Colors.transparent),
                   indicator: CustomUnderlineTabIndicator(
                       width: 0.0,

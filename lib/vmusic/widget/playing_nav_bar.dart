@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yun_music/utils/adapt.dart';
 
-import '../comment/player/bottom_player_controller.dart';
+import '../../commons/res/app_routes.dart';
 import '../../commons/res/dimens.dart';
 import '../../utils/image_utils.dart';
 
@@ -26,8 +26,8 @@ class PlayingNavBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           GestureDetector(
             onTap: () {
-              final controller = Get.find<PlayerController>();
-              controller.animationController.reverse();
+              // final controller = Get.find<PlayerController>();
+              // controller.animationController.reverse();
               Get.back();
             },
             child: Container(
@@ -52,28 +52,39 @@ class PlayingNavBar extends StatelessWidget implements PreferredSizeWidget {
                   song!.title.fixAutoLines(),
                   style: const TextStyle(fontSize: 15, color: Colors.white),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 200),
-                      child: Text(
-                        (song?.artist ?? "").fixAutoLines(),
-                        style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: Dimens.font_sp10),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                GestureDetector(
+                  onTap: () {
+                    if (song?.extras?["artist_id"] == null) {
+                      return;
+                    }
+                    final List<dynamic>? artIds = song?.extras?["artist_id"];
+                    final artId = artIds!.isNotEmpty ? artIds.first : 0;
+                    Get.toNamed(RouterPath.Artist_Detail,
+                        arguments: {"artist_id": artId});
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        constraints: const BoxConstraints(maxWidth: 200),
+                        child: Text(
+                          (song?.artist ?? "").fixAutoLines(),
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: Dimens.font_sp10),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.chevron_right,
-                      size: Dimens.gap_dp18,
-                      color: Colors.white.withOpacity(0.7),
-                    ),
-                  ],
+                      Icon(
+                        Icons.chevron_right,
+                        size: Dimens.gap_dp18,
+                        color: Colors.white.withOpacity(0.7),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

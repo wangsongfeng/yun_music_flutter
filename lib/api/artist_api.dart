@@ -37,6 +37,9 @@ class ArtistApi {
     final metaData = DioMetaData(joinUri('/api/artist/head/info/get'),
         data: {'id': artistId}, options: joinOptions());
     final response = await httpManager.postUri(metaData);
+    if (jsonDecode(response.data)["code"] != 200) {
+      return null;
+    }
     Map<String, dynamic> responseData = jsonDecode(response.data)["data"];
     return ArtistDetailData.fromJson(responseData);
   }

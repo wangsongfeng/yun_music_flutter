@@ -18,12 +18,59 @@ import 'package:yun_music/vmusic/widget/playing_nav_bar.dart';
 import 'package:yun_music/utils/adapt.dart';
 import 'package:yun_music/utils/image_utils.dart';
 
+import '../commons/event/index.dart';
+import '../commons/event/play_bar_event.dart';
 import '../commons/res/app_routes.dart';
+import '../utils/approute_observer.dart';
 import 'widget/blur_background.dart';
 import 'widget/comment_button.dart';
 
-class PlayingPage extends GetView<PlayingController> {
+class PlayingPage extends StatefulWidget {
   const PlayingPage({super.key});
+
+  @override
+  State<PlayingPage> createState() => _PlayingPageState();
+}
+
+class _PlayingPageState extends State<PlayingPage> with RouteAware {
+  final controller = GetInstance().putOrFind(() => PlayingController());
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    AppRouteObserver().routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void initState() {
+    debugPrint("播放页Init");
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    AppRouteObserver().routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    //上一个页面push 过来viewWillappear
+    super.didPush();
+  }
+
+  @override
+  void didPop() {
+    super.didPop();
+    debugPrint("didPop");
+  }
+
+  @override
+  void didPopNext() {
+    //上一个页面pop回到当前页面 viewWillappear
+    super.didPopNext();
+    eventBus.fire(PlayBarEvent(PlayBarShowHiddenType.hidden));
+  }
 
   @override
   Widget build(BuildContext context) {

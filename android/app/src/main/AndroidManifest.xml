@@ -12,6 +12,7 @@
         android:name="${applicationName}"
         android:hardwareAccelerated="true"
         android:allowBackup="true"
+        android:value="2.4"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true"

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 import 'package:yun_music/commons/res/dimens.dart';
 import 'package:yun_music/commons/widgets/custom_touch.dart';
 import 'package:yun_music/pages/found/widgets/found_appbar.dart';
 import 'package:yun_music/utils/adapt.dart';
+import '../../../commons/res/app_routes.dart';
 import '../../../commons/widgets/network_img_layer.dart';
 import '../../../utils/common_utils.dart';
 import '../../../utils/image_utils.dart';
@@ -45,7 +47,10 @@ class FoundPlaylist extends StatelessWidget {
                   height: itemImageW,
                 ),
                 child: BounceTouch(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(
+                        RouterPath.PlayListDetailId(item.id.toString()));
+                  },
                   child: SizedBox(
                     width: itemImageW + Dimens.gap_dp12,
                     child: Column(

@@ -40,6 +40,7 @@ class _BottomPlayerBarState extends State<BottomPlayerBar>
   @override
   void initState() {
     super.initState();
+    print("playbar Init");
     currentIndex = controller.currentIndex.value;
     controller.currentIndex.listen((value) {
       if (currentIndex != value && playerController.pageController != null) {
@@ -51,20 +52,29 @@ class _BottomPlayerBarState extends State<BottomPlayerBar>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    debugPrint("playBar 释放了");
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
-    return InkWell(
-      onTap: () {
-        toPlayingPage();
-      },
-      child: Obx(() {
-        return _BottomContentWidget(
-          listSize: controller.playLists.value!.length,
-          bottomPadding: widget.bottomPadding,
-          curPlayIndex: controller.currentIndex.value,
-          playingController: controller,
-        );
-      }),
+    return Container(
+      color: Colors.red,
+      child: InkWell(
+        onTap: () {
+          toPlayingPage();
+        },
+        child: Obx(() {
+          return _BottomContentWidget(
+            listSize: controller.playLists.value!.length,
+            bottomPadding: widget.bottomPadding,
+            curPlayIndex: controller.currentIndex.value,
+            playingController: controller,
+          );
+        }),
+      ),
     );
   }
 
@@ -91,10 +101,11 @@ class _BottomContentWidget extends GetView<PlayerController> {
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: controller.animation,
-      child: _buildContext(context),
-    );
+    return _buildContext(context);
+    // return FadeTransition(
+    //   opacity: controller.animation,
+    //   child: _buildContext(context),
+    // );
   }
 
   Widget _buildContext(BuildContext conetxt) {
