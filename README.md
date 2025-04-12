@@ -60,7 +60,7 @@ https://blog.csdn.net/qq_40745143/article/details/144826018
 
 app运行截图
 1、首页 Light Dark
-![首页]("https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/Screenshot_1744465730.png?raw=true")
+![首页](https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/Screenshot_1744465730.png?raw=true)
 ![首页]("https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/Screenshot_1744465780.png?raw=true")
 ![首页]("https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/Screenshot_1744466078.png?raw=true")
 ![首页]("https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/Screenshot_1744465780.png?raw=true")
