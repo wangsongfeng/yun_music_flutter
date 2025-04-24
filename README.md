@@ -67,3 +67,6 @@ app学习总结图
 ![首页](https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/云音乐Flutter学习总结.jpg)
 
 就不去弄截图了，想看效果图，可以点开学习总结图，然后在项目中可以看到我上传的各个页面截图
+
+心意打赏，感觉对您有用，就支持下，一块一毛都是对我的赞赏
+![打赏](https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/IMG_3229.JPG)
