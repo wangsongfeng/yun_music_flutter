@@ -61,6 +61,7 @@ gradle -v 查看版本
 
 https://blog.csdn.net/qq_40745143/article/details/144826018
 
+apk 包下载 https://github.com/wangsongfeng/yun_music_flutter/blob/main/assets/screenshot/app-release.apk
 
 
 app学习总结图
