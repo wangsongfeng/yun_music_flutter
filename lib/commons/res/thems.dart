@@ -25,7 +25,7 @@ class SFThemes {
           fontWeight: FontWeight.w600),
       elevation: 0,
     ),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
         backgroundColor: Colors.black87,
         elevation: 24.0,
         shape: RoundedRectangleBorder(
@@ -81,7 +81,7 @@ class SFThemes {
             fontWeight: FontWeight.w600),
         elevation: 0,
       ),
-      dialogTheme: const DialogTheme(
+      dialogTheme: const DialogThemeData(
           backgroundColor: Colors.black,
           elevation: 24.0,
           shape: RoundedRectangleBorder(
